@@ -276,7 +276,7 @@ def query_builder():
     if not df.empty:
         pivot_ui(
             df,
-            outfile_path="olapy/web/templates/pivottablejs.html",
+            outfile_path="web/templates/pivottablejs.html",
             height="100%")
 
     return render_template('query_builder.html', user=current_user)

@@ -5,7 +5,7 @@ from wtforms import BooleanField, PasswordField, StringField, SubmitField
 from wtforms.fields import TextAreaField
 from wtforms.validators import DataRequired
 
-from ..core.mdx.parser.parse import MdxParser
+from olapy.core.mdx.parser.parse import MdxParser
 
 
 class QueryForm(Form):
