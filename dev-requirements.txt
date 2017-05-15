@@ -1,0 +1,17 @@
+# Tools / dev / testing
+PrettyTable
+flake8
+flake8-tidy-imports
+gprof2dot
+isort
+mccabe
+pip-tools
+py-cpuinfo
+pylint
+pytest
+pytest-cov
+tox
+
+# 0.16 doesn't give as good looking output as this version
+yapf==0.15.2
+
