@@ -40,6 +40,12 @@ lint-python:
 	@echo "Running pylint, some errors reported might be false positives"
 	-pylint -E --rcfile .pylint.rc $(SRC)
 
+#
+# Running web server
+#
+run:
+	python manage.py runserver
+
 
 clean:
 	find . -name "*.pyc" -delete
