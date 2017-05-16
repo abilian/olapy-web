@@ -258,6 +258,30 @@ def stats():
         ids=graph['ids'])
 
 
+@app.route('/dash', methods=['GET', 'POST'])
+@login_required
+def dash():
+    ex = MdxEngine('mpr')
+    temp_rslt = ex.get_star_schema_dataframe('web')
+    # temp_rslt = temp_rslt[ ['budget_total','subvention_totale']]
+    # temp_rslt = temp_rslt.groupby(['Pole leader', 'Type', 'Status', 'labelized', 'financed']).sum()[
+    #     ['budget_total', 'subvention_totale']]
+    # OU BIEN
+    import numpy as np
+    # margins = True ( prob )
+    temp_rslt = pd.pivot_table(temp_rslt,
+                               values=['budget_total', 'subvention_totale'],
+                               index=['Pole leader', 'Type'],
+                               columns=['Status'], aggfunc=np.sum)
+
+    return render_template(
+        'dash.html',
+        table_result=temp_rslt.to_html(classes=[
+            'table m-0 table-primary table-colored table-bordered table-hover table-striped display'
+        ]),
+        user=current_user)
+
+
 @app.route('/logs', methods=['GET', 'POST'])
 @login_required
 def logs():
