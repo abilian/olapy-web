@@ -10,6 +10,7 @@ import pandas as pd
 from flask import flash, redirect, render_template, request, send_file, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 from olapy.core.mdx.executor.execute import MdxEngine
+from olapy.core.mdx.tools.config_file_parser import ConfigParser
 from pandas import DataFrame, Series
 from treelib import Tree
 from treelib.tree import DuplicatedNodeIdError
@@ -262,23 +263,45 @@ def stats():
 @login_required
 def dash():
     ex = MdxEngine('mpr')
-    temp_rslt = ex.get_star_schema_dataframe('web')
+    star_df = ex.get_star_schema_dataframe('web')
     # temp_rslt = temp_rslt[ ['budget_total','subvention_totale']]
     # temp_rslt = temp_rslt.groupby(['Pole leader', 'Type', 'Status', 'labelized', 'financed']).sum()[
     #     ['budget_total', 'subvention_totale']]
     # OU BIEN
     import numpy as np
     # margins = True ( prob )
-    temp_rslt = pd.pivot_table(temp_rslt,
+    temp_rslt = pd.pivot_table(star_df,
                                values=['budget_total', 'subvention_totale'],
                                index=['Pole leader', 'Type'],
                                columns=['Status'], aggfunc=np.sum)
+
+    graph = Graphs()
+    # graph = graph.generate_graphes(ex.get_star_schema_dataframe('web')[['Status','budget_total']])
+
+    # star['Status'].value_counts().to_frame()
+
+    conf = ConfigParser(ex.cube_path)
+    print(conf.construct_web_dashboard()[0])
+
+    # for pie_chart in conf.construct_web_dashboard()[0].pie_charts:
+    #     print(pie_chart)
+
+    dfs = []
+    for pie_chart in conf.construct_web_dashboard()[0].pie_charts:
+        df = star_df[pie_chart].value_counts().to_frame().reset_index()
+        df.name = pie_chart
+        dfs.append(df)
+    graph = graph.generate_pie_graphes(dfs)
+
 
     return render_template(
         'dash.html',
         table_result=temp_rslt.to_html(classes=[
             'table m-0 table-primary table-colored table-bordered table-hover table-striped display'
         ]),
+        graphe=graph,
+        ids=graph['ids'],
+
         user=current_user)
 
 

@@ -84,57 +84,43 @@
         <div class="row">
             <div class="col-lg-8">
 
+
                 <div class="row">
 
-                    <div class="col-sm-4">
-                        <div class="card-box widget-box-four">
-                            <div id="dashboard-1" class="widget-box-four-chart">
-                                <canvas style="display: inline-block; width: 80px; height: 80px; vertical-align: top;"
-                                        width="80" height="80"></canvas>
-                            </div>
-                            <div class="wigdet-four-content pull-left">
-                                <h4 class="m-t-0 font-16 m-b-5 text-overflow" title="Total Revenue">Total Revenue</h4>
-                                <p class="font-secondary text-muted">Jan - Apr 2017</p>
-                                <h3 class="m-b-0 m-t-20"><span>$</span> <span data-plugin="counterup">52,548</span></h3>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div><!-- end col -->
+                    {% for id in ids %}
 
-                    <div class="col-sm-4">
-                        <div class="card-box widget-box-four">
-                            <div id="dashboard-2" class="widget-box-four-chart">
-                                <canvas style="display: inline-block; width: 80px; height: 80px; vertical-align: top;"
-                                        width="80" height="80">
+                        <div class="col-sm-4">
+                            <div class="card-box widget-box-four">
 
-                                </canvas>
-                            </div>
-                            <div class="wigdet-four-content pull-left">
-                                <h4 class="m-t-0 font-16 m-b-5 text-overflow" title="Total Unique Visitors">Total Unique
-                                    Visitors</h4>
-                                <p class="font-secondary text-muted">Jan - Apr 2017</p>
-                                <h3 class="m-b-0 m-t-20"><span>$</span> <span data-plugin="counterup">65,241</span></h3>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div><!-- end col -->
+                                {# <canvas style="display: inline-block; width: 80px; height: 80px; vertical-align: top;"#}
+                                {# width="80" height="80">#}
 
-                    <div class="col-sm-4">
-                        <div class="card-box widget-box-four">
-                            <div id="dashboard-3" class="widget-box-four-chart">
-                                <canvas style="display: inline-block; width: 80px; height: 80px; vertical-align: top;"
-                                        width="80" height="80"></canvas>
+                                <div id="{{ id }}"></div>
+
+                                {#                            </div>#}
+                                <div class="wigdet-four-content pull-left">
+
+                                    <h4 class="m-t-0 font-16 m-b-5 text-overflow" title="Number of Transactions">
+                                        {{ id }}
+                                    </h4>
+
+
+                                    <p class="font-secondary text-muted">Jan - Apr 2017</p>
+                                    <h3 class="m-b-0 m-t-20"><span>$</span> <span data-plugin="counterup">285,960</span>
+                                    </h3>
+                                </div>
+
+
+                                <div class="clearfix">
+
+
+                                </div>
                             </div>
-                            <div class="wigdet-four-content pull-left">
-                                <h4 class="m-t-0 font-16 m-b-5 text-overflow" title="Number of Transactions">Number of
-                                    Transactions</h4>
-                                <p class="font-secondary text-muted">Jan - Apr 2017</p>
-                                <h3 class="m-b-0 m-t-20"><span>$</span> <span data-plugin="counterup">285,960</span>
-                                </h3>
-                            </div>
-                            <div class="clearfix"></div>
                         </div>
-                    </div><!-- end col -->
+                        <!-- end col -->
+
+
+                    {% endfor %}
 
                 </div>
                 <!-- end row -->
@@ -558,5 +544,24 @@
 <script src="{{ url_for('static',filename='dash_css_js/jquery_009.js') }}"></script>
 <script src="{{ url_for('static',filename='dash_css_js/jquery_005.js') }}"></script>
 <script src="{{ url_for('static',filename='dash_css_js/jquery.js') }}"></script>
+
+
+<script src="{{ url_for('static',filename='js/d3.min') }}"></script>
+<script src="{{ url_for('static',filename='js/plotly-basic.js') }}"></script>
+
+
+
+    <script type="text/javascript">
+        var graphs = {{graphe['graph_json'] | safe}};
+        var ids = {{graphe['ids'] | safe}};
+        for (var i in graphs) {
+            Plotly.plot(
+                    ids[i], // the ID of the div, created above
+                    graphs[i].data,
+                    graphs[i].layout || {});
+        }
+    </script>
+
+
 
 {% endblock %}

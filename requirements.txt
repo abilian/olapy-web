@@ -24,4 +24,4 @@ wtforms==2.1
 xlsxwriter==0.9.3
 
 #manually
-#pip install git+https://github.com/abilian/olapy.git@b2fa6aeb32acd1f1334728f9e7bc2ae76ea5d2e9
+#pip install git+https://github.com/abilian/olapy.git@b2622e4aca011142deefb6e63a93e9dbd87a648e
