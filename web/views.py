@@ -281,17 +281,27 @@ def dash():
     # star['Status'].value_counts().to_frame()
 
     conf = ConfigParser(ex.cube_path)
-    print(conf.construct_web_dashboard()[0])
+
 
     # for pie_chart in conf.construct_web_dashboard()[0].pie_charts:
     #     print(pie_chart)
 
     dfs = []
+
     for pie_chart in conf.construct_web_dashboard()[0].pie_charts:
         df = star_df[pie_chart].value_counts().to_frame().reset_index()
         df.name = pie_chart
         dfs.append(df)
     graph = graph.generate_pie_graphes(dfs)
+
+    dfs2 = []
+    graph2 = Graphs()
+    for bar_chart in conf.construct_web_dashboard()[0].bar_chats:
+        df = star_df[[bar_chart] + ['budget_total', 'subvention_totale']].groupby([bar_chart]).sum().reset_index()
+        df.name = bar_chart
+        dfs2.append(df)
+
+    graph2 = graph2.generate_bar_graphes(dfs2)
 
 
     return render_template(
@@ -301,6 +311,8 @@ def dash():
         ]),
         graphe=graph,
         ids=graph['ids'],
+        graphe2=graph2,
+        ids2=graph2['ids'],
 
         user=current_user)
 

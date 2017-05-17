@@ -128,233 +128,45 @@
 
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="card-box">
-                            <h4 class="header-title m-t-0">Stacked Bar Chart</h4>
-                            <div class="text-center">
-                                <div class="row">
-                                    <div class="col-xs-4">
-                                        <div class="m-t-20 m-b-20">
-                                            <h4 class="m-b-10">2563</h4>
-                                            <p class="text-uppercase m-b-5 font-13 font-600">Lifetime total sales</p>
+
+
+                        {% for id in ids2 %}
+                            <div class="card-box">
+                                <h4 class="header-title m-t-0">Stacked Bar Chart</h4>
+                                <div class="text-center">
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <div class="m-t-20 m-b-20">
+                                                <h4 class="m-b-10">2563</h4>
+                                                <p class="text-uppercase m-b-5 font-13 font-600">Lifetime total
+                                                    sales</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xs-4">
-                                        <div class="m-t-20 m-b-20">
-                                            <h4 class="m-b-10">6952</h4>
-                                            <p class="text-uppercase m-b-5 font-13 font-600">Income amounts</p>
+                                        <div class="col-xs-4">
+                                            <div class="m-t-20 m-b-20">
+                                                <h4 class="m-b-10">6952</h4>
+                                                <p class="text-uppercase m-b-5 font-13 font-600">Income amounts</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xs-4">
-                                        <div class="m-t-20 m-b-20">
-                                            <h4 class="m-b-10">1125</h4>
-                                            <p class="text-uppercase m-b-5 font-13 font-600">Total visits</p>
+                                        <div class="col-xs-4">
+                                            <div class="m-t-20 m-b-20">
+                                                <h4 class="m-b-10">1125</h4>
+                                                <p class="text-uppercase m-b-5 font-13 font-600">Total visits</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div style="height: 500px; position: relative;">
+                                    {#id="morris-bar-stacked"#}
 
-                            <div id="morris-bar-stacked" style="height: 310px; position: relative;">
-                                <svg height="310" version="1.1" width="706" xmlns="http://www.w3.org/2000/svg"
-                                     xmlns:xlink="http://www.w3.org/1999/xlink"
-                                     style="overflow: hidden; position: relative; left: -0.550003px; top: -0.599998px;">
-                                    <desc>Created with Raphaël 2.1.2</desc>
-                                    <defs></defs>
-                                    <text style="text-anchor: end; font-family: sans-serif; font-size: 12px; font-weight: normal;"
-                                          x="36.5" y="271" text-anchor="end" font-family="sans-serif" font-size="12px"
-                                          stroke="none" fill="#888888" font-weight="normal">
-                                        <tspan dy="4">0</tspan>
-                                    </text>
-                                    <path style="" fill="none" stroke="#eeeeee" d="M49,271H681"
-                                          stroke-width="0.5"></path>
-                                    <text style="text-anchor: end; font-family: sans-serif; font-size: 12px; font-weight: normal;"
-                                          x="36.5" y="209.5" text-anchor="end" font-family="sans-serif" font-size="12px"
-                                          stroke="none" fill="#888888" font-weight="normal">
-                                        <tspan dy="4">100</tspan>
-                                    </text>
-                                    <path style="" fill="none" stroke="#eeeeee" d="M49,209.5H681"
-                                          stroke-width="0.5"></path>
-                                    <text style="text-anchor: end; font-family: sans-serif; font-size: 12px; font-weight: normal;"
-                                          x="36.5" y="148" text-anchor="end" font-family="sans-serif" font-size="12px"
-                                          stroke="none" fill="#888888" font-weight="normal">
-                                        <tspan dy="4">200</tspan>
-                                    </text>
-                                    <path style="" fill="none" stroke="#eeeeee" d="M49,148H681"
-                                          stroke-width="0.5"></path>
-                                    <text style="text-anchor: end; font-family: sans-serif; font-size: 12px; font-weight: normal;"
-                                          x="36.5" y="86.5" text-anchor="end" font-family="sans-serif" font-size="12px"
-                                          stroke="none" fill="#888888" font-weight="normal">
-                                        <tspan dy="4">300</tspan>
-                                    </text>
-                                    <path style="" fill="none" stroke="#eeeeee" d="M49,86.5H681"
-                                          stroke-width="0.5"></path>
-                                    <text style="text-anchor: end; font-family: sans-serif; font-size: 12px; font-weight: normal;"
-                                          x="36.5" y="25" text-anchor="end" font-family="sans-serif" font-size="12px"
-                                          stroke="none" fill="#888888" font-weight="normal">
-                                        <tspan dy="4">400</tspan>
-                                    </text>
-                                    <path style="" fill="none" stroke="#eeeeee" d="M49,25H681"
-                                          stroke-width="0.5"></path>
-                                    <text style="text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;"
-                                          x="654.6666666666666" y="283.5" text-anchor="middle" font-family="sans-serif"
-                                          font-size="12px" stroke="none" fill="#888888" font-weight="normal"
-                                          transform="matrix(1,0,0,1,0,7)">
-                                        <tspan dy="4">2016</tspan>
-                                    </text>
-                                    <text style="text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;"
-                                          x="549.3333333333333" y="283.5" text-anchor="middle" font-family="sans-serif"
-                                          font-size="12px" stroke="none" fill="#888888" font-weight="normal"
-                                          transform="matrix(1,0,0,1,0,7)">
-                                        <tspan dy="4">2014</tspan>
-                                    </text>
-                                    <text style="text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;"
-                                          x="444" y="283.5" text-anchor="middle" font-family="sans-serif"
-                                          font-size="12px" stroke="none" fill="#888888" font-weight="normal"
-                                          transform="matrix(1,0,0,1,0,7)">
-                                        <tspan dy="4">2012</tspan>
-                                    </text>
-                                    <text style="text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;"
-                                          x="338.6666666666667" y="283.5" text-anchor="middle" font-family="sans-serif"
-                                          font-size="12px" stroke="none" fill="#888888" font-weight="normal"
-                                          transform="matrix(1,0,0,1,0,7)">
-                                        <tspan dy="4">2010</tspan>
-                                    </text>
-                                    <text style="text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;"
-                                          x="233.33333333333334" y="283.5" text-anchor="middle" font-family="sans-serif"
-                                          font-size="12px" stroke="none" fill="#888888" font-weight="normal"
-                                          transform="matrix(1,0,0,1,0,7)">
-                                        <tspan dy="4">2008</tspan>
-                                    </text>
-                                    <text style="text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;"
-                                          x="128" y="283.5" text-anchor="middle" font-family="sans-serif"
-                                          font-size="12px" stroke="none" fill="#888888" font-weight="normal"
-                                          transform="matrix(1,0,0,1,0,7)">
-                                        <tspan dy="4">2006</tspan>
-                                    </text>
-                                    <rect x="62.166666666666664" y="243.325" width="26.333333333333332"
-                                          height="27.67500000000001" rx="0" ry="0" fill="#6ad9c3" stroke="none"
-                                          style="fill-opacity: 1;" fill-opacity="1"></rect>
-                                    <rect x="62.166666666666664" y="132.625" width="26.333333333333332"
-                                          height="110.69999999999999" rx="0" ry="0" fill="#9aa1f2" stroke="none"
-                                          style="fill-opacity: 1;" fill-opacity="1"></rect>
-                                    <rect x="62.166666666666664" y="71.125" width="26.333333333333332" height="61.5"
-                                          rx="0" ry="0" fill="#ebeff2" stroke="none" style="fill-opacity: 1;"
-                                          fill-opacity="1"></rect>
-                                    <rect x="114.83333333333333" y="224.875" width="26.333333333333332" height="46.125"
-                                          rx="0" ry="0" fill="#6ad9c3" stroke="none" style="fill-opacity: 1;"
-                                          fill-opacity="1"></rect>
-                                    <rect x="114.83333333333333" y="184.9" width="26.333333333333332"
-                                          height="39.974999999999994" rx="0" ry="0" fill="#9aa1f2" stroke="none"
-                                          style="fill-opacity: 1;" fill-opacity="1"></rect>
-                                    <rect x="114.83333333333333" y="135.70000000000002" width="26.333333333333332"
-                                          height="49.19999999999999" rx="0" ry="0" fill="#ebeff2" stroke="none"
-                                          style="fill-opacity: 1;" fill-opacity="1"></rect>
-                                    <rect x="167.49999999999997" y="209.5" width="26.333333333333332" height="61.5"
-                                          rx="0" ry="0" fill="#6ad9c3" stroke="none" style="fill-opacity: 1;"
-                                          fill-opacity="1"></rect>
-                                    <rect x="167.49999999999997" y="154.15" width="26.333333333333332"
-                                          height="55.349999999999994" rx="0" ry="0" fill="#9aa1f2" stroke="none"
-                                          style="fill-opacity: 1;" fill-opacity="1"></rect>
-                                    <rect x="167.49999999999997" y="119.71000000000001" width="26.333333333333332"
-                                          height="34.44" rx="0" ry="0" fill="#ebeff2" stroke="none"
-                                          style="fill-opacity: 1;" fill-opacity="1"></rect>
-                                    <rect x="220.16666666666666" y="224.875" width="26.333333333333332" height="46.125"
-                                          rx="0" ry="0" fill="#6ad9c3" stroke="none" style="fill-opacity: 1;"
-                                          fill-opacity="1"></rect>
-                                    <rect x="220.16666666666666" y="184.9" width="26.333333333333332"
-                                          height="39.974999999999994" rx="0" ry="0" fill="#9aa1f2" stroke="none"
-                                          style="fill-opacity: 1;" fill-opacity="1"></rect>
-                                    <rect x="220.16666666666666" y="130.165" width="26.333333333333332"
-                                          height="54.735000000000014" rx="0" ry="0" fill="#ebeff2" stroke="none"
-                                          style="fill-opacity: 1;" fill-opacity="1"></rect>
-                                    <rect x="272.8333333333333" y="209.5" width="26.333333333333332" height="61.5"
-                                          rx="0" ry="0" fill="#6ad9c3" stroke="none" style="fill-opacity: 1;"
-                                          fill-opacity="1"></rect>
-                                    <rect x="272.8333333333333" y="154.15" width="26.333333333333332"
-                                          height="55.349999999999994" rx="0" ry="0" fill="#9aa1f2" stroke="none"
-                                          style="fill-opacity: 1;" fill-opacity="1"></rect>
-                                    <rect x="272.8333333333333" y="80.35" width="26.333333333333332"
-                                          height="73.80000000000001" rx="0" ry="0" fill="#ebeff2" stroke="none"
-                                          style="fill-opacity: 1;" fill-opacity="1"></rect>
-                                    <rect x="325.5" y="224.875" width="26.333333333333332" height="46.125" rx="0" ry="0"
-                                          fill="#6ad9c3" stroke="none" style="fill-opacity: 1;" fill-opacity="1"></rect>
-                                    <rect x="325.5" y="184.9" width="26.333333333333332" height="39.974999999999994"
-                                          rx="0" ry="0" fill="#9aa1f2" stroke="none" style="fill-opacity: 1;"
-                                          fill-opacity="1"></rect>
-                                    <rect x="325.5" y="117.25" width="26.333333333333332" height="67.65" rx="0" ry="0"
-                                          fill="#ebeff2" stroke="none" style="fill-opacity: 1;" fill-opacity="1"></rect>
-                                    <rect x="378.1666666666667" y="240.25" width="26.333333333333332" height="30.75"
-                                          rx="0" ry="0" fill="#6ad9c3" stroke="none" style="fill-opacity: 1;"
-                                          fill-opacity="1"></rect>
-                                    <rect x="378.1666666666667" y="215.65" width="26.333333333333332"
-                                          height="24.599999999999994" rx="0" ry="0" fill="#9aa1f2" stroke="none"
-                                          style="fill-opacity: 1;" fill-opacity="1"></rect>
-                                    <rect x="378.1666666666667" y="163.375" width="26.333333333333332"
-                                          height="52.275000000000006" rx="0" ry="0" fill="#ebeff2" stroke="none"
-                                          style="fill-opacity: 1;" fill-opacity="1"></rect>
-                                    <rect x="430.8333333333333" y="224.875" width="26.333333333333332" height="46.125"
-                                          rx="0" ry="0" fill="#6ad9c3" stroke="none" style="fill-opacity: 1;"
-                                          fill-opacity="1"></rect>
-                                    <rect x="430.8333333333333" y="184.9" width="26.333333333333332"
-                                          height="39.974999999999994" rx="0" ry="0" fill="#9aa1f2" stroke="none"
-                                          style="fill-opacity: 1;" fill-opacity="1"></rect>
-                                    <rect x="430.8333333333333" y="152.92000000000002" width="26.333333333333332"
-                                          height="31.97999999999999" rx="0" ry="0" fill="#ebeff2" stroke="none"
-                                          style="fill-opacity: 1;" fill-opacity="1"></rect>
-                                    <rect x="483.5" y="240.25" width="26.333333333333332" height="30.75" rx="0" ry="0"
-                                          fill="#6ad9c3" stroke="none" style="fill-opacity: 1;" fill-opacity="1"></rect>
-                                    <rect x="483.5" y="215.65" width="26.333333333333332" height="24.599999999999994"
-                                          rx="0" ry="0" fill="#9aa1f2" stroke="none" style="fill-opacity: 1;"
-                                          fill-opacity="1"></rect>
-                                    <rect x="483.5" y="168.29500000000002" width="26.333333333333332"
-                                          height="47.35499999999999" rx="0" ry="0" fill="#ebeff2" stroke="none"
-                                          style="fill-opacity: 1;" fill-opacity="1"></rect>
-                                    <rect x="536.1666666666666" y="224.875" width="26.333333333333332" height="46.125"
-                                          rx="0" ry="0" fill="#6ad9c3" stroke="none" style="fill-opacity: 1;"
-                                          fill-opacity="1"></rect>
-                                    <rect x="536.1666666666666" y="184.9" width="26.333333333333332"
-                                          height="39.974999999999994" rx="0" ry="0" fill="#9aa1f2" stroke="none"
-                                          style="fill-opacity: 1;" fill-opacity="1"></rect>
-                                    <rect x="536.1666666666666" y="129.55" width="26.333333333333332"
-                                          height="55.349999999999994" rx="0" ry="0" fill="#ebeff2" stroke="none"
-                                          style="fill-opacity: 1;" fill-opacity="1"></rect>
-                                    <rect x="588.8333333333333" y="209.5" width="26.333333333333332" height="61.5"
-                                          rx="0" ry="0" fill="#6ad9c3" stroke="none" style="fill-opacity: 1;"
-                                          fill-opacity="1"></rect>
-                                    <rect x="588.8333333333333" y="154.15" width="26.333333333333332"
-                                          height="55.349999999999994" rx="0" ry="0" fill="#9aa1f2" stroke="none"
-                                          style="fill-opacity: 1;" fill-opacity="1"></rect>
-                                    <rect x="588.8333333333333" y="74.20000000000002" width="26.333333333333332"
-                                          height="79.94999999999999" rx="0" ry="0" fill="#ebeff2" stroke="none"
-                                          style="fill-opacity: 1;" fill-opacity="1"></rect>
-                                    <rect x="641.4999999999999" y="221.8" width="26.333333333333332"
-                                          height="49.19999999999999" rx="0" ry="0" fill="#6ad9c3" stroke="none"
-                                          style="fill-opacity: 1;" fill-opacity="1"></rect>
-                                    <rect x="641.4999999999999" y="181.82500000000002" width="26.333333333333332"
-                                          height="39.974999999999994" rx="0" ry="0" fill="#9aa1f2" stroke="none"
-                                          style="fill-opacity: 1;" fill-opacity="1"></rect>
-                                    <rect x="641.4999999999999" y="123.4" width="26.333333333333332"
-                                          height="58.42500000000001" rx="0" ry="0" fill="#ebeff2" stroke="none"
-                                          style="fill-opacity: 1;" fill-opacity="1"></rect>
-                                </svg>
-                                <div class="morris-hover morris-default-style"
-                                     style="left: 501.333px; top: 106px; display: none;">
-                                    <div class="morris-hover-row-label">2014</div>
-                                    <div class="morris-hover-point" style="color: #6ad9c3">
-                                        Series A:
-                                        75
-                                    </div>
-                                    <div class="morris-hover-point" style="color: #9aa1f2">
-                                        Series B:
-                                        65
-                                    </div>
-                                    <div class="morris-hover-point" style="color: #ebeff2">
-                                        Series C:
-                                        90
-                                    </div>
+                                    {#            <h3>{{ id }}</h3>#}
+                                    <div id="{{ id }}"></div>
+
                                 </div>
                             </div>
+                        {% endfor %}
 
-                        </div>
+
 
                     </div><!-- end col -->
 
@@ -373,22 +185,21 @@
                         </h3>
                     </div>
 
-                    <div id="morris-line-example" style="height: 180px; position: relative;">
-                        <svg height="180" version="1.1" width="322" xmlns="http://www.w3.org/2000/svg"
-                             xmlns:xlink="http://www.w3.org/1999/xlink"
-                             style="overflow: hidden; position: relative; left: -0.483337px; top: 0.100006px;">
+                    <div  style="height: 180px; position: relative;">
 
+{#                        id="morris-line-example"#}
 
+                        11111111111111111111
+{#                        <svg height="180" version="1.1" width="322" xmlns="http://www.w3.org/2000/svg"#}
+{#                             xmlns:xlink="http://www.w3.org/1999/xlink"#}
+{#                             style="overflow: hidden; position: relative; left: -0.483337px; top: 0.100006px;">#}
+{##}
+{#                        </svg>#}
 
-
-
-                        </svg>
 
                     </div>
 
                 </div>
-
-
 
             </div> <!-- end col -->
 
@@ -406,104 +217,9 @@
 
                     <div class="table-responsive">
                         {{ table_result | safe}}
-                        <!--<table class="table m-0 table-colored table-primary table-hover">-->
-                            <!--<thead>-->
-                            <!--<tr>-->
-                                <!--<th>Name</th>-->
-                                <!--<th>Position</th>-->
-                                <!--<th>Office</th>-->
-                                <!--<th>Age</th>-->
-                                <!--<th>Start date</th>-->
-                                <!--<th>Salary</th>-->
-                            <!--</tr>-->
-                            <!--</thead>-->
-
-
-                            <!--<tbody>-->
-                            <!--<tr>-->
-                                <!--<td>Tiger Nixon</td>-->
-                                <!--<td>System Architect</td>-->
-                                <!--<td>Edinburgh</td>-->
-                                <!--<td>61</td>-->
-                                <!--<td>2011/04/25</td>-->
-                                <!--<td>$320,800</td>-->
-                            <!--</tr>-->
-                            <!--<tr>-->
-                                <!--<td>Garrett Winters</td>-->
-                                <!--<td>Accountant</td>-->
-                                <!--<td>Tokyo</td>-->
-                                <!--<td>63</td>-->
-                                <!--<td>2011/07/25</td>-->
-                                <!--<td>$170,750</td>-->
-                            <!--</tr>-->
-                            <!--<tr>-->
-                                <!--<td>Ashton Cox</td>-->
-                                <!--<td>Junior Technical Author</td>-->
-                                <!--<td>San Francisco</td>-->
-                                <!--<td>66</td>-->
-                                <!--<td>2009/01/12</td>-->
-                                <!--<td>$86,000</td>-->
-                            <!--</tr>-->
-                            <!--<tr>-->
-                                <!--<td>Cedric Kelly</td>-->
-                                <!--<td>Senior Javascript Developer</td>-->
-                                <!--<td>Edinburgh</td>-->
-                                <!--<td>22</td>-->
-                                <!--<td>2012/03/29</td>-->
-                                <!--<td>$433,060</td>-->
-                            <!--</tr>-->
-                            <!--<tr>-->
-                                <!--<td>Airi Satou</td>-->
-                                <!--<td>Accountant</td>-->
-                                <!--<td>Tokyo</td>-->
-                                <!--<td>33</td>-->
-                                <!--<td>2008/11/28</td>-->
-                                <!--<td>$162,700</td>-->
-                            <!--</tr>-->
-                            <!--<tr>-->
-                                <!--<td>Brielle Williamson</td>-->
-                                <!--<td>Integration Specialist</td>-->
-                                <!--<td>New York</td>-->
-                                <!--<td>61</td>-->
-                                <!--<td>2012/12/02</td>-->
-                                <!--<td>$372,000</td>-->
-                            <!--</tr>-->
-                            <!--<tr>-->
-                                <!--<td>Herrod Chandler</td>-->
-                                <!--<td>Sales Assistant</td>-->
-                                <!--<td>San Francisco</td>-->
-                                <!--<td>59</td>-->
-                                <!--<td>2012/08/06</td>-->
-                                <!--<td>$137,500</td>-->
-                            <!--</tr>-->
-                            <!--<tr>-->
-                                <!--<td>Rhona Davidson</td>-->
-                                <!--<td>Integration Specialist</td>-->
-                                <!--<td>Tokyo</td>-->
-                                <!--<td>55</td>-->
-                                <!--<td>2010/10/14</td>-->
-                                <!--<td>$327,900</td>-->
-                            <!--</tr>-->
-                            <!--<tr>-->
-                                <!--<td>Colleen Hurst</td>-->
-                                <!--<td>Javascript Developer</td>-->
-                                <!--<td>San Francisco</td>-->
-                                <!--<td>39</td>-->
-                                <!--<td>2009/09/15</td>-->
-                                <!--<td>$205,500</td>-->
-                            <!--</tr>-->
-                            <!--<tr>-->
-                                <!--<td>Sonya Frost</td>-->
-                                <!--<td>Software Engineer</td>-->
-                                <!--<td>Edinburgh</td>-->
-                                <!--<td>23</td>-->
-                                <!--<td>2008/12/13</td>-->
-                                <!--<td>$103,600</td>-->
-                            <!--</tr>-->
-                            <!--</tbody>-->
-                        <!--</table>-->
-
                     </div>
+
+
                 </div>
             </div>
         </div>
@@ -554,12 +270,26 @@
     <script type="text/javascript">
         var graphs = {{graphe['graph_json'] | safe}};
         var ids = {{graphe['ids'] | safe}};
+
         for (var i in graphs) {
             Plotly.plot(
                     ids[i], // the ID of the div, created above
                     graphs[i].data,
                     graphs[i].layout || {});
         }
+
+
+        var graphs2 = {{graphe2['graph_json'] | safe}};
+        var ids2 = {{graphe2['ids'] | safe}};
+
+        for (var j in graphs2) {
+            Plotly.plot(
+                    ids2[j], // the ID of the div, created above
+                    graphs2[j].data,
+                    graphs2[j].layout || {});
+        }
+
+
     </script>
 
 

@@ -132,3 +132,48 @@ class Graphs:
         graph_json = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
 
         return {'ids': ids, 'graph_json': graph_json}
+
+    # TODO remove this , ( right know this is just a demo with sales cube )
+    @staticmethod
+    def generate_bar_graphes(dataframes):
+        """
+        Generate graphs for a pandas DataFrame, if you want to add graphs, you have to do it in this function.
+
+        :param dataframe: the DataFrame
+        :return: dict of ids as keys and json graphs as values
+        """
+        graphs = []
+        traces = []
+        for dataframe in dataframes:
+
+            for measure in dataframe[dataframe.columns[1:]]:
+
+
+                x = list(dataframe[dataframe.columns[0]])
+                y = list(dataframe[measure])
+                # https: // plot.ly / python / reference
+                # Create the Plotly Data Structure
+                # go.Scatter
+                # go.Bar
+                traces.append(go.Bar(
+                    x=x,
+                    y=y,
+                    name=measure))
+
+
+            graphs.append(
+                dict(
+                    data=traces,
+                    layout=go.Layout(
+                    barmode='group'
+                ))
+
+            )
+
+
+        # Add "ids" to each of the graphs to pass up to the client
+        # for templating
+        ids = ['graph-{}'.format(i) for i, _ in enumerate(graphs)]
+        graph_json = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
+
+        return {'ids': ids, 'graph_json': graph_json}
