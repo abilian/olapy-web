@@ -268,20 +268,23 @@ def dash():
     # temp_rslt = temp_rslt.groupby(['Pole leader', 'Type', 'Status', 'labelized', 'financed']).sum()[
     #     ['budget_total', 'subvention_totale']]
     # OU BIEN
+
     import numpy as np
     # margins = True ( prob )
+    conf = ConfigParser(ex.cube_path)
+
+
+    dash = conf.construct_web_dashboard()[0]
+
     temp_rslt = pd.pivot_table(star_df,
-                               values=['budget_total', 'subvention_totale'],
-                               index=['Pole leader', 'Type'],
-                               columns=['Status'], aggfunc=np.sum)
+                               values=ex.measures,
+                               index=dash.global_table['columns'],
+                               columns=dash.global_table['rows'], aggfunc=np.sum)
 
     graph = Graphs()
     # graph = graph.generate_graphes(ex.get_star_schema_dataframe('web')[['Status','budget_total']])
 
     # star['Status'].value_counts().to_frame()
-
-    conf = ConfigParser(ex.cube_path)
-
 
     # for pie_chart in conf.construct_web_dashboard()[0].pie_charts:
     #     print(pie_chart)
@@ -297,7 +300,7 @@ def dash():
     dfs2 = []
     graph2 = Graphs()
     for bar_chart in conf.construct_web_dashboard()[0].bar_chats:
-        df = star_df[[bar_chart] + ['budget_total', 'subvention_totale']].groupby([bar_chart]).sum().reset_index()
+        df = star_df[[bar_chart] + ex.measures].groupby([bar_chart]).sum().reset_index()
         df.name = bar_chart
         dfs2.append(df)
 
@@ -307,7 +310,7 @@ def dash():
     dfs3 = []
     graph3 = Graphs()
     for column_name,columns_attributs in conf.construct_web_dashboard()[0].line_charts.items():
-        df = star_df[[column_name] + ['budget_total', 'subvention_totale']].groupby([column_name]).sum().reset_index()
+        df = star_df[[column_name] + ex.measures].groupby([column_name]).sum().reset_index()
         df.name = column_name
         if columns_attributs is not 'ALL':
             df = df[df[column_name].isin(columns_attributs)]

@@ -33,5 +33,5 @@ xlsxwriter==0.9.3
 
 
 #manually
--#pip install git+https://github.com/abilian/olapy.git@cd044d490c20e5463ed6c30711f79b5cdc022eee
+-#pip install git+https://github.com/abilian/olapy.git@82c27c2d2fc8e5d937dce42804d6c35298430d67
 
