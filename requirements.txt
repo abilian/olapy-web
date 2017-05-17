@@ -5,23 +5,33 @@
 #    pip-compile --output-file requirements.txt requirements.in
 #
 click==6.7                # via flask
+decorator==4.0.11         # via plotly, traitlets
+enum34==1.1.6             # via traitlets
 flask-login==0.3.2
 flask-script==2.0.5
 flask-session==0.3.0
 flask-sqlalchemy==2.1
 flask-wtf==0.12
-flask==0.12.1
+flask==0.12.2
+functools32==3.2.3.post2  # via jsonschema
+ipython-genutils==0.2.0   # via nbformat, traitlets
 itsdangerous==0.24        # via flask
 jinja2==2.9.6             # via flask
+jsonschema==2.6.0         # via nbformat
+jupyter-core==4.3.0       # via nbformat
 markupsafe==1.0           # via jinja2
-plotly==1.12.9
+nbformat==4.3.0           # via plotly
+plotly==2.0.8
 pytz==2017.2              # via plotly
 requests==2.14.2          # via plotly
-six==1.10.0               # via plotly
+six==1.10.0               # via plotly, traitlets
 sqlalchemy==1.0.17
-werkzeug==0.12.1          # via flask, flask-wtf
+traitlets==4.3.2          # via jupyter-core, nbformat
+werkzeug==0.12.2          # via flask, flask-wtf
 wtforms==2.1
 xlsxwriter==0.9.3
 
 #manually
-#pip install git+https://github.com/abilian/olapy.git@b2622e4aca011142deefb6e63a93e9dbd87a648e
+-#pip install git+https://github.com/abilian/olapy.git@b2622e4aca011142deefb6e63a93e9dbd87a648e
+
+

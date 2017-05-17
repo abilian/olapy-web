@@ -8,7 +8,7 @@ Flask-Script==2.0.5
 Flask-Session==0.3.0
 Flask-SQLAlchemy==2.1
 Flask-WTF==0.12
-plotly==1.12.9
+plotly<3
 XlsxWriter==0.9.3
 
 
