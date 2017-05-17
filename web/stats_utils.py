@@ -143,11 +143,9 @@ class Graphs:
         :return: dict of ids as keys and json graphs as values
         """
         graphs = []
-
         for dataframe in dataframes:
             traces = []
             for measure in dataframe[dataframe.columns[1:]]:
-
 
                 x = list(dataframe[dataframe.columns[0]])
                 y = list(dataframe[measure])
@@ -164,9 +162,11 @@ class Graphs:
             graphs.append(
                 dict(
                     data=traces,
+                    show_link=False,
                     layout=go.Layout(
                     barmode='group'
-                ))
+                    )
+                )
 
             )
 
@@ -175,5 +175,88 @@ class Graphs:
         # for templating
         ids = ['graph-{}'.format(i) for i, _ in enumerate(graphs)]
         graph_json = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
+
+        # TODO use this
+        # div = offplot.plot(fig, show_link=False, output_type="div", include_plotlyjs=False)
+
+        return {'ids': ids, 'graph_json': graph_json}
+
+    # TODO remove this , ( right know this is just a demo with sales cube )
+    @staticmethod
+    def generate_line_graphes(dataframes):
+        """
+        Generate graphs for a pandas DataFrame, if you want to add graphs, you have to do it in this function.
+
+        :param dataframe: the DataFrame
+        :return: dict of ids as keys and json graphs as values
+        """
+        graphs = []
+        for dataframe in dataframes:
+            traces = []
+            for measure in dataframe[dataframe.columns[1:]]:
+                x = list(dataframe[dataframe.columns[0]])
+                y = list(dataframe[measure])
+                # https: // plot.ly / python / reference
+                # Create the Plotly Data Structure
+                # go.Scatter
+                # go.Bar
+                traces.append(go.Scatter(
+                    x=x,
+                    y=y,
+                    name=measure,
+                    mode='lines+markers'))
+
+
+            graphs.append(
+                dict(
+                    data=traces,
+                    # show_link=False
+                    # layout=go.Layout(
+                    #     barmode='group'
+                    # )
+                )
+
+            )
+        # N = 100
+        # import numpy as np
+        # random_x = np.linspace(0, 1, N)
+        # random_y0 = np.random.randn(N) + 5
+        # random_y1 = np.random.randn(N)
+        # random_y2 = np.random.randn(N) - 5
+        #
+        # # Create traces
+        # trace0 = go.Scatter(
+        #     x=random_x,
+        #     y=random_y0,
+        #     mode='lines',
+        #     name='lines'
+        # )
+        # trace1 = go.Scatter(
+        #     x=random_x,
+        #     y=random_y1,
+        #     mode='lines+markers',
+        #     name='lines+markers'
+        # )
+        # trace2 = go.Scatter(
+        #     x=random_x,
+        #     y=random_y2,
+        #     mode='markers',
+        #     name='markers'
+        # )
+
+        # graphs = [
+        #     dict(
+        #         data=traces,
+        #         )
+        # ]
+
+
+        # Add "ids" to each of the graphs to pass up to the client
+        # for templating
+        ids = ['graphee-{}'.format(i) for i, _ in enumerate(graphs)]
+        graph_json = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
+
+        # TODO use this
+        # div = offplot.plot(fig, show_link=False, output_type="div", include_plotlyjs=False)
 
         return {'ids': ids, 'graph_json': graph_json}

@@ -31,7 +31,7 @@ werkzeug==0.12.2          # via flask, flask-wtf
 wtforms==2.1
 xlsxwriter==0.9.3
 
-#manually
--#pip install git+https://github.com/abilian/olapy.git@b2622e4aca011142deefb6e63a93e9dbd87a648e
 
+#manually
+-#pip install git+https://github.com/abilian/olapy.git@cd044d490c20e5463ed6c30711f79b5cdc022eee
 

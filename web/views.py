@@ -301,7 +301,24 @@ def dash():
         df.name = bar_chart
         dfs2.append(df)
 
+
     graph2 = graph2.generate_bar_graphes(dfs2)
+
+    dfs3 = []
+    graph3 = Graphs()
+    for column_name,columns_attributs in conf.construct_web_dashboard()[0].line_charts.items():
+        df = star_df[[column_name] + ['budget_total', 'subvention_totale']].groupby([column_name]).sum().reset_index()
+        df.name = column_name
+        if columns_attributs is not 'ALL':
+            df = df[df[column_name].isin(columns_attributs)]
+        dfs3.append(df)
+
+        # df2 = star[['annee_immatriculation', 'budget_total']].groupby(['annee_immatriculation']).sum().reset_index()
+        # df2[['annee_immatriculation']] = df2[['annee_immatriculation']].astype(np.int)
+
+        # df2[df2['annee_immatriculation'].isin([1954, 2000])]
+
+    graph3 = graph3.generate_line_graphes(dfs3)
 
 
     return render_template(
@@ -313,7 +330,8 @@ def dash():
         ids=graph['ids'],
         graphe2=graph2,
         ids2=graph2['ids'],
-
+        graphe3=graph3,
+        ids3=graph3['ids'],
         user=current_user)
 
 
