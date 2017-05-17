@@ -143,9 +143,9 @@ class Graphs:
         :return: dict of ids as keys and json graphs as values
         """
         graphs = []
-        traces = []
-        for dataframe in dataframes:
 
+        for dataframe in dataframes:
+            traces = []
             for measure in dataframe[dataframe.columns[1:]]:
 
 
