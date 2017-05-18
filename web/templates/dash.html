@@ -92,12 +92,11 @@
                         <div style="position: relative;" class="col-sm-4">
                             <div class="card-box widget-box-four">
                                 <h4 class="header-title m-t-0 m-b-30">{{  pies['tables_names'][index - 1].replace('_',' ').title() }}</h4>
-                                {# <canvas style="display: inline-block; width: 80px; height: 80px; vertical-align: top;"#}
-                                {# width="80" height="80">#}
+
 
                                 <div id="{{ id }}"></div>
 
-                                {#                            </div>#}
+
                                 <div class="wigdet-four-content pull-left">
 
 {#                                    <h4 class="m-t-0 font-16 m-b-5 text-overflow" title="Number of Transactions">#}
@@ -269,38 +268,39 @@
 <script src="{{ url_for('static',filename='js/plotly-basic.js') }}"></script>
 
 
-
     <script type="text/javascript">
-        var graphs = {{pies['graphes']['graph_json'] | safe}};
-        var ids = {{pies['graphes']['ids'] | safe}};
-{#        var tots = {{graphe['total'] | safe}};#}
 
-        for (var i in graphs) {
+
+        var pie_graphes = {{pies['graphes']['graph_json'] | safe}};
+        var pie_graphes_ids = {{pies['graphes']['ids'] | safe}};
+
+        var bar_graphes = {{bars['graphes']['graph_json'] | safe}};
+        var bar_graphes_ids = {{bars['graphes']['ids'] | safe}};
+
+        var line_graphes = {{lines['graphes']['graph_json'] | safe}};
+        var line_graphes_ids = {{lines['graphes']['ids'] | safe}};
+
+
+        for (var i in pie_graphes) {
             Plotly.plot(
-                    ids[i], // the ID of the div, created above
-                    graphs[i].data,
-                    graphs[i].layout || {});
+                    pie_graphes_ids[i], // the ID of the div, created above
+                    pie_graphes[i].data,
+                    pie_graphes[i].layout || {});
         }
 
 
-        var graphs2 = {{bars['graphes']['graph_json'] | safe}};
-        var ids2 = {{bars['graphes']['ids'] | safe}};
-
-        for (var j in graphs2) {
+        for (var i in bar_graphes) {
             Plotly.plot(
-                    ids2[j], // the ID of the div, created above
-                    graphs2[j].data,
-                    graphs2[j].layout || {});
+                    bar_graphes_ids[i], // the ID of the div, created above
+                    bar_graphes[i].data,
+                    bar_graphes[i].layout || {});
         }
 
-        var graphs3 = {{lines['graphes']['graph_json'] | safe}};
-        var ids3 = {{lines['graphes']['ids'] | safe}};
-
-        for (var h in graphs3) {
+        for (var i in line_graphes) {
             Plotly.plot(
-                    ids3[h], // the ID of the div, created above
-                    graphs3[h].data,
-                    graphs3[h].layout || {});
+                    line_graphes_ids[i], // the ID of the div, created above
+                    line_graphes[i].data,
+                    line_graphes[i].layout || {});
         }
 
 

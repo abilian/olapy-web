@@ -303,9 +303,6 @@ def dash():
                                index=dashboard.global_table['columns'],
                                columns=dashboard.global_table['rows'], aggfunc=np.sum)
 
-
-
-
     return render_template(
         'dash.html',
         table_result=pivote_table_df.to_html(classes=[
