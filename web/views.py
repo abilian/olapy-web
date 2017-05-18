@@ -290,27 +290,46 @@ def dash():
     #     print(pie_chart)
 
     dfs = []
-
+    tot = []
+    tables_names = []
     for pie_chart in conf.construct_web_dashboard()[0].pie_charts:
         df = star_df[pie_chart].value_counts().to_frame().reset_index()
         df.name = pie_chart
         dfs.append(df)
+        tables_names.append(pie_chart)
+        tot.append(star_df[pie_chart].value_counts().sum())
+
     graph = graph.generate_pie_graphes(dfs)
 
     dfs2 = []
     graph2 = Graphs()
+    tot2 = {}
+    tables_names2 = []
+    for mes in ex.measures:
+        tot2[mes] = star_df[mes].sum()
+
     for bar_chart in conf.construct_web_dashboard()[0].bar_chats:
         df = star_df[[bar_chart] + ex.measures].groupby([bar_chart]).sum().reset_index()
+        tables_names2.append(bar_chart)
         df.name = bar_chart
         dfs2.append(df)
 
 
+
     graph2 = graph2.generate_bar_graphes(dfs2)
+    # graph2.update({'totale':tot})
 
     dfs3 = []
+    tot3 = {}
     graph3 = Graphs()
+    tables_names3 = []
+    for mes in ex.measures:
+        tot3[mes] = star_df[mes].sum()
     for column_name,columns_attributs in conf.construct_web_dashboard()[0].line_charts.items():
         df = star_df[[column_name] + ex.measures].groupby([column_name]).sum().reset_index()
+
+        tables_names3.append(column_name)
+
         df.name = column_name
         if columns_attributs is not 'ALL':
             df = df[df[column_name].isin(columns_attributs)]
@@ -329,12 +348,21 @@ def dash():
         table_result=temp_rslt.to_html(classes=[
             'table m-0 table-primary table-colored table-bordered table-hover table-striped display'
         ]),
-        graphe=graph,
-        ids=graph['ids'],
-        graphe2=graph2,
-        ids2=graph2['ids'],
-        graphe3=graph3,
-        ids3=graph3['ids'],
+        pies = {'graphe':graph,
+                'ids':graph['ids'],
+                'total' : tot,
+                'tables_names' : tables_names
+                },
+        bars={'graphe2': graph2,
+              'ids2': graph2['ids'],
+              'total2': tot2,
+              'tables_names' : tables_names2
+              },
+        lines={'graphe3': graph3,
+              'ids3': graph3['ids'],
+              'total3': tot3,
+               'tables_names': tables_names3
+              },
         user=current_user)
 
 

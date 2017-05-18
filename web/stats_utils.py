@@ -127,8 +127,8 @@ class Graphs:
 
         # Add "ids" to each of the graphs to pass up to the client
         # for templating
-        # ids = ['graph-{}'.format(i) for i, _ in enumerate(graphs)]
-        ids = [dataframe.name for dataframe in dataframes]
+        ids = ['pie_graph-{}'.format(i) for i, _ in enumerate(graphs)]
+        # ids = [dataframe.name for dataframe in dataframes]
         graph_json = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
 
         return {'ids': ids, 'graph_json': graph_json}
@@ -173,7 +173,7 @@ class Graphs:
 
         # Add "ids" to each of the graphs to pass up to the client
         # for templating
-        ids = ['graph-{}'.format(i) for i, _ in enumerate(graphs)]
+        ids = ['bar_graph-{}'.format(i) for i, _ in enumerate(graphs)]
         graph_json = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
 
         # TODO use this
@@ -253,7 +253,7 @@ class Graphs:
 
         # Add "ids" to each of the graphs to pass up to the client
         # for templating
-        ids = ['graphee-{}'.format(i) for i, _ in enumerate(graphs)]
+        ids = ['line_graphe-{}'.format(i) for i, _ in enumerate(graphs)]
         graph_json = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
 
         # TODO use this
