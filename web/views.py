@@ -25,70 +25,6 @@ from .forms import LoginForm, QueryForm
 from .models import User
 
 
-class Nod:
-    """Class for maintaining dimensions hierarchies."""
-
-    # in pandas there is a problem with conversion multiindex dataframe to json
-    # to solve the export to excel problem we used a global variable
-    # TODO remove this , ( right know this is just a demo with sales cube )
-    CUBE = 'sales'
-    frame = pd.DataFrame()
-    ex = MdxEngine(CUBE)
-
-    log = Logs('all')
-    log_users = Logs('users')
-    log_mdx = Logs('mdx')
-
-    def __init__(self, text, id, parent):
-        self.text = text
-        self.id = id
-        self.parent = parent
-
-    def __str__(self):
-        return '''
-        {"id": "''' + str(self.id) + '''" ,"parent": "''' + str(
-            self.parent) + '''","text": "''' + str(self.text) + '''"}'''
-
-
-def generate_tree_levels():
-    """
-    Build table's levels to use them in the page's TreeView.
-
-    :return: dict of levels
-    """
-    levels = {}
-    for t in Nod.ex.tables_names:
-        if t != Nod.ex.facts:
-            df = Nod.ex.tables_loaded[t]
-            tree = Tree()
-            tree.create_node(t, t, data=t)
-
-            for c in df.columns[1:]:
-                for k, v in groupby(
-                        sorted((df.groupby(
-                            list(df.columns.values[
-                                0:df.columns.get_loc(c) + 1])).groups).keys()),
-                        key=itemgetter(*range(0, df.columns.get_loc(c)))):
-
-                    if type(k) not in [list, tuple]:
-                        tree.create_node(
-                            str(k), str(k), parent=t, data=str(k))  # root node
-                    for i in v:
-                        if isinstance(i, tuple):
-                            try:
-                                tree.create_node(
-                                    str(".".join(
-                                        ["[" + str(x) + "]" for x in i])),
-                                    str(i[-1]),
-                                    parent=str(k[-1])
-                                    if type(k) in [list, tuple] else str(k),
-                                    data=str(i[-1]))
-                            except DuplicatedNodeIdError:
-                                pass
-            levels.update({t: tree})
-    return levels
-
-
 @login_manager.user_loader
 def load_user(userid):
     """
@@ -103,7 +39,7 @@ def load_user(userid):
 @app.route('/index')
 @app.route('/')
 def index():
-    return redirect('/execute')
+    return redirect('/dashboard')
     # return render_template('execute_query.html',user=current_user)
 
 
@@ -117,9 +53,7 @@ def login():
         if user is not None and user.check_password(form.password.data):
             login_user(user, form.remember_me.data)
             # next to hold the the page that the user tries to visite
-            Nod.log.write_log('connected as ' + str(current_user.username))
-            Nod.log_users.write_log('connected as ' +
-                                    str(current_user.username))
+
             return redirect(
                 request.args.get('next') or
                 url_for('execute', user=current_user))
@@ -129,108 +63,8 @@ def login():
 
 @app.route('/logout')
 def logout():
-    Nod.log.write_log('logout as ' + str(current_user.username))
-    Nod.log_users.write_log('logout as ' + str(current_user.username))
     logout_user()
     return redirect(url_for('login'))
-
-
-@app.route('/execute', methods=['GET', 'POST'])
-@login_required
-def execute():
-    form = QueryForm()
-
-    # if we have a slow page load we have to com the line below
-    lvls = generate_tree_levels()
-    nods = {}
-    for t in Nod.ex.tables_names:
-        if t != Nod.ex.facts:
-            l_nods = []
-            for node in lvls[t].expand_tree(mode=Tree.DEPTH):
-                if lvls[t][node].fpointer:
-                    for x in lvls[t][node].fpointer:
-                        if node == t:
-                            parent = "#"
-                        else:
-                            parent = node
-                        nod = Nod(x, x, parent)
-                        l_nods.append(nod)
-            nods.update({t: l_nods})
-
-    if form.validate_on_submit():
-        query = form.mdx.data
-        Nod.log.write_log('Query : ' + str(query))
-        Nod.log_mdx.write_log('Query : ' + str(query))
-        Nod.ex.mdx_query = query
-        rslt = Nod.ex.execute_mdx()['result']
-        Nod.log.write_log('Query result :  ' + str(rslt))
-        Nod.log_mdx.write_log('Query result :  ' + str(rslt))
-
-        # we used a global variable which will contain the dataframe execution result
-        # because pandas current version has problem converting multiindex
-        # dataframe to json format
-        Nod.frame = rslt
-
-        if isinstance(rslt, DataFrame):
-            t_rslt = rslt.to_html(
-                classes=['table table-bordered table-hover table-striped'])
-        elif isinstance(rslt, Series):
-            t_rslt = rslt.to_frame().to_html(
-                classes=['table table-bordered table-hover table-striped'])
-
-        return render_template(
-            'execute_query.html',
-            user=current_user,
-            form=form,
-            t_result=t_rslt,
-            tables=Nod.ex.tables_loaded,
-            cube=Nod.CUBE,
-            measures=Nod.ex.measures,
-            hierarchies=nods)
-
-    return render_template(
-        'execute_query.html',
-        user=current_user,
-        form=form,
-        tables=Nod.ex.tables_loaded,
-        cube=Nod.CUBE,
-        measures=Nod.ex.measures,
-        hierarchies=nods)
-
-
-@app.route('/export', methods=['GET', 'POST'])
-@login_required
-def export():
-    if not Nod.frame.empty:
-        df = pd.DataFrame(Nod.frame)
-        Nod.log.write_log('Export :  ' + str(df))
-        Nod.log_mdx.write_log('Export :  ' + str(df))
-        output = BytesIO()
-        writer = pd.ExcelWriter(output, engine='xlsxwriter')
-        df.to_excel(writer, sheet_name='Sheet1')
-        workbook = writer.book
-        worksheet = writer.sheets["Sheet1"]
-        format = workbook.add_format()
-        format.set_bg_color('#eeeeee')
-        worksheet.set_column(0, 9, 28)
-        # the writer has done its job
-        writer.close()
-        # go back to the beginning of the stream
-        output.seek(0)
-        # finally return the file
-        return send_file(
-            output, attachment_filename="output.xlsx", as_attachment=True)
-
-    return redirect('/execute')
-
-
-@app.route('/export/<type>', methods=['GET', 'POST'])
-@login_required
-def export_file(type):
-    if Nod.log.root_path:
-        return send_file(
-            os.path.join(Nod.log.root_path, type + '.log'), as_attachment=True)
-    return redirect('/execute')
 
 def _construct_graphes(dashboard,executer):
     graph_gen = GraphsGen()
@@ -287,10 +121,11 @@ def _construct_graphes(dashboard,executer):
     return graphes
 
 
-@app.route('/dash', methods=['GET', 'POST'])
+@app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
-def dash():
+def dashboard():
 
+    # TODO use plotly dashboard !!!
 
     executer = MdxEngine('mpr')
     config = ConfigParser(executer.cube_path)
