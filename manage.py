@@ -1,6 +1,6 @@
 from __future__ import absolute_import, division, print_function
 
-from flask_script import Manager, prompt_bool
+from flask_script import Manager, prompt_bool, Server
 
 from web import app, db
 from web.models import User
@@ -26,5 +26,5 @@ def dropdb():
 
 
 if __name__ == '__main__':
-
+    manager.add_command('runserver', Server(host='0.0.0.0', port=5000))
     manager.run()

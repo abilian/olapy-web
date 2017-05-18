@@ -7,6 +7,7 @@ from itertools import groupby
 from operator import itemgetter
 
 import pandas as pd
+import numpy as np
 from flask import flash, redirect, render_template, request, send_file, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 from olapy.core.mdx.executor.execute import MdxEngine
@@ -19,7 +20,7 @@ from web.pivottable import pivot_ui
 
 from web import app, login_manager
 from web.logger import Logs
-from web.stats_utils import Graphs
+from web.stats_utils import GraphsGen
 from .forms import LoginForm, QueryForm
 from .models import User
 
@@ -231,138 +232,88 @@ def export_file(type):
             os.path.join(Nod.log.root_path, type + '.log'), as_attachment=True)
     return redirect('/execute')
 
+def _construct_graphes(dashboard,executer):
+    graph_gen = GraphsGen()
+    graphes = {}
+    star_dataframe = executer.get_star_schema_dataframe('web')
 
-@app.route('/stats', methods=['GET', 'POST'])
-@login_required
-def stats():
-    ex = MdxEngine(Nod.CUBE)
-    graph = Graphs()
+    for chart_type, chart_attributs in dashboard.__dict__.items():
+        all_dataframes = []
+        tables_names = []
+        total = {}
+        if chart_type == 'pie_charts':
+            for chart_table_column in chart_attributs:
+                total[chart_table_column] = star_dataframe[chart_table_column].value_counts().sum()
+                df = star_dataframe[chart_table_column].value_counts().to_frame().reset_index()
+                all_dataframes.append(df)
+                tables_names.append(chart_table_column)
 
-    columns = list(
-        itertools.chain.from_iterable([[column for column in df.columns]
-                                       for table_name, df in ex.tables_loaded.
-                                       items() if table_name != ex.facts]))
-    columns.append(ex.measures[0])
+            graphes['pie_charts'] = {'graphes': graph_gen.generate_pie_graphes(all_dataframes),
+                                     'totals': total,
+                                     'tables_names': tables_names}
 
-    temp_rslt = ex.load_star_schema_dataframe[columns].head(200)
-    # so we can export it to excel
-    Nod.frame = ex.load_star_schema_dataframe[columns]
-    graph = graph.generate_graphes(temp_rslt)
+        elif chart_type == 'bar_charts':
+            for measure in executer.measures:
+                total[measure] = star_dataframe[measure].sum()
+            for chart_table_column in chart_attributs:
+                df = star_dataframe[[chart_table_column] + executer.measures].groupby([chart_table_column]).sum().reset_index()
+                all_dataframes.append(df)
+                tables_names.append(chart_table_column)
 
-    return render_template(
-        'stats.html',
-        user=current_user,
-        table_result=temp_rslt.to_html(classes=[
-            'table table-bordered table-hover table-striped display'
-        ]),
-        graphe=graph,
-        ids=graph['ids'])
+
+            graphes['bar_charts'] = {'graphes': graph_gen.generate_bar_graphes(all_dataframes),
+                                     'totals': total,
+                                     'tables_names': tables_names}
+
+
+        elif chart_type == 'line_charts':
+            for measure in executer.measures:
+                total[measure] = star_dataframe[measure].sum()
+
+            for column_name, columns_attributs in chart_attributs.items():
+                df = star_dataframe[[column_name] + executer.measures].groupby([column_name]).sum().reset_index()
+
+                # filter columns to show
+                if columns_attributs is not 'ALL':
+                    df = df[df[column_name].isin(columns_attributs)]
+
+                tables_names.append(column_name)
+                all_dataframes.append(df)
+
+            graphes['line_charts'] = {'graphes': graph_gen.generate_line_graphes(all_dataframes),
+                                      'totals': total,
+                                      'tables_names': tables_names}
+
+    return graphes
 
 
 @app.route('/dash', methods=['GET', 'POST'])
 @login_required
 def dash():
-    ex = MdxEngine('mpr')
-    star_df = ex.get_star_schema_dataframe('web')
-    # temp_rslt = temp_rslt[ ['budget_total','subvention_totale']]
-    # temp_rslt = temp_rslt.groupby(['Pole leader', 'Type', 'Status', 'labelized', 'financed']).sum()[
-    #     ['budget_total', 'subvention_totale']]
-    # OU BIEN
-
-    import numpy as np
-    # margins = True ( prob )
-    conf = ConfigParser(ex.cube_path)
 
 
-    dash = conf.construct_web_dashboard()[0]
+    executer = MdxEngine('mpr')
+    config = ConfigParser(executer.cube_path)
+    dashboard = config.construct_web_dashboard()[0]
+    graphes = _construct_graphes(dashboard,executer)
 
-    temp_rslt = pd.pivot_table(star_df,
-                               values=ex.measures,
-                               index=dash.global_table['columns'],
-                               columns=dash.global_table['rows'], aggfunc=np.sum)
-
-    graph = Graphs()
-    # graph = graph.generate_graphes(ex.get_star_schema_dataframe('web')[['Status','budget_total']])
-
-    # star['Status'].value_counts().to_frame()
-
-    # for pie_chart in conf.construct_web_dashboard()[0].pie_charts:
-    #     print(pie_chart)
-
-    dfs = []
-    tot = []
-    tables_names = []
-    for pie_chart in conf.construct_web_dashboard()[0].pie_charts:
-        df = star_df[pie_chart].value_counts().to_frame().reset_index()
-        df.name = pie_chart
-        dfs.append(df)
-        tables_names.append(pie_chart)
-        tot.append(star_df[pie_chart].value_counts().sum())
-
-    graph = graph.generate_pie_graphes(dfs)
-
-    dfs2 = []
-    graph2 = Graphs()
-    tot2 = {}
-    tables_names2 = []
-    for mes in ex.measures:
-        tot2[mes] = star_df[mes].sum()
-
-    for bar_chart in conf.construct_web_dashboard()[0].bar_chats:
-        df = star_df[[bar_chart] + ex.measures].groupby([bar_chart]).sum().reset_index()
-        tables_names2.append(bar_chart)
-        df.name = bar_chart
-        dfs2.append(df)
+    # todo margins = True ( prob )
+    pivote_table_df = pd.pivot_table(executer.get_star_schema_dataframe('web'),
+                               values=executer.measures,
+                               index=dashboard.global_table['columns'],
+                               columns=dashboard.global_table['rows'], aggfunc=np.sum)
 
 
-
-    graph2 = graph2.generate_bar_graphes(dfs2)
-    # graph2.update({'totale':tot})
-
-    dfs3 = []
-    tot3 = {}
-    graph3 = Graphs()
-    tables_names3 = []
-    for mes in ex.measures:
-        tot3[mes] = star_df[mes].sum()
-    for column_name,columns_attributs in conf.construct_web_dashboard()[0].line_charts.items():
-        df = star_df[[column_name] + ex.measures].groupby([column_name]).sum().reset_index()
-
-        tables_names3.append(column_name)
-
-        df.name = column_name
-        if columns_attributs is not 'ALL':
-            df = df[df[column_name].isin(columns_attributs)]
-        dfs3.append(df)
-
-        # df2 = star[['annee_immatriculation', 'budget_total']].groupby(['annee_immatriculation']).sum().reset_index()
-        # df2[['annee_immatriculation']] = df2[['annee_immatriculation']].astype(np.int)
-
-        # df2[df2['annee_immatriculation'].isin([1954, 2000])]
-
-    graph3 = graph3.generate_line_graphes(dfs3)
 
 
     return render_template(
         'dash.html',
-        table_result=temp_rslt.to_html(classes=[
+        table_result=pivote_table_df.to_html(classes=[
             'table m-0 table-primary table-colored table-bordered table-hover table-striped display'
         ]),
-        pies = {'graphe':graph,
-                'ids':graph['ids'],
-                'total' : tot,
-                'tables_names' : tables_names
-                },
-        bars={'graphe2': graph2,
-              'ids2': graph2['ids'],
-              'total2': tot2,
-              'tables_names' : tables_names2
-              },
-        lines={'graphe3': graph3,
-              'ids3': graph3['ids'],
-              'total3': tot3,
-               'tables_names': tables_names3
-              },
+        pies=graphes['pie_charts'],
+        bars=graphes['bar_charts'],
+        lines=graphes['line_charts'],
         user=current_user)
 
 
