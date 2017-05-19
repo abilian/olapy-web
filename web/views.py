@@ -66,10 +66,11 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
-def _construct_graphes(dashboard,executer):
+
+def _construct_charts(dashboard, executer):
     graph_gen = GraphsGen()
     graphes = {}
-    star_dataframe = executer.get_star_schema_dataframe('web')
+    star_dataframe = executer.get_star_schema_dataframe()
 
     for chart_type, chart_attributs in dashboard.__dict__.items():
         all_dataframes = []
@@ -90,10 +91,10 @@ def _construct_graphes(dashboard,executer):
             for measure in executer.measures:
                 total[measure] = star_dataframe[measure].sum()
             for chart_table_column in chart_attributs:
-                df = star_dataframe[[chart_table_column] + executer.measures].groupby([chart_table_column]).sum().reset_index()
+                df = star_dataframe[[chart_table_column] + executer.measures].groupby(
+                    [chart_table_column]).sum().reset_index()
                 all_dataframes.append(df)
                 tables_names.append(chart_table_column)
-
 
             graphes['bar_charts'] = {'graphes': graph_gen.generate_bar_graphes(all_dataframes),
                                      'totals': total,
@@ -124,22 +125,21 @@ def _construct_graphes(dashboard,executer):
 @app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def dashboard():
-
     # TODO use plotly dashboard !!!
 
-    executer = MdxEngine('mpr')
+    executer = MdxEngine('mpr', client_type='web')
     config = ConfigParser(executer.cube_path)
     dashboard = config.construct_web_dashboard()[0]
-    graphes = _construct_graphes(dashboard,executer)
+    graphes = _construct_charts(dashboard, executer)
 
     # todo margins = True ( prob )
-    pivote_table_df = pd.pivot_table(executer.get_star_schema_dataframe('web'),
-                               values=executer.measures,
-                               index=dashboard.global_table['columns'],
-                               columns=dashboard.global_table['rows'], aggfunc=np.sum)
+    pivote_table_df = pd.pivot_table(executer.get_star_schema_dataframe(),
+                                     values=executer.measures,
+                                     index=dashboard.global_table['columns'],
+                                     columns=dashboard.global_table['rows'], aggfunc=np.sum)
 
     return render_template(
-        'dash.html',
+        'dashboard.html',
         table_result=pivote_table_df.to_html(classes=[
             'table m-0 table-primary table-colored table-bordered table-hover table-striped display'
         ]),
@@ -149,20 +149,14 @@ def dashboard():
         user=current_user)
 
 
-@app.route('/logs', methods=['GET', 'POST'])
-@login_required
-def logs():
-    return render_template('logs.html', user=current_user)
-
-
 @app.route('/query_builder', methods=['GET', 'POST'])
 @login_required
 def query_builder():
     # df = Nod.ex.load_star_schema_dataframe
     # if not df.empty:
 
-    executer = MdxEngine('mpr')
-    df = executer.get_star_schema_dataframe(client_type='web')
+    executer = MdxEngine('mpr', client_type='web')
+    df = executer.get_star_schema_dataframe()
 
     if not df.empty:
         pivot_ui(
