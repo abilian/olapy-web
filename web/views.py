@@ -1,25 +1,15 @@
 from __future__ import absolute_import, division, print_function
 
-import itertools
-import os
-from io import BytesIO
-from itertools import groupby
-from operator import itemgetter
-
 import pandas as pd
 import numpy as np
 from flask import flash, redirect, render_template, request, send_file, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 from olapy.core.mdx.executor.execute import MdxEngine
 from olapy.core.mdx.tools.config_file_parser import ConfigParser
-from pandas import DataFrame, Series
-from treelib import Tree
-from treelib.tree import DuplicatedNodeIdError
 
 from web.pivottable import pivot_ui
 
 from web import app, login_manager
-from web.logger import Logs
 from web.stats_utils import GraphsGen
 from .forms import LoginForm, QueryForm
 from .models import User
@@ -56,7 +46,7 @@ def login():
 
             return redirect(
                 request.args.get('next') or
-                url_for('execute', user=current_user))
+                url_for('dashboard', user=current_user))
         flash('incorrect username or password')
     return render_template('login.html', form=form, user=current_user)
 
