@@ -10,44 +10,16 @@
 
 {% block css_imp %}
 
-    <link href="{{ url_for('static',filename='dash_css_js/morris.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='dash_css_js/bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='dash_css_js/core.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='dash_css_js/components.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='dash_css_js/icons.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='dash_css_js/pages.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='dash_css_js/menu.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='dash_css_js/responsive.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='dash_css_js/modernizr.css') }}" rel="stylesheet">
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
+    <link href="{{ url_for('static',filename='css/dash/css/core.css') }}" rel="stylesheet">
 
-<style type="text/css">.jqstooltip {
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    visibility: hidden;
-    background: rgb(0, 0, 0) transparent;
-    background-color: rgba(0, 0, 0, 0.6);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
-    color: white;
-    font: 10px arial, san serif;
-    text-align: left;
-    white-space: nowrap;
-    padding: 5px;
-    border: 1px solid white;
-    z-index: 10000;
-}
+    <style>
 
-.jqsfield {
-    color: white;
-    font: 10px arial, san serif;
-    text-align: left;
-}</style>
+        th {
 
+            background-color: #31b0d5;
+            color: white;
+        }
+    </style>
 
 {% endblock %}
 
@@ -56,34 +28,8 @@
 
 {#<div class="wrapper">#}
     <div class="container">
-{##}
-{#        <!-- Page-Title -->#}
-{#        <div class="row">#}
-{#            <div class="col-sm-12">#}
-{#                <div class="page-title-box">#}
-{#                    <div class="btn-group pull-right">#}
-{#                        <ol class="breadcrumb hide-phone p-0 m-0">#}
-{#                            <li>#}
-{#                                <a href="#">Adminox</a>#}
-{#                            </li>#}
-{#                            <li>#}
-{#                                <a href="#">Pages</a>#}
-{#                            </li>#}
-{#                            <li class="active">#}
-{#                                Starter Page#}
-{#                            </li>#}
-{#                        </ol>#}
-{#                    </div>#}
-{#                    <h4 class="page-title">Starter Page</h4>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#        <!-- end page title end breadcrumb -->#}
-
 
         <div class="row">
-{#            <div class="col-lg-8">#}
-
 
                 <div class="row">
 
@@ -99,15 +45,6 @@
 
                                 <div class="wigdet-four-content pull-left">
 
-{#                                    <h4 class="m-t-0 font-16 m-b-5 text-overflow" title="Number of Transactions">#}
-{#                                        {{  pies['tables_names'][index - 1].replace('_',' ').title() }}#}
-{##}
-{##}
-{#                                    </h4>#}
-
-
-{#                                    <p class="font-secondary text-muted">Jan - Apr 2017</p>#}
-
                                     <h3 class="m-b-0 m-t-20"><span>Total : </span> <span data-plugin="counterup"> {{ pies['totals'].values()[index - 1] }}</span>
                                     </h3>
                                 </div>
@@ -120,7 +57,6 @@
                             </div>
                         </div>
                         <!-- end col -->
-
 
                     {% endfor %}
 
@@ -199,7 +135,6 @@
         </div>
         <!-- end row -->
 
-
         <div class="row">
             <div class="col-sm-12">
                 <div class="card-box">
@@ -209,8 +144,8 @@
                     {# </p>#}
 
                     <div class="table-responsive">
-                        {{ table_result | safe }}
 
+                        {{ table_result | safe }}
 
                     </div>
 
@@ -234,37 +169,14 @@
 {#        <!-- End Footer -->#}
 
 
-
-
-
     </div> <!-- end container -->
 {#</div>#}
 <!-- end wrapper -->
 
 
-
 {% endblock %}
 
 {% block js_t %}
-<script src="{{ url_for('static',filename='dash_css_js/jquery_004.js') }}"></script>
-<script src="{{ url_for('static',filename='dash_css_js/bootstrap.js') }}"></script>
-<script src="{{ url_for('static',filename='dash_css_js/waves.js') }}"></script>
-<script src="{{ url_for('static',filename='dash_css_js/jquery_007.js') }}"></script>
-<script src="{{ url_for('static',filename='dash_css_js/jquery_002.js') }}"></script>
-<script src="{{ url_for('static',filename='dash_css_js/jquery_003.js') }}"></script>
-<script src="{{ url_for('static',filename='dash_css_js/jquery_006.js') }}"></script>
-<script src="{{ url_for('static',filename='dash_css_js/excanvas.js') }}"></script>
-<script src="{{ url_for('static',filename='dash_css_js/jquery_010.js') }}"></script>
-<script src="{{ url_for('static',filename='dash_css_js/morris.js') }}"></script>
-<script src="{{ url_for('static',filename='dash_css_js/raphael-min.js') }}"></script>
-<script src="{{ url_for('static',filename='dash_css_js/jquery_008.js') }}"></script>
-<script src="{{ url_for('static',filename='dash_css_js/jquery_009.js') }}"></script>
-<script src="{{ url_for('static',filename='dash_css_js/jquery_005.js') }}"></script>
-<script src="{{ url_for('static',filename='dash_css_js/jquery.js') }}"></script>
-
-
-
-<script src="{{ url_for('static',filename='js/d3.min') }}"></script>
 <script src="{{ url_for('static',filename='js/plotly-basic.js') }}"></script>
 
 
@@ -303,9 +215,7 @@
                     line_graphes[i].layout || {});
         }
 
-
     </script>
-
 
 
 {% endblock %}
