@@ -2,7 +2,7 @@ from __future__ import absolute_import, division, print_function
 
 import pandas as pd
 import numpy as np
-from flask import flash, redirect, render_template, request, send_file, url_for
+from flask import flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 from olapy.core.mdx.executor.execute import MdxEngine
 from olapy.core.mdx.tools.config_file_parser import ConfigParser
@@ -11,7 +11,7 @@ from web.pivottable import pivot_ui
 
 from web import app, login_manager
 from web.stats_utils import GraphsGen
-from .forms import LoginForm, QueryForm
+from .forms import LoginForm
 from .models import User
 
 
