@@ -1,16 +1,20 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, division, print_function
 
+import os
+
 from pip.download import PipSession
 from pip.req import parse_requirements
 from setuptools import find_packages, setup
+
+
 
 session = PipSession()
 _install_requires = parse_requirements('requirements.txt', session=session)
 install_requires = [str(ir.req) for ir in _install_requires]
 
 setup(
-    name='olapy-web',
+    name='olapy_web',
     version="0.0.1",
     packages=find_packages(),
     author="Abilian SAS",
@@ -29,3 +33,10 @@ setup(
         "Programming Language :: Python :: 2.7",
         # "Topic :: Business intelligence",
     ],)
+
+os.system('pip install -e git+https://github.com/abilian/olapy.git@ab2a5d44e89aa055c9ac6c7d201284eca39a63f3#egg=olapy')
+try:
+    from olapy_web.manage import initdb
+    initdb()
+except:
+    raise ('unable to create users !')

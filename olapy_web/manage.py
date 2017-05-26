@@ -2,8 +2,8 @@ from __future__ import absolute_import, division, print_function
 
 from flask_script import Manager, prompt_bool, Server
 
-from web import app, db
-from web.models import User
+from .web import app, db
+from .web.models import User
 
 manager = Manager(app)
 
