@@ -149,11 +149,11 @@ def query_builder():
 
     executer = MdxEngine('mpr', client_type='web')
     df = executer.get_star_schema_dataframe()
-
+    import os
     if not df.empty:
         pivot_ui(
             df,
-            outfile_path="web/templates/pivottablejs.html",
+            outfile_path=os.path.join(os.path.dirname(os.path.abspath(__file__)),'templates','pivottablejs.html'),
             height="100%")
 
     return render_template('query_builder.html', user=current_user)
