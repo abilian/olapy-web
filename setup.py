@@ -2,6 +2,7 @@
 from __future__ import absolute_import, division, print_function
 
 import os
+from os.path import expanduser
 
 from pip.download import PipSession
 from pip.req import parse_requirements
@@ -34,9 +35,13 @@ setup(
         # "Topic :: Business intelligence",
     ],)
 
+# TODO temp
 os.system('pip install -e git+https://github.com/abilian/olapy.git@ab2a5d44e89aa055c9ac6c7d201284eca39a63f3#egg=olapy')
-try:
-    from olapy_web.manage import initdb
-    initdb()
-except:
-    raise ('unable to create users !')
+
+basedir = expanduser('~')
+if not os.path.isfile(os.path.join(basedir,'olapy-data','olapy.db')):
+    try:
+        from olapy_web.manage import initdb
+        initdb()
+    except:
+        raise ('unable to create users !')

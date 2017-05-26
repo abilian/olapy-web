@@ -1,5 +1,3 @@
-include *.rst *.txt *.ini *.py *.cfg *.yml
-recursive-include olapy *
-prune tmp
-prune instance
-prune .git
+include *.rst *.txt *.ini *.py *.cfg *.yml *.html
+recursive-include web/static *
+recursive-include web/templates *
