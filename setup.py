@@ -40,8 +40,8 @@ os.system('pip install -e git+https://github.com/abilian/olapy.git@b0e89794d508b
 
 basedir = expanduser('~')
 if not os.path.isfile(os.path.join(basedir,'olapy-data','olapy.db')):
-    try:
-        from manage import initdb
-        initdb()
-    except:
-        raise ('unable to create users !')
+    #try:
+    from manage import initdb
+    initdb()
+    #except:
+     #   raise ('unable to create users !')
