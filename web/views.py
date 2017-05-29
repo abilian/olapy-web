@@ -119,8 +119,8 @@ def dashboard():
     import numpy as np
     # TODO use plotly dashboard !!!
 
-    executer = MdxEngine('mpr', client_type='web')
-    config = ConfigParser(executer.cube_path)
+    config = ConfigParser()
+    executer = MdxEngine(config.get_cubes_names(client_type='web').keys()[0], client_type='web')
     dashboard = config.construct_web_dashboard()[0]
     graphes = _construct_charts(dashboard, executer)
 

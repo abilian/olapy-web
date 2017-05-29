@@ -36,7 +36,7 @@ setup(
     ],)
 
 # TODO temp
-os.system('pip install -e git+https://github.com/abilian/olapy.git@ab2a5d44e89aa055c9ac6c7d201284eca39a63f3#egg=olapy')
+os.system('pip install -e git+https://github.com/abilian/olapy.git@558111fe0d303c1dc6eeefd412cd9012dd0d7747#egg=olapy')
 
 basedir = expanduser('~')
 if not os.path.isfile(os.path.join(basedir,'olapy-data','olapy.db')):
