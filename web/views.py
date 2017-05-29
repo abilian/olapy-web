@@ -146,8 +146,8 @@ def dashboard():
 def query_builder():
     # df = Nod.ex.load_star_schema_dataframe
     # if not df.empty:
-
-    executer = MdxEngine('mpr', client_type='web')
+    config = ConfigParser()
+    executer = MdxEngine(config.get_cubes_names(client_type='web').keys()[0], client_type='web')
     df = executer.get_star_schema_dataframe()
     import os
     if not df.empty:
