@@ -44,18 +44,18 @@ os.system('pip install -e git+https://github.com/abilian/olapy.git@b0e89794d508b
 
 basedir = expanduser('~')
 if not os.path.isfile(os.path.join(basedir,'olapy-data','olapy.db')):
-    try:
+    # try:
         # from manage import initdb
         # initdb()
-        from web.models import User
+    from web.models import User
 
-        from web import db
-        db.create_all()
-        db.session.add(
-            User(username="admin", email="admin@admin.com", password='admin'))
-        db.session.add(
-            User(username="demo", email="demo@demo.com", password="demo"))
-        db.session.commit()
-        print('Initialized the database')
-    except:
-        raise ('unable to create users !')
+    from web import db
+    db.create_all()
+    db.session.add(
+        User(username="admin", email="admin@admin.com", password='admin'))
+    db.session.add(
+        User(username="demo", email="demo@demo.com", password="demo"))
+    db.session.commit()
+    print('Initialized the database')
+    # except:
+    #     raise ('unable to create users !')
