@@ -10,3 +10,6 @@ Flask-SQLAlchemy==2.1
 Flask-WTF==0.12
 plotly<3
 XlsxWriter==0.9.3
+
+# OlaPy Core
+-e git+git://github.com/abilian/olapy.git@41fa8aafa6b5804c1f9fb006f5eee81b809ee42c#egg=olapy
