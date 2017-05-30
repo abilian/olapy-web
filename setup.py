@@ -19,6 +19,12 @@ class PostDevelopCommand(develop):
         # PUT YOUR PRE-INSTALL SCRIPT HERE or CALL A FUNCTION
         print('111111111111111111111111')
         develop.run(self)
+
+        basedir = expanduser('~')
+        if not os.path.isfile(os.path.join(basedir, 'olapy-data', 'olapy.db')):
+            # try:
+            from manage import initdb
+            initdb()
         # PUT YOUR POST-INSTALL SCRIPT HERE or CALL A FUNCTION
 
 class PostInstallCommand(install):
@@ -27,6 +33,12 @@ class PostInstallCommand(install):
         # PUT YOUR PRE-INSTALL SCRIPT HERE or CALL A FUNCTION
         print('2222222222222222222222222')
         install.run(self)
+
+        basedir = expanduser('~')
+        if not os.path.isfile(os.path.join(basedir, 'olapy-data', 'olapy.db')):
+            # try:
+            from manage import initdb
+            initdb()
         # PUT YOUR POST-INSTALL SCRIPT HERE or CALL A FUNCTION
 
 
@@ -67,12 +79,12 @@ install_requires = [str(ir.req) for ir in _install_requires]
 
 # TODO temp
 # os.system('pip install -e git+https://github.com/abilian/olapy.git@b0e89794d508b20c8d2abe60311f5f735be3aa8c#egg=olapy')
-
-basedir = expanduser('~')
-if not os.path.isfile(os.path.join(basedir,'olapy-data','olapy.db')):
-    # try:
-    from manage import initdb
-    initdb()
+#
+# basedir = expanduser('~')
+# if not os.path.isfile(os.path.join(basedir,'olapy-data','olapy.db')):
+#     # try:
+#     from manage import initdb
+#     initdb()
     # from web.models import User
     #
     # from web import db
