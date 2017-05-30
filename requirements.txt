@@ -4,7 +4,7 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
--e git+git://github.com/abilian/olapy.git@1a74ee32ea8b53f0a62750dfa3827a82436686b0#egg=olapy
+-e git+git://github.com/abilian/olapy.git@18470cf99070492d42e2349059afec9998080fa1#egg=olapy
 certifi==2017.4.17        # via requests
 chardet==3.0.3            # via requests
 click==6.7                # via flask
