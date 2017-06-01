@@ -119,5 +119,5 @@ def pivot_ui(df, outfile_path="pivottablejs.html", width="100%", height="500"):
     :return: IFrame (html page) that can be injected to other html page
     """
     with open(outfile_path, 'w') as outfile:
-        outfile.write(template % df.to_csv())
+        outfile.write(template % df.to_csv(encoding="utf-8"))
     return IFrame(src=outfile_path, width=width, height=height)
