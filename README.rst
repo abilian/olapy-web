@@ -25,6 +25,8 @@ Installation
 
 To set up the application, run, ideally in a virtualenv::
 
+    (if server production deployment : pip install -r requirements.txt before python setup.py install)
+
     python setup.py install
 
 or just::
