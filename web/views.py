@@ -4,11 +4,10 @@ from __future__ import absolute_import, division, print_function
 
 from flask import flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
-from olapy.core.mdx.executor.execute import MdxEngine
-from olapy.core.mdx.tools.config_file_parser import ConfigParser
 
 from .pivottable import pivot_ui
-
+import pandas as pd
+import numpy as np
 from . import app, login_manager
 from .stats_utils import GraphsGen
 from .forms import LoginForm
@@ -115,8 +114,8 @@ def _construct_charts(dashboard, executer):
 @app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def dashboard():
-    import pandas as pd
-    import numpy as np
+    from olapy.core.mdx.executor.execute import MdxEngine
+    from olapy.core.mdx.tools.config_file_parser import ConfigParser
     # TODO use plotly dashboard !!!
 
     config = ConfigParser()
@@ -146,6 +145,9 @@ def dashboard():
 def query_builder():
     # df = Nod.ex.load_star_schema_dataframe
     # if not df.empty:
+    from olapy.core.mdx.executor.execute import MdxEngine
+    from olapy.core.mdx.tools.config_file_parser import ConfigParser
+
     config = ConfigParser()
     executer = MdxEngine(config.get_cubes_names(client_type='web').keys()[0], client_type='web')
     df = executer.get_star_schema_dataframe()
