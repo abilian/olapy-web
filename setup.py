@@ -68,6 +68,8 @@ setup(
 
 
 from web import app
+# os.environ['OLAPY_PATH'] = app.instance_path
+os.system("export OLAPY_PATH=" + app.instance_path + " ")
 os.environ['OLAPY_PATH'] = app.instance_path
 os.system('pip install -e file:///home/mouadh/PycharmProjects/olapy/olapy')
 
