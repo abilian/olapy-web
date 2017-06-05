@@ -37,10 +37,11 @@ setup(
 
 from web import app
 # TODO if server deployment do this
-os.system('export OLAPY_PATH=' + app.instance_path + ' ')
+# os.system('export OLAPY_PATH=' + app.instance_path + ' ')
 os.environ['OLAPY_PATH'] = app.instance_path
-os.system('pip install -e file:///home/mouadh/PycharmProjects/olapy/olapy')
 
+# os.system('pip install -e file:///home/mouadh/PycharmProjects/olapy/olapy')
+os.system('pip install -e git+https://github.com/abilian/olapy-web.git@93df06cda679491e11178dedfee6aa657965890e#egg=olapy_web')
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.environ['OLAPY_PATH'],'olapy-data',
 #                                                                     'olapy.db')
 # if not os.path.isfile(os.path.join(os.environ['OLAPY_PATH'], 'olapy-data', 'olapy.db')):
