@@ -32,9 +32,9 @@ class PostDevelopCommand(develop):
         #                                                                     'olapy.db')
         # if not os.path.isfile(os.path.join(os.environ['OLAPY_PATH'], 'olapy-data', 'olapy.db')):
 
-        zip_ref = zipfile.ZipFile('cubes_templates/cubes_temp.zip', 'r')
-        zip_ref.extractall(os.path.join(app.instance_path, 'olapy-data', 'cubes'))
-        zip_ref.close()
+        # zip_ref = zipfile.ZipFile('cubes_templates/cubes_temp.zip', 'r')
+        # zip_ref.extractall(os.path.join(app.instance_path, 'olapy-data', 'cubes'))
+        # zip_ref.close()
 
         if not os.path.isfile(os.path.join(app.instance_path, 'olapy-data', 'olapy.db')):
             from manage import initdb
@@ -60,9 +60,9 @@ class PostInstallCommand(install):
         # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.environ['OLAPY_PATH'],'olapy-data',
         #                                                                     'olapy.db')
         # if not os.path.isfile(os.path.join(os.environ['OLAPY_PATH'], 'olapy-data', 'olapy.db')):
-        zip_ref = zipfile.ZipFile('cubes_templates/cubes_temp.zip', 'r')
-        zip_ref.extractall(os.path.join(app.instance_path, 'olapy-data', 'cubes'))
-        zip_ref.close()
+        # zip_ref = zipfile.ZipFile('cubes_templates/cubes_temp.zip', 'r')
+        # zip_ref.extractall(os.path.join(app.instance_path, 'olapy-data', 'cubes'))
+        # zip_ref.close()
 
         if not os.path.isfile(os.path.join(app.instance_path, 'olapy-data', 'olapy.db')):
             from manage import initdb
