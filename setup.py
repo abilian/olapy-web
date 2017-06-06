@@ -24,9 +24,10 @@ class PostDevelopCommand(develop):
         os.environ['OLAPY_PATH'] = app.instance_path
 
         # KEEP !! so we can inject the instance_path
+        # todo fix 2 olapy installation
         # os.system('pip install -e file:///home/mouadh/PycharmProjects/olapy/olapy')
         os.system(
-            'pip install -e git+https://github.com/abilian/olapy.git@060e3281bad33fea9f5beedb916c2014586347f3#egg=olapy')
+            'pip install -e git+https://github.com/abilian/olapy.git@627438ac626536d4aca38664ad0895f118a7fe2e#egg=olapy')
         # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.environ['OLAPY_PATH'],'olapy-data',
         #                                                                     'olapy.db')
         # if not os.path.isfile(os.path.join(os.environ['OLAPY_PATH'], 'olapy-data', 'olapy.db')):
@@ -34,7 +35,6 @@ class PostDevelopCommand(develop):
         zip_ref = zipfile.ZipFile('cubes_templates/cubes_temp.zip', 'r')
         zip_ref.extractall(os.path.join(app.instance_path, 'olapy-data', 'cubes'))
         zip_ref.close()
-
 
         if not os.path.isfile(os.path.join(app.instance_path, 'olapy-data', 'olapy.db')):
             from manage import initdb
@@ -51,13 +51,12 @@ class PostInstallCommand(install):
         # TODO if server deployment do this
         os.system('export OLAPY_PATH=' + app.instance_path + ' ')
         os.environ['OLAPY_PATH'] = app.instance_path
-        # with open('/home/mouadh/file1.txt',mode='w+') as f:
-        #     f.write(str(app.instance_path))
 
         # KEEP !! so we can inject the instance_path
+        # todo fix 2 olapy installation
         # os.system('pip install -e file:///home/mouadh/PycharmProjects/olapy/olapy')
         os.system(
-            'pip install -e git+https://github.com/abilian/olapy.git@060e3281bad33fea9f5beedb916c2014586347f3#egg=olapy')
+            'pip install -e git+https://github.com/abilian/olapy.git@627438ac626536d4aca38664ad0895f118a7fe2e#egg=olapy')
         # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.environ['OLAPY_PATH'],'olapy-data',
         #                                                                     'olapy.db')
         # if not os.path.isfile(os.path.join(os.environ['OLAPY_PATH'], 'olapy-data', 'olapy.db')):
@@ -68,7 +67,6 @@ class PostInstallCommand(install):
         if not os.path.isfile(os.path.join(app.instance_path, 'olapy-data', 'olapy.db')):
             from manage import initdb
             initdb()
-            # PUT YOUR POST-INSTALL SCRIPT HERE or CALL A FUNCTION
 
 
 
@@ -100,20 +98,3 @@ setup(
         "Programming Language :: Python :: 2.7",
         # "Topic :: Business intelligence",
     ],)
-#
-# from web import app
-# # TODO if server deployment do this
-# os.system('export OLAPY_PATH=' + app.instance_path + ' ')
-# os.environ['OLAPY_PATH'] = app.instance_path
-#
-# with open('/home/mouadh/file2.txt', mode='w+') as f:
-#     f.write(str(app.instance_path))
-#
-# os.system('pip install -e file:///home/mouadh/PycharmProjects/olapy/olapy')
-# # os.system('pip install -e git+https://github.com/abilian/olapy.git@93df06cda679491e11178dedfee6aa657965890e#egg=olapy')
-# # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.environ['OLAPY_PATH'],'olapy-data',
-# #                                                                     'olapy.db')
-# # if not os.path.isfile(os.path.join(os.environ['OLAPY_PATH'], 'olapy-data', 'olapy.db')):
-# if not os.path.isfile(os.path.join(app.instance_path, 'olapy-data', 'olapy.db')):
-#     from manage import initdb
-#     initdb()

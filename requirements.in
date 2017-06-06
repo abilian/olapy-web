@@ -1,6 +1,4 @@
 
-#-e  file:///home/mouadh/PycharmProjects/olapy/olapy/
-
 
 # Web
 Flask
@@ -15,3 +13,7 @@ Flask-WTF==0.12
 plotly<3
 pandas
 #XlsxWriter==0.9.3
+
+
+#-e  file:///home/mouadh/PycharmProjects/olapy/olapy/
+-e git+https://github.com/abilian/olapy.git@627438ac626536d4aca38664ad0895f118a7fe2e#egg=olapy
