@@ -21,9 +21,9 @@ class PostDevelopCommand(develop):
         # TODO if server deployment do this
         os.system('export OLAPY_PATH=' + app.instance_path + ' ')
         os.environ['OLAPY_PATH'] = app.instance_path
-
-        with open('/home/mouadh/file3.txt',mode='w+') as f:
-            f.write(str(app.instance_path))
+        #
+        # with open('/home/mouadh/file3.txt',mode='w+') as f:
+        #     f.write(str(app.instance_path))
 
         # os.system('pip install -e file:///home/mouadh/PycharmProjects/olapy/olapy')
         os.system(
@@ -47,8 +47,8 @@ class PostInstallCommand(install):
         os.system('export OLAPY_PATH=' + app.instance_path + ' ')
         os.environ['OLAPY_PATH'] = app.instance_path
 
-        with open('/home/mouadh/file1.txt',mode='w+') as f:
-            f.write(str(app.instance_path))
+        # with open('/home/mouadh/file1.txt',mode='w+') as f:
+        #     f.write(str(app.instance_path))
 
         # os.system('pip install -e file:///home/mouadh/PycharmProjects/olapy/olapy')
         os.system(
