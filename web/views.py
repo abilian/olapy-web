@@ -8,6 +8,7 @@ from flask_login import current_user, login_required, login_user, logout_user
 from .pivottable import pivot_ui
 import pandas as pd
 import numpy as np
+import os
 from . import app, login_manager
 from .stats_utils import GraphsGen
 from .forms import LoginForm
@@ -117,9 +118,13 @@ def dashboard():
     from olapy.core.mdx.executor.execute import MdxEngine
     from olapy.core.mdx.tools.config_file_parser import ConfigParser
     # TODO use plotly dashboard !!!
+    cubes_path = os.path.join(app.instance_path,'olapy-data','cubes')
+    MdxEngine.DATA_FOLDER = os.path.join(app.instance_path,'olapy-data')
 
-    config = ConfigParser()
-    executer = MdxEngine(config.get_cubes_names(client_type='web').keys()[0], client_type='web')
+    config = ConfigParser(cube_path=cubes_path)
+    executer = MdxEngine(cube_name=config.get_cubes_names(client_type='web').keys()[0],
+                         cubes_path=cubes_path,
+                         client_type='web')
     dashboard = config.construct_web_dashboard()[0]
     graphes = _construct_charts(dashboard, executer)
 
@@ -148,10 +153,15 @@ def query_builder():
     from olapy.core.mdx.executor.execute import MdxEngine
     from olapy.core.mdx.tools.config_file_parser import ConfigParser
 
-    config = ConfigParser()
-    executer = MdxEngine(config.get_cubes_names(client_type='web').keys()[0], client_type='web')
+    cubes_path = os.path.join(app.instance_path,'olapy-data','cubes')
+    MdxEngine.DATA_FOLDER = os.path.join(app.instance_path,'olapy-data')
+
+    config = ConfigParser(cube_path=cubes_path)
+    executer = MdxEngine(cube_name=config.get_cubes_names(client_type='web').keys()[0],
+                         cubes_path=cubes_path,
+                         client_type='web')
+
     df = executer.get_star_schema_dataframe()
-    import os
     if not df.empty:
         pivot_ui(
             df,
