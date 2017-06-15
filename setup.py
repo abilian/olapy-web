@@ -27,7 +27,9 @@ class PostDevelopCommand(develop):
         # todo fix 2 olapy installation
         # os.system('pip install -e file:///home/mouadh/PycharmProjects/olapy/olapy')
         os.system(
-            'pip install -e git+https://github.com/abilian/olapy.git@627438ac626536d4aca38664ad0895f118a7fe2e#egg=olapy')
+            'pip install -e git+https://github.com/abilian/olapy.git@52962cefc005c712a0e8157bb1a6367e590995d6#egg=olapy')
+        # os.system(
+        #     'pip install -e git+https://github.com/abilian/olapy.git@627438ac626536d4aca38664ad0895f118a7fe2e#egg=olapy')
         # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.environ['OLAPY_PATH'],'olapy-data',
         #                                                                     'olapy.db')
         # if not os.path.isfile(os.path.join(os.environ['OLAPY_PATH'], 'olapy-data', 'olapy.db')):
@@ -56,7 +58,9 @@ class PostInstallCommand(install):
         # todo fix 2 olapy installation
         # os.system('pip install -e file:///home/mouadh/PycharmProjects/olapy/olapy')
         os.system(
-            'pip install -e git+https://github.com/abilian/olapy.git@627438ac626536d4aca38664ad0895f118a7fe2e#egg=olapy')
+            'pip install -e git+https://github.com/abilian/olapy.git@52962cefc005c712a0e8157bb1a6367e590995d6#egg=olapy')
+        # os.system(
+        #     'pip install -e git+https://github.com/abilian/olapy.git@627438ac626536d4aca38664ad0895f118a7fe2e#egg=olapy')
         # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.environ['OLAPY_PATH'],'olapy-data',
         #                                                                     'olapy.db')
         # if not os.path.isfile(os.path.join(os.environ['OLAPY_PATH'], 'olapy-data', 'olapy.db')):
