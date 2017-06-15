@@ -4,8 +4,8 @@ import click
 from flask.cli import pass_script_info
 from flask_script import Manager, prompt_bool, Server
 
-from .web import app, db
-from .web.models import User
+from web import app, db
+from web.models import User
 
 # manager = Manager(app)
 
