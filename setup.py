@@ -29,9 +29,9 @@ class PostDevelopCommand(develop):
         os.system(
             'pip install -e git+https://github.com/abilian/olapy.git@52962cefc005c712a0e8157bb1a6367e590995d6#egg=olapy')
 
-        zip_ref = zipfile.ZipFile('cubes_templates/cubes_temp.zip', 'r')
-        zip_ref.extractall(os.path.join(app.instance_path, 'olapy-data', 'cubes'))
-        zip_ref.close()
+        # zip_ref = zipfile.ZipFile('cubes_templates/cubes_temp.zip', 'r')
+        # zip_ref.extractall(os.path.join(app.instance_path, 'olapy-data', 'cubes'))
+        # zip_ref.close()
 
         if not os.path.isfile(os.path.join(app.instance_path, 'olapy-data', 'olapy.db')):
             from manage import initdb
@@ -64,9 +64,9 @@ class PostInstallCommand(install):
         os.system(
             'pip install -e git+https://github.com/abilian/olapy.git@52962cefc005c712a0e8157bb1a6367e590995d6#egg=olapy')
 
-        zip_ref = zipfile.ZipFile('cubes_templates/cubes_temp.zip', 'r')
-        zip_ref.extractall(os.path.join(app.instance_path, 'olapy-data', 'cubes'))
-        zip_ref.close()
+        # zip_ref = zipfile.ZipFile('cubes_templates/cubes_temp.zip', 'r')
+        # zip_ref.extractall(os.path.join(app.instance_path, 'olapy-data', 'cubes'))
+        # zip_ref.close()
 
         if not os.path.isfile(os.path.join(app.instance_path, 'olapy-data', 'olapy.db')):
             from manage import initdb
