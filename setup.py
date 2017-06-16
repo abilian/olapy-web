@@ -28,19 +28,23 @@ class PostDevelopCommand(develop):
         # os.system('pip install -e file:///home/mouadh/PycharmProjects/olapy/olapy')
         os.system(
             'pip install -e git+https://github.com/abilian/olapy.git@52962cefc005c712a0e8157bb1a6367e590995d6#egg=olapy')
-        # os.system(
-        #     'pip install -e git+https://github.com/abilian/olapy.git@627438ac626536d4aca38664ad0895f118a7fe2e#egg=olapy')
-        # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.environ['OLAPY_PATH'],'olapy-data',
-        #                                                                     'olapy.db')
-        # if not os.path.isfile(os.path.join(os.environ['OLAPY_PATH'], 'olapy-data', 'olapy.db')):
 
-        # zip_ref = zipfile.ZipFile('cubes_templates/cubes_temp.zip', 'r')
-        # zip_ref.extractall(os.path.join(app.instance_path, 'olapy-data', 'cubes'))
-        # zip_ref.close()
+        zip_ref = zipfile.ZipFile('cubes_templates/cubes_temp.zip', 'r')
+        zip_ref.extractall(os.path.join(app.instance_path, 'olapy-data', 'cubes'))
+        zip_ref.close()
 
         if not os.path.isfile(os.path.join(app.instance_path, 'olapy-data', 'olapy.db')):
             from manage import initdb
-            initdb()
+            from web.models import User
+            from web import db
+            db.create_all()
+            db.session.add(
+                User(username="admin", email="admin@admin.com", password='admin'))
+            db.session.add(
+                User(username="demo", email="demo@demo.com", password="demo"))
+            db.session.commit()
+            # TODO fix conflict with flask_cli
+            # initdb()
 
             # PUT YOUR POST-INSTALL SCRIPT HERE or CALL A FUNCTION
 
@@ -59,20 +63,23 @@ class PostInstallCommand(install):
         # os.system('pip install -e file:///home/mouadh/PycharmProjects/olapy/olapy')
         os.system(
             'pip install -e git+https://github.com/abilian/olapy.git@52962cefc005c712a0e8157bb1a6367e590995d6#egg=olapy')
-        # os.system(
-        #     'pip install -e git+https://github.com/abilian/olapy.git@627438ac626536d4aca38664ad0895f118a7fe2e#egg=olapy')
-        # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.environ['OLAPY_PATH'],'olapy-data',
-        #                                                                     'olapy.db')
-        # if not os.path.isfile(os.path.join(os.environ['OLAPY_PATH'], 'olapy-data', 'olapy.db')):
-        # zip_ref = zipfile.ZipFile('cubes_templates/cubes_temp.zip', 'r')
-        # zip_ref.extractall(os.path.join(app.instance_path, 'olapy-data', 'cubes'))
-        # zip_ref.close()
+
+        zip_ref = zipfile.ZipFile('cubes_templates/cubes_temp.zip', 'r')
+        zip_ref.extractall(os.path.join(app.instance_path, 'olapy-data', 'cubes'))
+        zip_ref.close()
 
         if not os.path.isfile(os.path.join(app.instance_path, 'olapy-data', 'olapy.db')):
             from manage import initdb
-            initdb()
-
-
+            from web.models import User
+            from web import db
+            db.create_all()
+            db.session.add(
+                User(username="admin", email="admin@admin.com", password='admin'))
+            db.session.add(
+                User(username="demo", email="demo@demo.com", password="demo"))
+            db.session.commit()
+            # TODO fix conflict with flask_cli
+            # initdb()
 
 session = PipSession()
 _install_requires = parse_requirements('requirements.txt', session=session)
