@@ -1,8 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
 import click
-from flask.cli import pass_script_info
-from flask_script import Manager, prompt_bool, Server
+from flask_script import Manager, prompt_bool
 
 from web import app, db
 from web.models import User
@@ -28,17 +27,19 @@ def dropdb():
         print('Dropped the database')
 
 
-# @app.cli.command(short_help='Run Server')
-@click.command('run', short_help='Runs a development server.')
+@app.cli.command(short_help='Run web Server')
+# @click.command(short_help='Runs web server.')
 @click.option('--host', '-h', default='0.0.0.0',
                   help='The interface to bind to.')
 @click.option('--port', '-p', default=5000,
                   help='The port to bind to.')
-@pass_script_info
-def runserver(host, port):
+# @manager.command
+def run(host, port):
     # manager.add_command('runserver', Server(host=host, port=port))
     # manager.run()
     app.run(host=host, port=port)
 
 if __name__ == '__main__':
-    runserver()
+    # manager.add_command('runserver', Server(host='0.0.0.0', port=5000))
+    # app.run()
+    run()
