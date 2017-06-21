@@ -16,5 +16,5 @@ pandas
 
 
 #-e file:///home/mouadh/PycharmProjects/olapy/olapy/
--e git+https://github.com/abilian/olapy.git@52962cefc005c712a0e8157bb1a6367e590995d6#egg=olapy
+#-e git+https://github.com/abilian/olapy.git@fa0ec5f7e7e9688ebcf222c3aa915643df455ff5#egg=olapy
 #-e git+https://github.com/abilian/olapy.git@627438ac626536d4aca38664ad0895f118a7fe2e#egg=olapy
