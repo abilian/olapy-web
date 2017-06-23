@@ -29,7 +29,7 @@ class PostDevelopCommand(develop):
         # os.system(
         #     'pip install -e git+https://github.com/abilian/olapy.git@86b7c7d99d4ba11f309660e73ad5d6e11cc89e22#egg=olapy')
         os.system(
-            'pip install -e git+https://github.com/abilian/olapy.git@6eaaab60cc56cbd6a6e2c318a9cbfccadd306c32#egg=olapy')
+            'pip install -e git+https://github.com/abilian/olapy.git@1e8b58d41e84de28cc44d8010aad49692d29e086#egg=olapy')
         # zip_ref = zipfile.ZipFile('cubes_templates/cubes_temp.zip', 'r')
         # zip_ref.extractall(os.path.join(app.instance_path, 'olapy-data', 'cubes'))
         # zip_ref.close()
@@ -65,7 +65,7 @@ class PostInstallCommand(install):
         # os.system(
         #     'pip install -e git+https://github.com/abilian/olapy.git@86b7c7d99d4ba11f309660e73ad5d6e11cc89e22#egg=olapy')
         os.system(
-            'pip install -e git+https://github.com/abilian/olapy.git@6eaaab60cc56cbd6a6e2c318a9cbfccadd306c32#egg=olapy')
+            'pip install -e git+https://github.com/abilian/olapy.git@1e8b58d41e84de28cc44d8010aad49692d29e086#egg=olapy')
         # zip_ref = zipfile.ZipFile('cubes_templates/cubes_temp.zip', 'r')
         # zip_ref.extractall(os.path.join(app.instance_path, 'olapy-data', 'cubes'))
         # zip_ref.close()
