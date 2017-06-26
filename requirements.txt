@@ -26,12 +26,12 @@ markupsafe==1.0           # via jinja2
 nbformat==4.3.0           # via plotly
 numpy==1.13.0             # via pandas
 pandas==0.20.2
-plotly==2.0.10
+plotly==2.0.11
 python-dateutil==2.6.0    # via pandas
 pytz==2017.2              # via pandas, plotly
 requests==2.18.1          # via plotly
 six==1.10.0               # via plotly, python-dateutil, traitlets
-sqlalchemy==1.1.10
+sqlalchemy==1.1.11
 traitlets==4.3.2          # via jupyter-core, nbformat
 urllib3==1.21.1           # via requests
 werkzeug==0.12.2          # via flask, flask-wtf
