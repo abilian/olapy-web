@@ -1,19 +1,21 @@
 import os
 from logging import DEBUG
-from os.path import expanduser
-
 from flask import Flask
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 
-basedir = expanduser('~')
 app = Flask(__name__)
 
 # app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
 # app.config['SECRET_KEY'] = os.urandom(24)
-app.config['SECRET_KEY']  = '\x0b\x0b=\xa9\x13!:\xa3UO\x9d`\xdc\xa9\xd2\x89\x96\xda\xc4\x85bt\x9e\xb2'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir,'olapy-data',
-                                                                    'olapy.db')
+app.config[
+    'SECRET_KEY'] = '\x0b\x0b=\xa9\x13!:\xa3UO\x9d`\xdc\xa9\xd2\x89\x96\xda\xc4\x85bt\x9e\xb2'
+
+if not os.path.isdir(os.path.join(app.instance_path, 'olapy-data')):
+    os.makedirs(os.path.join(app.instance_path, 'olapy-data'))
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(
+    app.instance_path, 'olapy-data', 'olapy.db')
+
 app.config['DEBUG'] = True
 app.logger.setLevel(DEBUG)
 db = SQLAlchemy(app)
