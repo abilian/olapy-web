@@ -26,10 +26,10 @@ class PostDevelopCommand(develop):
         # KEEP !! so we can inject the instance_path
         # todo fix 2 olapy installation
         # os.system('pip install -e file:///home/mouadh/PycharmProjects/olapy/olapy')
-        # os.system(
-        #     'pip install -e git+https://github.com/abilian/olapy.git@86b7c7d99d4ba11f309660e73ad5d6e11cc89e22#egg=olapy')
         os.system(
-            'pip install -e git+https://github.com/abilian/olapy.git@1e8b58d41e84de28cc44d8010aad49692d29e086#egg=olapy')
+            'pip install -e git+https://github.com/abilian/olapy.git@1a613efe4bfaaa2827465f38ddc9e5aa285a821a#egg=olapy')
+
+
         # zip_ref = zipfile.ZipFile('cubes_templates/cubes_temp.zip', 'r')
         # zip_ref.extractall(os.path.join(app.instance_path, 'olapy-data', 'cubes'))
         # zip_ref.close()
@@ -62,10 +62,9 @@ class PostInstallCommand(install):
         # KEEP !! so we can inject the instance_path
         # todo fix 2 olapy installation
         # os.system('pip install -e file:///home/mouadh/PycharmProjects/olapy/olapy')
-        # os.system(
-        #     'pip install -e git+https://github.com/abilian/olapy.git@86b7c7d99d4ba11f309660e73ad5d6e11cc89e22#egg=olapy')
         os.system(
-            'pip install -e git+https://github.com/abilian/olapy.git@1e8b58d41e84de28cc44d8010aad49692d29e086#egg=olapy')
+            'pip install -e git+https://github.com/abilian/olapy.git@1a613efe4bfaaa2827465f38ddc9e5aa285a821a#egg=olapy')
+
         # zip_ref = zipfile.ZipFile('cubes_templates/cubes_temp.zip', 'r')
         # zip_ref.extractall(os.path.join(app.instance_path, 'olapy-data', 'cubes'))
         # zip_ref.close()
