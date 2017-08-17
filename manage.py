@@ -1,12 +1,21 @@
 from __future__ import absolute_import, division, print_function
 
 import click
-from flask_script import Manager, prompt_bool
+from flask_script import prompt_bool
 
-from web import app, db
-from web.models import User
+from .web import app, db
+from .web.models import User
 
-# manager = Manager(app)
+try:
+    import olapy
+except:
+    import os
+    os.environ['OLAPY_PATH'] = app.instance_path
+
+
+    # KEEP !! so we can inject the instance_path
+    os.system(
+        'pip install -e git+https://github.com/abilian/olapy.git#egg=olapy')
 
 @app.cli.command(short_help='Initialize database')
 # @manager.command
@@ -37,6 +46,7 @@ def dropdb():
 def run(host, port):
     # manager.add_command('runserver', Server(host=host, port=port))
     # manager.run()
+
     app.run(host=host, port=port)
 
 if __name__ == '__main__':
