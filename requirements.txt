@@ -4,10 +4,10 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
-certifi==2017.4.17        # via requests
-chardet==3.0.3            # via requests
+certifi==2017.11.5        # via requests
+chardet==3.0.4            # via requests
 click==6.7                # via flask
-decorator==4.0.11         # via plotly, traitlets
+decorator==4.1.2          # via plotly, traitlets
 enum34==1.1.6             # via traitlets
 flask-login==0.3.2
 flask-script==2.0.5
@@ -16,23 +16,23 @@ flask-sqlalchemy==2.1
 flask-wtf==0.12
 flask==0.12.2
 functools32==3.2.3.post2  # via jsonschema
-idna==2.5                 # via requests
+idna==2.6                 # via requests
 ipython-genutils==0.2.0   # via nbformat, traitlets
 itsdangerous==0.24        # via flask
-jinja2==2.9.6             # via flask
+jinja2==2.10              # via flask
 jsonschema==2.6.0         # via nbformat
-jupyter-core==4.3.0       # via nbformat
+jupyter-core==4.4.0       # via nbformat
 markupsafe==1.0           # via jinja2
-nbformat==4.3.0           # via plotly
-numpy==1.12.1             # via pandas
-pandas==0.20.1
-plotly==2.0.9
-python-dateutil==2.6.0    # via pandas
-pytz==2017.2              # via pandas, plotly
-requests==2.17.3          # via plotly
-six==1.10.0               # via plotly, python-dateutil, traitlets
-sqlalchemy==1.1.10
+nbformat==4.4.0           # via plotly
+numpy==1.13.3             # via pandas
+pandas==0.21.0
+plotly==2.2.1
+python-dateutil==2.6.1    # via pandas
+pytz==2017.3              # via pandas, plotly
+requests==2.18.4          # via plotly
+six==1.11.0               # via plotly, python-dateutil, traitlets
+sqlalchemy==1.1.15
 traitlets==4.3.2          # via jupyter-core, nbformat
-urllib3==1.21.1           # via requests
+urllib3==1.22             # via requests
 werkzeug==0.12.2          # via flask, flask-wtf
 wtforms==2.1
