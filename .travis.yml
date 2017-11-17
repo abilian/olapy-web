@@ -1,0 +1,15 @@
+sudo: required
+dist: trusty
+
+language: python
+cache: pip
+python:
+  - "2.7"
+  - "3.6"
+
+install:
+  - pip install -r requirement.txt
+  - export FLASK_APP=manage.py
+
+
+
