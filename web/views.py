@@ -119,10 +119,10 @@ def dashboard():
     from olapy.core.mdx.tools.config_file_parser import ConfigParser
     # TODO use plotly dashboard !!!
     cubes_path = os.path.join(app.instance_path,'olapy-data','cubes')
-    MdxEngine.DATA_FOLDER = os.path.join(app.instance_path,'olapy-data')
+    # MdxEngine.DATA_FOLDER = os.path.join(app.instance_path,'olapy-data')
 
     config = ConfigParser(cube_path=cubes_path)
-    executer = MdxEngine(cube_name=config.get_cubes_names(client_type='web').keys()[0],
+    executer = MdxEngine(cube_name=list(config.get_cubes_names(client_type='web').keys())[0],
                          cubes_path=cubes_path,
                          client_type='web')
     dashboard = config.construct_web_dashboard()[0]

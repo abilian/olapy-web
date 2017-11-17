@@ -35,9 +35,13 @@ or just::
 
 UPDATE
 ------
+
 pip install -r requirement.txt
+
 export FLASK_APP=manage.py
+
 flask initdb
+
 flask run
 
 Usage
