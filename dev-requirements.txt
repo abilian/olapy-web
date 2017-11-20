@@ -11,7 +11,5 @@ pylint
 pytest
 pytest-cov
 tox
-
-# 0.16 doesn't give as good looking output as this version
-yapf==0.15.2
+yapf==0.20.0
 
