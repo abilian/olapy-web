@@ -27,7 +27,7 @@ def load_user(userid):
 @app.route('/index')
 @app.route('/')
 def index():
-    return redirect('/dashboard')
+    return redirect('/query_builder')
     # return render_template('execute_query.html',user=current_user)
 
 
