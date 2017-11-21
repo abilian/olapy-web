@@ -8,14 +8,12 @@ certifi==2017.11.5        # via requests
 chardet==3.0.4            # via requests
 click==6.7                # via flask
 decorator==4.1.2          # via plotly, traitlets
-enum34==1.1.6             # via traitlets
 flask-login==0.3.2
 flask-script==2.0.5
 flask-session==0.3.0
 flask-sqlalchemy==2.1
 flask-wtf==0.12
 flask==0.12.2
-functools32==3.2.3.post2  # via jsonschema
 idna==2.6                 # via requests
 ipython-genutils==0.2.0   # via nbformat, traitlets
 itsdangerous==0.24        # via flask
