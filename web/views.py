@@ -33,6 +33,10 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """
+    Login user.
+    :return: do login
+    """
     form = LoginForm()
     if len(form.errors) > 0:
         flash(form.errors)
@@ -51,6 +55,10 @@ def login():
 
 @app.route('/logout')
 def logout():
+    """
+    Logout user.
+    :return: do logout
+    """
     logout_user()
     return redirect(url_for('login'))
 
@@ -120,6 +128,10 @@ def _construct_charts(dashboard, executer):
 @app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def dashboard():
+    """
+    Generate Dashboard with charts from web_config_file.
+    :return: Dashboard
+    """
     from olapy.core.mdx.executor.execute import MdxEngine
     from olapy.core.mdx.tools.config_file_parser import ConfigParser
     # TODO use plotly dashboard !!!
@@ -162,8 +174,11 @@ def dashboard():
 @app.route('/query_builder', methods=['GET', 'POST'])
 @login_required
 def query_builder():
-    # df = Nod.ex.load_star_schema_dataframe
-    # if not df.empty:
+    """
+    Generates web pivot table based on Olapy star_schema_DataFrame.
+    :return: pivottable.js
+    """
+
     from olapy.core.mdx.executor.execute import MdxEngine
     from olapy.core.mdx.tools.config_file_parser import ConfigParser
 
@@ -190,16 +205,30 @@ def query_builder():
 @app.route('/qbuilder', methods=['GET'])
 @login_required
 def qbuilder():
+    """
+    Show pivottablejs.html (generated with :func:`query_builder`_ ) as an iframe
+    :return: pivottablejs.html
+    """
     return render_template('pivottablejs.html')
 
 
 @app.errorhandler(404)
 def page_not_found(e):
+    """
+    Page not found
+    :param e: exception
+    :return: 404.html
+    """
     return render_template('404.html'), 400
 
 
 @app.errorhandler(500)
 def page_not_found(e):
+    """
+
+    :param e:
+    :return:
+    """
     return render_template('500.html'), 500
 
 
