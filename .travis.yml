@@ -8,7 +8,7 @@ python:
   - "3.6"
 
 install:
-  - pip install -r requirements.txt
+  - pip install -U pip setuptools tox wheel
   - export FLASK_APP=manage.py
 
 script:
