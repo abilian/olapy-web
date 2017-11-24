@@ -34,6 +34,8 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ url_for('static',filename='css/sb-admin-2.css') }}" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -42,7 +44,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script>
-//        window.onload = initPage;
+        //        window.onload = initPage;
 
         function change_p() {
             document.getElementById('form1').submit();
@@ -54,8 +56,8 @@
 <body>
 
 <div id="wrapper">
-
     <!-- Navigation -->
+
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -121,21 +123,8 @@
         <!-- /.navbar-static-side -->
     </nav>
 
-
+</div>
     <div id="page-wrapper">
-
-        <div class="row">
-            <div class="col-lg-12">
-                <h3 class="page-header">
-                    {% block page_header %}
-                        Execute Query
-                    {% endblock %}
-                </h3>
-            </div>
-            <!-- /.col-lg-12 -->
-        </div>
-        <!-- /.row -->
-
 
         <form id="form1" action="" method="post">
 
@@ -153,7 +142,6 @@
     {% endblock %}
     <!-- /#wrapper -->
 
-</div>
 </body>
 
 </html>
