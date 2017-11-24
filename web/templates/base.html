@@ -58,6 +58,25 @@
 <div id="wrapper">
     <!-- Navigation -->
 
+    <!-- /.navbar-static-side -->
+
+    <div class="navbar-default sidebar" role="navigation">
+        <div class="sidebar-nav navbar-collapse">
+            <ul class="nav" id="side-menu">
+
+                <li>
+                    <a href="{{ url_for('query_builder') }}"><i class="fa fa-edit fa-fw"></i>Query Builder</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('dashboard') }}"><i class="fa fa-table fa-fw"></i>Dashboard</a>
+                </li>
+
+
+            </ul>
+        </div>
+        <!-- /.sidebar-collapse -->
+    </div>
+
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -104,43 +123,30 @@
             </li>
         </ul>
 
-        <div class="navbar-default sidebar" role="navigation">
-            <div class="sidebar-nav navbar-collapse">
-                <ul class="nav" id="side-menu">
-
-                    <li>
-                        <a href="{{ url_for('query_builder') }}"><i class="fa fa-edit fa-fw"></i>Query Builder</a>
-                    </li>
-                    <li>
-                        <a href="{{ url_for('dashboard') }}"><i class="fa fa-table fa-fw"></i>Dashboard</a>
-                    </li>
-
-
-                </ul>
-            </div>
-            <!-- /.sidebar-collapse -->
-        </div>
-        <!-- /.navbar-static-side -->
     </nav>
 
-</div>
+
     <div id="page-wrapper">
+
 
         <form id="form1" action="" method="post">
 
             {% block stats %}
 
             {% endblock %}
+
         </form>
         <!-- /#page-wrapper -->
     </div>
-    <!-- jQuery -->
-    <script src="{{ url_for('static',filename='js/jquery-3.1.0.min.js') }}"></script>
+</div>
 
-    {% block js_t %}
+<!-- jQuery -->
+<script src="{{ url_for('static',filename='js/jquery-3.1.0.min.js') }}"></script>
 
-    {% endblock %}
-    <!-- /#wrapper -->
+{% block js_t %}
+
+{% endblock %}
+<!-- /#wrapper -->
 
 </body>
 
