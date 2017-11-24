@@ -86,7 +86,7 @@ template = """
             $(function(){
                 if(window.location != window.parent.location)
                     $("<a>", {target:"_blank", href:""})
-                        .text("[pop out]").prependTo($("body"));
+                        .text("[Full Screen]").prependTo($("body"));
 
                 $("#output").pivotUI(
                     $.csv.toArrays($("#output").text()),
