@@ -1,12 +1,13 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import division, print_function, unicode_literals
+
+import pandas as pd
+import numpy as np
+import os
 
 from flask import flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 
 from .pivottable import pivot_ui
-import pandas as pd
-import numpy as np
-import os
 from . import app, login_manager
 from .stats_utils import GraphsGen
 from .forms import LoginForm
@@ -206,7 +207,7 @@ def query_builder():
 @login_required
 def qbuilder():
     """
-    Show pivottablejs.html (generated with :func:`query_builder`_ ) as an iframe
+    Show pivottablejs.html (generated with :func:`query_builder` ) as an iframe
     :return: pivottablejs.html
     """
     return render_template('pivottablejs.html')

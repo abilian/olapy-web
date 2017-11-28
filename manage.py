@@ -5,7 +5,6 @@ from flask_script import prompt_bool
 
 from .web import app, db
 from .web.models import User
-
 try:
     import olapy
 except:
