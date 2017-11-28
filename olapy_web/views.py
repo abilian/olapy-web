@@ -1,22 +1,23 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import, division, print_function, \
+    unicode_literals
 
-import pandas as pd
-import numpy as np
 import os
+from typing import Any
 
-from flask import flash, redirect, render_template, request, url_for, Blueprint, current_app, Response
+import numpy as np
+import pandas as pd
+from flask import Blueprint, Response, current_app, flash, redirect, \
+    render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 
 from olapy.core.mdx.executor.execute import MdxEngine
 from olapy.core.mdx.tools.config_file_parser import ConfigParser
-from typing import Any
 
 from .extensions import login_manager
-from .pivottable import pivot_ui
-from .stats_utils import GraphsGen
 from .forms import LoginForm
 from .models import User
-
+from .pivottable import pivot_ui
+from .stats_utils import GraphsGen
 
 blueprint = Blueprint('main', __name__, template_folder='templates')
 route = blueprint.route
@@ -53,7 +54,8 @@ def login():
             login_user(user, form.remember_me.data)
             # next to hold the the page that the user tries to visite
 
-            next_url = request.args.get('next') or url_for('dashboard', user=current_user)
+            next_url = request.args.get('next') or url_for(
+                'dashboard', user=current_user)
             return redirect(next_url)
 
         flash('incorrect username or password')
@@ -70,9 +72,9 @@ def logout():
     return redirect(url_for('.login'))
 
 
-def _construct_charts(dashboard, executer):
+def _build_charts(dashboard, executer):
     graph_gen = GraphsGen()
-    graphes = {}
+    graphs = {}
     star_dataframe = executer.get_star_schema_dataframe()
 
     for chart_type, chart_attributs in dashboard.__dict__.items():
@@ -83,12 +85,13 @@ def _construct_charts(dashboard, executer):
             for chart_table_column in chart_attributs:
                 total[chart_table_column] = star_dataframe[
                     chart_table_column].value_counts().sum()
-                df = star_dataframe[chart_table_column].value_counts().to_frame().reset_index()
+                df = star_dataframe[
+                    chart_table_column].value_counts().to_frame().reset_index()
                 all_dataframes.append(df)
                 tables_names.append(chart_table_column)
 
-            graphes['pie_charts'] = {
-                'graphes': graph_gen.generate_pie_graphes(all_dataframes),
+            graphs['pie_charts'] = {
+                'graphs': graph_gen.generate_pie_graphes(all_dataframes),
                 'totals': total,
                 'tables_names': tables_names
             }
@@ -97,13 +100,15 @@ def _construct_charts(dashboard, executer):
             for measure in executer.measures:
                 total[measure] = star_dataframe[measure].sum()
             for chart_table_column in chart_attributs:
-                df = star_dataframe[[chart_table_column] + executer.measures].groupby(
-                    [chart_table_column]).sum().reset_index()
+                df = star_dataframe[[chart_table_column] +
+                                    executer.measures].groupby([
+                                        chart_table_column
+                                    ]).sum().reset_index()
                 all_dataframes.append(df)
                 tables_names.append(chart_table_column)
 
-            graphes['bar_charts'] = {
-                'graphes': graph_gen.generate_bar_graphes(all_dataframes),
+            graphs['bar_charts'] = {
+                'graphs': graph_gen.generate_bar_graphes(all_dataframes),
                 'totals': total,
                 'tables_names': tables_names
             }
@@ -123,13 +128,13 @@ def _construct_charts(dashboard, executer):
                 tables_names.append(column_name)
                 all_dataframes.append(df)
 
-            graphes['line_charts'] = {
-                'graphes': graph_gen.generate_line_graphes(all_dataframes),
+            graphs['line_charts'] = {
+                'graphs': graph_gen.generate_line_graphes(all_dataframes),
                 'totals': total,
                 'tables_names': tables_names
             }
 
-    return graphes
+    return graphs
 
 
 @route('/dashboard', methods=['GET', 'POST'])
@@ -149,17 +154,18 @@ def dashboard():
         client_type='web')
     dashboard = config.construct_web_dashboard()
     if not dashboard:
-        config_path = os.path.join(config.cube_path, config.web_config_file_name)
+        config_path = os.path.join(config.cube_path,
+                                   config.web_config_file_name)
         return ('<h3> your config file (' + config_path +
                 ') does not contains dashboard section </h3>')
     else:
         # first dashboard only right now
         dashboard = dashboard[0]
 
-    graphes = _construct_charts(dashboard, executer)
+    graphs = _build_charts(dashboard, executer)
 
     # todo margins = True ( prob )
-    pivote_table_df = pd.pivot_table(
+    pivot_table_df = pd.pivot_table(
         executer.get_star_schema_dataframe(),
         values=executer.measures,
         index=dashboard.global_table['columns'],
@@ -168,12 +174,12 @@ def dashboard():
 
     return render_template(
         'dashboard.html',
-        table_result=pivote_table_df.to_html(classes=[
+        table_result=pivot_table_df.to_html(classes=[
             'table m-0 table-primary table-colored table-bordered table-hover table-striped display'
         ]),
-        pies=graphes['pie_charts'],
-        bars=graphes['bar_charts'],
-        lines=graphes['line_charts'],
+        pies=graphs['pie_charts'],
+        bars=graphs['bar_charts'],
+        lines=graphs['line_charts'],
         user=current_user)
 
 
@@ -186,7 +192,8 @@ def query_builder():
     """
 
     cubes_path = os.path.join(current_app.instance_path, 'olapy-data', 'cubes')
-    MdxEngine.DATA_FOLDER = os.path.join(current_app.instance_path, 'olapy-data')
+    MdxEngine.DATA_FOLDER = os.path.join(current_app.instance_path,
+                                         'olapy-data')
 
     config = ConfigParser(cube_path=cubes_path)
 
@@ -199,7 +206,9 @@ def query_builder():
     if not df.empty:
         pivot_ui(
             df,
-            outfile_path=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates', 'pivottablejs.html'),
+            outfile_path=os.path.join(
+                os.path.dirname(os.path.abspath(__file__)), 'templates',
+                'pivottablejs.html'),
             height="100%")
 
     return render_template('query_builder.html', user=current_user)

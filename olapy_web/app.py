@@ -1,9 +1,11 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import, division, print_function, \
+    unicode_literals
 
 import os
 from logging import DEBUG
-from flask import Flask, render_template
 from typing import Any
+
+from flask import Flask, render_template
 
 from .extensions import db, login_manager
 from .views import blueprint

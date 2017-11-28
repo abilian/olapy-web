@@ -3,10 +3,7 @@ from __future__ import absolute_import, division, print_function
 
 from pip.download import PipSession
 from pip.req import parse_requirements
-
-
-from setuptools import setup, find_packages
-
+from setuptools import find_packages, setup
 
 session = PipSession()
 _install_requires = parse_requirements('requirements.in', session=session)
@@ -31,4 +28,5 @@ setup(
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 2.7",
         # "Topic :: Business intelligence",
-    ],)
+    ],
+)

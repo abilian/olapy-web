@@ -54,6 +54,7 @@ spyne==2.12.14            # via olapy
 sqlalchemy==1.1.15
 stevedore==1.27.1         # via bonobo
 traitlets==4.3.2          # via jupyter-core, nbformat, traitlets
+typing==3.6.2
 unidecode==0.4.21         # via awesome-slugify
 urllib3==1.22             # via requests
 werkzeug==0.12.2          # via flask, flask-wtf, olapy

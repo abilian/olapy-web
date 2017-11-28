@@ -12,3 +12,6 @@ Flask-SQLAlchemy==2.1
 Flask-WTF==0.12
 plotly<3
 
+# Misc
+typing
+

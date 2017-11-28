@@ -1,10 +1,11 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import, division, print_function, \
+    unicode_literals
 
 import click
 from flask_script import prompt_bool
-
 from olapy_web.app import create_app, db
 from olapy_web.models import User
+
 # try:
 #     import olapy
 # except:
@@ -17,7 +18,6 @@ from olapy_web.models import User
 #     #     'pip install -e git+https://github.com/abilian/olapy.git#egg=olapy')
 #     os.system(
 #         'pip install -e /home/mouadh/PycharmProjects/olapy')
-
 
 app = create_app()
 
@@ -42,10 +42,9 @@ def dropdb():
 
 
 @app.cli.command(short_help='Run web Server')
-@click.option('--host', '-h', default='0.0.0.0',
-                  help='The interface to bind to.')
-@click.option('--port', '-p', default=5000,
-                  help='The port to bind to.')
+@click.option(
+    '--host', '-h', default='0.0.0.0', help='The interface to bind to.')
+@click.option('--port', '-p', default=5000, help='The port to bind to.')
 def run(host, port):
     # manager.add_command('runserver', Server(host=host, port=port))
     # manager.run()

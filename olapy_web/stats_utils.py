@@ -1,4 +1,5 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import, division, print_function, \
+    unicode_literals
 
 import json
 
@@ -28,11 +29,12 @@ class GraphsGen:
                 y.append(row[-1])
 
             y = pd.Series(y)
-        # https: // plot.ly / python / reference
-        # Create the Plotly Data Structure
-        # go.Scatter
-        # go.Bar
-            graphs.append(dict(data=[{
+            # https: // plot.ly / python / reference
+            # Create the Plotly Data Structure
+            # go.Scatter
+            # go.Bar
+            graphs.append(
+                dict(data=[{
                     # 'title' : dataframe.name,
                     'labels': x,
                     'values': y,
@@ -76,20 +78,13 @@ class GraphsGen:
                 # Create the Plotly Data Structure
                 # go.Scatter
                 # go.Bar
-                traces.append(go.Bar(
-                    x=x,
-                    y=y,
-                    name=measure))
+                traces.append(go.Bar(x=x, y=y, name=measure))
 
             graphs.append(
                 dict(
                     data=traces,
                     show_link=False,
-                    layout=go.Layout(
-                    barmode='group'
-                    )
-                )
-            )
+                    layout=go.Layout(barmode='group')))
 
         # Add "ids" to each of the graphs to pass up to the client
         # for templating
@@ -119,18 +114,10 @@ class GraphsGen:
                 # Create the Plotly Data Structure
                 # go.Scatter
                 # go.Bar
-                traces.append(go.Scatter(
-                    x=x,
-                    y=y,
-                    name=measure,
-                    mode='lines+markers'))
+                traces.append(
+                    go.Scatter(x=x, y=y, name=measure, mode='lines+markers'))
 
-            graphs.append(
-                dict(
-                    data=traces
-                )
-
-            )
+            graphs.append(dict(data=traces))
 
         # Add "ids" to each of the graphs to pass up to the client
         # for templating
