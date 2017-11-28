@@ -6,6 +6,7 @@ import json
 import pandas as pd
 import plotly
 import plotly.graph_objs as go
+from typing import List, Dict
 
 
 class GraphsGen:
@@ -13,10 +14,13 @@ class GraphsGen:
 
     @staticmethod
     def generate_pie_graphes(dataframes):
-        """
-        Generate graphs for a pandas DataFrame, if you want to add graphs, you have to do it in this function.
+        # type: (List[pd.DataFrame]) -> Dict
+        """Generate graphs for a list of Pandas DataFrames.
 
-        :param dataframe: the DataFrame
+        If you want to add graphs, you have to do it in this function.
+
+        :param dataframes: a list of DataFrames
+
         :return: dict of ids as keys and json graphs as values
         """
         graphs = []
@@ -61,10 +65,13 @@ class GraphsGen:
     # TODO remove this , ( right know this is just a demo with sales cube )
     @staticmethod
     def generate_bar_graphes(dataframes):
-        """
-        Generate graphs for a pandas DataFrame, if you want to add graphs, you have to do it in this function.
+        # type: (List[pd.DataFrame]) -> Dict
+        """Generate graphs for a pandas DataFrame.
 
-        :param dataframe: the DataFrame
+        If you want to add graphs, you have to do it in this function.
+
+        :param dataframes: a list of DataFrames
+
         :return: dict of ids as keys and json graphs as values
         """
         graphs = []
@@ -98,10 +105,13 @@ class GraphsGen:
 
     @staticmethod
     def generate_line_graphes(dataframes):
-        """
-        Generate graphs for a pandas DataFrame, if you want to add graphs, you have to do it in this function.
+        # type: (List[pd.DataFrame]) -> Dict
+        """Generate graphs for a list of Pandas DataFrames.
 
-        :param dataframe: the DataFrame
+        If you want to add graphs, you have to do it in this function.
+
+        :param dataframes: a list of DataFrames
+
         :return: dict of ids as keys and json graphs as values
         """
         graphs = []

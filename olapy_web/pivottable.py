@@ -1,7 +1,7 @@
 from __future__ import absolute_import, division, print_function, \
     unicode_literals
 
-import six
+from six.moves.urllib.parse import urlencode
 
 
 class IFrame(object):
@@ -33,11 +33,7 @@ class IFrame(object):
     def _repr_html_(self):
         """return the embed iframe."""
         if self.params:
-            # try:
-            #     from urllib.parse import urlencode  # Py 3
-            # except ImportError:
-
-            params = "?" + six.moves.urllib.parse.urlencode(self.params)
+            params = "?" + urlencode(self.params)
         else:
             params = ""
         return self.iframe.format(
@@ -110,8 +106,7 @@ template = """
 
 
 def pivot_ui(df, outfile_path="pivottablejs.html", width="100%", height="500"):
-    """
-    Create pivot table html page relative to DataFrame.
+    """Create pivot table html page relative to DataFrame.
 
     :param df: the DataFrame
     :param outfile_path: html page name (can be the path also)
