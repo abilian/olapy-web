@@ -1,38 +1,44 @@
-from __future__ import division, print_function, unicode_literals
+from __future__ import absolute_import, division, print_function, unicode_literals
 
 import pandas as pd
 import numpy as np
 import os
 
-from flask import flash, redirect, render_template, request, url_for
+from flask import flash, redirect, render_template, request, url_for, Blueprint, current_app, Response
 from flask_login import current_user, login_required, login_user, logout_user
 
+from olapy.core.mdx.executor.execute import MdxEngine
+from olapy.core.mdx.tools.config_file_parser import ConfigParser
+from typing import Any
+
+from .extensions import login_manager
 from .pivottable import pivot_ui
-from . import app, login_manager
 from .stats_utils import GraphsGen
 from .forms import LoginForm
 from .models import User
 
 
+blueprint = Blueprint('main', __name__, template_folder='templates')
+route = blueprint.route
+
+
 @login_manager.user_loader
 def load_user(userid):
-    """
-    Load user with specific id.
-
-    :param userid: user id
-    :return: user
+    # type: (Any) -> User
+    """Load user with specific id.
     """
     return User.query.get(int(userid))
 
 
-@app.route('/index')
-@app.route('/')
+@route('/index')
+@route('/')
 def index():
+    # type: () -> Response
     return redirect('/query_builder')
     # return render_template('execute_query.html',user=current_user)
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@route('/login', methods=['GET', 'POST'])
 def login():
     """
     Login user.
@@ -47,21 +53,21 @@ def login():
             login_user(user, form.remember_me.data)
             # next to hold the the page that the user tries to visite
 
-            return redirect(
-                request.args.get('next') or
-                url_for('dashboard', user=current_user))
+            next_url = request.args.get('next') or url_for('dashboard', user=current_user)
+            return redirect(next_url)
+
         flash('incorrect username or password')
+
     return render_template('login.html', form=form, user=current_user)
 
 
-@app.route('/logout')
+@route('/logout')
 def logout():
-    """
-    Logout user.
-    :return: do logout
+    # type: () -> Response
+    """Logout user.
     """
     logout_user()
-    return redirect(url_for('login'))
+    return redirect(url_for('.login'))
 
 
 def _construct_charts(dashboard, executer):
@@ -126,17 +132,16 @@ def _construct_charts(dashboard, executer):
     return graphes
 
 
-@app.route('/dashboard', methods=['GET', 'POST'])
+@route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def dashboard():
-    """
-    Generate Dashboard with charts from web_config_file.
-    :return: Dashboard
+    """Generate Dashboard with charts from web_config_file.
     """
     from olapy.core.mdx.executor.execute import MdxEngine
     from olapy.core.mdx.tools.config_file_parser import ConfigParser
+
     # TODO use plotly dashboard !!!
-    cubes_path = os.path.join(app.instance_path, 'olapy-data', 'cubes')
+    cubes_path = os.path.join(current_app.instance_path, 'olapy-data', 'cubes')
     config = ConfigParser(cube_path=cubes_path)
     executer = MdxEngine(
         cube_name=list(config.get_cubes_names(client_type='web').keys())[0],
@@ -144,8 +149,8 @@ def dashboard():
         client_type='web')
     dashboard = config.construct_web_dashboard()
     if not dashboard:
-        return ('<h3> your config file (' + os.path.join(
-            config.cube_path, config.web_config_file_name) +
+        config_path = os.path.join(config.cube_path, config.web_config_file_name)
+        return ('<h3> your config file (' + config_path +
                 ') does not contains dashboard section </h3>')
     else:
         # first dashboard only right now
@@ -172,19 +177,16 @@ def dashboard():
         user=current_user)
 
 
-@app.route('/query_builder', methods=['GET', 'POST'])
+@route('/query_builder', methods=['GET', 'POST'])
 @login_required
 def query_builder():
-    """
-    Generates web pivot table based on Olapy star_schema_DataFrame.
+    """Generates web pivot table based on Olapy star_schema_DataFrame.
+
     :return: pivottable.js
     """
 
-    from olapy.core.mdx.executor.execute import MdxEngine
-    from olapy.core.mdx.tools.config_file_parser import ConfigParser
-
-    cubes_path = os.path.join(app.instance_path, 'olapy-data', 'cubes')
-    MdxEngine.DATA_FOLDER = os.path.join(app.instance_path, 'olapy-data')
+    cubes_path = os.path.join(current_app.instance_path, 'olapy-data', 'cubes')
+    MdxEngine.DATA_FOLDER = os.path.join(current_app.instance_path, 'olapy-data')
 
     config = ConfigParser(cube_path=cubes_path)
 
@@ -203,7 +205,7 @@ def query_builder():
     return render_template('query_builder.html', user=current_user)
 
 
-@app.route('/qbuilder', methods=['GET'])
+@route('/qbuilder')
 @login_required
 def qbuilder():
     """
@@ -211,27 +213,3 @@ def qbuilder():
     :return: pivottablejs.html
     """
     return render_template('pivottablejs.html')
-
-
-@app.errorhandler(404)
-def page_not_found(e):
-    """
-    Page not found
-    :param e: exception
-    :return: 404.html
-    """
-    return render_template('404.html'), 400
-
-
-@app.errorhandler(500)
-def page_not_found(e):
-    """
-
-    :param e:
-    :return:
-    """
-    return render_template('500.html'), 500
-
-
-if __name__ == '__main__':
-    app.run(debug=True)

@@ -1,4 +1,4 @@
-from __future__ import absolute_import, division, print_function
+from __future__ import absolute_import, division, print_function, unicode_literals
 
 import json
 
@@ -48,8 +48,6 @@ class GraphsGen:
                     'hole': .2
                 }]))
 
-
-
         # Add "ids" to each of the graphs to pass up to the client
         # for templating
         ids = ['pie_graph-{}'.format(i) for i, _ in enumerate(graphs)]
@@ -91,7 +89,6 @@ class GraphsGen:
                     barmode='group'
                     )
                 )
-
             )
 
         # Add "ids" to each of the graphs to pass up to the client
@@ -103,7 +100,6 @@ class GraphsGen:
         # div = offplot.plot(fig, show_link=False, output_type="div", include_plotlyjs=False)
 
         return {'ids': ids, 'graph_json': graph_json}
-
 
     @staticmethod
     def generate_line_graphes(dataframes):

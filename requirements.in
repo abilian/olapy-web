@@ -1,6 +1,4 @@
-
-#-e  file:///home/mouadh/PycharmProjects/olapy/olapy/
-
+olapy
 
 # Web
 Flask
@@ -13,5 +11,4 @@ Flask-Session==0.3.0
 Flask-SQLAlchemy==2.1
 Flask-WTF==0.12
 plotly<3
-pandas
-#XlsxWriter==0.9.3
+

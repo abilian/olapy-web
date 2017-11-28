@@ -1,7 +1,7 @@
 .PHONY: test unit full-test clean setup stage deploy
 
 
-SRC=olapy
+SRC=olapy_web
 PKG=$(SRC)
 
 default: test

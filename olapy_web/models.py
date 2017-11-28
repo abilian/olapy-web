@@ -3,7 +3,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 from flask_login import UserMixin
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from . import db
+from .extensions import db
 
 
 class User(db.Model, UserMixin):

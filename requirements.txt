@@ -4,33 +4,58 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
+appdirs==1.4.3            # via fs
+attrs==17.3.0             # via olapy
+awesome-slugify==1.6.5    # via olapy
+bonobo-sqlalchemy==0.5.1  # via olapy
+bonobo==0.5.2             # via bonobo-sqlalchemy, olapy
 certifi==2017.11.5        # via requests
 chardet==3.0.4            # via requests
-click==6.7                # via flask
+click==6.7                # via flask, python-dotenv
+colorama==0.3.9           # via bonobo
 decorator==4.1.2          # via plotly, traitlets
+enum34==1.1.6             # via fs, traitlets
 flask-login==0.3.2
 flask-script==2.0.5
 flask-session==0.3.0
 flask-sqlalchemy==2.1
 flask-wtf==0.12
 flask==0.12.2
+fs==2.0.17                # via bonobo
+functools32==3.2.3.post2  # via jsonschema
 idna==2.6                 # via requests
-ipython-genutils==0.2.0   # via nbformat, traitlets
+ipython-genutils==0.2.0   # via ipython-genutils, nbformat, traitlets
 itsdangerous==0.24        # via flask
 jinja2==2.10              # via flask
-jsonschema==2.6.0         # via nbformat
-jupyter-core==4.4.0       # via nbformat
+jsonschema==2.6.0         # via jsonschema, nbformat
+jupyter-core==4.4.0       # via jupyter-core, nbformat
+lxml==4.1.1               # via olapy
 markupsafe==1.0           # via jinja2
-nbformat==4.4.0           # via plotly
+mysqlclient==1.3.12       # via olapy
+nbformat==4.4.0           # via nbformat, plotly
 numpy==1.13.3             # via pandas
-pandas==0.21.0
-plotly==2.2.1
+olapy==0.4.8
+packaging==16.8           # via bonobo
+pandas==0.21.0            # via olapy
+pbr==3.1.1                # via stevedore
+plotly==2.2.2
+psutil==5.4.1             # via bonobo
+psycopg2==2.7.3.2         # via olapy
+pymysql==0.7.11           # via olapy
+pyparsing==2.2.0          # via packaging
 python-dateutil==2.6.1    # via pandas
-pytz==2017.3              # via pandas, plotly
-requests==2.18.4          # via plotly
-six==1.11.0               # via plotly, python-dateutil, traitlets
+python-dotenv==0.7.1      # via olapy
+pytz==2017.3              # via fs, pandas, plotly, spyne
+pyyaml==3.12              # via olapy
+regex==2017.11.9          # via awesome-slugify
+requests==2.18.4          # via bonobo, plotly
+six==1.11.0               # via fs, packaging, plotly, python-dateutil, stevedore, traitlets
+spyne==2.12.14            # via olapy
 sqlalchemy==1.1.15
-traitlets==4.3.2          # via jupyter-core, nbformat
+stevedore==1.27.1         # via bonobo
+traitlets==4.3.2          # via jupyter-core, nbformat, traitlets
+unidecode==0.4.21         # via awesome-slugify
 urllib3==1.22             # via requests
-werkzeug==0.12.2          # via flask, flask-wtf
+werkzeug==0.12.2          # via flask, flask-wtf, olapy
 wtforms==2.1
+xmlwitch==0.3             # via olapy
