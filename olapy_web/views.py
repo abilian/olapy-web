@@ -2,7 +2,9 @@ from __future__ import absolute_import, division, print_function, \
     unicode_literals
 
 import os
-from typing import Any
+
+from six import text_type
+from typing import Any, Union
 
 import numpy as np
 import pandas as pd
@@ -41,9 +43,8 @@ def index():
 
 @route('/login', methods=['GET', 'POST'])
 def login():
-    """
-    Login user.
-    :return: do login
+    # type: () -> Union[Response, text_type]
+    """Login user.
     """
     form = LoginForm()
     if len(form.errors) > 0:
@@ -140,11 +141,9 @@ def _build_charts(dashboard, executer):
 @route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def dashboard():
+    # type: () -> text_type
     """Generate Dashboard with charts from web_config_file.
     """
-    from olapy.core.mdx.executor.execute import MdxEngine
-    from olapy.core.mdx.tools.config_file_parser import ConfigParser
-
     # TODO use plotly dashboard !!!
     cubes_path = os.path.join(current_app.instance_path, 'olapy-data', 'cubes')
     config = ConfigParser(cube_path=cubes_path)
@@ -186,11 +185,11 @@ def dashboard():
 @route('/query_builder', methods=['GET', 'POST'])
 @login_required
 def query_builder():
+    # type: () -> text_type
     """Generates web pivot table based on Olapy star_schema_DataFrame.
 
     :return: pivottable.js
     """
-
     cubes_path = os.path.join(current_app.instance_path, 'olapy-data', 'cubes')
     MdxEngine.DATA_FOLDER = os.path.join(current_app.instance_path,
                                          'olapy-data')
@@ -217,6 +216,7 @@ def query_builder():
 @route('/qbuilder')
 @login_required
 def qbuilder():
+    # type: () -> text_type
     """
     Show pivottablejs.html (generated with :func:`query_builder` ) as an iframe
     :return: pivottablejs.html
