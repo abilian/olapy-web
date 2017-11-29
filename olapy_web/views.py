@@ -76,12 +76,13 @@ def _build_charts(dashboard, executer):
     graphs = {}
     star_dataframe = executer.get_star_schema_dataframe()
 
-    for chart_type, chart_attributs in dashboard.__dict__.items():
+    for chart_type, chart_attributes in vars(dashboard).items():
         all_dataframes = []
         tables_names = []
         total = {}
+
         if chart_type == 'pie_charts':
-            for chart_table_column in chart_attributs:
+            for chart_table_column in chart_attributes:
                 total[chart_table_column] = star_dataframe[
                     chart_table_column].value_counts().sum()
                 df = star_dataframe[
@@ -98,7 +99,7 @@ def _build_charts(dashboard, executer):
         elif chart_type == 'bar_charts':
             for measure in executer.measures:
                 total[measure] = star_dataframe[measure].sum()
-            for chart_table_column in chart_attributs:
+            for chart_table_column in chart_attributes:
                 df = star_dataframe[[chart_table_column] +
                                     executer.measures].groupby([
                                         chart_table_column
@@ -116,13 +117,13 @@ def _build_charts(dashboard, executer):
             for measure in executer.measures:
                 total[measure] = star_dataframe[measure].sum()
 
-            for column_name, columns_attributs in chart_attributs.items():
+            for column_name, column_attributes in chart_attributes.items():
                 df = star_dataframe[[column_name] + executer.measures].groupby(
                     [column_name]).sum().reset_index()
 
                 # filter columns to show
-                if columns_attributs is not 'ALL':
-                    df = df[df[column_name].isin(columns_attributs)]
+                if column_attributes is not 'ALL':
+                    df = df[df[column_name].isin(column_attributes)]
 
                 tables_names.append(column_name)
                 all_dataframes.append(df)
