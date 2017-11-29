@@ -162,7 +162,6 @@ def dashboard():
         dashboard = dashboard[0]
 
     graphs = _build_charts(dashboard, executer)
-
     # todo margins = True ( prob )
     pivot_table_df = pd.pivot_table(
         executer.get_star_schema_dataframe(),
@@ -173,7 +172,7 @@ def dashboard():
 
     return render_template(
         'dashboard.html',
-        table_result=pivot_table_df.to_html(classes=[
+        table_result=pivot_table_df.fillna('').to_html(classes=[
             'table m-0 table-primary table-colored table-bordered table-hover table-striped display'
         ]),
         pies=graphs['pie_charts'],
