@@ -9,7 +9,6 @@ from typing import Any
 from flask import Flask, render_template
 
 from .extensions import db, login_manager
-from .views import blueprint
 
 
 def create_app():
@@ -75,5 +74,7 @@ def configure_error_handlers(app):
 
 def configure_blueprints(app):
     # type: (Flask) -> None
+
+    from .views import blueprint
 
     app.register_blueprint(blueprint)

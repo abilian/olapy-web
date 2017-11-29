@@ -37,7 +37,6 @@ def load_user(userid):
 def index():
     # type: () -> Response
     return redirect('/query_builder')
-    # return render_template('execute_query.html',user=current_user)
 
 
 @route('/login', methods=['GET', 'POST'])
@@ -58,7 +57,7 @@ def login():
                 'dashboard', user=current_user)
             return redirect(next_url)
 
-        flash('incorrect username or password')
+        flash('Incorrect username or password')
 
     return render_template('login.html', form=form, user=current_user)
 
@@ -137,7 +136,7 @@ def _build_charts(dashboard, executer):
     return graphs
 
 
-@route('/dashboard', methods=['GET', 'POST'])
+@route('/dashboard')
 @login_required
 def dashboard():
     # type: () -> text_type
@@ -146,8 +145,9 @@ def dashboard():
     # TODO use plotly dashboard !!!
     cubes_path = join(current_app.instance_path, 'olapy-data', 'cubes')
     config = ConfigParser(cube_path=cubes_path)
+    cube_name = list(config.get_cubes_names(client_type='web').keys())[0]
     executer = MdxEngine(
-        cube_name=list(config.get_cubes_names(client_type='web').keys())[0],
+        cube_name=cube_name,
         cubes_path=cubes_path,
         client_type='web')
     dashboard = config.construct_web_dashboard()
@@ -179,19 +179,21 @@ def dashboard():
         user=current_user)
 
 
-@route('/query_builder', methods=['GET', 'POST'])
+@route('/query_builder')
 @login_required
 def query_builder():
     # type: () -> text_type
     """Generates web pivot table based on Olapy star_schema_DataFrame.
     """
-    cubes_path = join(current_app.instance_path, 'olapy-data', 'cubes')
-    MdxEngine.DATA_FOLDER = join(current_app.instance_path, 'olapy-data')
+    olapy_data_dir = join(current_app.instance_path, 'olapy-data')
+    MdxEngine.DATA_FOLDER = olapy_data_dir
 
+    cubes_path = join(olapy_data_dir, 'cubes')
     config = ConfigParser(cube_path=cubes_path)
 
+    cube_name = list(config.get_cubes_names(client_type='web').keys())[0]
     executer = MdxEngine(
-        cube_name=list(config.get_cubes_names(client_type='web').keys())[0],
+        cube_name=cube_name,
         cubes_path=cubes_path,
         client_type='web')
 
@@ -209,7 +211,6 @@ def query_builder():
 def qbuilder():
     # type: () -> text_type
     """
-    Show pivottablejs.html (generated with :func:`query_builder` ) as an iframe
-    :return: pivottablejs.html
+    Show pivottablejs.html (generated with :func:`query_builder`) as an iframe
     """
     return render_template('pivottablejs.html')
