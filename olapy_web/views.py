@@ -1,9 +1,7 @@
 from __future__ import absolute_import, division, print_function, \
     unicode_literals
 
-import os
-
-from six import text_type
+from os.path import abspath, dirname, join
 from typing import Any, Union
 
 import numpy as np
@@ -11,6 +9,7 @@ import pandas as pd
 from flask import Blueprint, Response, current_app, flash, redirect, \
     render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
+from six import text_type
 
 from olapy.core.mdx.executor.execute import MdxEngine
 from olapy.core.mdx.tools.config_file_parser import ConfigParser
@@ -92,9 +91,9 @@ def _build_charts(dashboard, executer):
                 tables_names.append(chart_table_column)
 
             graphs['pie_charts'] = {
-                'graphs': graph_gen.generate_pie_graphes(all_dataframes),
+                'graphs': graph_gen.generate_pie_graphs(all_dataframes),
                 'totals': total,
-                'tables_names': tables_names
+                'tables_names': tables_names,
             }
 
         elif chart_type == 'bar_charts':
@@ -109,9 +108,9 @@ def _build_charts(dashboard, executer):
                 tables_names.append(chart_table_column)
 
             graphs['bar_charts'] = {
-                'graphs': graph_gen.generate_bar_graphes(all_dataframes),
+                'graphs': graph_gen.generate_bar_graphs(all_dataframes),
                 'totals': total,
-                'tables_names': tables_names
+                'tables_names': tables_names,
             }
 
         elif chart_type == 'line_charts':
@@ -130,9 +129,9 @@ def _build_charts(dashboard, executer):
                 all_dataframes.append(df)
 
             graphs['line_charts'] = {
-                'graphs': graph_gen.generate_line_graphes(all_dataframes),
+                'graphs': graph_gen.generate_line_graphs(all_dataframes),
                 'totals': total,
-                'tables_names': tables_names
+                'tables_names': tables_names,
             }
 
     return graphs
@@ -145,7 +144,7 @@ def dashboard():
     """Generate Dashboard with charts from web_config_file.
     """
     # TODO use plotly dashboard !!!
-    cubes_path = os.path.join(current_app.instance_path, 'olapy-data', 'cubes')
+    cubes_path = join(current_app.instance_path, 'olapy-data', 'cubes')
     config = ConfigParser(cube_path=cubes_path)
     executer = MdxEngine(
         cube_name=list(config.get_cubes_names(client_type='web').keys())[0],
@@ -153,8 +152,7 @@ def dashboard():
         client_type='web')
     dashboard = config.construct_web_dashboard()
     if not dashboard:
-        config_path = os.path.join(config.cube_path,
-                                   config.web_config_file_name)
+        config_path = join(config.cube_path, config.web_config_file_name)
         return ('<h3> your config file (' + config_path +
                 ') does not contains dashboard section </h3>')
     else:
@@ -186,12 +184,9 @@ def dashboard():
 def query_builder():
     # type: () -> text_type
     """Generates web pivot table based on Olapy star_schema_DataFrame.
-
-    :return: pivottable.js
     """
-    cubes_path = os.path.join(current_app.instance_path, 'olapy-data', 'cubes')
-    MdxEngine.DATA_FOLDER = os.path.join(current_app.instance_path,
-                                         'olapy-data')
+    cubes_path = join(current_app.instance_path, 'olapy-data', 'cubes')
+    MdxEngine.DATA_FOLDER = join(current_app.instance_path, 'olapy-data')
 
     config = ConfigParser(cube_path=cubes_path)
 
@@ -202,12 +197,9 @@ def query_builder():
 
     df = executer.get_star_schema_dataframe()
     if not df.empty:
-        pivot_ui(
-            df,
-            outfile_path=os.path.join(
-                os.path.dirname(os.path.abspath(__file__)), 'templates',
-                'pivottablejs.html'),
-            height="100%")
+        output_path = join(
+            dirname(abspath(__file__)), 'templates', 'pivottablejs.html')
+        pivot_ui(df, outfile_path=output_path, height="100%")
 
     return render_template('query_builder.html', user=current_user)
 
