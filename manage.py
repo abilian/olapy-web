@@ -1,5 +1,4 @@
-from __future__ import absolute_import, division, print_function, \
-    unicode_literals
+from __future__ import absolute_import, division, print_function
 
 import click
 from flask_script import prompt_bool
@@ -32,6 +31,13 @@ def initdb():
         User(username="demo", email="demo@demo.com", password="demo"))
     db.session.commit()
     print('Initialized the database')
+
+    # from olapy.cli import init
+    import os
+    os.environ['OLAPY_PATH'] = app.instance_path
+    # init()
+    os.system('olapy init')
+    print('Initialized Olapy')
 
 
 @app.cli.command(short_help='Drop database')
