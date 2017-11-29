@@ -191,7 +191,7 @@ def query_builder():
     config = ConfigParser(cube_path=cubes_path)
 
     executer = MdxEngine(
-        cube_name=config.get_cubes_names(client_type='web').keys()[0],
+        cube_name=list(config.get_cubes_names(client_type='web').keys())[0],
         cubes_path=cubes_path,
         client_type='web')
 
