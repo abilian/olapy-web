@@ -65,10 +65,10 @@
             <ul class="nav" id="side-menu">
 
                 <li>
-                    <a href="{{ url_for('query_builder') }}"><i class="fa fa-edit fa-fw"></i>Query Builder</a>
+                    <a href="{{ url_for('main.query_builder') }}"><i class="fa fa-edit fa-fw"></i>Query Builder</a>
                 </li>
                 <li>
-                    <a href="{{ url_for('dashboard') }}"><i class="fa fa-table fa-fw"></i>Dashboard</a>
+                    <a href="{{ url_for('main.dashboard') }}"><i class="fa fa-table fa-fw"></i>Dashboard</a>
                 </li>
 
 
@@ -85,7 +85,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url_for('index') }}">olapy</a>
+            <a class="navbar-brand" href="{{ url_for('main.index') }}">olapy</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -111,11 +111,11 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="{{ url_for('logout') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            <a href="{{ url_for('main.logout') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     {% else %}
                         <li>
-                            <a href="{{ url_for('login') }}"><i class="fa fa-sign-out fa-fw"></i> Login</a>
+                            <a href="{{ url_for('main.login') }}"><i class="fa fa-sign-out fa-fw"></i> Login</a>
                         </li>
                     {% endif %}
 

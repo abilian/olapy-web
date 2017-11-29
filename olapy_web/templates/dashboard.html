@@ -26,111 +26,112 @@
 {% block stats %}
 
 
-{#<div class="wrapper">#}
+    {#<div class="wrapper">#}
     <div class="container">
 
         <div class="row">
 
-                <div class="row">
+            <div class="row">
 
-                    {% for id in pies['graphes']['ids'] %}
-                        {%   set index = loop.index %}
-                        <div style="position: relative;" class="col-sm-4">
-                            <div class="card-box widget-box-four">
-                                <h4 class="header-title m-t-0 m-b-30">{{  pies['tables_names'][index - 1].replace('_',' ').title() }}</h4>
+                {% for id in pies['graphs']['ids'] %}
+                    {% set index = loop.index %}
+                    <div style="position: relative;" class="col-sm-4">
+                        <div class="card-box widget-box-four">
+                            <h4 class="header-title m-t-0 m-b-30">{{ pies['tables_names'][index - 1].replace('_',' ').title() }}</h4>
 
+
+                            <div id="{{ id }}"></div>
+
+
+                            <div class="wigdet-four-content pull-left">
+
+                                <h3 class="m-b-0 m-t-20"><span>Total : </span> <span
+                                        data-plugin="counterup"> {{ pies['totals'].values()[index - 1] }}</span>
+                                </h3>
+                            </div>
+
+
+                            <div class="clearfix">
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- end col -->
+
+                {% endfor %}
+
+            </div>
+            <!-- end row -->
+
+
+            <div class="row">
+                <div class="col-sm-12">
+
+
+                    {% for id in bars['graphs']['ids'] %}
+                        {% set index = loop.index %}
+                        <div class="card-box">
+                            <h4 class="header-title m-t-0">{{ bars['tables_names'][index - 1].replace('_',' ').title() }}</h4>
+                            <div class="text-center">
+
+                                <div class="row">
+
+                                    {% for measure,totale in bars['totals'].items() %}
+
+                                        <div class="col-xs-4">
+                                            <div class="m-t-20 m-b-20">
+                                                <h4 class="m-b-10">{{ totale }}</h4>
+                                                <p class="text-uppercase m-b-5 font-13 font-600">{{ measure.replace('_',' ').title() }}</p>
+                                            </div>
+                                        </div>
+
+
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                            <div style="height: 500px; position: relative;">
 
                                 <div id="{{ id }}"></div>
 
+                            </div>
+                        </div>
+                    {% endfor %}
 
-                                <div class="wigdet-four-content pull-left">
+                    {% for id in lines['graphs']['ids'] %}
+                        {% set index = loop.index %}
+                        <div class="card-box">
+                            <h4 class="header-title m-t-0">{{ lines['tables_names'][index - 1].replace('_',' ').title() }}</h4>
+                            <div class="text-center">
+                                <div class="row">
 
-                                    <h3 class="m-b-0 m-t-20"><span>Total : </span> <span data-plugin="counterup"> {{ pies['totals'].values()[index - 1] }}</span>
-                                    </h3>
+                                    {% for measure,total in lines['totals'].items() %}
+
+                                        <div class="col-xs-4">
+                                            <div class="m-t-20 m-b-20">
+                                                <h4 class="m-b-10">{{ total }}</h4>
+                                                <p class="text-uppercase m-b-5 font-13 font-600">{{ measure.replace('_',' ').title() }}</p>
+                                            </div>
+                                        </div>
+
+                                    {% endfor %}
+
                                 </div>
+                            </div>
+                            <div style="height: 500px; position: relative;">
 
-
-                                <div class="clearfix">
-
-                                </div>
+                                <div id="{{ id }}"></div>
 
                             </div>
                         </div>
-                        <!-- end col -->
-
                     {% endfor %}
 
-                </div>
-                <!-- end row -->
 
+                </div><!-- end col -->
 
-                <div class="row">
-                    <div class="col-sm-12">
-
-
-                        {% for id in bars['graphes']['ids'] %}
-                            {%   set index = loop.index %}
-                            <div class="card-box">
-                                <h4 class="header-title m-t-0">{{ bars['tables_names'][index - 1].replace('_',' ').title() }}</h4>
-                                <div class="text-center">
-
-                                    <div class="row">
-
-                                        {% for measure,totale in bars['totals'].items() %}
-
-                                            <div class="col-xs-4">
-                                                <div class="m-t-20 m-b-20">
-                                                    <h4 class="m-b-10">{{ totale }}</h4>
-                                                    <p class="text-uppercase m-b-5 font-13 font-600">{{ measure.replace('_',' ').title() }}</p>
-                                                </div>
-                                            </div>
-
-
-                                        {% endfor %}
-
-                                    </div>
-                                </div>
-                                <div style="height: 500px; position: relative;">
-
-                                    <div id="{{ id }}"></div>
-
-                                </div>
-                            </div>
-                        {% endfor %}
-
-                    {% for id in lines['graphes']['ids'] %}
-                        {%   set index = loop.index %}
-                            <div class="card-box">
-                                <h4 class="header-title m-t-0">{{ lines['tables_names'][index - 1].replace('_',' ').title() }}</h4>
-                                <div class="text-center">
-                                    <div class="row">
-
-                                        {% for measure,total in lines['totals'].items() %}
-
-                                            <div class="col-xs-4">
-                                                <div class="m-t-20 m-b-20">
-                                                    <h4 class="m-b-10">{{ total }}</h4>
-                                                    <p class="text-uppercase m-b-5 font-13 font-600">{{ measure.replace('_',' ').title() }}</p>
-                                                </div>
-                                            </div>
-
-                                        {% endfor %}
-
-                                    </div>
-                                </div>
-                                <div style="height: 500px; position: relative;">
-
-                                    <div id="{{ id }}"></div>
-
-                                </div>
-                            </div>
-                        {% endfor %}
-
-
-                    </div><!-- end col -->
-
-                </div>
-                <!-- end row -->
+            </div>
+            <!-- end row -->
 
         </div>
         <!-- end row -->
@@ -154,66 +155,66 @@
             </div>
         </div>
 
-{#        <!-- Footer -->#}
-{#        <footer class="footer text-right">#}
-{#            <div class="container">#}
-{#                <div class="row">#}
-{#                    <div class="col-xs-12 text-center">#}
-{#                        2017 © Adminox - Coderthemes.com#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </footer>#}
-{##}
-{##}
-{#        <!-- End Footer -->#}
+        {#        <!-- Footer -->#}
+        {#        <footer class="footer text-right">#}
+        {#            <div class="container">#}
+        {#                <div class="row">#}
+        {#                    <div class="col-xs-12 text-center">#}
+        {#                        2017 © Adminox - Coderthemes.com#}
+        {#                    </div>#}
+        {#                </div>#}
+        {#            </div>#}
+        {#        </footer>#}
+        {##}
+        {##}
+        {#        <!-- End Footer -->#}
 
 
     </div> <!-- end container -->
-{#</div>#}
-<!-- end wrapper -->
+    {#</div>#}
+    <!-- end wrapper -->
 
 
 {% endblock %}
 
 {% block js_t %}
-{#<script src="{{ url_for('static',filename='js/plotly-basic.js') }}"></script>#}
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    {#<script src="{{ url_for('static',filename='js/plotly-basic.js') }}"></script>#}
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
 
     <script type="text/javascript">
 
 
-        var pie_graphes = {{pies['graphes']['graph_json'] | safe}};
-        var pie_graphes_ids = {{pies['graphes']['ids'] | safe}};
+        var pie_graphs = {{pies['graphs']['graph_json'] | safe}};
+        var pie_graphs_ids = {{pies['graphs']['ids'] | safe}};
 
-        var bar_graphes = {{bars['graphes']['graph_json'] | safe}};
-        var bar_graphes_ids = {{bars['graphes']['ids'] | safe}};
+        var bar_graphs = {{bars['graphs']['graph_json'] | safe}};
+        var bar_graphs_ids = {{bars['graphs']['ids'] | safe}};
 
-        var line_graphes = {{lines['graphes']['graph_json'] | safe}};
-        var line_graphes_ids = {{lines['graphes']['ids'] | safe}};
+        var line_graphs = {{lines['graphs']['graph_json'] | safe}};
+        var line_graphs_ids = {{lines['graphs']['ids'] | safe}};
 
 
-        for (var i in pie_graphes) {
+        for (var i in pie_graphs) {
             Plotly.plot(
-                    pie_graphes_ids[i], // the ID of the div, created above
-                    pie_graphes[i].data,
-                    pie_graphes[i].layout || {});
+                pie_graphs_ids[i], // the ID of the div, created above
+                pie_graphs[i].data,
+                pie_graphs[i].layout || {});
         }
 
 
-        for (var i in bar_graphes) {
+        for (var i in bar_graphs) {
             Plotly.plot(
-                    bar_graphes_ids[i], // the ID of the div, created above
-                    bar_graphes[i].data,
-                    bar_graphes[i].layout || {});
+                bar_graphs_ids[i], // the ID of the div, created above
+                bar_graphs[i].data,
+                bar_graphs[i].layout || {});
         }
 
-        for (var i in line_graphes) {
+        for (var i in line_graphs) {
             Plotly.plot(
-                    line_graphes_ids[i], // the ID of the div, created above
-                    line_graphes[i].data,
-                    line_graphes[i].layout || {});
+                line_graphs_ids[i], // the ID of the div, created above
+                line_graphs[i].data,
+                line_graphs[i].layout || {});
         }
 
     </script>
