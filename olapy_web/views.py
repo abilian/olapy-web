@@ -92,7 +92,7 @@ def _build_charts(dashboard, executer):
                 tables_names.append(chart_table_column)
 
             graphs['pie_charts'] = {
-                'graphs': graph_gen.generate_pie_graphes(all_dataframes),
+                'graphs': graph_gen.generate_pie_graphs(all_dataframes),
                 'totals': total,
                 'tables_names': tables_names
             }
@@ -109,7 +109,7 @@ def _build_charts(dashboard, executer):
                 tables_names.append(chart_table_column)
 
             graphs['bar_charts'] = {
-                'graphs': graph_gen.generate_bar_graphes(all_dataframes),
+                'graphs': graph_gen.generate_bar_graphs(all_dataframes),
                 'totals': total,
                 'tables_names': tables_names
             }
@@ -130,7 +130,7 @@ def _build_charts(dashboard, executer):
                 all_dataframes.append(df)
 
             graphs['line_charts'] = {
-                'graphs': graph_gen.generate_line_graphes(all_dataframes),
+                'graphs': graph_gen.generate_line_graphs(all_dataframes),
                 'totals': total,
                 'tables_names': tables_names
             }
