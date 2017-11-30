@@ -18,7 +18,6 @@ from olapy.core.mdx.tools.config_file_parser import ConfigParser
 from .extensions import login_manager
 from .forms import LoginForm
 from .models import User
-from .pivottable import pivot_ui
 from .stats_utils import GraphsGen
 
 blueprint = Blueprint('main', __name__, template_folder='templates')
@@ -198,23 +197,8 @@ def query_builder():
         client_type='web')
 
     df = executer.get_star_schema_dataframe()
-    if not df.empty:
-        pivot_ui(
-            df,
-            outfile_path=os.path.join(
-                os.path.dirname(os.path.abspath(__file__)), 'templates',
-                'pivottablejs.html'),
-            height="100%")
-
-    return render_template('query_builder.html', user=current_user)
-
-
-@route('/qbuilder')
-@login_required
-def qbuilder():
-    # type: () -> text_type
-    """
-    Show pivottablejs.html (generated with :func:`query_builder` ) as an iframe
-    :return: pivottablejs.html
-    """
-    return render_template('pivottablejs.html')
+    # return render_template('pivottablejs.html',
+    #                        dataframe_csv=df.to_csv(encoding="utf-8"))
+    return render_template('query_builder.html',
+                           user=current_user,
+                           dataframe_csv=df.to_csv(encoding="utf-8"))
