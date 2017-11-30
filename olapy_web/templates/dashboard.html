@@ -178,46 +178,38 @@
 {% endblock %}
 
 {% block js_t %}
-    {#<script src="{{ url_for('static',filename='js/plotly-basic.js') }}"></script>#}
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  {#<script src="{{ url_for('static',filename='js/plotly-basic.js') }}"></script>#}
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
+  <script type="text/javascript">
+    var pie_graphs = {{pies['graphs']['graph_json'] | safe}};
+    var pie_graphs_ids = {{pies['graphs']['ids'] | safe}};
 
-    <script type="text/javascript">
+    var bar_graphs = {{bars['graphs']['graph_json'] | safe}};
+    var bar_graphs_ids = {{bars['graphs']['ids'] | safe}};
 
+    var line_graphs = {{lines['graphs']['graph_json'] | safe}};
+    var line_graphs_ids = {{lines['graphs']['ids'] | safe}};
 
-        var pie_graphs = {{pies['graphs']['graph_json'] | safe}};
-        var pie_graphs_ids = {{pies['graphs']['ids'] | safe}};
+    for (var i in pie_graphs) {
+      Plotly.plot(
+          pie_graphs_ids[i], // the ID of the div, created above
+          pie_graphs[i].data,
+          pie_graphs[i].layout || {});
+    }
 
-        var bar_graphs = {{bars['graphs']['graph_json'] | safe}};
-        var bar_graphs_ids = {{bars['graphs']['ids'] | safe}};
+    for (var i in bar_graphs) {
+      Plotly.plot(
+          bar_graphs_ids[i], // the ID of the div, created above
+          bar_graphs[i].data,
+          bar_graphs[i].layout || {});
+    }
 
-        var line_graphs = {{lines['graphs']['graph_json'] | safe}};
-        var line_graphs_ids = {{lines['graphs']['ids'] | safe}};
-
-
-        for (var i in pie_graphs) {
-            Plotly.plot(
-                pie_graphs_ids[i], // the ID of the div, created above
-                pie_graphs[i].data,
-                pie_graphs[i].layout || {});
-        }
-
-
-        for (var i in bar_graphs) {
-            Plotly.plot(
-                bar_graphs_ids[i], // the ID of the div, created above
-                bar_graphs[i].data,
-                bar_graphs[i].layout || {});
-        }
-
-        for (var i in line_graphs) {
-            Plotly.plot(
-                line_graphs_ids[i], // the ID of the div, created above
-                line_graphs[i].data,
-                line_graphs[i].layout || {});
-        }
-
-    </script>
-
-
+    for (var i in line_graphs) {
+      Plotly.plot(
+          line_graphs_ids[i], // the ID of the div, created above
+          line_graphs[i].data,
+          line_graphs[i].layout || {});
+    }
+  </script>
 {% endblock %}

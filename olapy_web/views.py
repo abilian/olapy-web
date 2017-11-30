@@ -190,7 +190,6 @@ def query_builder():
     :return: pivottable.js
     """
     cubes_path = os.path.join(current_app.instance_path, 'olapy-data', 'cubes')
-
     config = ConfigParser(cube_path=cubes_path)
 
     executer = MdxEngine(

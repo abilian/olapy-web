@@ -1,19 +1,20 @@
 from __future__ import absolute_import, division, print_function
-    # unicode_literals causes problems
 
 import json
+from typing import Dict, List
 
 import pandas as pd
 import plotly
 import plotly.graph_objs as go
-from typing import List, Dict
+
+# unicode_literals causes problems
 
 
 class GraphsGen:
     """Manage graphs for the web clients."""
 
     @staticmethod
-    def generate_pie_graphes(dataframes):
+    def generate_pie_graphs(dataframes):
         # type: (List[pd.DataFrame]) -> Dict
         """Generate graphs for a list of Pandas DataFrames.
 
@@ -64,7 +65,7 @@ class GraphsGen:
 
     # TODO remove this , ( right know this is just a demo with sales cube )
     @staticmethod
-    def generate_bar_graphes(dataframes):
+    def generate_bar_graphs(dataframes):
         # type: (List[pd.DataFrame]) -> Dict
         """Generate graphs for a pandas DataFrame.
 
@@ -104,7 +105,7 @@ class GraphsGen:
         return {'ids': ids, 'graph_json': graph_json}
 
     @staticmethod
-    def generate_line_graphes(dataframes):
+    def generate_line_graphs(dataframes):
         # type: (List[pd.DataFrame]) -> Dict
         """Generate graphs for a list of Pandas DataFrames.
 
