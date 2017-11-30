@@ -28,9 +28,6 @@
 
     </style>
 
-    {% block css_imp %}
-
-    {% endblock %}
 
     <!-- Bootstrap Core CSS -->
     <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet">
@@ -43,14 +40,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script>
-        //        window.onload = initPage;
 
-        function change_p() {
-            document.getElementById('form1').submit();
-        }
-
-    </script>
 
     {% block header %}
 
@@ -134,13 +124,10 @@
     <div id="page-wrapper">
 
 
-        <form id="form1" action="" method="post">
+        {% block stats %}
 
-            {% block stats %}
+        {% endblock %}
 
-            {% endblock %}
-
-        </form>
         <!-- /#page-wrapper -->
     </div>
 </div>
