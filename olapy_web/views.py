@@ -148,9 +148,7 @@ def dashboard():
     config = ConfigParser(cube_path=cubes_path)
     cube_name = list(config.get_cubes_names(client_type='web').keys())[0]
     executer = MdxEngine(
-        cube_name=cube_name,
-        cubes_path=cubes_path,
-        client_type='web')
+        cube_name=cube_name, cubes_path=cubes_path, client_type='web')
     dashboard = config.construct_web_dashboard()
     if not dashboard:
         config_path = join(config.cube_path, config.web_config_file_name)
@@ -194,9 +192,7 @@ def query_builder():
 
     cube_name = list(config.get_cubes_names(client_type='web').keys())[0]
     executer = MdxEngine(
-        cube_name=cube_name,
-        cubes_path=cubes_path,
-        client_type='web')
+        cube_name=cube_name, cubes_path=cubes_path, client_type='web')
 
     df = executer.get_star_schema_dataframe()
     if not df.empty:
