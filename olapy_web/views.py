@@ -197,8 +197,6 @@ def query_builder():
         client_type='web')
 
     df = executer.get_star_schema_dataframe()
-    # return render_template('pivottablejs.html',
-    #                        dataframe_csv=df.to_csv(encoding="utf-8"))
     return render_template('query_builder.html',
                            user=current_user,
                            dataframe_csv=df.to_csv(encoding="utf-8"))
