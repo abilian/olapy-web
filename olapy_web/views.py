@@ -17,10 +17,21 @@ from olapy_web.tools.config_file_parser import ConfigParser
 from .extensions import login_manager
 from .forms import LoginForm
 from .models import User
-from .stats_utils import GraphsGen
+import importlib
 
 blueprint = Blueprint('main', __name__, template_folder='templates')
 route = blueprint.route
+
+
+def _build_charts(dashboard, executer):
+    graphs = {}
+    for chart_type, chart_attributs in dashboard.__dict__.items():
+        if chart_type == 'global_table':
+            continue
+        ChartClass = getattr(importlib.import_module("olapy_web.tools.models"), chart_type[:-1])
+        chart = ChartClass(executer, chart_attributs)
+        graphs[chart_type.lower().replace('charts', '')] = chart.gen_graphs()
+    return graphs
 
 
 @login_manager.user_loader
@@ -71,69 +82,6 @@ def logout():
     return redirect(url_for('.login'))
 
 
-def _build_charts(dashboard, executer):
-    graph_gen = GraphsGen()
-    graphs = {}
-    star_dataframe = executer.get_star_schema_dataframe()
-
-    for chart_type, chart_attributs in dashboard.__dict__.items():
-        all_dataframes = []
-        tables_names = []
-        total = {}
-        if chart_type == 'pie_charts':
-            for chart_table_column in chart_attributs:
-                total[chart_table_column] = star_dataframe[
-                    chart_table_column].value_counts().sum()
-                df = star_dataframe[
-                    chart_table_column].value_counts().to_frame().reset_index()
-                all_dataframes.append(df)
-                tables_names.append(chart_table_column)
-
-            graphs['pie_charts'] = {
-                'graphs': graph_gen.generate_pie_graphs(all_dataframes),
-                'totals': total,
-                'tables_names': tables_names
-            }
-
-        elif chart_type == 'bar_charts':
-            for measure in executer.measures:
-                total[measure] = star_dataframe[measure].sum()
-            for chart_table_column in chart_attributs:
-                df = star_dataframe[[chart_table_column] +
-                                    executer.measures].groupby([chart_table_column]).sum().reset_index()
-                all_dataframes.append(df)
-                tables_names.append(chart_table_column)
-
-            graphs['bar_charts'] = {
-                'graphs': graph_gen.generate_bar_graphs(all_dataframes),
-                'totals': total,
-                'tables_names': tables_names
-            }
-
-        elif chart_type == 'line_charts':
-            for measure in executer.measures:
-                total[measure] = star_dataframe[measure].sum()
-
-            for column_name, columns_attributs in chart_attributs.items():
-                df = star_dataframe[[column_name] + executer.measures].groupby(
-                    [column_name]).sum().reset_index()
-
-                # filter columns to show
-                if columns_attributs is not 'ALL':
-                    df = df[df[column_name].isin(columns_attributs)]
-
-                tables_names.append(column_name)
-                all_dataframes.append(df)
-
-            graphs['line_charts'] = {
-                'graphs': graph_gen.generate_line_graphs(all_dataframes),
-                'totals': total,
-                'tables_names': tables_names
-            }
-
-    return graphs
-
-
 @route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def dashboard():
@@ -171,9 +119,9 @@ def dashboard():
         table_result=pivot_table_df.fillna('').to_html(classes=[
             'table m-0 table-primary table-colored table-bordered table-hover table-striped display'
         ]),
-        pies=graphs['pie_charts'],
-        bars=graphs['bar_charts'],
-        lines=graphs['line_charts'],
+        pies=graphs['pie'],
+        bars=graphs['bar'],
+        lines=graphs['line'],
         user=current_user)
 
 

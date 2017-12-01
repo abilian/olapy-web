@@ -55,12 +55,12 @@ class ConfigParser:
                     'rows':
                         dashboard.find('Global_table/rows').text.split(','),
                 },
-                pie_charts=dashboard.find('PieCharts').text.split(','),
-                bar_charts=dashboard.find('BarCharts').text.split(','),
-                line_charts={
+                PieCharts=dashboard.find('PieCharts').text.split(','),
+                BarCharts=dashboard.find('BarCharts').text.split(','),
+                LineCharts={
                     table.find('name').text:
                         (table.find('columns').text.split(',')
-                         if table.find('columns') is not None else 'ALL')
+                        if table.find('columns') is not None else 'ALL')
                     for table in dashboard.findall('LineCharts/table')
                 }, )
             for dashboard in tree.xpath('/cubes/cube/Dashboards/Dashboard')
