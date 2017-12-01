@@ -1,8 +1,9 @@
 from __future__ import absolute_import, division, print_function
+# unicode_literals causes some problems with plotly
 # , unicode_literals
 
 import attr
-from typing import Dict, List
+from typing import Dict
 import pandas as pd
 import json
 import plotly
@@ -55,16 +56,32 @@ class Chart(object):
         self.executor = executor
         self.columns_names = columns_names
 
-    def gen_graphs_ids(self, graphs):
-        """
-        # Add "ids" to each of the graphs to pass up to the client
-        :param graphs:
-        :return:
-        """
-        return ['pie_graph-{}'.format(i) for i, _ in enumerate(graphs)]
+    def _gen_tables_names(self):
+        return [column_name for column_name in self.columns_names]
 
-    def gen_graphs_json(self, graphs):
-        return json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
+    #
+    # def _gen_graph_ids_json(self):
+    #     pass
+
+    def _gen_columns_sum(self):
+        pass
+
+    def _gen_graph_ids_json(self, graphs):
+        # Add "ids" to each of the graphs to pass up to the client
+        # for templating
+        graphs = self._generate_pie_graphs()
+        ids = ['pie_graph-{}'.format(i) for i, _ in enumerate(graphs)]
+        graph_json = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
+        # TODO use this
+        # div = offplot.plot(fig, show_link=False, output_type="div", include_plotlyjs=False)
+        return {'ids': ids, 'graph_json': graph_json}
+
+    def gen_graphs(self):
+        return {
+            'graphs': self._gen_graph_ids_json(),
+            'totals': self._gen_columns_sum(),
+            'tables_names': self._gen_tables_names()
+        }
 
 
 class PieChart(Chart):
@@ -121,28 +138,18 @@ class PieChart(Chart):
             all_dataframes.append(df)
         return all_dataframes
 
-    def _gen_tables_names(self):
-        return [column_name for column_name in self.columns_names]
-
-    def _generate_pie_graphs(self):
+    def _generate_graphs(self):
         return [self.generate_pie_graph(df) for df in self._gen_df_rows_occurrences()]
 
     def _gen_graph_ids_json(self):
         # Add "ids" to each of the graphs to pass up to the client
         # for templating
-        graphs = self._generate_pie_graphs()
+        graphs = self._generate_graphs()
         ids = ['pie_graph-{}'.format(i) for i, _ in enumerate(graphs)]
         graph_json = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
         # TODO use this
         # div = offplot.plot(fig, show_link=False, output_type="div", include_plotlyjs=False)
         return {'ids': ids, 'graph_json': graph_json}
-
-    def gen_graphs(self):
-        return {
-            'graphs': self._gen_graph_ids_json(),
-            'totals': self._gen_columns_sum(),
-            'tables_names': self._gen_tables_names()
-        }
 
 
 class BarChart(Chart):
@@ -187,28 +194,18 @@ class BarChart(Chart):
             all_dataframes.append(df)
         return all_dataframes
 
-    def _gen_tables_names(self):
-        return [column_name for column_name in self.columns_names]
-
-    def _generate_bar_graphs(self):
+    def _generate_graphs(self):
         return [self.generate_bar_graph(df) for df in self._gen_df_rows_occurrences()]
 
     def _gen_graph_ids_json(self):
         # Add "ids" to each of the graphs to pass up to the client
         # for templating
-        graphs = self._generate_bar_graphs()
+        graphs = self._generate_graphs()
         ids = ['bar_graph-{}'.format(i) for i, _ in enumerate(graphs)]
         graph_json = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
         # TODO use this
         # div = offplot.plot(fig, show_link=False, output_type="div", include_plotlyjs=False)
         return {'ids': ids, 'graph_json': graph_json}
-
-    def gen_graphs(self):
-        return {
-            'graphs': self._gen_graph_ids_json(),
-            'totals': self._gen_columns_sum(),
-            'tables_names': self._gen_tables_names()
-        }
 
 
 class LineChart(Chart):
@@ -256,25 +253,15 @@ class LineChart(Chart):
             all_dataframes.append(df)
         return all_dataframes
 
-    def _gen_tables_names(self):
-        return [column_name for column_name in self.columns_names]
-
-    def _generate_line_graphs(self):
+    def _generate_graphs(self):
         return [self.generate_line_graph(df) for df in self._gen_df_rows_occurrences()]
 
     def _gen_graph_ids_json(self):
         # Add "ids" to each of the graphs to pass up to the client
         # for templating
-        graphs = self._generate_line_graphs()
+        graphs = self._generate_graphs()
         ids = ['line_graph-{}'.format(i) for i, _ in enumerate(graphs)]
         graph_json = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
         # TODO use this
         # div = offplot.plot(fig, show_link=False, output_type="div", include_plotlyjs=False)
         return {'ids': ids, 'graph_json': graph_json}
-
-    def gen_graphs(self):
-        return {
-            'graphs': self._gen_graph_ids_json(),
-            'totals': self._gen_columns_sum(),
-            'tables_names': self._gen_tables_names()
-        }
