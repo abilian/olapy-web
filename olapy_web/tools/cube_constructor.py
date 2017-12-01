@@ -1,3 +1,5 @@
+from __future__ import absolute_import, division, print_function, unicode_literals
+
 from olapy.core.mdx.executor.execute import SUPPORTED_FILES, SUPPORTED_DATABASES, MdxEngine
 from olapy.core.mdx.executor.execute_config_file import construct_web_star_schema_config_file
 from olapy.core.mdx.executor.execute_csv_files import construct_star_schema_csv_files
@@ -5,7 +7,6 @@ from olapy.core.mdx.executor.execute_db import construct_star_schema_db
 
 
 class CubeConstructor:
-
 
     def construct_star_schema_from_config(self, config_file_parser):
         """
@@ -17,12 +18,12 @@ class CubeConstructor:
         fusion = None
         for cubes in config_file_parser.construct_cubes():
             if cubes.source.upper() in SUPPORTED_FILES + SUPPORTED_DATABASES:
-                    # todo clean!!!!!
-                    if cubes.facts:
-                        fusion = construct_web_star_schema_config_file(self, cubes)
-                    # todo clean!!!!! # todo clean!!!!! # todo clean!!!!!
-                    elif cubes.source.upper() in SUPPORTED_FILES and cubes.name in MdxEngine.csv_files_cubes:
-                        fusion = construct_star_schema_csv_files(self)
-                    elif cubes.source.upper() in SUPPORTED_DATABASES and cubes.name in MdxEngine.from_db_cubes:
-                        fusion = construct_star_schema_db(self)
+                # todo clean!!!!!
+                if cubes.facts:
+                    fusion = construct_web_star_schema_config_file(self, cubes)
+                # todo clean!!!!! # todo clean!!!!! # todo clean!!!!!
+                elif cubes.source.upper() in SUPPORTED_FILES and cubes.name in MdxEngine.csv_files_cubes:
+                    fusion = construct_star_schema_csv_files(self)
+                elif cubes.source.upper() in SUPPORTED_DATABASES and cubes.name in MdxEngine.from_db_cubes:
+                    fusion = construct_star_schema_db(self)
         return fusion

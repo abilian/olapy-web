@@ -100,9 +100,7 @@ def _build_charts(dashboard, executer):
                 total[measure] = star_dataframe[measure].sum()
             for chart_table_column in chart_attributs:
                 df = star_dataframe[[chart_table_column] +
-                                    executer.measures].groupby([
-                    chart_table_column
-                ]).sum().reset_index()
+                                    executer.measures].groupby([chart_table_column]).sum().reset_index()
                 all_dataframes.append(df)
                 tables_names.append(chart_table_column)
 

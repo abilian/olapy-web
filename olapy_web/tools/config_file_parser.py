@@ -1,3 +1,5 @@
+from __future__ import absolute_import, division, print_function, unicode_literals
+
 import os
 
 from olapy_web.tools.models import Dashboard, Table, Cube, Facts
