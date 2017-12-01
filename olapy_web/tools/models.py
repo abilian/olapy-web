@@ -52,25 +52,26 @@ class Dashboard(object):
 class Chart(object):
 
     def __init__(self, executor, columns_names):
-        # self.dashboard = dashboard.__dict__
         self.executor = executor
         self.columns_names = columns_names
 
     def _gen_tables_names(self):
         return [column_name for column_name in self.columns_names]
 
-    #
-    # def _gen_graph_ids_json(self):
-    #     pass
+    def _generate_graphs(self):
+        pass
 
     def _gen_columns_sum(self):
         pass
 
-    def _gen_graph_ids_json(self, graphs):
+    def _get_pattern(self):
+        return '_graph-{}'
+
+    def _gen_graph_ids_json(self):
         # Add "ids" to each of the graphs to pass up to the client
         # for templating
-        graphs = self._generate_pie_graphs()
-        ids = ['pie_graph-{}'.format(i) for i, _ in enumerate(graphs)]
+        graphs = self._generate_graphs()
+        ids = [self._get_pattern().format(i) for i, _ in enumerate(graphs)]
         graph_json = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
         # TODO use this
         # div = offplot.plot(fig, show_link=False, output_type="div", include_plotlyjs=False)
@@ -85,6 +86,7 @@ class Chart(object):
 
 
 class PieChart(Chart):
+    Chart.ids_patter = 'pie_graph-{}'
 
     def generate_pie_graph(self, dataframe):
         # type: (pd.DataFrame) -> Dict
@@ -141,18 +143,15 @@ class PieChart(Chart):
     def _generate_graphs(self):
         return [self.generate_pie_graph(df) for df in self._gen_df_rows_occurrences()]
 
-    def _gen_graph_ids_json(self):
-        # Add "ids" to each of the graphs to pass up to the client
-        # for templating
-        graphs = self._generate_graphs()
-        ids = ['pie_graph-{}'.format(i) for i, _ in enumerate(graphs)]
-        graph_json = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
-        # TODO use this
-        # div = offplot.plot(fig, show_link=False, output_type="div", include_plotlyjs=False)
-        return {'ids': ids, 'graph_json': graph_json}
+    def _get_pattern(self):
+        return 'pie_graph-{}'
 
 
 class BarChart(Chart):
+    # def __init__(self, *args, **kwargs):
+    Chart.ids_patter = 'bar_graph-{}'
+
+    # super(Chart, self).__init__()
 
     def generate_bar_graph(self, dataframe):
         # type: (pd.DataFrame) -> Dict
@@ -197,18 +196,12 @@ class BarChart(Chart):
     def _generate_graphs(self):
         return [self.generate_bar_graph(df) for df in self._gen_df_rows_occurrences()]
 
-    def _gen_graph_ids_json(self):
-        # Add "ids" to each of the graphs to pass up to the client
-        # for templating
-        graphs = self._generate_graphs()
-        ids = ['bar_graph-{}'.format(i) for i, _ in enumerate(graphs)]
-        graph_json = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
-        # TODO use this
-        # div = offplot.plot(fig, show_link=False, output_type="div", include_plotlyjs=False)
-        return {'ids': ids, 'graph_json': graph_json}
+    def _get_pattern(self):
+        return 'bar_graph-{}'
 
 
 class LineChart(Chart):
+    Chart.ids_patter = 'line_graph-{}'
 
     def generate_line_graph(self, dataframe):
         # type: (pd.DataFrame) -> Dict
@@ -256,12 +249,5 @@ class LineChart(Chart):
     def _generate_graphs(self):
         return [self.generate_line_graph(df) for df in self._gen_df_rows_occurrences()]
 
-    def _gen_graph_ids_json(self):
-        # Add "ids" to each of the graphs to pass up to the client
-        # for templating
-        graphs = self._generate_graphs()
-        ids = ['line_graph-{}'.format(i) for i, _ in enumerate(graphs)]
-        graph_json = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
-        # TODO use this
-        # div = offplot.plot(fig, show_link=False, output_type="div", include_plotlyjs=False)
-        return {'ids': ids, 'graph_json': graph_json}
+    def _get_pattern(self):
+        return 'line_graph-{}'

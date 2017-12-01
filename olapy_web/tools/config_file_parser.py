@@ -60,7 +60,7 @@ class ConfigParser:
                 LineCharts={
                     table.find('name').text:
                         (table.find('columns').text.split(',')
-                        if table.find('columns') is not None else 'ALL')
+                         if table.find('columns') is not None else 'ALL')
                     for table in dashboard.findall('LineCharts/table')
                 }, )
             for dashboard in tree.xpath('/cubes/cube/Dashboards/Dashboard')
