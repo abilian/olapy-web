@@ -11,10 +11,9 @@ import pandas as pd
 from flask import Blueprint, Response, current_app, flash, redirect, \
     render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
-
 from olapy.core.mdx.executor.execute import MdxEngine
-from olapy.core.mdx.tools.config_file_parser import ConfigParser
 
+from olapy_web.tools.config_file_parser import ConfigParser
 from .extensions import login_manager
 from .forms import LoginForm
 from .models import User
@@ -102,8 +101,8 @@ def _build_charts(dashboard, executer):
             for chart_table_column in chart_attributs:
                 df = star_dataframe[[chart_table_column] +
                                     executer.measures].groupby([
-                                        chart_table_column
-                                    ]).sum().reset_index()
+                    chart_table_column
+                ]).sum().reset_index()
                 all_dataframes.append(df)
                 tables_names.append(chart_table_column)
 
@@ -145,14 +144,14 @@ def dashboard():
     """
     # TODO use plotly dashboard !!!
     cubes_path = os.path.join(current_app.instance_path, 'olapy-data', 'cubes')
-    config = ConfigParser(cube_path=cubes_path)
-    executer = MdxEngine(
-        cube_name=list(config.get_cubes_names(client_type='web').keys())[0],
-        cubes_path=cubes_path,
-        client_type='web')
+    config = ConfigParser(cubes_path=cubes_path)
+    executer = MdxEngine(cube_config=config,
+                         cube_name=list(config.get_cubes_names().keys())[0],
+                         cubes_path=cubes_path,
+                         client_type='web')
     dashboard = config.construct_web_dashboard()
     if not dashboard:
-        config_path = os.path.join(config.cube_path,
+        config_path = os.path.join(config.cubes_path,
                                    config.web_config_file_name)
         return ('<h3> your config file (' + config_path +
                 ') does not contains dashboard section </h3>')
@@ -189,12 +188,12 @@ def query_builder():
     :return: pivottable.js
     """
     cubes_path = os.path.join(current_app.instance_path, 'olapy-data', 'cubes')
-    config = ConfigParser(cube_path=cubes_path)
-
-    executer = MdxEngine(
-        cube_name=config.get_cubes_names(client_type='web').keys()[0],
-        cubes_path=cubes_path,
-        client_type='web')
+    config = ConfigParser(cubes_path=cubes_path)
+    executer = MdxEngine(cube_config=config,
+                         cube_name=config.get_cubes_names().keys()[0],
+                         cubes_path=cubes_path,
+                         client_type='web'
+                         )
 
     df = executer.get_star_schema_dataframe()
     return render_template('query_builder.html',
