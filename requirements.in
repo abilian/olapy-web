@@ -6,7 +6,6 @@ SQLAlchemy
 WTForms
 # Pin these for now
 Flask-Login
-Flask-Script
 Flask-SQLAlchemy
 Flask-WTF
 plotly
