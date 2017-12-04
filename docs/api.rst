@@ -4,47 +4,14 @@ API Documentation
 =================
 
 
-Module ``web.views``
---------------------
-
-
-First, to import the Module use::
-
-    import web.views
-
-
-.. automodule:: web.views
-        :members:
-
-
-Module ``web.pivottable``
--------------------------
-
-
-First, to import the Module use::
-
-    import web.pivottable
-
-
-.. automodule:: web.pivottable
-        :members: pivot_ui
-
-        .. autoclass:: IFrame
-                :members:
-
-
-
-Module ``web.stats_utils``
+Module ``olapy_web.views``
 --------------------------
 
 
 First, to import the Module use::
 
-    import web.stats_utils
+    import olapy_web.views
 
 
-.. automodule:: web.stats_utils
-
-        .. autoclass:: GraphsGen
-                :members:
-
+.. automodule:: olapy_web.views
+        :members:

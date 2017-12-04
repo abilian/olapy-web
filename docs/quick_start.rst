@@ -2,7 +2,7 @@ Quick Start
 -----------
 
 
-After :ref:`installation <installation>`, If you run Olapy-web for the first time, you have to initialize it with::
+After :ref:`Installation <Installation>`, If you run Olapy-web for the first time, you have to initialize it with::
 
     flask initdb
 

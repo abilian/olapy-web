@@ -36,9 +36,9 @@ extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.intersphinx']
 
 # Add mappings
-intersphinx_mapping = {
-    'olapy': ('https://github.com/abilian/olapy/tree/clean/docs', None),
-}
+# intersphinx_mapping = {
+#     'olapy': ('https://github.com/abilian/olapy/tree/clean/docs', None),
+# }
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
