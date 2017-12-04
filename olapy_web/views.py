@@ -136,7 +136,7 @@ def query_builder():
     cubes_path = os.path.join(current_app.instance_path, 'olapy-data', 'cubes')
     config = ConfigParser(cubes_path=cubes_path)
     executer = MdxEngine(cube_config=config,
-                         cube_name=config.get_cubes_names().keys()[0],
+                         cube_name=list(config.get_cubes_names().keys())[0],
                          cubes_path=cubes_path,
                          client_type='web'
                          )
