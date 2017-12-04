@@ -113,15 +113,12 @@ def dashboard():
         index=dashboard.global_table['columns'],
         columns=dashboard.global_table['rows'],
         aggfunc=np.sum)
-
     return render_template(
         'dashboard.html',
         table_result=pivot_table_df.fillna('').to_html(classes=[
             'table m-0 table-primary table-colored table-bordered table-hover table-striped display'
         ]),
-        pies=graphs['pie'],
-        bars=graphs['bar'],
-        lines=graphs['line'],
+        graphs=graphs,
         user=current_user)
 
 
