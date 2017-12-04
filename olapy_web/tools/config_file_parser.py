@@ -43,6 +43,102 @@ class ConfigParser:
         return os.path.join(self.cubes_path, self.web_config_file_name)
 
     def construct_web_dashboard(self):
+        """
+        Parse olapy-web config web file.
+
+        Config file used if you want to show only some measures, dimensions,
+        columns... in excel
+
+        Config file should be under '~/olapy-data/cubes/web-cubes-config.xml'
+
+         <cubes>
+               <cube>
+                  <!-- cube name => db name -->
+                  <name>mpr</name>
+
+                  <!-- source : postgres | csv -->
+                  <source>postgres</source>
+
+                  <!-- star building customized star schema -->
+                  <facts>
+                     <!-- facts table name -->
+                     <table_name>projet</table_name>
+
+                     <keys>
+                        <!-- ref = table_name.column  -->
+                        <column_name ref="vocabulary_crm_status.id">status_id</column_name>
+                        <column_name ref="vocabulary_crm_pole_leader.id">pole_leader_id</column_name>
+                        <column_name ref="contact.id">contact_id</column_name>
+                        <column_name ref="compte.id">compte_porteur_id</column_name>
+                        <column_name ref="vocabulary_crm_aap_type.id">aap_name_id</column_name>
+                     </keys>
+
+                     <!-- specify measures explicitly -->
+                     <measures>
+                        <!-- by default, all number type columns in facts table, or you can specify them here -->
+                        <name>budget_total</name>
+                        <name>subvention_totale</name>
+                        <name>duree_projet</name>
+                     </measures>
+
+                     <!-- additional columns to keep other than measures and ids -->
+                     <columns>etat,aap,axes_de_developpement</columns>
+                  </facts>
+
+                  <!-- end building customized star schema -->
+                  <tables>
+                     <!-- Table name -->
+                     <table name="vocabulary_crm_status">
+
+                        <!-- Columns to keep (INCLUDING id)-->
+                        <!-- They must be seperated with comma ',' -->
+                        <columns>id,label</columns>
+
+                        <!-- Change insignificant table columns names -->
+                        <!-- {IMPORTANT} Renaming COMMUN columns between dimensions and other columns if you want, other than ids column -->
+                        <new_name old_column_name="label">Status</new_name>
+                     </table>
+
+                     <table name="contact">
+                        <columns>id,nom,prenom,fonction</columns>
+                        <new_name old_column_name="fonction">Contact Fonction</new_name>
+                     </table>
+                  </tables>
+
+                  <!-- Dashboards -->
+                  <Dashboards>
+                     <Dashboard>
+                        <Global_table>
+                           <!-- IMPORTANT !! columns and rows names must be specified as above with their new names -->
+                           <!-- EXAMPLE <new_name old_column_name="label">Pole leader</new_name>, you put Pole leader -->
+                           <!-- marches,axes_de_developpement,statut_pour_book are columns from facts table  -->
+                           <columns>marches,axes_de_developpement</columns>
+                           <rows>statut_pour_book</rows>
+                        </Global_table>
+
+                        <!-- Contact Fonction,Type Organisation columns name from different tables (with ther new names) -->
+                        <PieCharts>Contact Fonction,Type Organisation</PieCharts>
+
+                        <!-- TODO BarCharts with Stacked Bar Chart -->
+                        <BarCharts>Avis</BarCharts>
+
+                        <!-- Preferably with time/date (or sequenced) tables-->
+                        <LineCharts>
+                           <table>
+                              <!-- date_debut_envisagee a column from facts table  -->
+                              <name>date_debut_envisagee</name>
+                              <!-- if not specified, then all columns attributs -->
+                              <!--<columns>1945,2000,2006,2015</columns> -->
+                           </table>
+                        </LineCharts>
+                     </Dashboard>
+                  </Dashboards>
+                <!-- END Dashboards -->
+               </cube>
+        </cubes>
+
+        :return:
+        """
         with open(self.get_web_confile_file_path()) as config_file:
             parser = etree.XMLParser()
             tree = etree.parse(config_file, parser)
@@ -60,7 +156,7 @@ class ConfigParser:
                 LineCharts={
                     table.find('name').text:
                         (table.find('columns').text.split(',')
-                         if table.find('columns') is not None else 'ALL')
+                        if table.find('columns') is not None else 'ALL')
                     for table in dashboard.findall('LineCharts/table')
                 }, )
             for dashboard in tree.xpath('/cubes/cube/Dashboards/Dashboard')
