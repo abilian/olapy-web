@@ -4,11 +4,7 @@ OlaPy, an experimental OLAP engine based on Pandas
 About
 -----
 
-**OlaPy** is an OLAP_ engine with MDX_ support, web interface (slice & dice) and XMLA_ support for Excel clients.
-
-.. _OLAP: https://en.wikipedia.org/wiki/Online_analytical_processing
-.. _MDX: https://en.wikipedia.org/wiki/MultiDimensional_eXpressions
-.. _XMLA: https://en.wikipedia.org/wiki/XML_for_Analysis
+Olapy-web is a visual, web-based tool for exploring and analyzing OLAP databases served by the `OlaPy <https://github.com/abilian/olapy>`_.
 
 Status
 ~~~~~~
@@ -25,47 +21,24 @@ Installation
 
 To set up the application, run, ideally in a virtualenv::
 
-    (if server production deployment : pip install -r requirements.txt before python setup.py install)
-
-    python setup.py install
-
-or just::
-
-    pip install -e .
-
-UPDATE
-------
-
-::
     pip install -r requirement.txt
-    export FLASK_APP=manage.py
-    flask initdb
-    flask run
 
+    export FLASK_APP=manage.py
 
 Usage
 -----
 
-With an XMLA client
-~~~~~~~~~~~~~~~~~~~
 
-To use XMLA from Excel, just start the XMLA server by executing in the root directory::
+Run the demo
+~~~~~~~~~~~~
 
-    python olapy ( -c | --console , if you want to print logs only in the console)
-
-and use the url: ``http://127.0.0.1:8000/xmla`` in Excel.
-
-*  Be sure to use ``Provider=MSOLAP.6`` in Excel (see https://blogs.technet.microsoft.com/excel_services__powerpivot_for_sharepoint_support_blog/2015/10/30/configuring-the-msolap-data-provider-version).
-
-
-With the demo web app
-~~~~~~~~~~~~~~~~~~~~~
 
 Run:
 
-1. ``python manage.py initdb`` to initialize the db
 
-2. ``python manage.py runserver`` to run application, using the following credential to log in:
+1. flask initdb to initialize the db and some demos
+
+2. flask run to run application, using the following credential to log in:
 
   - **login**: admin
 
