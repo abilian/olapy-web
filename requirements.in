@@ -3,14 +3,13 @@ olapy
 # Web
 Flask
 SQLAlchemy
-WTForms<3
+WTForms
 # Pin these for now
-Flask-Login==0.3.2
-Flask-Script==2.0.5
-Flask-Session==0.3.0
-Flask-SQLAlchemy==2.1
-Flask-WTF==0.12
-plotly<3
+Flask-Login
+Flask-Script
+Flask-SQLAlchemy
+Flask-WTF
+plotly
 
 # Misc
 typing
