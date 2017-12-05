@@ -1,12 +1,12 @@
 from __future__ import absolute_import, division, print_function, \
     unicode_literals
 
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from wtforms import BooleanField, PasswordField, StringField, SubmitField
 from wtforms.validators import DataRequired
 
 
-class LoginForm(Form):
+class LoginForm(FlaskForm):
     """Loging Form."""
 
     username = StringField(
