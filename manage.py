@@ -2,6 +2,7 @@ from __future__ import absolute_import, division, print_function
 
 import click
 from sqlalchemy.exc import IntegrityError
+import os
 
 from olapy_web.app import create_app, db
 from olapy_web.models import User
@@ -24,7 +25,6 @@ def initdb(ctx):
         print('Database Already initialized')
 
     from olapy.cli import init
-    import os
     os.environ['OLAPY_PATH'] = app.instance_path
     ctx.invoke(init)
     print('Initialized Olapy')
