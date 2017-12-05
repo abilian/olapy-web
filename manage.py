@@ -10,7 +10,8 @@ app = create_app()
 
 
 @app.cli.command(short_help='Initialize database')
-def initdb():
+@click.pass_context
+def initdb(ctx):
     try:
         db.create_all()
         db.session.add(
@@ -22,11 +23,10 @@ def initdb():
     except IntegrityError:
         print('Database Already initialized')
 
-    # from olapy.cli import init
+    from olapy.cli import init
     import os
     os.environ['OLAPY_PATH'] = app.instance_path
-    # init()
-    os.system('olapy init')
+    ctx.invoke(init)
     print('Initialized Olapy')
 
 
