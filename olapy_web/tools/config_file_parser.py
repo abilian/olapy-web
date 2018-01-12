@@ -146,9 +146,9 @@ class ConfigParser:
                 BarCharts=config['Dashboard']['BarCharts'],
                 LineCharts={
                     config['Dashboard']['LineCharts']['table']:
-                    config['Dashboard']['LineCharts']['columns'] if
-                    'columns' in config['Dashboard']['LineCharts'] else 'ALL'
-                } if 'LineCharts' in config['Dashboard'] else {} )
+                        config['Dashboard']['LineCharts']['columns'] if
+                        'columns' in config['Dashboard']['LineCharts'] else 'ALL'
+                } if 'LineCharts' in config['Dashboard'] else {})
         ]
 
     def construct_cubes(self):
@@ -179,10 +179,10 @@ class ConfigParser:
             if 'tables' in config:
                 tables = [
                     Table(
-                        name=table['name'],
-                        columns=table['columns'],
+                        name=table['table']['name'],
+                        columns=table['table']['columns'],
                         new_names={new_col
-                                   for new_col in table['new_names']},
+                                   for new_col in table['table']['new_names']} if 'new_names' in table['table'] else {},
                     ) for table in config['tables']
                 ]
             else:
