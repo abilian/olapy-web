@@ -11,7 +11,7 @@ class ConfigParser:
         self.cubes_path = cubes_path
         self.web_config_file_name = web_config_file_name
 
-    def config_file_exist(self):
+    def config_file_exists(self):
         """
         Check whether the config file exists or not.
 
@@ -167,7 +167,7 @@ class ConfigParser:
         Construct parser cube obj (which can ben passed to MdxEngine) for web
         :return: Cube obj
         """
-        if not self.config_file_exist():
+        if not self.config_file_exists():
             raise ValueError("Config file doesn't exist")
         with open(self.get_web_confile_file_path()) as config_file:
             parser = etree.XMLParser()
