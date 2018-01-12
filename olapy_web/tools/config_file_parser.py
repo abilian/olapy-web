@@ -148,7 +148,7 @@ class ConfigParser:
                     config['Dashboard']['LineCharts']['table']:
                     config['Dashboard']['LineCharts']['columns'] if
                     'columns' in config['Dashboard']['LineCharts'] else 'ALL'
-                })
+                } if 'LineCharts' in config['Dashboard'] else {} )
         ]
 
     def construct_cubes(self):
