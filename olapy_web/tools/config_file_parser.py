@@ -144,9 +144,11 @@ class ConfigParser:
                 global_table=config['Dashboard']['Global_table'],
                 PieCharts=config['Dashboard']['PieCharts'],
                 BarCharts=config['Dashboard']['BarCharts'],
-                LineCharts={config['Dashboard']['LineCharts']['table']:
-                                config['Dashboard']['LineCharts']['columns'] if 'columns' in config['Dashboard']['LineCharts'] else 'ALL'}
-            )
+                LineCharts={
+                    config['Dashboard']['LineCharts']['table']:
+                    config['Dashboard']['LineCharts']['columns'] if
+                    'columns' in config['Dashboard']['LineCharts'] else 'ALL'
+                })
         ]
 
     def construct_cubes(self):
@@ -161,15 +163,14 @@ class ConfigParser:
 
             if 'facts' in config:
                 facts = [
-
                     Facts(
-
                         table_name=config['facts']['table_name'],
-                        keys=dict(zip(config['facts']['keys']['columns_names'],
-                                      config['facts']['keys']['refs'])
-                                  ),
+                        keys=dict(
+                            zip(config['facts']['keys']['columns_names'],
+                                config['facts']['keys']['refs'])),
                         measures=config['facts']['measures'],
-                        columns=config['facts']['columns'] if 'columns' in config['facts'] else '',
+                        columns=config['facts']['columns']
+                        if 'columns' in config['facts'] else '',
                     )
                 ]
             else:
@@ -180,11 +181,9 @@ class ConfigParser:
                     Table(
                         name=table['name'],
                         columns=table['columns'],
-                        new_names={
-                            new_col for new_col in table['new_names']
-                        },
+                        new_names={new_col
+                                   for new_col in table['new_names']},
                     ) for table in config['tables']
-
                 ]
             else:
                 tables = []
