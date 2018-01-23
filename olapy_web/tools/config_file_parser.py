@@ -7,9 +7,12 @@ import yaml
 
 
 class ConfigParser:
-    def __init__(self, cubes_path, web_config_file_name='web_cube_config.yml'):
-        self.cubes_path = cubes_path
-        self.web_config_file_name = web_config_file_name
+    def __init__(self, web_config_file_name=None):
+
+        if web_config_file_name:
+            self.web_config_file_name = web_config_file_name
+        else:
+            self.web_config_file_name = 'web_cube_config.yml'
 
     def config_file_exists(self):
         """
@@ -19,14 +22,14 @@ class ConfigParser:
         :return: True | False
         """
 
-        return os.path.isfile(self.get_web_confile_file_path())
+        return os.path.isfile(self.web_config_file_name)
 
     def get_cubes_names(self):
         """Get all cubes names in the config file.
 
         :return: dict with dict name as key and cube source as value (csv | postgres | mysql | oracle | mssql)
         """
-        file_path = self.get_web_confile_file_path()
+        file_path = self.web_config_file_name
         with open(file_path) as config_file:
             config = yaml.load(config_file)
 
@@ -34,9 +37,6 @@ class ConfigParser:
                 return {config['name']: config['source']}
             except BaseException:  # pragma: no cover
                 raise ValueError('missed name or source tags')
-
-    def get_web_confile_file_path(self):
-        return os.path.join(self.cubes_path, self.web_config_file_name)
 
     def construct_web_dashboard(self):
         """
@@ -136,7 +136,7 @@ class ConfigParser:
 
         :return:
         """
-        with open(self.get_web_confile_file_path()) as config_file:
+        with open(self.web_config_file_name) as config_file:
             config = yaml.load(config_file)
 
         return [
@@ -158,7 +158,7 @@ class ConfigParser:
         """
         if not self.config_file_exists():
             raise ValueError("Config file doesn't exist")
-        with open(self.get_web_confile_file_path()) as config_file:
+        with open(self.web_config_file_name) as config_file:
             config = yaml.load(config_file)
 
             if 'facts' in config:

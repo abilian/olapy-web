@@ -130,13 +130,13 @@ class PieChart(Chart):
     def _gen_columns_sum(self):
         total = {}
         for column_name in self.columns_names:
-            total[column_name] = self.executor.load_star_schema_dataframe[column_name].value_counts().sum()
+            total[column_name] = self.executor.star_schema_dataframe[column_name].value_counts().sum()
         return total
 
     def _gen_df_rows_occurrences(self):
         all_dataframes = []
         for column_name in self.columns_names:
-            df = self.executor.load_star_schema_dataframe[column_name].value_counts().to_frame().reset_index()
+            df = self.executor.star_schema_dataframe[column_name].value_counts().to_frame().reset_index()
             all_dataframes.append(df)
         return all_dataframes
 
@@ -181,14 +181,14 @@ class BarChart(Chart):
     def _gen_columns_sum(self):
         total = {}
         for measure in self.executor.measures:
-            total[measure] = self.executor.load_star_schema_dataframe[measure].sum()
+            total[measure] = self.executor.star_schema_dataframe[measure].sum()
         return total
 
     def _gen_df_rows_occurrences(self):
         all_dataframes = []
         for column_name in self.columns_names:
-            df = self.executor.load_star_schema_dataframe[[column_name] +
-                                                          self.executor.measures].groupby(
+            df = self.executor.star_schema_dataframe[[column_name] +
+                                                     self.executor.measures].groupby(
                 [column_name]).sum().reset_index()
             all_dataframes.append(df)
         return all_dataframes
@@ -230,13 +230,13 @@ class LineChart(Chart):
     def _gen_columns_sum(self):
         total = {}
         for measure in self.executor.measures:
-            total[measure] = self.executor.load_star_schema_dataframe[measure].sum()
+            total[measure] = self.executor.star_schema_dataframe[measure].sum()
         return total
 
     def _gen_df_rows_occurrences(self):
         all_dataframes = []
         for column_name, columns_attributs in self.columns_names.items():
-            df = self.executor.load_star_schema_dataframe[[column_name] + self.executor.measures].groupby(
+            df = self.executor.star_schema_dataframe[[column_name] + self.executor.measures].groupby(
                 [column_name]).sum().reset_index()
 
             # filter columns to show

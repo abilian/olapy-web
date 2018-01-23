@@ -90,26 +90,31 @@ def dashboard():
     """
     # TODO use plotly dashboard !!!
     cubes_path = os.path.join(current_app.instance_path, 'olapy-data', 'cubes')
-    config = ConfigParser(cubes_path=cubes_path)
-    executer = MdxEngine(cube_config=config,
-                         cube_name=list(config.get_cubes_names().keys())[0],
+
+    web_config_file_path = os.path.join(cubes_path, 'web_cube_config.yml')
+    config = ConfigParser(web_config_file_path)
+    dashboard = config.construct_web_dashboard()
+
+    config = ConfigParser(web_config_file_path)
+    cube_config_file = config.construct_cubes()[0]  # one cube right now
+
+    executor = MdxEngine(cube_config=cube_config_file,
                          cubes_path=cubes_path,
                          client_type='web')
-    dashboard = config.construct_web_dashboard()
+    executor.load_cube(cube_config_file.name)
+
     if not dashboard:
-        config_path = os.path.join(config.cubes_path,
-                                   config.web_config_file_name)
-        return ('<h3> your config file (' + config_path +
+        return ('<h3> your config file (' + web_config_file_path +
                 ') does not contains dashboard section </h3>')
     else:
         # first dashboard only right now
         dashboard = dashboard[0]
 
-    graphs = _build_charts(dashboard, executer)
+    graphs = _build_charts(dashboard, executor)
     # todo margins = True ( prob )
     pivot_table_df = pd.pivot_table(
-        executer.get_star_schema_dataframe(),
-        values=executer.measures,
+        executor.star_schema_dataframe,
+        values=executor.measures,
         index=dashboard.global_table['columns'],
         columns=dashboard.global_table['rows'],
         aggfunc=np.sum)
@@ -130,15 +135,18 @@ def query_builder():
 
     :return: pivottable.js
     """
-    cubes_path = os.path.join(current_app.instance_path, 'olapy-data', 'cubes')
-    config = ConfigParser(cubes_path=cubes_path)
-    executer = MdxEngine(cube_config=config,
-                         cube_name=list(config.get_cubes_names().keys())[0],
-                         cubes_path=cubes_path,
-                         client_type='web'
-                         )
 
-    df = executer.get_star_schema_dataframe()
+    cubes_path = os.path.join(current_app.instance_path, 'olapy-data', 'cubes')
+
+    web_config_file_path = os.path.join(cubes_path, 'web_cube_config.yml')
+    config = ConfigParser(web_config_file_path)
+    cube_config_file = config.construct_cubes()[0]  # one cube right now
+
+    executor = MdxEngine(cube_config=cube_config_file,
+                         cubes_path=cubes_path,
+                         client_type='web')
+    executor.load_cube(cube_config_file.name)
+
     return render_template('query_builder.html',
                            user=current_user,
-                           dataframe_csv=df.to_csv(encoding="utf-8"))
+                           dataframe_csv=executor.star_schema_dataframe.to_csv(encoding="utf-8"))
