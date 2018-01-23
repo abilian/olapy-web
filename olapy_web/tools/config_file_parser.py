@@ -47,94 +47,73 @@ class ConfigParser:
 
         Config file should be under '~/olapy-data/cubes/web-cubes-config.xml'
 
-         <cubes>
-           <cube>
-              <!-- cube name => db name -->
-              <name>mpr</name>
 
-              <!-- source : postgres | csv -->
-              <source>postgres</source>
+        name : foodmart_with_config            # csv folder name or db name
+        source : csv                           # csv | postgres | mysql ...
 
-              <!-- star building customized star schema -->
-              <facts>
-                 <!-- facts table name -->
-                 <table_name>projet</table_name>
+        facts :                                # facts table name
+          table_name : food_facts
+          keys:                                # primary keys
+            columns_names :
+              - product_id
+              - warehouse_id
+              - store_id
+            refs :                             # keys refs (example : product_id ref to column id from table Product...)
+              - Product.id
+              - Warehouse.id
+              - Store.id
 
-                 <keys>
-                    <!-- ref = table_name.column  -->
-                    <column_name ref="vocabulary_crm_status.id">status_id</column_name>
-                    <column_name ref="vocabulary_crm_pole_leader.id">pole_leader_id</column_name>
-                    <column_name ref="contact.id">contact_id</column_name>
-                    <column_name ref="compte.id">compte_porteur_id</column_name>
-                    <column_name ref="vocabulary_crm_aap_type.id">aap_name_id</column_name>
-                 </keys>
+          measures :                  # by default, all number type columns in facts table, or you can specify them here
+            - units_ordered
+            - units_shipped
+            - supply_time
 
-                 <!-- specify measures explicitly -->
-                 <measures>
-                    <!-- by default, all number type columns in facts table, or you can specify them here -->
-                    <name>budget_total</name>
-                    <name>subvention_totale</name>
-                    <name>duree_projet</name>
-                 </measures>
 
-                 <!-- additional columns to keep other than measures and ids -->
-                 <columns>etat,aap,axes_de_developpement</columns>
-              </facts>
+        tables :                               #  additional columns to keep other than measures and ids columns :
+          - table :
+              name : Product
+              columns : id,brand_name,product_name
+              new_names :
+                product_name : Product_Name
 
-              <!-- end building customized star schema -->
-              <tables>
-                 <!-- Table name -->
-                 <table name="vocabulary_crm_status">
+          - table :
+              name : Store
+              columns : id,store_type,store_name,store_city
 
-                    <!-- Columns to keep (INCLUDING id)-->
-                    <!-- They must be seperated with comma ',' -->
-                    <columns>id,label</columns>
+          - table :
+              name : Warehouse
+              columns : id,warehouse_name,warehouse_city,warehouse_country
 
-                    <!-- Change insignificant table columns names -->
-                    <!-- {IMPORTANT} Renaming COMMUN columns between dimensions and other columns if you want, \
-                    other than ids column -->
-                    <new_name old_column_name="label">Status</new_name>
-                 </table>
 
-                 <table name="contact">
-                    <columns>id,nom,prenom,fonction</columns>
-                    <new_name old_column_name="fonction">Contact Fonction</new_name>
-                 </table>
-              </tables>
+        # IMPORTANT !! columns and rows names must be specified as above with their new names
+        # EXAMPLE <new_name old_column_name="label">Pole leader</new_name>, you put Pole leader
+        # marches,axes_de_developpement,statut_pour_book are columns from facts table
+        Dashboard :
+          Global_table:
+            columns :
+              - warehouse_name
+              - warehouse_country
+              - store_type
+              - store_name
+              - brand_name
+            rows :
+              - store_city
 
-              <!-- Dashboards -->
-              <Dashboards>
-                 <Dashboard>
-                    <Global_table>
-                       <!-- IMPORTANT !! columns and rows names must be specified as above with their new names -->
-                       <!-- EXAMPLE <new_name old_column_name="label">Pole leader</new_name>, you put Pole leader -->
-                       <!-- marches,axes_de_developpement,statut_pour_book are columns from facts table  -->
-                       <columns>marches,axes_de_developpement</columns>
-                       <rows>statut_pour_book</rows>
-                    </Global_table>
+          PieCharts :
+            - store_city
+            - store_type
+            - warehouse_city
 
-                    <!-- Contact Fonction,Type Organisation columns name from different tables (with ther new names) -->
-                    <PieCharts>Contact Fonction,Type Organisation</PieCharts>
+          BarCharts :
+            - warehouse_country
 
-                    <!-- TODO BarCharts with Stacked Bar Chart -->
-                    <BarCharts>Avis</BarCharts>
+        #  LineCharts :                                             # Preferably with time/date (or sequenced) tables
+        #    table : Year
+        #    columns :
+        #      - 2010
+        #      - 2011
 
-                    <!-- Preferably with time/date (or sequenced) tables-->
-                    <LineCharts>
-                       <table>
-                          <!-- date_debut_envisagee a column from facts table  -->
-                          <name>date_debut_envisagee</name>
-                          <!-- if not specified, then all columns attributs -->
-                          <!--<columns>1945,2000,2006,2015</columns> -->
-                       </table>
-                    </LineCharts>
-                 </Dashboard>
-              </Dashboards>
-            <!-- END Dashboards -->
-           </cube>
-        </cubes>
-
-        :return:
+        :return: dashboard (dict)
         """
         with open(self.web_config_file_name) as config_file:
             config = yaml.load(config_file)
