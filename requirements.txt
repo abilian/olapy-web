@@ -4,17 +4,16 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
--e git+https://github.com/abilian/olapy.git#egg=olapy
 appdirs==1.4.3            # via fs
-attrs==17.4.0
-awesome-slugify==1.6.5
-bonobo-sqlalchemy==0.5.1
-bonobo==0.5.2             # via bonobo-sqlalchemy
-certifi==2017.11.5        # via requests
+attrs==17.4.0             # via olapy
+awesome-slugify==1.6.5    # via olapy
+bonobo-sqlalchemy==0.5.1  # via olapy
+bonobo==0.5.2             # via bonobo-sqlalchemy, olapy
+certifi==2018.1.18        # via requests
 chardet==3.0.4            # via requests
 click==6.7                # via flask, python-dotenv
 colorama==0.3.9           # via bonobo
-decorator==4.1.2          # via plotly, traitlets
+decorator==4.2.1          # via plotly, traitlets
 flask-login==0.4.1
 flask-sqlalchemy==2.3.2
 flask-wtf==0.14.2
@@ -26,30 +25,31 @@ itsdangerous==0.24        # via flask
 jinja2==2.10              # via flask
 jsonschema==2.6.0         # via nbformat
 jupyter-core==4.4.0       # via nbformat
-lxml==4.1.1
+lxml==4.1.1               # via olapy
 markupsafe==1.0           # via jinja2
 nbformat==4.4.0           # via plotly
 numpy==1.14.0             # via pandas
+olapy==0.6.0
 packaging==16.8           # via bonobo
-pandas==0.22.0
+pandas==0.22.0            # via olapy
 pbr==3.1.1                # via stevedore
-plotly==2.2.3
+plotly==2.3.0
 psutil==5.4.3             # via bonobo
 pyparsing==2.2.0          # via packaging
 python-dateutil==2.6.1    # via pandas
-python-dotenv==0.7.1
+python-dotenv==0.7.1      # via olapy
 pytz==2017.3              # via fs, pandas, plotly, spyne
-pyyaml==3.12
-regex==2018.1.10          # via awesome-slugify
+pyyaml==3.12              # via olapy
+regex==2018.1.10          # via awesome-slugify, olapy
 requests==2.18.4          # via bonobo, plotly
 six==1.11.0               # via fs, packaging, plotly, python-dateutil, stevedore, traitlets
-spyne==2.12.14
+spyne==2.12.14            # via olapy
 sqlalchemy==1.1.15
 stevedore==1.28.0         # via bonobo
 traitlets==4.3.2          # via jupyter-core, nbformat
-typing==3.6.2
+typing==3.6.4
 unidecode==0.4.21         # via awesome-slugify
 urllib3==1.22             # via requests
-werkzeug==0.14.1          # via flask
+werkzeug==0.14.1          # via flask, olapy
 wtforms==2.1
-xmlwitch==0.3
+xmlwitch==0.3             # via olapy

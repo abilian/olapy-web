@@ -1,5 +1,4 @@
-#olapy
--e git+https://github.com/abilian/olapy.git#egg=olapy
+olapy
 
 # Web
 Flask
