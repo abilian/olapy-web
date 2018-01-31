@@ -1,0 +1,35 @@
+
+.cubes_box {
+    position: relative;
+    float: left;
+    top: 30px;
+    left: 10px;
+    width: 195px;
+    height: 480px;
+    border: 1px solid #98a6ad;
+    padding: 10px;
+}
+
+.cubes_props {
+    position: relative;
+    float: left;
+    top: 30px;
+    left: 25px;
+    width: 800px;
+    height: 480px;
+    border: 1px solid #98a6ad;
+    padding: 10px;
+
+}
+
+.cubes_options {
+    position: relative;
+    float: top;
+    top: 20px;
+    left: 10px;
+    width: 195px;
+    height: 40px;
+    border: 1px solid #98a6ad;
+    padding: 10px;
+
+}

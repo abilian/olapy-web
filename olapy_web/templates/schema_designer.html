@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Schema Designer
+{% endblock %}
+
+{% block header %}
+    <link href="{{ url_for('static',filename='css/designer.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block stats %}
+
+    <div class="cubes_options">
+
+        <input type="button" value="add schema">
+
+    </div>
+
+    <div class="cubes_box">
+        {% for user_cube in user_cubes %}
+            {{ user_cube }}
+        {% endfor %}
+
+    </div>
+
+
+    <div class="cubes_props">
+        props
+    </div>
+
+
+{% endblock %}

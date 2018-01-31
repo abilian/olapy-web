@@ -150,3 +150,12 @@ def query_builder():
     return render_template('query_builder.html',
                            user=current_user,
                            dataframe_csv=executor.star_schema_dataframe.to_csv(encoding="utf-8"))
+
+
+@route('/designer', methods=['GET', 'POST'])
+@login_required
+def schema_designer():
+    executor = MdxEngine()
+    cubes_names = executor.get_cubes_names()
+    return render_template('schema_designer.html', user=current_user,
+                           user_cubes=cubes_names)
