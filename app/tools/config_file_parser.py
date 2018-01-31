@@ -2,7 +2,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import os
 
-from olapy_web.tools.models import Dashboard, Table, Cube, Facts
+from app.tools.models import Dashboard, Table, Cube, Facts
 import yaml
 
 

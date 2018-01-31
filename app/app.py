@@ -6,6 +6,8 @@ from logging import DEBUG
 from os.path import isdir, join
 
 import sys
+
+import jinja2
 from typing import Any
 
 from flask import Flask, render_template
@@ -16,7 +18,7 @@ from .extensions import db, login_manager
 def create_app():
     # type: () -> Flask
 
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder='../front/static')
 
     # app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
     install_secret_key(app)
@@ -32,6 +34,7 @@ def create_app():
     configure_logger(app)
     configure_error_handlers(app)
     configure_blueprints(app)
+    configure_jinja_loader(app)
 
     return app
 
@@ -77,6 +80,21 @@ def configure_blueprints(app):
     from .views import blueprint
 
     app.register_blueprint(blueprint)
+
+
+def configure_jinja_loader(app):
+    # I don't want my templates in ./templates/ but in ../front (index.html)
+    # AND in ../front/templates/ and possibly in other "templates/" locations.
+    appdir = os.path.abspath(os.path.dirname(__file__))
+    basedir = os.path.dirname(appdir)
+
+    my_loader = jinja2.ChoiceLoader([
+        app.jinja_loader,
+        jinja2.FileSystemLoader([os.path.join(basedir, 'front/'),
+                                 os.path.join(basedir, 'front', 'templates/')]),
+    ])
+
+    app.jinja_loader = my_loader
 
 
 def install_secret_key(app, filename='secret_key'):

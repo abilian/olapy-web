@@ -4,8 +4,8 @@ import click
 from sqlalchemy.exc import IntegrityError
 import os
 
-from olapy_web.app import create_app, db
-from olapy_web.models import User
+from app.app import create_app, db
+from app.models import User
 
 app = create_app()
 

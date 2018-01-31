@@ -13,7 +13,7 @@ from flask import Blueprint, Response, current_app, flash, redirect, \
 from flask_login import current_user, login_required, login_user, logout_user
 from olapy.core.mdx.executor.execute import MdxEngine
 
-from olapy_web.tools.config_file_parser import ConfigParser
+from app.tools.config_file_parser import ConfigParser
 from .extensions import login_manager
 from .forms import LoginForm
 from .models import User
@@ -28,7 +28,7 @@ def _build_charts(dashboard, executer):
     for chart_type, chart_attributs in dashboard.__dict__.items():
         if chart_type == 'global_table':
             continue
-        ChartClass = getattr(importlib.import_module("olapy_web.tools.models"), chart_type[:-1])
+        ChartClass = getattr(importlib.import_module("app.tools.models"), chart_type[:-1])
         chart = ChartClass(executer, chart_attributs)
         graphs[chart_type.lower().replace('charts', '')] = chart.gen_graphs()
     return graphs
