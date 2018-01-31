@@ -10,7 +10,21 @@
 
 {% block stats %}
 
-    <div class="cubes_options">
+  <div id="app">
+    [[ message ]]
+  </div>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      delimiters: ["[[", "]]"],
+      data: {
+        message: 'Hello Vue!'
+      }
+    })
+  </script>
+
+  <div class="cubes_options">
 
         <input type="button" value="add schema">
 

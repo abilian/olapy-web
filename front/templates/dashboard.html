@@ -24,8 +24,6 @@
 {% endblock %}
 
 {% block stats %}
-
-
     {#<div class="wrapper">#}
     <div class="container">
 
@@ -165,7 +163,6 @@
 {% block js_t %}
     {#<script src="{{ url_for('static',filename='js/plotly-basic.js') }}"></script>#}
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-
     <script type="text/javascript">
         {% for graph in graphs.values() %}
             var graph = {{ graph['graphs']['graph_json'] | safe}};
@@ -182,5 +179,6 @@
 
 
     </script>
+
 
 {% endblock %}
