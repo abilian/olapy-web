@@ -1,52 +1,49 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Schema Designer
+  Schema Designer
 {% endblock %}
 
 {% block header %}
-    <link href="{{ url_for('static',filename='css/designer.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static',filename='css/designer.css') }}" rel="stylesheet"
+        xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
 {% endblock %}
 
 {% block stats %}
 
-  <div id="app">
-    [[ message ]]
+  <div class="schema_options">
+
+    <input type="button" value="add schema">
+
   </div>
 
-  <script>
-    var app = new Vue({
-      el: '#app',
-      delimiters: ["[[", "]]"],
-      data: {
-        message: 'Hello Vue!'
-      }
-    })
-  </script>
+  <div class="schema_box">
+    <div style="margin-left: 4px; margin-top: 10px">
 
-  <div class="cubes_options">
+      {% for user_cube in user_cubes %}
 
-        <input type="button" value="add schema">
+        <input type="button" value={{ user_cube }}><br>
+
+      {% endfor %}
+    </div>
+
+  </div>
+
+
+  <div class="schema_props">
+    <div class="cube_components">
+      <input style="margin-left: 5px" type="button" value="Cube">
+      <input style="margin-left: 5px" type="button" value="Dimensions">
+      <input style="margin-left: 5px" type="button" value="Facts">
+    </div>
+
+    <div class="cube_details">
+
+      details
 
     </div>
 
-    <div class="cubes_box">
-        <ul style="margin-left: -20px; margin-top: 10px">
-
-
-            {% for user_cube in user_cubes %}
-
-                <li>{{ user_cube }}</li>
-
-            {% endfor %}
-        </ul>
-
-    </div>
-
-
-    <div class="cubes_props">
-        props
-    </div>
+  </div>
 
 
 {% endblock %}
