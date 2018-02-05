@@ -86,3 +86,6 @@ release:
 	cd /tmp/olapy-web ; python setup.py sdist
 	cd /tmp/olapy-web ; python setup.py sdist upload
 
+build:
+	cd front && yarn build
+	flask run

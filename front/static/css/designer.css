@@ -1,58 +1,9 @@
 
-.schema_box {
-    position: relative;
-    float: left;
-    top: 30px;
-    left: 10px;
-    width: 195px;
-    height: 480px;
-    border: 1px solid #98a6ad;
-}
-
-
-.schema_props {
-    position: relative;
-    float: left;
-    top: 30px;
-    left: 25px;
-    width: 800px;
-    height: 480px;
-    border: 1px solid #98a6ad;
-    padding: 10px;
-
-}
-
-.cube_components {
-    position: relative;
-    float: top;
-    padding: 5px;
-    width: 100%;
-    height: 40px;
-    border: 1px solid #98a6ad;
-
-}
-
 .cube_details {
-    position: relative;
-    top: 10px;
-    padding: 15px;
-    width: 100%;
-    height: 90%;
-    border: 1px solid #98a6ad;
-
+  position: relative;
+  border-color: #761c19;
+  margin-top: 15px;
+  width: 100%;
+  height: 400px;
+  padding: 10px;
 }
-
-
-.schema_options {
-    position: relative;
-    float: top;
-    top: 20px;
-    left: 10px;
-    width: 195px;
-    height: 40px;
-    border: 1px solid #98a6ad;
-    padding-left: 30px ;
-    padding-top: 4px ;
-
-}
-

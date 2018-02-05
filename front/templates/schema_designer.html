@@ -10,37 +10,7 @@
 {% endblock %}
 
 {% block stats %}
-
-  <div class="schema_options">
-
-    <input type="button" value="add schema">
-
-  </div>
-
-  <div class="schema_box">
-    <div style="margin-left: 4px; margin-top: 10px">
-
-      {% for user_cube in user_cubes %}
-
-        <input type="button" value={{ user_cube }}><br>
-
-      {% endfor %}
-    </div>
-
-  </div>
-
-
-  <div class="schema_props">
-    <div class="cube_components">
-      <input style="margin-left: 5px" type="button" value="Cube">
-      <input style="margin-left: 5px" type="button" value="Dimensions">
-      <input style="margin-left: 5px" type="button" value="Facts">
-    </div>
-
-
-    {% block cube_detail %}
-    {% endblock %}
-
-  </div>
+  <div id="designer"></div>
+  <script src="{{ url_for('static',filename='build.js') }}"></script>
 
 {% endblock %}
