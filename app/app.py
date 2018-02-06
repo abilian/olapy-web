@@ -78,7 +78,9 @@ def configure_blueprints(app):
     # type: (Flask) -> None
 
     from .views import blueprint
+    from .api.views import API
 
+    app.register_blueprint(API, url_prefix='/api')
     app.register_blueprint(blueprint)
 
 

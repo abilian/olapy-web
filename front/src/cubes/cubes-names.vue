@@ -1,6 +1,5 @@
 <template>
   <div class="schema_box">
-
     <div class="schema_box_container" v-for="cube in cubesNames">
       <input type="button" :value="cube"><br>
     </div>
@@ -14,10 +13,28 @@
   export default {
     data: function () {
       return {
-        //todo method rest api get cubes_names
-        cubesNames: ['cube1', 'cube2', 'cube3'],
+        cubesNames: [],
       };
     },
+    methods: {
+      getCubes: function () {
+        this.$http.get('cubes')
+          .then(response => {
+            return response.json();
+          })
+          .then(data => {
+            const resultArray = [];
+            for (let key in data) {
+              resultArray.push(data[key]);
+            }
+            this.cubesNames = resultArray;
+          });
+
+      }
+    },
+    created() {
+      this.getCubes()
+    }
 
   }
 </script>
