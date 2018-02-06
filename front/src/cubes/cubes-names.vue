@@ -5,11 +5,12 @@
     </div>
 
   </div>
-
-
 </template>
 
 <script>
+
+  import {eventBus} from '../main.js';
+
   export default {
     data: function () {
       return {
@@ -28,13 +29,10 @@
               resultArray.push(data[key]);
             }
             this.cubesNames = resultArray;
-            // this.$emit('cubesNamesChanged', this.cubesNames);
           });
-
-
       },
       changeCurrentCube(cube) {
-        this.$emit('currentCubeChanged', cube);
+        eventBus.queriedCube(cube);
       }
     },
     created() {

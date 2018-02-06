@@ -6,7 +6,7 @@
       <button @click="selectedComponent = 'appDimensions'">Dimensions</button>
       <button @click="selectedComponent = 'appFacts'">Facts</button>
       <keep-alive>
-        <component :is="selectedComponent" :currentCube="currentCube">
+        <component :is="selectedComponent">
         </component>
       </keep-alive>
     </div>
@@ -19,10 +19,8 @@
   import Facts from './cube-facts';
 
   export default {
-    props: ['currentCube'],
     data: function () {
       return {
-        // currentCube: this.currentCube,
         selectedComponent: 'appCube'
       }
     },

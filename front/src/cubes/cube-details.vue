@@ -9,24 +9,23 @@
 </template>
 
 <script>
+
+  import {eventBus} from '../main.js';
+
   export default {
-    props: ['currentCube'],
-    // data: function () {
-    //   return {
-    //     cubeName: this.currentCube
-    //   };
-    // }
-    // ,
-    // //todo update with api
-    // methods: {
-    //   updateCubeName: function () {
-    //     this.cubeName = "to_update_late"
-    //   }
-    // }
+    data: function () {
+      return {
+        currentCube: '',
+      };
+    },
+    created() {
+      eventBus.$on('queriedCube', (currentCube) => {
+        this.currentCube = currentCube;
+      });
+    }
+
   }
 </script>
 
 <style scoped>
-
-
 </style>
