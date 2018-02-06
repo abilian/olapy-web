@@ -1,7 +1,7 @@
 <template>
   <div class="schema_box">
     <div class="schema_box_container" v-for="cube in cubesNames">
-      <input type="button" :value="cube"><br>
+      <input type="button" :value="cube" @click="changeCurrentCube(cube)"><br>
     </div>
 
   </div>
@@ -28,8 +28,13 @@
               resultArray.push(data[key]);
             }
             this.cubesNames = resultArray;
+            // this.$emit('cubesNamesChanged', this.cubesNames);
           });
 
+
+      },
+      changeCurrentCube(cube) {
+        this.$emit('currentCubeChanged', cube);
       }
     },
     created() {

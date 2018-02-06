@@ -2,9 +2,10 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12">
-        <app-cubes></app-cubes>
+        <!--<app-cubes @currentCubeChanged="currentCube = $event" @cubesNamesChanged="currentCube = $event"></app-cubes>-->
+        <app-cubes @currentCubeChanged="currentCube = $event"></app-cubes>
         <app-schema-options></app-schema-options>
-        <app-schema-props></app-schema-props>
+        <app-schema-props :currentCube="currentCube"></app-schema-props>
       </div>
     </div>
   </div>
@@ -17,17 +18,21 @@
   import SchemaProps from './cubes/schema-props';
 
   export default {
-    // data : function () {
-    //   return {
-    //   };
-    // },
-    delimiters: ['[[',']]'],
+    data: function () {
+      return {
+        // load from cubes-names.vue component
+        // allCubes: [],
+        currentCube: ''
+      };
+    },
+    delimiters: ['[[', ']]'],
     components: {
       appCubes: Cubes,
-      appSchemaOptions : SchemaOptions,
-      appSchemaProps : SchemaProps
-    }
+      appSchemaOptions: SchemaOptions,
+      appSchemaProps: SchemaProps
+    },
   }
+
 </script>
 
 <style>

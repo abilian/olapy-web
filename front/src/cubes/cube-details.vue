@@ -2,27 +2,27 @@
   <div class="cube_details">
     <label>
       Cube Name :
-      <input type="text" :value="cubeName">
+      <input type="text" :value="currentCube">
     </label>
-
-    <button @click="updateCubeName()"> update cube</button>
+    <!--<button @click="updateCubeName()"> update cube</button>-->
   </div>
 </template>
 
 <script>
   export default {
-    name: "cube-details",
-    data: function () {
-      return {
-        cubeName: "MyCube"
-      };
-    },
-    //todo update with api
-    methods: {
-      updateCubeName: function () {
-        this.cubeName = "to_update_late"
-      }
-    }
+    props: ['currentCube'],
+    // data: function () {
+    //   return {
+    //     cubeName: this.currentCube
+    //   };
+    // }
+    // ,
+    // //todo update with api
+    // methods: {
+    //   updateCubeName: function () {
+    //     this.cubeName = "to_update_late"
+    //   }
+    // }
   }
 </script>
 

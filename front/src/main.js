@@ -7,6 +7,16 @@ Vue.use(VueResource);
 
 Vue.http.options.root = 'http://127.0.0.1:5000/api/';
 
+export const eventBus = new Vue({
+  methods: {
+    queriedCube(cubeName) {
+      this.$emit('queriedCube', cubeName);
+    }
+  }
+});
+
+Vue.config.devtools = true;
+
 new Vue({
   el: '#designer',
   delimiters: ['[[', ']]'],
