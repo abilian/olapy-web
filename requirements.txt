@@ -14,11 +14,13 @@ chardet==3.0.4            # via requests
 click==6.7                # via flask, python-dotenv
 colorama==0.3.9           # via bonobo
 decorator==4.2.1          # via plotly, traitlets
+enum34==1.1.6             # via fs, traitlets
 flask-login==0.4.1
 flask-sqlalchemy==2.3.2
 flask-wtf==0.14.2
 flask==0.12.2
-fs==2.0.17                # via bonobo
+fs==2.0.18                # via bonobo
+functools32==3.2.3.post2  # via jsonschema
 idna==2.6                 # via requests
 ipython-genutils==0.2.0   # via nbformat, traitlets
 itsdangerous==0.24        # via flask
@@ -40,7 +42,7 @@ python-dateutil==2.6.1    # via pandas
 python-dotenv==0.7.1      # via olapy
 pytz==2017.3              # via fs, pandas, plotly, spyne
 pyyaml==3.12              # via olapy
-regex==2018.1.10          # via awesome-slugify, olapy
+regex==2018.2.3           # via awesome-slugify, olapy
 requests==2.18.4          # via bonobo, plotly
 six==1.11.0               # via fs, packaging, plotly, python-dateutil, stevedore, traitlets
 spyne==2.12.14            # via olapy

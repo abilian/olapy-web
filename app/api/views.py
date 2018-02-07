@@ -21,3 +21,16 @@ def get_cube_dimensions(cube_name):
     executor.load_cube(cube_name)
     data = executor.get_all_tables_names(ignore_fact=True)
     return jsonify(data)
+
+
+@api('/cubes/facts/<cube_name>')
+@login_required
+def get_cube_facts(cube_name):
+    executor = MdxEngine()
+    executor.load_cube(cube_name)
+    data = {'table_name':
+                executor.facts,
+            'measures':
+                executor.measures
+            }
+    return jsonify(data)
