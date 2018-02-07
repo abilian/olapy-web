@@ -14,13 +14,11 @@ chardet==3.0.4            # via requests
 click==6.7                # via flask, python-dotenv
 colorama==0.3.9           # via bonobo
 decorator==4.2.1          # via plotly, traitlets
-enum34==1.1.6             # via fs, traitlets
 flask-login==0.4.1
 flask-sqlalchemy==2.3.2
 flask-wtf==0.14.2
 flask==0.12.2
 fs==2.0.18                # via bonobo
-functools32==3.2.3.post2  # via jsonschema
 idna==2.6                 # via requests
 ipython-genutils==0.2.0   # via nbformat, traitlets
 itsdangerous==0.24        # via flask
