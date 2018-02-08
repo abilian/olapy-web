@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import addCube from './add-cube.vue';
+  import addCube from './add_cube/add-cube.vue';
 
   export default {
     data: function () {
