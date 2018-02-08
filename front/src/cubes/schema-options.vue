@@ -1,13 +1,27 @@
 <template>
 
   <div class="schema_options">
-    <input type="button" value="add schema">
+    <button id="show-modal" @click="showModal = true">Add Cube</button>
+    <addCube v-if="showModal" @close="showModal = false">
+    </addCube>
+
   </div>
 
 </template>
 
 <script>
+  import addCube from './add-cube.vue';
+
   export default {
+    data: function () {
+      return {
+        showModal: false
+      }
+
+    },
+    components: {
+      addCube: addCube
+    }
   }
 </script>
 
