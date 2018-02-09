@@ -1,12 +1,11 @@
 <template>
-  <!--<div id="app">-->
   <div class="container">
     <!--UPLOAD-->
     <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving">
-      <h1>Upload you csv files</h1>
+      <h1>Upload csv files</h1>
       <div class="dropbox">
         <input type="file" multiple :name="uploadFieldName" :disabled="isSaving"
-               @change="filesChange($event.target.files); fileCount = $event.target.files.length"
+               @change="filesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length"
                accept="text/csv" class="input-file">
         <p v-if="isInitial">
           Drag your file(s) here to begin<br> or click to browse
@@ -22,10 +21,12 @@
       <p>
         <a href="javascript:void(0)" @click="reset()">Upload again</a>
       </p>
-      <ul class="list-unstyled">
-        <li v-for="item in uploadedFiles">
-          <img :src="item.url" class="img-responsive img-thumbnail" :alt="item.originalName">
-        </li>
+      <ul v-for="item in uploadedFiles" class="list-unstyled">
+        <li :value="item"></li>
+        <!--<li v-for="item in uploadedFiles">-->
+        <!--<img :src="item.url" class="img-responsive img-thumbnail" :alt="item.originalName">-->
+        <!--&lt;!&ndash;<img :src="item.url" class="img-responsive img-thumbnail" :alt="item.originalName">&ndash;&gt;-->
+        <!--</li>-->
       </ul>
     </div>
     <!--FAILED-->
@@ -37,22 +38,19 @@
       <pre>{{ uploadError }}</pre>
     </div>
   </div>
-  <!--</div>-->
 </template>
 
 <script>
-  // import { upload } from './file-upload.service';
 
   const STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3;
 
   export default {
-
     data() {
       return {
         uploadedFiles: [],
         uploadError: null,
         currentStatus: null,
-        uploadFieldName: 'photos'
+        uploadFieldName: 'files'
       }
     },
     computed: {
@@ -76,28 +74,17 @@
         this.uploadedFiles = [];
         this.uploadError = null;
       },
-      //    upload(formData) {
-      //   //if errors or cube constrcution probs don't show facts
-      //   let url = 'cubes/add';
-      //   this.$http.post(url, formData)
-      //     .then(response => {
-      //       console.log(response);
-      //       console.log(formData);
-      //       return response.data;
-      //     });
-      //
-      //   // .then(data => {
-      //   //   this.facts = data;
-      //   // })
-      // }
-      // ,
       save(formData) {
         // upload data to the server
         this.currentStatus = STATUS_SAVING;
-        let url = 'cubes/add';
-        this.$http.post(url, {data : formData})
+        // const url = `http://127.0.0.1:5000/api/`;
 
+        this.$http.post('cubes/add', formData)
+        // get data
           .then(x => x.data)
+          // // add url field
+          // .then(x => x.map(img => Object.assign({},
+          //   img, {url: `${BASE_URL}/images/${img.id}`})))
           .then(x => {
             this.uploadedFiles = [].concat(x);
             this.currentStatus = STATUS_SUCCESS;
@@ -107,15 +94,19 @@
             this.currentStatus = STATUS_FAILED;
           });
       },
-      filesChange(fileList) {
+      filesChange(fieldName, fileList) {
         // handle file changes
         const formData = new FormData();
+
         if (!fileList.length) return;
 
         // append the files to FormData
-        Array.from(Array(fileList.length).keys()).map(x => {
-          formData.append(fileList[x], fileList[x].name);
-        });
+        Array
+          .from(Array(fileList.length).keys())
+          .map(x => {
+            formData.append(fieldName, fileList[x], fileList[x].name);
+          });
+
         // save it
         this.save(formData);
       }
@@ -124,6 +115,7 @@
       this.reset();
     },
   }
+
 </script>
 
 <style lang="scss" scoped>
