@@ -6,8 +6,8 @@
       <h1>Upload you csv files</h1>
       <div class="dropbox">
         <input type="file" multiple :name="uploadFieldName" :disabled="isSaving"
-               @change="filesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length"
-               accept="image/*" class="input-file">
+               @change="filesChange($event.target.files); fileCount = $event.target.files.length"
+               accept="text/csv" class="input-file">
         <p v-if="isInitial">
           Drag your file(s) here to begin<br> or click to browse
         </p>
@@ -76,11 +76,28 @@
         this.uploadedFiles = [];
         this.uploadError = null;
       },
+      //    upload(formData) {
+      //   //if errors or cube constrcution probs don't show facts
+      //   let url = 'cubes/add';
+      //   this.$http.post(url, formData)
+      //     .then(response => {
+      //       console.log(response);
+      //       console.log(formData);
+      //       return response.data;
+      //     });
+      //
+      //   // .then(data => {
+      //   //   this.facts = data;
+      //   // })
+      // }
+      // ,
       save(formData) {
         // upload data to the server
         this.currentStatus = STATUS_SAVING;
+        let url = 'cubes/add';
+        this.$http.post(url, {data : formData})
 
-        upload(formData)
+          .then(x => x.data)
           .then(x => {
             this.uploadedFiles = [].concat(x);
             this.currentStatus = STATUS_SUCCESS;
@@ -90,19 +107,15 @@
             this.currentStatus = STATUS_FAILED;
           });
       },
-      filesChange(fieldName, fileList) {
+      filesChange(fileList) {
         // handle file changes
         const formData = new FormData();
-
         if (!fileList.length) return;
 
         // append the files to FormData
-        Array
-          .from(Array(fileList.length).keys())
-          .map(x => {
-            formData.append(fieldName, fileList[x], fileList[x].name);
-          });
-
+        Array.from(Array(fileList.length).keys()).map(x => {
+          formData.append(fileList[x], fileList[x].name);
+        });
         // save it
         this.save(formData);
       }
@@ -143,6 +156,7 @@
     text-align: center;
     padding: 50px 0;
   }
+
   .container {
     width: 100%;
   }

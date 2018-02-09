@@ -6,6 +6,7 @@ from flask_login import login_required
 from olapy.core.mdx.executor.execute import MdxEngine
 from olapy.core.mdx.tools.config_file_parser import ConfigParser
 from olapy.core.mdx.tools.olapy_config_file_parser import DbConfigParser
+from flask import request
 
 API = Blueprint('api', __name__, template_folder='templates')
 api = API.route
@@ -68,3 +69,10 @@ def get_cube_facts(cube_name):
                 executor.measures
             }
     return jsonify(data)
+
+
+@api('/cubes/add', methods=['GET', 'POST'])
+@login_required
+def add_cube():
+    if request.method == 'POST':
+        print(request)
