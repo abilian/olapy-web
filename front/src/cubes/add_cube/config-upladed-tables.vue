@@ -4,16 +4,31 @@
       <div class="modal-wrapper">
         <div class="modal-container">
 
-          <div class="modal-header">
-            <label>
-              Cube Name :
-              <!--<input type="text" name="cubeName">-->
-            </label>
-          </div>
-
           <div class="modal-body">
             <slot name="body">
-              ggggggggg {{currentCube}}
+
+              <label>
+                Facts table :
+                <input type="text" :value="this.cube.facts">
+              </label>
+
+              <hr>
+              Measures :
+              <div v-for="measure in this.cube.measures">
+
+                <label>
+                  <input type="text" :value="measure">
+                </label>
+              </div>
+
+              <hr>
+              Dimensions :
+              <div v-for="dimension in this.cube.dimensions">
+
+                <label>
+                  <input type="text" :value="dimension">
+                </label>
+              </div>
             </slot>
           </div>
 
@@ -21,7 +36,7 @@
             <slot name="footer">
               <!--<button class="modal-default-button" @click="$emit('uploadStatus', 'second')">-->
               <!--<button class="modal-default-button" @click="checkUpload()">-->
-              <button class="modal-default-button">
+              <button class="modal-default-button" @click="confirmCube()">
                 Next
               </button>
             </slot>
@@ -35,33 +50,20 @@
 
 <script>
 
-  // import {eventModalBus} from '../schema-options.vue'
-  // import {eventBus} from '../../main.js';
+  import {eventModalBus} from '../schema-options.vue'
 
   export default {
-    data: function () {
-      return {
-        currentCube: "aaaaaaaaaaa"
-      }
-
-    },
-    created() {
-      console.log('created');
-      // eventModalBus.$on('cubeConstructed', Cube => {
-      //   console.log(`Oh, that's nice. It's gotten ${Cube} clicks! :)`);
-      //    console.log(Cube);
-      //   this.currentCube = Cube
-      // });
-      // created() {
-      //   console.log('aaaaaaaaaaaaaa');
-      //   console.log(eventBus.queriedCube);
-      //   eventBus.$on('queriedCube', (currentCube) => {
-      //     console.log(currentCube);
-      //     this.currentCube = currentCube;
-      //   });
-      // }
+    props: ['cube'],
+    methods: {
+      confirmCube: function () {
+        this.$http.get('cubes/confirm_cube')
+          .then(response => {
+            return response.json();
+          });
+      },
     }
   }
+
 </script>
 
 <style scoped>

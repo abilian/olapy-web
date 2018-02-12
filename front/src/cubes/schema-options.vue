@@ -2,10 +2,10 @@
 
   <div class="schema_options">
     <button id="show-modal" @click="showModal = true">Add Cube</button>
-    <addCube v-if="showModal && modalToShow === 'first'" @cubeLoaded="cube = $event">
+    <addCube v-if="showModal && modalToShow === 'first'">
     </addCube>
     <!--@close="showModal = false"-->
-    <configUploadedTables v-if="showModal && modalToShow === 'second'">
+    <configUploadedTables v-if="showModal && modalToShow === 'second'" :cube="cube" >
     </configUploadedTables>
   </div>
 

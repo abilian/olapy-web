@@ -14,6 +14,8 @@ from flask import Flask, render_template
 
 from .extensions import db, login_manager
 
+ALLOWED_EXTENSIONS = {'csv'}
+
 
 def create_app():
     # type: () -> Flask
@@ -35,8 +37,16 @@ def create_app():
     configure_error_handlers(app)
     configure_blueprints(app)
     configure_jinja_loader(app)
+    configure_temp_upload_dir(app, olapy_data_dir)
 
     return app
+
+
+def configure_temp_upload_dir(app, olapy_data_dir):
+    temp_dir = os.path.join(olapy_data_dir, 'TEMP')
+    if not isdir(temp_dir):
+        os.makedirs(temp_dir)
+    app.config['UPLOAD_FOLDER'] = temp_dir
 
 
 def configure_extensions(app):
