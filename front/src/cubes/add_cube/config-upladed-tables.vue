@@ -7,31 +7,21 @@
           <div class="modal-header">
             <label>
               Cube Name :
-              <input type="text" name="cubeName">
+              <!--<input type="text" name="cubeName">-->
             </label>
-
-            <label style="margin-left: 70px">
-              Source :
-              <select v-model="source">
-                <option disabled value="">Choisissez</option>
-                <option>CSV</option>
-                <option>DataBase</option>
-              </select>
-            </label>
-
           </div>
 
           <div class="modal-body">
             <slot name="body">
-              <uploadCsvFiles v-show="source == 'CSV'" @uploadStatus="status = $event"></uploadCsvFiles>
-              <connectDb v-show="source == 'DataBase'"></connectDb>
+              ggggggggg {{currentCube}}
             </slot>
           </div>
 
           <div class="modal-footer">
             <slot name="footer">
               <!--<button class="modal-default-button" @click="$emit('uploadStatus', 'second')">-->
-              <button class="modal-default-button" @click="checkUpload()">
+              <!--<button class="modal-default-button" @click="checkUpload()">-->
+              <button class="modal-default-button">
                 Next
               </button>
             </slot>
@@ -45,34 +35,32 @@
 
 <script>
 
-  import uploadFiles from './upload-files';
-  import connectDb from './connect-db';
-  import {eventModalBus} from '../schema-options.vue';
+  // import {eventModalBus} from '../schema-options.vue'
+  // import {eventBus} from '../../main.js';
 
   export default {
     data: function () {
       return {
-        source: '',
-        status: 'failed',
+        currentCube: "aaaaaaaaaaa"
       }
-    },
-    methods: {
-      checkUpload() {
-        if (this.status === 'failed') {
-          eventModalBus.modalToShow('first');
-        }
-        else if (this.status === 'success') {
-          eventModalBus.modalToShow('second');
-        }
 
-
-      }
     },
-    components: {
-      uploadCsvFiles: uploadFiles,
-      connectDb: connectDb
+    created() {
+      console.log('created');
+      // eventModalBus.$on('cubeConstructed', Cube => {
+      //   console.log(`Oh, that's nice. It's gotten ${Cube} clicks! :)`);
+      //    console.log(Cube);
+      //   this.currentCube = Cube
+      // });
+      // created() {
+      //   console.log('aaaaaaaaaaaaaa');
+      //   console.log(eventBus.queriedCube);
+      //   eventBus.$on('queriedCube', (currentCube) => {
+      //     console.log(currentCube);
+      //     this.currentCube = currentCube;
+      //   });
+      // }
     }
-
   }
 </script>
 

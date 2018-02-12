@@ -44,6 +44,7 @@
 
 <script>
 
+  import {eventModalBus} from '../schema-options.vue';
   const STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3;
 
   export default {
@@ -79,16 +80,18 @@
       save(formData) {
         // upload data to the server
         this.currentStatus = STATUS_SAVING;
-        // const url = `http://127.0.0.1:5000/api/`;
-
         this.$http.post('cubes/add', formData)
           .then(x => {
             this.uploadedFiles = [].concat(x.data);
             this.currentStatus = STATUS_SUCCESS;
+            this.$emit('uploadStatus', 'success');
+            eventModalBus.cubeConstructed(x.data);
           })
           .catch(err => {
             this.uploadError = err.response;
             this.currentStatus = STATUS_FAILED;
+            this.$emit('uploadStatus', 'failed');
+
           });
       },
       filesChange(fieldName, fileList) {
