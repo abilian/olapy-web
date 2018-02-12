@@ -75,4 +75,4 @@ def get_cube_facts(cube_name):
 @login_required
 def add_cube():
     if request.method == 'POST':
-        print(request)
+        return jsonify([file.filename for file in request.files.getlist('files')])

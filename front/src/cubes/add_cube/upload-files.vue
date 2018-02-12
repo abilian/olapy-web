@@ -21,8 +21,10 @@
       <p>
         <a href="javascript:void(0)" @click="reset()">Upload again</a>
       </p>
-      <ul v-for="item in uploadedFiles" class="list-unstyled">
-        <li :value="item"></li>
+      <ul class="list-unstyled">
+        <li  v-for="(item, index) in uploadedFiles">
+          {{ index }} - {{ item }}
+        </li>
         <!--<li v-for="item in uploadedFiles">-->
         <!--<img :src="item.url" class="img-responsive img-thumbnail" :alt="item.originalName">-->
         <!--&lt;!&ndash;<img :src="item.url" class="img-responsive img-thumbnail" :alt="item.originalName">&ndash;&gt;-->
@@ -80,13 +82,8 @@
         // const url = `http://127.0.0.1:5000/api/`;
 
         this.$http.post('cubes/add', formData)
-        // get data
-          .then(x => x.data)
-          // // add url field
-          // .then(x => x.map(img => Object.assign({},
-          //   img, {url: `${BASE_URL}/images/${img.id}`})))
           .then(x => {
-            this.uploadedFiles = [].concat(x);
+            this.uploadedFiles = [].concat(x.data);
             this.currentStatus = STATUS_SUCCESS;
           })
           .catch(err => {
