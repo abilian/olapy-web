@@ -46,6 +46,12 @@ def configure_temp_upload_dir(app, olapy_data_dir):
     temp_dir = os.path.join(olapy_data_dir, 'TEMP')
     if not isdir(temp_dir):
         os.makedirs(temp_dir)
+    else:
+        for the_file in os.listdir(temp_dir):
+            file_path = os.path.join(temp_dir, the_file)
+            if os.path.isfile(file_path):
+                os.unlink(file_path)
+
     app.config['UPLOAD_FOLDER'] = temp_dir
 
 

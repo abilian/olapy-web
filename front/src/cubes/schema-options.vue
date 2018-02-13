@@ -8,7 +8,6 @@
     <configUploadedTables v-if="showModal && modalToShow === 'second'" :cube="cube">
     </configUploadedTables>
     <addedSuccess v-if="showModal && modalToShow === 'success'" @close="showModal = $event">
-
     </addedSuccess>
   </div>
 

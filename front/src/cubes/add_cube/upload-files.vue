@@ -22,7 +22,7 @@
         <a href="javascript:void(0)" @click="reset()">Upload again</a>
       </p>
       <ul class="list-unstyled">
-        <li  v-for="(item, index) in uploadedFiles">
+        <li v-for="(item, index) in uploadedFiles">
           {{ index }} - {{ item }}
         </li>
         <!--<li v-for="item in uploadedFiles">-->
@@ -45,6 +45,7 @@
 <script>
 
   import {eventModalBus} from '../schema-options.vue';
+
   const STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3;
 
   export default {
@@ -82,7 +83,10 @@
         this.currentStatus = STATUS_SAVING;
         this.$http.post('cubes/add', formData)
           .then(x => {
-            this.uploadedFiles = [].concat(x.data.dimensions).concat(x.data.facts);
+            this.uploadedFiles = [].concat(x.data.dimensions);
+            if (x.data.facts != null) {
+              this.uploadedFiles.concat(x.data.facts);
+            }
             this.currentStatus = STATUS_SUCCESS;
             this.$emit('uploadStatus', 'success');
             eventModalBus.cubeConstructed(x.data);

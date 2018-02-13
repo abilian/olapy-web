@@ -84,6 +84,17 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
+def clean_temp_dir(olapy_data_dir):
+    temp_dir = os.path.join(olapy_data_dir, 'TEMP')
+    if not isdir(temp_dir):
+        os.makedirs(temp_dir)
+    else:
+        for the_file in os.listdir(temp_dir):
+            file_path = os.path.join(temp_dir, the_file)
+            if os.path.isfile(file_path):
+                os.unlink(file_path)
+
+
 def try_construct_cube(cube_path):
     executor = MdxEngine(source_type='csv', cubes_path=cube_path)
     # try to construct automatically the cube
@@ -101,6 +112,8 @@ def try_construct_cube(cube_path):
 @api('/cubes/add', methods=['POST'])
 @login_required
 def add_cube():
+    # temporary
+    clean_temp_dir(os.path.join(TEMP_OLAPY_DIR, TEMP_CUBE_NAME))
     if request.method == 'POST':
         all_file = request.files.getlist('files')
         for file_uploaded in all_file:
@@ -114,7 +127,7 @@ def add_cube():
         else:
             return jsonify(
                 {'facts': None,
-                 'dimensions': jsonify([file.filename for file in all_file]),
+                 'dimensions': [file.filename for file in all_file],
                  'measures': None
                  }
             )
@@ -128,5 +141,5 @@ def confirm_cube():
         # todo temp to fix
         copy_tree(temp_dir, os.path.join(TEMP_OLAPY_DIR, 'cubes', 'NEW_CUBE'))
         shutil.rmtree(temp_dir)
-        return jsonify({'success':True}), 200, {'ContentType':'application/json'}
+        return jsonify({'success': True}), 200, {'ContentType': 'application/json'}
     return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
