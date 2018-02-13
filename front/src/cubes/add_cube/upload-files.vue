@@ -82,7 +82,7 @@
         this.currentStatus = STATUS_SAVING;
         this.$http.post('cubes/add', formData)
           .then(x => {
-            this.uploadedFiles = [].concat(x.data.dimensions);
+            this.uploadedFiles = [].concat(x.data.dimensions).concat(x.data.facts);
             this.currentStatus = STATUS_SUCCESS;
             this.$emit('uploadStatus', 'success');
             eventModalBus.cubeConstructed(x.data);
