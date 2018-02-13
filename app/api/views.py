@@ -126,5 +126,5 @@ def confirm_cube():
     temp_dir = os.path.join(TEMP_OLAPY_DIR, TEMP_CUBE_NAME)
     if isdir(temp_dir):
         # todo temp to fix
-        copy_tree(temp_dir, os.path.join(TEMP_OLAPY_DIR, 'cubes'))
+        copy_tree(temp_dir, os.path.join(TEMP_OLAPY_DIR, 'cubes', 'NEW_CUBE'))
         shutil.rmtree(temp_dir)
