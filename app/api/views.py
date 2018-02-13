@@ -85,14 +85,10 @@ def allowed_file(filename):
 
 
 def clean_temp_dir(olapy_data_dir):
-    temp_dir = os.path.join(olapy_data_dir, 'TEMP')
-    if not isdir(temp_dir):
-        os.makedirs(temp_dir)
-    else:
-        for the_file in os.listdir(temp_dir):
-            file_path = os.path.join(temp_dir, the_file)
-            if os.path.isfile(file_path):
-                os.unlink(file_path)
+    for the_file in os.listdir(olapy_data_dir):
+        file_path = os.path.join(olapy_data_dir, the_file)
+        if os.path.isfile(file_path):
+            os.unlink(file_path)
 
 
 def try_construct_cube(cube_path):
