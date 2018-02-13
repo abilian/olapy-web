@@ -157,5 +157,6 @@ def query_builder():
 def schema_designer():
     executor = MdxEngine()
     cubes_names = executor.get_cubes_names()
-    return render_template('schema_designer.html', user=current_user,
+    return render_template('schema_designer.html',
+                           user=current_user,
                            user_cubes=cubes_names)

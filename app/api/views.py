@@ -128,3 +128,5 @@ def confirm_cube():
         # todo temp to fix
         copy_tree(temp_dir, os.path.join(TEMP_OLAPY_DIR, 'cubes', 'NEW_CUBE'))
         shutil.rmtree(temp_dir)
+        return jsonify({'success':True}), 200, {'ContentType':'application/json'}
+    return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
