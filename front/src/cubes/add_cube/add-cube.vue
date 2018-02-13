@@ -7,7 +7,8 @@
           <div class="modal-header">
             <label>
               Cube Name :
-              <input type="text" name="cubeName">
+
+              <input type="text" v-model="newCubeName">
             </label>
 
             <label style="margin-left: 70px">
@@ -23,7 +24,8 @@
 
           <div class="modal-body">
             <slot name="body">
-              <uploadCsvFiles v-show="source == 'CSV'" @uploadStatus="status = $event"></uploadCsvFiles>
+              <uploadCsvFiles :newCubeName="newCubeName" v-show="source == 'CSV'"
+                              @uploadStatus="status = $event"></uploadCsvFiles>
               <connectDb v-show="source == 'DataBase'"></connectDb>
             </slot>
           </div>
@@ -52,6 +54,7 @@
   export default {
     data: function () {
       return {
+        newCubeName: '',
         source: '',
         status: 'failed',
       }
@@ -62,7 +65,11 @@
           eventModalBus.modalToShow('first');
         }
         else if (this.status === 'success') {
-          eventModalBus.modalToShow('second');
+          if (this.newCubeName !== '') {
+            eventModalBus.modalToShow('second');
+          }
+          else alert('Please specify a Cube name ')
+
         }
 
 
