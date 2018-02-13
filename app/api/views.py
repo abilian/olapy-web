@@ -133,7 +133,7 @@ def add_cube():
             )
 
 
-@api('/cubes/confirm_cube')
+@api('/cubes/confirm_cube', methods=['POST'])
 @login_required
 def confirm_cube():
     temp_dir = os.path.join(TEMP_OLAPY_DIR, TEMP_CUBE_NAME)

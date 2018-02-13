@@ -33,7 +33,7 @@
           <div class="modal-footer">
             <slot name="footer">
               <!--<button class="modal-default-button" @click="$emit('uploadStatus', 'second')">-->
-              <button class="modal-default-button" @click="checkUpload()">
+              <button class="modal-default-button" @click="checkUpload();  $emit('newCubeName', newCubeName)">
                 Next
               </button>
             </slot>
@@ -66,13 +66,11 @@
         }
         else if (this.status === 'success') {
           if (this.newCubeName !== '') {
+            // eventModalBus.newCubeName(this.newCubeName);
             eventModalBus.modalToShow('second');
           }
           else alert('Please specify a Cube name ')
-
         }
-
-
       }
     },
     components: {

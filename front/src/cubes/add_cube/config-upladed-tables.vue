@@ -6,7 +6,6 @@
 
           <div class="modal-body">
             <slot name="body">
-
               <label>
                 Facts table :
                 <input type="text" :value="this.cube.facts">
@@ -36,9 +35,12 @@
             <slot name="footer">
               <!--<button class="modal-default-button" @click="$emit('uploadStatus', 'second')">-->
               <!--<button class="modal-default-button" @click="checkUpload()">-->
-              <button class="modal-default-button" @click="confirmCube()">
-                Next
-              </button>
+              <form method="post">
+                <input type="hidden" :value="cubeName">
+                <button class="modal-default-button" @click="confirmCube()">
+                  Next
+                </button>
+              </form>
             </slot>
           </div>
         </div>
@@ -53,10 +55,13 @@
   import {eventModalBus} from '../schema-options.vue'
 
   export default {
-    props: ['cube'],
+    props: ['cube', 'cubeName'],
+    // data: function () {
+    // },
     methods: {
       confirmCube: function () {
-        this.$http.get('cubes/confirm_cube')
+        console.log(this.cubeName);
+        this.$http.post('cubes/confirm_cube', this.cubeName)
           .then(response => {
             eventModalBus.modalToShow('success');
             return response.json();
