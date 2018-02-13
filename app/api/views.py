@@ -108,9 +108,9 @@ def add_cube():
                 filename = secure_filename(file_uploaded.filename)
                 file_uploaded.save(os.path.join(TEMP_OLAPY_DIR, TEMP_CUBE_NAME, filename))
 
-        constraction = try_construct_cube(TEMP_OLAPY_DIR)
-        if constraction:
-            return jsonify(constraction)
+        construction = try_construct_cube(TEMP_OLAPY_DIR)
+        if construction:
+            return jsonify(construction)
         else:
             return jsonify(
                 {'facts': None,
