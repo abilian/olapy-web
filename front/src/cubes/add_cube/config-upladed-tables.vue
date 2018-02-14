@@ -35,12 +35,9 @@
             <slot name="footer">
               <!--<button class="modal-default-button" @click="$emit('uploadStatus', 'second')">-->
               <!--<button class="modal-default-button" @click="checkUpload()">-->
-              <form method="post">
-                <input type="hidden" :value="cubeName">
-                <button class="modal-default-button" @click="confirmCube()">
-                  Next
-                </button>
-              </form>
+              <button class="modal-default-button" @click="confirmCube()">
+                Next
+              </button>
             </slot>
           </div>
         </div>
@@ -56,11 +53,8 @@
 
   export default {
     props: ['cube', 'cubeName'],
-    // data: function () {
-    // },
     methods: {
       confirmCube: function () {
-        console.log(this.cubeName);
         this.$http.post('cubes/confirm_cube', this.cubeName)
           .then(response => {
             eventModalBus.modalToShow('success');

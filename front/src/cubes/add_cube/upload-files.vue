@@ -87,7 +87,7 @@
           .then(x => {
             this.uploadedFiles = [].concat(x.data.dimensions);
             if (x.data.facts != null) {
-              this.uploadedFiles = this.uploadedFiles.concat(x.data.facts);
+              this.uploadedFiles.push(x.data.facts);
             }
             this.currentStatus = STATUS_SUCCESS;
             this.$emit('uploadStatus', 'success');
