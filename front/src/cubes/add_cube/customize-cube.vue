@@ -6,15 +6,26 @@
 
           <div class="modal-body">
             <slot name="body">
-              {{cube}}
-              {{cubeName}}
+              <label>
+                <input type="text" :value="cubeName">
+              </label>
+
+              <div v-for="(table, index) in tables">
+                <label>
+                  <select v-model="table.name">
+                    <option v-for="item in cube.dimensions" :value="item">{{ item }}
+                    <option>
+                  </select>
+                </label>
+                <button type="button" v-on:click="removeSection(index)">Remove Me</button>
+                selected: {{table.name}}
+              </div>
+              <button type="button" v-on:click="addComponent()">Select New Table</button>
             </slot>
           </div>
 
           <div class="modal-footer">
             <slot name="footer">
-              <!--<button class="modal-default-button" @click="$emit('uploadStatus', 'second')">-->
-              <!--<button class="modal-default-button" @click="checkUpload()">-->
               <button class="modal-default-button" @click="confirmCube()">
                 Next
               </button>
@@ -32,8 +43,28 @@
   // import {eventModalBus} from '../schema-options.vue'
 
   export default {
+
     props: ['cube', 'cubeName'],
+    data: function () {
+      return {
+        tables: [{
+          id: "1",
+          name: ''
+        }]
+      }
+    },
     methods: {
+      removeSection: function (index) {
+        this.tables.splice(index, 1)
+      },
+
+      addComponent: function () {
+        this.tables.push({
+          id: Math.floor(Math.random() * 6),
+          name: ''
+        });
+      },
+
       confirmCube: function () {
         alter('hello')
         // this.$http.post('cubes/confirm_cube', this.cubeName)
