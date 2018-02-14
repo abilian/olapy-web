@@ -9,6 +9,24 @@
               <label>
                 <input type="text" :value="cubeName">
               </label>
+              <label>
+                Facts :
+                <select v-model="factsTable">
+                  <option v-for="item in cube.dimensions" :value="item">{{ item }}
+                  <option>
+                </select>
+              </label>
+              selected: {{factsTable}}
+
+
+              <div v-for="column in tableColumns">
+                <label :for="column">
+                  {{column}} <input type="checkbox" :id="column" :value="column" v-model="measures">
+                </label>
+              </div>
+
+              <span>Measures : {{ measures.join(', ') }}</span>
+
 
               <div v-for="(table, index) in tables">
                 <label>
@@ -47,6 +65,9 @@
     props: ['cube', 'cubeName'],
     data: function () {
       return {
+        factsTable: '',
+        measures: [],
+        tableColumns: '',
         tables: [{
           id: "1",
           name: ''
@@ -74,6 +95,15 @@
         //   });
 
       },
+    },
+    watch: {
+      factsTable: function () {
+        this.$http.post('cubes/get_table_columns', this.factsTable)
+          .then(x => {
+            console.log(x);
+            this.tableColumns = x.data;
+          })
+      }
     }
   }
 

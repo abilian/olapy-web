@@ -10,6 +10,7 @@ from olapy.core.mdx.tools.config_file_parser import ConfigParser
 from olapy.core.mdx.tools.olapy_config_file_parser import DbConfigParser
 from flask import request
 from werkzeug.utils import secure_filename
+import pandas as pd
 
 API = Blueprint('api', __name__, template_folder='templates')
 api = API.route
@@ -139,4 +140,15 @@ def confirm_cube():
             copy_tree(temp_dir, os.path.join(TEMP_OLAPY_DIR, 'cubes', request.data))
             shutil.rmtree(temp_dir)
             return jsonify({'success': True}), 200, {'ContentType': 'application/json'}
+        return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
+
+
+@api('/cubes/get_table_columns', methods=['POST'])
+@login_required
+def get_table_columns():
+    temp_dir = os.path.join(TEMP_OLAPY_DIR, TEMP_CUBE_NAME)
+    if request.data and request.method == 'POST':
+        if isdir(temp_dir):
+            df = pd.read_csv(os.path.join(temp_dir, request.data), sep=';')
+            return jsonify([column for column in df.columns if '_id' not in column.lower()[-3:]])
         return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
