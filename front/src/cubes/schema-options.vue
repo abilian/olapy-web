@@ -5,8 +5,11 @@
     <addCube v-if="showModal && modalToShow === 'first'" @newCubeName="newCubeName = $event">
     </addCube>
     <!--@close="showModal = false"-->
+
     <configUploadedTables v-if="showModal && modalToShow === 'second'" :cubeName="newCubeName" :cube="cube">
     </configUploadedTables>
+    <customizeCube v-if="showModal && modalToShow === 'toConfig'" :cubeName="newCubeName" :cube="cube">
+    </customizeCube>
     <addedSuccess v-if="showModal && modalToShow === 'success'" @close="showModal = $event">
     </addedSuccess>
   </div>
@@ -17,6 +20,8 @@
   import addCube from './add_cube/add-cube.vue';
   import configUploadedTables from './add_cube/config-upladed-tables.vue';
   import addedSuccess from './add_cube/added-success.vue'
+  import customizeCube from './add_cube/customize-cube'
+
   import Vue from 'vue'
 
   export const eventModalBus = new Vue({
@@ -46,6 +51,7 @@
     components: {
       addCube: addCube,
       configUploadedTables: configUploadedTables,
+      customizeCube: customizeCube,
       addedSuccess: addedSuccess
     },
     created() {

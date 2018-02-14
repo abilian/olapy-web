@@ -88,10 +88,13 @@
             this.uploadedFiles = [].concat(x.data.dimensions);
             if (x.data.facts != null) {
               this.uploadedFiles.push(x.data.facts);
+              this.$emit('uploadStatus', 'success');
             }
-            this.currentStatus = STATUS_SUCCESS;
-            this.$emit('uploadStatus', 'success');
+            else {
+              this.$emit('uploadStatus', 'toConfig');
+            }
             eventModalBus.cubeConstructed(x.data);
+            this.currentStatus = STATUS_SUCCESS;
           })
           .catch(err => {
             this.uploadError = err.response;

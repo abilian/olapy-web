@@ -64,12 +64,14 @@
         if (this.status === 'failed') {
           eventModalBus.modalToShow('first');
         }
+        else if (this.newCubeName === '') {
+          alert('Please specify a Cube name ');
+        }
+        else if (this.status === 'toConfig') {
+          eventModalBus.modalToShow('toConfig');
+        }
         else if (this.status === 'success') {
-          if (this.newCubeName !== '') {
-            // eventModalBus.newCubeName(this.newCubeName);
-            eventModalBus.modalToShow('second');
-          }
-          else alert('Please specify a Cube name ')
+          eventModalBus.modalToShow('second');
         }
       }
     },
