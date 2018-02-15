@@ -56,7 +56,7 @@
 
 <script>
 
-  // import {eventModalBus} from '../schema-options.vue'
+  import {eventModalBus} from '../schema-options.vue'
 
   export default {
     props: ['factsTable', 'chosenTables'],
@@ -69,8 +69,8 @@
     },
     methods: {
       confirmRelations: function () {
-        alert('hello');
-        // eventModalBus.modalToShow('makeRelations');
+        this.$emit('tablesAndColumnsResult', this.tablesAndColumnsResult);
+        eventModalBus.modalToShow('confirmCustomCube');
       }
     },
     created() {

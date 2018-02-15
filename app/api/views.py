@@ -11,6 +11,7 @@ from olapy.core.mdx.tools.olapy_config_file_parser import DbConfigParser
 from flask import request
 from werkzeug.utils import secure_filename
 import pandas as pd
+import json
 
 API = Blueprint('api', __name__, template_folder='templates')
 api = API.route
@@ -170,3 +171,79 @@ def get_tables_and_columns():
                 response[table_name] = list(df.columns)
             return jsonify(response)
         return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
+
+
+def _gen_facts(data_request):
+    columns_names = []
+    refs = []
+    for table in data_request['tablesAndColumnsResult']:
+        columns_names.append(data_request['tablesAndColumnsResult'][table]['FactsCol'])
+        refs.append(table.replace('.csv', '') + '.' + data_request['tablesAndColumnsResult'][table]['DimCol'])
+
+    keys = {
+        'columns_names': columns_names,
+        'refs': refs
+    }
+
+    return {
+        'table_name': data_request['factsTable'].replace('.csv', ''),
+        'keys': keys,
+    }
+
+
+def _gen_dimensions(data_request):
+    dimensions = [{
+        'dimension':
+            {
+                'name': data_request['factsTable'].replace('.csv', ''),
+                'displayName': data_request['factsTable'].replace('.csv', '')
+            }
+    }]
+    for table in data_request['tablesAndColumnsResult']:
+        table_name = table.replace('.csv', '')
+        dimensions.append({
+            'dimension':
+                {
+                    'name': table_name,
+                    'displayName': table_name
+                }
+        })
+
+    return dimensions
+
+
+def cube_conf_to_file(data_request):
+    """
+    Temporary function
+    :return:
+    """
+    # with open('temp_config.yml', 'w') as yaml_file:
+    #     yaml.dump(d, yaml_file, default_flow_style=False)
+    facts = _gen_facts(data_request)
+    dimensions = _gen_dimensions(data_request)
+    cube = {
+        'name': 'TEMP',
+        'source': 'csv',
+        'xmla_authentication': False,
+        'facts': facts,
+        'dimensions': dimensions
+    }
+
+
+@api('/cubes/try_construct_custom_cube', methods=['POST'])
+@login_required
+def try_construct_custom_cube():
+    temp_dir = os.path.join(TEMP_OLAPY_DIR, TEMP_CUBE_NAME)
+    if request.data and request.method == 'POST':
+        data_request = json.loads(request.data)
+        # todo temp, instead olapy with dict directly
+        cube_conf_to_file(data_request)
+
+        # if isdir(temp_dir):
+        #     response = {}
+        #     att_tables = request.data.split(',')
+        #     for table_name in att_tables:
+        #         df = pd.read_csv(os.path.join(temp_dir, table_name), sep=';')
+        #         response[table_name] = list(df.columns)
+        #     return jsonify(response)
+        # return jsonify({'success': False}), 400, {'ContentType': 'application/json'}

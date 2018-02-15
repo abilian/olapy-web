@@ -12,8 +12,12 @@
                    @factsTable="factsTable = $event" @chosenTables="chosenTables = $event">
     </customizeCube>
     <tableRelations v-if="showModal && modalToShow === 'makeRelations'" :factsTable="factsTable"
-                    :chosenTables="chosenTables">
+                    :chosenTables="chosenTables" @tablesAndColumnsResult="tablesAndColumnsResult = $event">
     </tableRelations>
+    <customCubeResult v-if="showModal && modalToShow === 'confirmCustomCube'" :cubeName="newCubeName" :cube="cube"
+                      :factsTable="factsTable" :chosenTables="chosenTables"
+                      :tablesAndColumnsResult="tablesAndColumnsResult">
+    </customCubeResult>
     <addedSuccess v-if="showModal && modalToShow === 'success'" @close="showModal = $event">
     </addedSuccess>
   </div>
@@ -26,6 +30,7 @@
   import addedSuccess from './add_cube/added-success.vue'
   import customizeCube from './add_cube/customize-cube'
   import tableRelations from './add_cube/tables-relations'
+  import customCubeResult from './add_cube/customCubeResult'
 
   import Vue from 'vue'
 
@@ -58,6 +63,7 @@
       configUploadedTables: configUploadedTables,
       customizeCube: customizeCube,
       tableRelations: tableRelations,
+      customCubeResult: customCubeResult,
       addedSuccess: addedSuccess
     },
     created() {
