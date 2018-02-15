@@ -17,7 +17,7 @@
                   <td>
                   </td>
                 </tr>
-                <tr v-for="(table, index) in tablesAndColumns">
+                <tr v-for="(table, index) in tablesAndColumns" v-if="index !== factsTable">
                   <td>
                     <label>
                       {{index}} :
