@@ -155,3 +155,22 @@ def get_table_columns_no_id():
             return jsonify(
                 [column for column in df.columns if '_id' not in column.lower()[-3:] and 'id' != column.lower()])
         return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
+
+
+@api('/cubes/get_tables_and_columns', methods=['POST'])
+@login_required
+def get_tables_and_columns():
+    temp_dir = os.path.join(TEMP_OLAPY_DIR, TEMP_CUBE_NAME)
+    if request.data and request.method == 'POST':
+        if isdir(temp_dir):
+            response = {}
+            print(request.data)
+            att_tables = request.data.split(',')
+            print(att_tables)
+            print(type(att_tables))
+            for table_name in att_tables:
+                print(table_name)
+                df = pd.read_csv(os.path.join(temp_dir, table_name), sep=';')
+                response[table_name] = list(df.columns)
+            return jsonify(response)
+        return jsonify({'success': False}), 400, {'ContentType': 'application/json'}

@@ -58,7 +58,7 @@
 
 <script>
 
-  // import {eventModalBus} from '../schema-options.vue'
+  import {eventModalBus} from '../schema-options.vue'
 
   export default {
 
@@ -87,14 +87,15 @@
       },
 
       doRelations: function () {
-            eventModalBus.modalToShow('makeRelations');
-          }
+        this.$emit('factsTable', this.factsTable);
+        this.$emit('chosenTables', this.tables);
+        eventModalBus.modalToShow('makeRelations');
+      }
     },
     watch: {
       factsTable: function () {
         this.$http.post('cubes/get_table_columns_no_id', this.factsTable)
           .then(x => {
-            console.log(x);
             this.tableColumns = x.data;
           })
       }
