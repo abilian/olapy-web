@@ -7,6 +7,7 @@
           <div class="modal-body">
             <slot name="body">
               <label>
+                Cube Name:
                 <input type="text" :value="cubeName">
               </label>
               <label>
@@ -17,16 +18,15 @@
                 </select>
               </label>
               selected: {{factsTable}}
+              <hr>
 
-
-              <div v-for="column in tableColumns">
+              <span>Measures : {{ measures.join(', ') }}</span><br>
+              <div v-for="column in tableColumns" style="float: left">
                 <label :for="column">
-                  {{column}} <input type="checkbox" :id="column" :value="column" v-model="measures">
+                  {{column}} <input type="checkbox" :id="column" :value="column"
+                                    v-model="measures">
                 </label>
               </div>
-
-              <span>Measures : {{ measures.join(', ') }}</span>
-
 
               <div v-for="(table, index) in tables">
                 <label>
@@ -35,8 +35,8 @@
                     <option>
                   </select>
                 </label>
-                <button type="button" v-on:click="removeSection(index)">Remove Me</button>
-                selected: {{table.name}}
+                <button type="button" v-on:click="removeSection(index)">Remove</button>
+                <!--selected: {{table.name}}-->
               </div>
               <button type="button" v-on:click="addComponent()">Select New Table</button>
             </slot>
@@ -44,7 +44,7 @@
 
           <div class="modal-footer">
             <slot name="footer">
-              <button class="modal-default-button" @click="confirmCube()">
+              <button class="modal-default-button" @click="doRelations()">
                 Next
               </button>
             </slot>
@@ -86,19 +86,13 @@
         });
       },
 
-      confirmCube: function () {
-        alter('hello')
-        // this.$http.post('cubes/confirm_cube', this.cubeName)
-        //   .then(response => {
-        //     eventModalBus.modalToShow('success');
-        //     return response.json();
-        //   });
-
-      },
+      doRelations: function () {
+            eventModalBus.modalToShow('makeRelations');
+          }
     },
     watch: {
       factsTable: function () {
-        this.$http.post('cubes/get_table_columns', this.factsTable)
+        this.$http.post('cubes/get_table_columns_no_id', this.factsTable)
           .then(x => {
             console.log(x);
             this.tableColumns = x.data;

@@ -143,14 +143,15 @@ def confirm_cube():
         return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
 
 
-@api('/cubes/get_table_columns', methods=['POST'])
+@api('/cubes/get_table_columns_no_id', methods=['POST'])
 @login_required
-def get_table_columns():
+def get_table_columns_no_id():
     temp_dir = os.path.join(TEMP_OLAPY_DIR, TEMP_CUBE_NAME)
     if request.data and request.method == 'POST':
         if isdir(temp_dir):
             df = pd.read_csv(os.path.join(temp_dir, request.data), sep=';')
             # todo show columns with there types
             # df.dtypes.to_dict()
-            return jsonify([column for column in df.columns if '_id' not in column.lower()[-3:]])
+            return jsonify(
+                [column for column in df.columns if '_id' not in column.lower()[-3:] and 'id' != column.lower()])
         return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
