@@ -22,7 +22,7 @@
                     </label>
                   </td>
                   <td>
-                    <select v-model="tablesAndColumnsResult[index]['DimCol']" @change="checkkk(index)">
+                    <select v-model="tablesAndColumnsResult[index]['DimCol']">
                       <option v-for="item in tablesAndColumns[index]" :value="item">{{ item }}
                       <option>
                     </select>
