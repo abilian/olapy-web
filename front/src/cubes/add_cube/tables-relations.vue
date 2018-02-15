@@ -3,10 +3,8 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
-
           <div class="modal-body">
             <slot name="body">
-              <!--<div v-for="(table, index) in tablesAndColumns">-->
               <table class="table" style="width: 100%">
                 <tr>
                   <th> Dimensions :</th>
@@ -24,7 +22,7 @@
                     </label>
                   </td>
                   <td>
-                    <select v-model="tablesAndColumnsResult[index]['DimCol']">
+                    <select v-model="tablesAndColumnsResult[index]['DimCol']" @change="checkkk(index)">
                       <option v-for="item in tablesAndColumns[index]" :value="item">{{ item }}
                       <option>
                     </select>
@@ -32,7 +30,7 @@
                   </td>
                   <td>
                     <label>
-                      <select  style="float: left;" v-model="tablesAndColumnsResult[index]['FactsCol']">
+                      <select style="float: left;" v-model="tablesAndColumnsResult[index]['FactsCol']">
                         <option v-for="item in tablesAndColumns[factsTable]" :value="item">{{ item }}
                         <option>
                       </select>
@@ -40,13 +38,8 @@
                   </td>
                 </tr>
               </table>
-              <!--<button type="button" v-on:click="removeSection(index)">Remove</button>-->
-              <!--selected: {{table.name}}-->
-              <!--</div>-->
-
             </slot>
           </div>
-
           <div class="modal-footer">
             <slot name="footer">
               <button class="modal-default-button" @click="confirmRelations()">
@@ -81,12 +74,10 @@
       }
     },
     created() {
-
       let allTables = [this.factsTable];
       for (let key in this.chosenTables) {
         allTables.push(this.chosenTables[key].name);
       }
-
       this.$http.post('cubes/get_tables_and_columns', allTables.join(','))
         .then(x => {
           this.tablesAndColumns = x.data;
@@ -98,16 +89,7 @@
               };
             }
           }
-          // this.tablesAndColumnsResult.keys()
         })
-      //   else {
-      //     this.$emit('uploadStatus', 'toConfig');
-      //   }
-      //   eventModalBus.cubeConstructed(x.data);
-      //   this.currentStatus = STATUS_SUCCESS;
-      // })
-
-
     }
   }
 
