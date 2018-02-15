@@ -164,12 +164,8 @@ def get_tables_and_columns():
     if request.data and request.method == 'POST':
         if isdir(temp_dir):
             response = {}
-            print(request.data)
             att_tables = request.data.split(',')
-            print(att_tables)
-            print(type(att_tables))
             for table_name in att_tables:
-                print(table_name)
                 df = pd.read_csv(os.path.join(temp_dir, table_name), sep=';')
                 response[table_name] = list(df.columns)
             return jsonify(response)

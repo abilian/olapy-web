@@ -24,7 +24,7 @@
                     </label>
                   </td>
                   <td>
-                    <select v-model="table">
+                    <select v-model="tablesAndColumnsResult[index]['DimCol']">
                       <option v-for="item in tablesAndColumns[index]" :value="item">{{ item }}
                       <option>
                     </select>
@@ -32,7 +32,7 @@
                   </td>
                   <td>
                     <label>
-                      <select style="float: left;" v-model="table">
+                      <select  style="float: left;" v-model="tablesAndColumnsResult[index]['FactsCol']">
                         <option v-for="item in tablesAndColumns[factsTable]" :value="item">{{ item }}
                         <option>
                       </select>
@@ -69,7 +69,9 @@
     props: ['factsTable', 'chosenTables'],
     data: function () {
       return {
-        tablesAndColumns: ''
+        tablesAndColumns: '',
+        result: '',
+        tablesAndColumnsResult: {}
       }
     },
     methods: {
@@ -88,6 +90,15 @@
       this.$http.post('cubes/get_tables_and_columns', allTables.join(','))
         .then(x => {
           this.tablesAndColumns = x.data;
+          for (let key in x.data) {
+            if (key !== this.factsTable) {
+              this.tablesAndColumnsResult[key] = {
+                'DimCol': '',
+                'FactsCol': ''
+              };
+            }
+          }
+          // this.tablesAndColumnsResult.keys()
         })
       //   else {
       //     this.$emit('uploadStatus', 'toConfig');
