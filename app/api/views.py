@@ -3,6 +3,8 @@ from distutils.dir_util import copy_tree
 from os.path import expanduser, isdir
 
 import os
+
+import yaml
 from flask import Blueprint, jsonify
 from flask_login import login_required
 from olapy.core.mdx.executor.execute import MdxEngine
@@ -174,6 +176,11 @@ def get_tables_and_columns():
 
 
 def _gen_facts(data_request):
+    """
+    TEMPORARY
+    :param data_request:
+    :return:
+    """
     columns_names = []
     refs = []
     for table in data_request['tablesAndColumnsResult']:
@@ -188,10 +195,16 @@ def _gen_facts(data_request):
     return {
         'table_name': data_request['factsTable'].replace('.csv', ''),
         'keys': keys,
+        'measures': {}
     }
 
 
 def _gen_dimensions(data_request):
+    """
+    TEMPORARY
+    :param data_request:
+    :return:
+    """
     dimensions = [{
         'dimension':
             {
@@ -212,13 +225,12 @@ def _gen_dimensions(data_request):
     return dimensions
 
 
-def cube_conf_to_file(data_request):
+def cube_conf_to_file(data_request, save_path):
     """
     Temporary function
     :return:
     """
-    # with open('temp_config.yml', 'w') as yaml_file:
-    #     yaml.dump(d, yaml_file, default_flow_style=False)
+
     facts = _gen_facts(data_request)
     dimensions = _gen_dimensions(data_request)
     cube = {
@@ -229,21 +241,26 @@ def cube_conf_to_file(data_request):
         'dimensions': dimensions
     }
 
+    path = os.path.join(save_path, 'temp_config.yml')
+    try:
+        with open(path, 'w') as yaml_file:
+            yaml.safe_dump(cube, yaml_file)
+        return path
+    except:
+        return None
+
 
 @api('/cubes/try_construct_custom_cube', methods=['POST'])
 @login_required
 def try_construct_custom_cube():
-    temp_dir = os.path.join(TEMP_OLAPY_DIR, TEMP_CUBE_NAME)
     if request.data and request.method == 'POST':
         data_request = json.loads(request.data)
         # todo temp, instead olapy with dict directly
-        cube_conf_to_file(data_request)
-
-        # if isdir(temp_dir):
-        #     response = {}
-        #     att_tables = request.data.split(',')
-        #     for table_name in att_tables:
-        #         df = pd.read_csv(os.path.join(temp_dir, table_name), sep=';')
-        #         response[table_name] = list(df.columns)
-        #     return jsonify(response)
-        # return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
+        temp_conf_file = cube_conf_to_file(data_request, TEMP_OLAPY_DIR)
+        parser = ConfigParser()
+        parsing_result = parser.get_cube_config(conf_file=temp_conf_file)
+        executor = MdxEngine(cube_config=parsing_result)
+        executor.load_cube(TEMP_CUBE_NAME)
+        if executor.star_schema_dataframe:
+            return jsonify(executor.star_schema_dataframe.to_html())
+        return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
