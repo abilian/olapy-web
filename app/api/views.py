@@ -27,7 +27,7 @@ home = expanduser('~')
 # todo all this will be repalced with db
 OLAPY_DATA_SOURCE = ('csv')
 # OLAPY_DB_CONFIG_FILE_PATH = os.path.join(home, 'olapy-data', 'olapy-config.yml')
-OLAPY_CUBE_CONFIG_FILE = os.path.join(home, 'olapy-data', 'cubes', 'cubes-config.yml')
+OLAPY_CUBE_CONFIG_FILE = '/home/moddoy/PycharmProjects/olapy-web/instance/olapy-data/cubes/cubes-config.yml'
 
 
 def get_olapy_config(source_type, db_config_file, cube_config_file):
@@ -50,11 +50,9 @@ def get_olapy_config(source_type, db_config_file, cube_config_file):
 @api('/cubes')
 @login_required
 def get_cubes():
-    # conf = None
-    # return {'db_config': db_conf,
-    #         'cube_config': cube_conf}
+    cubes_path = TEMP_OLAPY_DIR + '/cubes'
     config = get_olapy_config(OLAPY_DATA_SOURCE, db_config_file=None, cube_config_file=OLAPY_CUBE_CONFIG_FILE)
-    executor = MdxEngine(source_type=OLAPY_DATA_SOURCE, cube_config=config['cube_config'])
+    executor = MdxEngine(source_type=OLAPY_DATA_SOURCE, cube_config=config['cube_config'], cubes_path=cubes_path)
     data = executor.get_cubes_names()
     return jsonify(data)
 
