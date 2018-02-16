@@ -13,7 +13,7 @@
             <slot name="footer">
               <button
                 class="modal-default-button"
-                @click="confirmRelations()">
+                @click="confirmCustomCube()">
                 Next
               </button>
             </slot>
@@ -36,6 +36,16 @@
         resultCube: ''
       }
     },
+    methods: {
+      confirmCustomCube() {
+        // this.$emit('tablesAndColumnsResult', this.tablesAndColumnsResult);
+        this.$http.post('cubes/confirm_custom_cube', this.cubeName)
+          .then(response => {
+            eventModalBus.modalToShow('success');
+            return response.json();
+          });
+      }
+    },
     created() {
       let data = {
         cubeName: this.cubeName,
@@ -47,7 +57,7 @@
           this.resultCube = x.data;
         })
         .catch(err => {
-          alert('enable to construct cube, check your tables relations');
+          alert('unable to construct cube, check your tables relations');
           eventModalBus.modalToShow("makeRelations");
 
         });

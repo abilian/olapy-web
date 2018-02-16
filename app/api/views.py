@@ -135,14 +135,16 @@ def add_cube():
 
 @api('/cubes/confirm_cube', methods=['POST'])
 @login_required
-def confirm_cube():
+def confirm_cube(custom=False):
     temp_dir = os.path.join(TEMP_OLAPY_DIR, TEMP_CUBE_NAME)
     if request.data and request.method == 'POST':
         if isdir(temp_dir):
             # todo temp to fix
             copy_tree(temp_dir, os.path.join(TEMP_OLAPY_DIR, 'cubes', request.data))
             shutil.rmtree(temp_dir)
-            return jsonify({'success': True}), 200, {'ContentType': 'application/json'}
+            if not custom:
+                # custom -> config with config file , no need to return response, instead wait to use the cube conf
+                return jsonify({'success': True}), 200, {'ContentType': 'application/json'}
         return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
 
 
@@ -268,3 +270,15 @@ def try_construct_custom_cube():
                 ], index=False))
         except:
             return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
+
+
+@api('/cubes/confirm_custom_cube', methods=['POST'])
+@login_required
+def confirm_custom_cube():
+    try:
+        confirm_cube(custom=True)
+        os.rename(os.path.join(TEMP_OLAPY_DIR, 'temp_config.yml'),
+                  os.path.join(TEMP_OLAPY_DIR, 'cubes', 'cubes-config.yml'))
+        return jsonify({'success': True}), 200, {'ContentType': 'application/json'}
+    except:
+        return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
