@@ -30,7 +30,7 @@
   import {eventModalBus} from '../schema-options.vue'
 
   export default {
-    props: ['cubeName', 'factsTable', 'tablesAndColumnsResult'],
+    props: ['cubeName', 'factsTable', 'tablesAndColumnsResult', 'chosenMeasures'],
     data: function () {
       return {
         resultCube: ''
@@ -50,7 +50,8 @@
       let data = {
         cubeName: this.cubeName,
         factsTable: this.factsTable,
-        tablesAndColumnsResult: this.tablesAndColumnsResult
+        tablesAndColumnsResult: this.tablesAndColumnsResult,
+        measures: this.chosenMeasures
       };
       this.$http.post('cubes/try_construct_custom_cube', data)
         .then(x => {

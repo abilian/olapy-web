@@ -89,6 +89,7 @@
       doRelations: function () {
         this.$emit('factsTable', this.factsTable);
         this.$emit('chosenTables', this.tables);
+        this.$emit('chosenMeasures', this.measures);
         eventModalBus.modalToShow('makeRelations');
       }
     },

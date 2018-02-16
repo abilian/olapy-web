@@ -59,7 +59,7 @@
   import {eventModalBus} from '../schema-options.vue'
 
   export default {
-    props: ['factsTable', 'chosenTables'],
+    props: ['factsTable', 'chosenTables', 'chosenMeasures'],
     data: function () {
       return {
         tablesAndColumns: '',

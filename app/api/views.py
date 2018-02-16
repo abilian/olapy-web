@@ -195,11 +195,10 @@ def _gen_facts(data_request):
         'columns_names': columns_names,
         'refs': refs
     }
-
     return {
         'table_name': data_request['factsTable'].replace('.csv', ''),
         'keys': keys,
-        'measures': {}
+        'measures': data_request['measures']
     }
 
 

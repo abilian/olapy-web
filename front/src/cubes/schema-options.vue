@@ -9,13 +9,15 @@
     <configUploadedTables v-if="showModal && modalToShow === 'second'" :cubeName="newCubeName" :cube="cube">
     </configUploadedTables>
     <customizeCube v-if="showModal && modalToShow === 'toConfig'" :cubeName="newCubeName" :cube="cube"
-                   @factsTable="factsTable = $event" @chosenTables="chosenTables = $event">
+                   @factsTable="factsTable = $event" @chosenTables="chosenTables = $event"
+                   @chosenMeasures="chosenMeasures = $event">
     </customizeCube>
     <tableRelations v-if="showModal && modalToShow === 'makeRelations'" :factsTable="factsTable"
-                    :chosenTables="chosenTables" @tablesAndColumnsResult="tablesAndColumnsResult = $event">
+                    :chosenTables="chosenTables" :chosenMeasures="chosenMeasures"
+                    @tablesAndColumnsResult="tablesAndColumnsResult = $event">
     </tableRelations>
-    <customCubeResult v-if="showModal && modalToShow === 'confirmCustomCube'" :cubeName="newCubeName" :cube="cube"
-                      :factsTable="factsTable" :chosenTables="chosenTables"
+    <customCubeResult v-if="showModal && modalToShow === 'confirmCustomCube'" :cubeName="newCubeName"
+                      :factsTable="factsTable" :chosenMeasures="chosenMeasures"
                       :tablesAndColumnsResult="tablesAndColumnsResult">
     </customCubeResult>
     <addedSuccess v-if="showModal && modalToShow === 'success'" @close="showModal = $event">
