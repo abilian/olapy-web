@@ -262,5 +262,7 @@ def try_construct_custom_cube():
         executor = MdxEngine(cube_config=parsing_result, cubes_path=TEMP_OLAPY_DIR)
         executor.load_cube(TEMP_CUBE_NAME)
         if executor.star_schema_dataframe.columns is not None:
-            return jsonify(executor.star_schema_dataframe.to_html())
+            return jsonify(executor.star_schema_dataframe.fillna('').head().to_html(classes=[
+                'table-bordered table-striped'
+            ], index=False))
         return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
