@@ -22,10 +22,12 @@
                     </label>
                   </td>
                   <td>
-                    <select v-model="tablesAndColumnsResult[index]['DimCol']">
-                      <option v-for="item in tablesAndColumns[index]" :value="item">{{ item }}
-                      <option>
-                    </select>
+                    <label>
+                      <select v-model="tablesAndColumnsResult[index]['DimCol']">
+                        <option v-for="item in tablesAndColumns[index]" :value="item">{{ item }}
+                        <option>
+                      </select>
+                    </label>
                     &rArr;
                   </td>
                   <td>

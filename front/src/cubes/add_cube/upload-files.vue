@@ -83,7 +83,7 @@
       save(formData) {
         // upload data to the server
         this.currentStatus = STATUS_SAVING;
-        this.$http.post('cubes/add', formData)
+        this.$http.post('cubes/add',formData)
           .then(x => {
             this.uploadedFiles = [].concat(x.data.dimensions);
             if (x.data.facts != null) {

@@ -20,13 +20,16 @@ api = API.route
 
 ALLOWED_EXTENSIONS = {'csv'}
 # todo remove
-TEMP_CUBE_NAME = 'TEMP'
+# TODO REMOVE ALL TEMP TEMP TEMP
+# TODO REMOVE ALL TEMP TEMP TEMP
+# TODO REMOVE ALL TEMP TEMP TEMP
+TEMP_CUBE_NAME = 'TEMP_CUBE'
 TEMP_OLAPY_DIR = '/home/moddoy/PycharmProjects/olapy-web/instance/olapy-data'
+TEMP_DIR = os.path.join(TEMP_OLAPY_DIR, 'TEMP', TEMP_CUBE_NAME)
 
 home = expanduser('~')
 # todo all this will be repalced with db
 OLAPY_DATA_SOURCE = ('csv')
-# OLAPY_DB_CONFIG_FILE_PATH = os.path.join(home, 'olapy-data', 'olapy-config.yml')
 OLAPY_CUBE_CONFIG_FILE = '/home/moddoy/PycharmProjects/olapy-web/instance/olapy-data/cubes/cubes-config.yml'
 
 
@@ -111,19 +114,18 @@ def try_construct_cube(cube_path):
 @login_required
 def add_cube():
     # temporary
-    temp_dir = os.path.join(TEMP_OLAPY_DIR, TEMP_CUBE_NAME)
-    if isdir(temp_dir):
-        clean_temp_dir(temp_dir)
+    if isdir(TEMP_DIR):
+        clean_temp_dir(TEMP_DIR)
     else:
-        os.makedirs(temp_dir)
+        os.makedirs(TEMP_DIR)
     if request.method == 'POST':
         all_file = request.files.getlist('files')
         for file_uploaded in all_file:
             if file_uploaded and allowed_file(file_uploaded.filename):
                 filename = secure_filename(file_uploaded.filename)
-                file_uploaded.save(os.path.join(TEMP_OLAPY_DIR, TEMP_CUBE_NAME, filename))
+                file_uploaded.save(os.path.join(TEMP_OLAPY_DIR, "TEMP", TEMP_CUBE_NAME, filename))
 
-        construction = try_construct_cube(TEMP_OLAPY_DIR)
+        construction = try_construct_cube(os.path.join(TEMP_OLAPY_DIR, "TEMP"))
         if construction:
             return jsonify(construction)
         else:
@@ -138,12 +140,16 @@ def add_cube():
 @api('/cubes/confirm_cube', methods=['POST'])
 @login_required
 def confirm_cube(custom=False):
-    temp_dir = os.path.join(TEMP_OLAPY_DIR, TEMP_CUBE_NAME)
     if request.data and request.method == 'POST':
-        if isdir(temp_dir):
+        if custom:
+            temp_folder = request.data
+        else:
+            temp_folder = 'TEMP_CUBE'
+        new_temp_dir = os.path.join(TEMP_OLAPY_DIR, 'TEMP', temp_folder )
+        if isdir(new_temp_dir):
             # todo temp to fix
-            copy_tree(temp_dir, os.path.join(TEMP_OLAPY_DIR, 'cubes', request.data))
-            shutil.rmtree(temp_dir)
+            copy_tree(new_temp_dir, os.path.join(TEMP_OLAPY_DIR, 'cubes', request.data))
+            shutil.rmtree(new_temp_dir)
             if not custom:
                 # custom -> config with config file , no need to return response, instead wait to use the cube conf
                 return jsonify({'success': True}), 200, {'ContentType': 'application/json'}
@@ -153,10 +159,9 @@ def confirm_cube(custom=False):
 @api('/cubes/get_table_columns_no_id', methods=['POST'])
 @login_required
 def get_table_columns_no_id():
-    temp_dir = os.path.join(TEMP_OLAPY_DIR, TEMP_CUBE_NAME)
     if request.data and request.method == 'POST':
-        if isdir(temp_dir):
-            df = pd.read_csv(os.path.join(temp_dir, request.data), sep=';')
+        if isdir(TEMP_DIR):
+            df = pd.read_csv(os.path.join(TEMP_DIR, request.data), sep=';')
             # todo show columns with there types
             # df.dtypes.to_dict()
             return jsonify(
@@ -167,13 +172,12 @@ def get_table_columns_no_id():
 @api('/cubes/get_tables_and_columns', methods=['POST'])
 @login_required
 def get_tables_and_columns():
-    temp_dir = os.path.join(TEMP_OLAPY_DIR, TEMP_CUBE_NAME)
     if request.data and request.method == 'POST':
-        if isdir(temp_dir):
+        if isdir(TEMP_DIR):
             response = {}
             att_tables = request.data.split(',')
             for table_name in att_tables:
-                df = pd.read_csv(os.path.join(temp_dir, table_name), sep=';')
+                df = pd.read_csv(os.path.join(TEMP_DIR, table_name), sep=';')
                 response[table_name] = list(df.columns)
             return jsonify(response)
         return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
@@ -237,7 +241,7 @@ def cube_conf_to_file(data_request, save_path):
     facts = _gen_facts(data_request)
     dimensions = _gen_dimensions(data_request)
     cube = {
-        'name': 'TEMP',
+        'name': data_request['cubeName'],
         'source': 'csv',
         'xmla_authentication': False,
         'facts': facts,
@@ -259,17 +263,21 @@ def try_construct_custom_cube():
     if request.data and request.method == 'POST':
         data_request = json.loads(request.data)
         # todo temp, instead olapy with dict directly
+        os.rename(os.path.join(TEMP_OLAPY_DIR, 'TEMP', TEMP_CUBE_NAME),
+                  os.path.join(TEMP_OLAPY_DIR, 'TEMP', data_request['cubeName']))
         temp_conf_file = cube_conf_to_file(data_request, TEMP_OLAPY_DIR)
         parser = ConfigParser()
         parsing_result = parser.get_cube_config(conf_file=temp_conf_file)
-        executor = MdxEngine(cube_config=parsing_result, cubes_path=TEMP_OLAPY_DIR)
+        executor = MdxEngine(cube_config=parsing_result, cubes_path=os.path.join(TEMP_OLAPY_DIR, 'TEMP'))
         try:
-            executor.load_cube(TEMP_CUBE_NAME)
+            executor.load_cube(data_request['cubeName'])
             if executor.star_schema_dataframe.columns is not None:
                 return jsonify(executor.star_schema_dataframe.fillna('').head().to_html(classes=[
                     'table-bordered table-striped'
                 ], index=False))
         except:
+            os.rename(os.path.join(TEMP_OLAPY_DIR, 'TEMP', data_request['cubeName']),
+                      os.path.join(TEMP_OLAPY_DIR, 'TEMP', TEMP_CUBE_NAME))
             return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
 
 
