@@ -5,16 +5,15 @@
         <div class="modal-container">
           <div class="modal-body">
             <slot name="body">
-              {{cubeName}}
-              <br>
-              {{factsTable}}
-              <br>
-              {{tablesAndColumnsResult}}
+              <div class="table-responsive" v-html="resultCube">
+              </div>
             </slot>
           </div>
           <div class="modal-footer">
             <slot name="footer">
-              <button class="modal-default-button" @click="confirmRelations()">
+              <button
+                class="modal-default-button"
+                @click="confirmRelations()">
                 Next
               </button>
             </slot>
@@ -33,20 +32,28 @@
   export default {
     props: ['cubeName', 'factsTable', 'tablesAndColumnsResult'],
     data: function () {
-      return {}
+      return {
+        resultCube: ''
+      }
     },
     created() {
       let data = {
-        cubeName : this.cubeName,
+        cubeName: this.cubeName,
         factsTable: this.factsTable,
-        tablesAndColumnsResult : this.tablesAndColumnsResult
+        tablesAndColumnsResult: this.tablesAndColumnsResult
       };
       console.log('ceaaateddd');
       this.$http.post('cubes/try_construct_custom_cube', data)
+        .then(x => {
+          this.resultCube = x.data;
+        })
     }
   }
 
 </script>
 
 <style scoped>
+  .modal-container {
+    width: 900px;
+  }
 </style>
