@@ -27,7 +27,7 @@
 
 <script>
 
-  // import {eventModalBus} from '../schema-options.vue'
+  import {eventModalBus} from '../schema-options.vue'
 
   export default {
     props: ['cubeName', 'factsTable', 'tablesAndColumnsResult'],
@@ -42,11 +42,15 @@
         factsTable: this.factsTable,
         tablesAndColumnsResult: this.tablesAndColumnsResult
       };
-      console.log('ceaaateddd');
       this.$http.post('cubes/try_construct_custom_cube', data)
         .then(x => {
           this.resultCube = x.data;
         })
+        .catch(err => {
+          alert('enable to construct cube, check your tables relations');
+          eventModalBus.modalToShow("makeRelations");
+
+        });
     }
   }
 
