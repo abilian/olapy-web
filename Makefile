@@ -88,4 +88,4 @@ release:
 
 build:
 	cd front && yarn build
-	flask run
+	python manage.py
