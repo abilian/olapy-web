@@ -259,8 +259,8 @@ def try_construct_custom_cube():
         temp_conf_file = cube_conf_to_file(data_request, TEMP_OLAPY_DIR)
         parser = ConfigParser()
         parsing_result = parser.get_cube_config(conf_file=temp_conf_file)
-        executor = MdxEngine(cube_config=parsing_result)
+        executor = MdxEngine(cube_config=parsing_result, cubes_path=TEMP_OLAPY_DIR)
         executor.load_cube(TEMP_CUBE_NAME)
-        if executor.star_schema_dataframe:
+        if executor.star_schema_dataframe.columns is not None:
             return jsonify(executor.star_schema_dataframe.to_html())
         return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
