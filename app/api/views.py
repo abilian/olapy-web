@@ -111,7 +111,11 @@ def try_construct_cube(cube_path):
 @login_required
 def add_cube():
     # temporary
-    clean_temp_dir(os.path.join(TEMP_OLAPY_DIR, TEMP_CUBE_NAME))
+    temp_dir = os.path.join(TEMP_OLAPY_DIR, TEMP_CUBE_NAME)
+    if isdir(temp_dir):
+        clean_temp_dir(temp_dir)
+    else:
+        os.makedirs(temp_dir)
     if request.method == 'POST':
         all_file = request.files.getlist('files')
         for file_uploaded in all_file:

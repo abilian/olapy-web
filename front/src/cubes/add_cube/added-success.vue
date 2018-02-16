@@ -14,7 +14,7 @@
             <slot name="footer">
               <!--<button class="modal-default-button" @click="$emit('uploadStatus', 'second')">-->
               <!--<button class="modal-default-button" @click="checkUpload()">-->
-              <button class="modal-default-button" @click="$emit('close', false)">
+              <button class="modal-default-button" @click="goBack()">
                 Next
               </button>
             </slot>
@@ -28,7 +28,16 @@
 
 <script>
 
-  export default {}
+  import {eventModalBus} from '../schema-options.vue'
+
+  export default {
+    methods: {
+      goBack() {
+        this.$emit('close', false);
+        eventModalBus.modalToShow("first");
+      }
+    }
+  }
 
 </script>
 

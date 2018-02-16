@@ -59,7 +59,6 @@
         .catch(err => {
           alert('unable to construct cube, check your tables relations');
           eventModalBus.modalToShow("makeRelations");
-
         });
     }
   }
