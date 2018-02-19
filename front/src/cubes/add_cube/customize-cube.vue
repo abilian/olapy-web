@@ -19,9 +19,8 @@
               </label>
               selected: {{factsTable}}
               <hr>
-
               <span>Measures : {{ measures.join(', ') }}</span><br>
-              <div v-for="column in tableColumns" style="float: left">
+              <div v-for="column in tableColumnsNoId" style="float: left">
                 <label :for="column">
                   {{column}} <input type="checkbox" :id="column" :value="column"
                                     v-model="measures">
@@ -30,11 +29,21 @@
 
               <div v-for="(table, index) in tables">
                 <label>
-                  <select v-model="table.name">
+                  <select v-model="table.name" @change="updateTableColumns(table.name, index)">
                     <option v-for="item in cube.dimensions" :value="item">{{ item }}
                     <option>
                   </select>
                 </label>
+
+                <div v-for="columns in tableColumns[index]">
+                  <div v-for="column in columns" style="float: left">
+                    <label :for="column">
+                      {{column}} <input type="checkbox" :id="column" :value="column">
+                      <!--v-model="measures">-->
+                    </label>
+                  </div>
+                </div>
+
                 <button type="button" v-on:click="removeSection(index)">Remove</button>
                 <!--selected: {{table.name}}-->
               </div>
@@ -67,7 +76,8 @@
       return {
         factsTable: '',
         measures: [],
-        tableColumns: '',
+        tableColumnsNoId: '',
+        tableColumns: {},
         tables: [{
           id: "1",
           name: ''
@@ -78,27 +88,38 @@
       removeSection: function (index) {
         this.tables.splice(index, 1)
       },
-
       addComponent: function () {
         this.tables.push({
           id: Math.floor(Math.random() * 6),
           name: ''
         });
       },
-
       doRelations: function () {
         this.$emit('factsTable', this.factsTable);
         this.$emit('chosenTables', this.tables);
         this.$emit('chosenMeasures', this.measures);
         eventModalBus.modalToShow('makeRelations');
-      }
-    },
+      },
+      updateTableColumns(tableName, index) {
+        this.$http.post('cubes/get_table_columns', {
+          'tableName': tableName,
+          'WithID': true
+        }).then(x => {
+          let table_columns = {};
+          table_columns[tableName] = x.data;
+          this.tableColumns[index] = table_columns;
+        })
+      },
+    }
+    ,
     watch: {
       factsTable: function () {
-        this.$http.post('cubes/get_table_columns_no_id', this.factsTable)
-          .then(x => {
-            this.tableColumns = x.data;
-          })
+        this.$http.post('cubes/get_table_columns', {
+          'tableName': this.factsTable,
+          'WithID': false
+        }).then(x => {
+          this.tableColumnsNoId = x.data;
+        })
       }
     }
   }
