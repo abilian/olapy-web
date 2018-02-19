@@ -1,3 +1,8 @@
+# -*- encoding: utf8 -*-
+
+from __future__ import absolute_import, division, print_function, \
+    unicode_literals
+
 import shutil
 from distutils.dir_util import copy_tree
 from os.path import expanduser, isdir
@@ -142,13 +147,13 @@ def add_cube():
 def confirm_cube(custom=False):
     if request.data and request.method == 'POST':
         if custom:
-            temp_folder = request.data
+            temp_folder = request.data.decode('utf-8')
         else:
             temp_folder = 'TEMP_CUBE'
         new_temp_dir = os.path.join(TEMP_OLAPY_DIR, 'TEMP', temp_folder)
         if isdir(new_temp_dir):
             # todo temp to fix
-            copy_tree(new_temp_dir, os.path.join(TEMP_OLAPY_DIR, 'cubes', request.data))
+            copy_tree(new_temp_dir, os.path.join(TEMP_OLAPY_DIR, 'cubes', request.data.decode('utf-8')))
             shutil.rmtree(new_temp_dir)
             if not custom:
                 # custom -> config with config file , no need to return response, instead wait to use the cube conf
@@ -161,7 +166,7 @@ def confirm_cube(custom=False):
 def get_table_columns_no_id():
     if request.data and request.method == 'POST':
         if isdir(TEMP_DIR):
-            df = pd.read_csv(os.path.join(TEMP_DIR, request.data), sep=';')
+            df = pd.read_csv(os.path.join(TEMP_DIR, request.data.decode('utf-8')), sep=';')
             # todo show columns with there types
             # df.dtypes.to_dict()
             return jsonify(
@@ -173,10 +178,12 @@ def get_table_columns_no_id():
 @login_required
 def get_tables_and_columns():
     if request.data and request.method == 'POST':
+        data = request.data.decode('utf-8')
         if isdir(TEMP_DIR):
             response = {}
-            att_tables = request.data.split(',')
+            att_tables = data.split(',')
             for table_name in att_tables:
+                table_name = table_name
                 df = pd.read_csv(os.path.join(TEMP_DIR, table_name), sep=';')
                 response[table_name] = list(df.columns)
             return jsonify(response)
@@ -284,10 +291,10 @@ def try_construct_custom_cube():
 @api('/cubes/confirm_custom_cube', methods=['POST'])
 @login_required
 def confirm_custom_cube():
-    try:
-        confirm_cube(custom=True)
-        os.rename(os.path.join(TEMP_OLAPY_DIR, 'temp_config.yml'),
-                  os.path.join(TEMP_OLAPY_DIR, 'cubes', 'cubes-config.yml'))
-        return jsonify({'success': True}), 200, {'ContentType': 'application/json'}
-    except:
-        return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
+    # try:
+    confirm_cube(custom=True)
+    os.rename(os.path.join(TEMP_OLAPY_DIR, 'temp_config.yml'),
+              os.path.join(TEMP_OLAPY_DIR, 'cubes', 'cubes-config.yml'))
+    return jsonify({'success': True}), 200, {'ContentType': 'application/json'}
+    # except:
+    #     return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
