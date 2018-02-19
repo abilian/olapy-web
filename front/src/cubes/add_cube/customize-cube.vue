@@ -108,7 +108,10 @@
           let table_columns = {};
           table_columns[tableName] = x.data;
           this.tableColumns[index] = table_columns;
-        })
+        });
+        this.$emit('selectTable', this.tableColumns[index]);
+        // console.log(this.tableColumns);
+        eventModalBus.modalToShow('choseColumns');
       },
     }
     ,

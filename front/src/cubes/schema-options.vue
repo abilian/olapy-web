@@ -8,10 +8,15 @@
 
     <configUploadedTables v-if="showModal && modalToShow === 'second'" :cubeName="newCubeName" :cube="cube">
     </configUploadedTables>
-    <customizeCube v-if="showModal && modalToShow === 'toConfig'" :cubeName="newCubeName" :cube="cube"
-                   @factsTable="factsTable = $event" @chosenTables="chosenTables = $event"
-                   @chosenMeasures="chosenMeasures = $event">
-    </customizeCube>
+    <keep-alive>
+      <customizeCube v-if="showModal && modalToShow === 'toConfig'" :cubeName="newCubeName" :cube="cube"
+                     @factsTable="factsTable = $event" @chosenTables="chosenTables = $event"
+                     @chosenMeasures="chosenMeasures = $event" @selectTable="selectTable = $event">
+      </customizeCube>
+      <selectDimColumns v-if="showModal && modalToShow === 'choseColumns'" :selectTable="selectTable">
+      </selectDimColumns>
+    </keep-alive>
+
     <tableRelations v-if="showModal && modalToShow === 'makeRelations'" :factsTable="factsTable"
                     :chosenTables="chosenTables" :chosenMeasures="chosenMeasures"
                     @tablesAndColumnsResult="tablesAndColumnsResult = $event">
@@ -30,6 +35,7 @@
   import addCube from './add_cube/add-cube.vue';
   import configUploadedTables from './add_cube/config-upladed-tables.vue';
   import addedSuccess from './add_cube/added-success.vue'
+  import selectDimColumns from './add_cube/select-dimension-columns'
   import customizeCube from './add_cube/customize-cube'
   import tableRelations from './add_cube/tables-relations'
   import customCubeResult from './add_cube/customCubeResult'
@@ -64,6 +70,7 @@
       addCube: addCube,
       configUploadedTables: configUploadedTables,
       customizeCube: customizeCube,
+      selectDimColumns: selectDimColumns,
       tableRelations: tableRelations,
       customCubeResult: customCubeResult,
       addedSuccess: addedSuccess
