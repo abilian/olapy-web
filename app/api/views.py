@@ -145,7 +145,7 @@ def confirm_cube(custom=False):
             temp_folder = request.data
         else:
             temp_folder = 'TEMP_CUBE'
-        new_temp_dir = os.path.join(TEMP_OLAPY_DIR, 'TEMP', temp_folder )
+        new_temp_dir = os.path.join(TEMP_OLAPY_DIR, 'TEMP', temp_folder)
         if isdir(new_temp_dir):
             # todo temp to fix
             copy_tree(new_temp_dir, os.path.join(TEMP_OLAPY_DIR, 'cubes', request.data))

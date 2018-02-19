@@ -1,7 +1,7 @@
 .PHONY: test unit full-test clean setup stage deploy
 
 
-SRC=olapy_web
+SRC=app
 PKG=$(SRC)
 
 default: test lint
