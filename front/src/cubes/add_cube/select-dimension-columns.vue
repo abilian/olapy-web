@@ -6,22 +6,30 @@
 
           <div class="modal-body">
             <slot name="body">
-              <!--zzzzzzzz {{selectTable}}-->
-              <div v-for="columns in selectTable">
+              Select columns to use in <u>good order</u> <b>(including the id column)</b>
+              <div v-for="columns in selectTableColumns">
                 <div v-for="column in columns" style="float: left">
                   <label :for="column">
-                    {{column}} <input type="checkbox" :id="column" :value="column">
-                    <!--v-model="measures">-->
+                    <input v-model="selectedColumns['columns']" type="checkbox" :value="column">
+                    {{column}}
                   </label>
                 </div>
               </div>
             </slot>
           </div>
-
           <div class="modal-footer">
             <slot name="footer">
+              <div>
+                Selected :
+                <ol>
+                  <li v-for="column in selectedColumns['columns']">
+                    {{ column }}
+                  </li>
+                </ol>
+              </div>
+
               <button class="modal-default-button" @click="closeChoseCol()">
-                close
+                Save
               </button>
             </slot>
           </div>
@@ -38,16 +46,27 @@
 
   export default {
 
-    props: ['selectTable'],
+    props: ['selectTableColumns'],
     data: function () {
-      return {}
+      return {
+        selectedColumns: {
+          'table': Object.keys(this.selectTableColumns)[0],
+          'columns': []
+        }
+
+      }
     },
     methods: {
       closeChoseCol() {
         {
+          this.$emit('SavedColumns', this.selectedColumns);
           eventModalBus.modalToShow('toConfig');
         }
       }
+    },
+    updated() {
+      console.log('22222222222222222');
+      console.log(this.selectedColumns);
 
     }
   }

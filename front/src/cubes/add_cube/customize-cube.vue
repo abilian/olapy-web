@@ -17,7 +17,8 @@
                   <option>
                 </select>
               </label>
-              selected: {{factsTable}}
+              SavedColumns {{SavedColumns}}<br>
+              DimColumns : {{DimColumns}}
               <hr>
               <span>Measures : {{ measures.join(', ') }}</span><br>
               <div v-for="column in tableColumnsNoId" style="float: left">
@@ -34,20 +35,10 @@
                     <option>
                   </select>
                 </label>
-
-                <div v-for="columns in tableColumns[index]">
-                  <div v-for="column in columns" style="float: left">
-                    <label :for="column">
-                      {{column}} <input type="checkbox" :id="column" :value="column">
-                      <!--v-model="measures">-->
-                    </label>
-                  </div>
-                </div>
-
-                <button type="button" v-on:click="removeSection(index)">Remove</button>
-                <!--selected: {{table.name}}-->
+                <button type="button" @click="removeSection(index)">Remove</button>
+                <button type="button" @click="editColumns()">Select Columns</button>
               </div>
-              <button type="button" v-on:click="addComponent()">Select New Table</button>
+              <button type="button" @click="addComponent()">Select New Table</button>
             </slot>
           </div>
 
@@ -71,9 +62,10 @@
 
   export default {
 
-    props: ['cube', 'cubeName'],
+    props: ['cube', 'cubeName', 'SavedColumns'],
     data: function () {
       return {
+        DimColumns: [],
         factsTable: '',
         measures: [],
         tableColumnsNoId: '',
@@ -93,6 +85,12 @@
           id: Math.floor(Math.random() * 6),
           name: ''
         });
+        console.log('--------------------');
+        this.DimColumns.push(this.SavedColumns)
+
+      },
+      editColumns() {
+        eventModalBus.modalToShow('choseColumns');
       },
       doRelations: function () {
         this.$emit('factsTable', this.factsTable);
@@ -108,13 +106,12 @@
           let table_columns = {};
           table_columns[tableName] = x.data;
           this.tableColumns[index] = table_columns;
-          this.$emit('selectTable', this.tableColumns[index]);
+          this.$emit('selectTableColumns', this.tableColumns[index]);
           eventModalBus.modalToShow('choseColumns');
         });
 
       },
-    }
-    ,
+    },
     watch: {
       factsTable: function () {
         this.$http.post('cubes/get_table_columns', {
@@ -124,6 +121,12 @@
           this.tableColumnsNoId = x.data;
         })
       }
+      ,
+      // SavedColumns: function () {
+      //   console.log('--------------------');
+      //   this.DimColumns.push(this.SavedColumns)
+      //
+      // }
     }
 
   }
