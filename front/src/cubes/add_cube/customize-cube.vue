@@ -17,8 +17,6 @@
                   <option>
                 </select>
               </label>
-              SavedColumns {{SavedColumns}}<br>
-              DimColumns : {{DimColumns}}
               <hr>
               <span>Measures : {{ measures.join(', ') }}</span><br>
               <div v-for="column in tableColumnsNoId" style="float: left">
@@ -85,7 +83,6 @@
           id: Math.floor(Math.random() * 6),
           name: ''
         });
-        console.log('--------------------');
         this.DimColumns.push(this.SavedColumns)
 
       },
@@ -96,6 +93,7 @@
         this.$emit('factsTable', this.factsTable);
         this.$emit('chosenTables', this.tables);
         this.$emit('chosenMeasures', this.measures);
+        this.$emit('SavedColumns', this.DimColumns);
         eventModalBus.modalToShow('makeRelations');
       },
       updateTableColumns(tableName, index) {
@@ -122,11 +120,11 @@
         })
       }
       ,
-      // SavedColumns: function () {
-      //   console.log('--------------------');
-      //   this.DimColumns.push(this.SavedColumns)
-      //
-      // }
+      SavedColumns: function () {
+        //for the first select dim
+        this.DimColumns.push(this.SavedColumns)
+
+      }
     }
 
   }

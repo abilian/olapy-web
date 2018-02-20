@@ -12,7 +12,7 @@
       <customizeCube v-if="showModal && modalToShow === 'toConfig'" :cubeName="newCubeName" :cube="cube"
                      @factsTable="factsTable = $event" @chosenTables="chosenTables = $event"
                      @chosenMeasures="chosenMeasures = $event" @selectTableColumns="selectTableColumns = $event"
-                     :SavedColumns="SavedColumns">
+                     :SavedColumns="SavedColumns" @SavedColumns="SavedColumns = $event">
       </customizeCube>
       <selectDimColumns v-if="showModal && modalToShow === 'choseColumns'" @SavedColumns="SavedColumns = $event"
                         :selectTableColumns="selectTableColumns">
@@ -25,7 +25,7 @@
     </tableRelations>
     <customCubeResult v-if="showModal && modalToShow === 'confirmCustomCube'" :cubeName="newCubeName"
                       :factsTable="factsTable" :chosenMeasures="chosenMeasures"
-                      :tablesAndColumnsResult="tablesAndColumnsResult">
+                      :tablesAndColumnsResult="tablesAndColumnsResult" :SavedColumns="SavedColumns">
     </customCubeResult>
     <addedSuccess v-if="showModal && modalToShow === 'success'" @close="showModal = $event">
     </addedSuccess>

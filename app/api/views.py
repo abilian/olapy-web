@@ -218,6 +218,15 @@ def _gen_facts(data_request):
     }
 
 
+def check_specified_table_column(table_name, data_request):
+    columns = []
+    for table_col in data_request['columnsPerDimension']:
+        if table_col['table'].replace('.csv', '') == table_name:
+            for column in table_col['columns']:
+                columns.append({'name': column})
+    return columns
+
+
 def _gen_dimensions(data_request):
     """
     TEMPORARY
@@ -233,11 +242,13 @@ def _gen_dimensions(data_request):
     }]
     for table in data_request['tablesAndColumnsResult']:
         table_name = table.replace('.csv', '')
+        columns = check_specified_table_column(table_name, data_request)
         dimensions.append({
             'dimension':
                 {
                     'name': table_name,
-                    'displayName': table_name
+                    'displayName': table_name,
+                    'columns': columns
                 }
         })
 
