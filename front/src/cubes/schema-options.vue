@@ -14,10 +14,10 @@
                      @chosenMeasures="chosenMeasures = $event" @selectTableColumns="selectTableColumns = $event"
                      :SavedColumns="SavedColumns" @SavedColumns="SavedColumns = $event">
       </customizeCube>
-      <selectDimColumns v-if="showModal && modalToShow === 'choseColumns'" @SavedColumns="SavedColumns = $event"
-                        :selectTableColumns="selectTableColumns">
-      </selectDimColumns>
     </keep-alive>
+    <selectDimColumns v-if="showModal && modalToShow === 'choseColumns'" @SavedColumns="SavedColumns = $event"
+                      :selectTableColumns="selectTableColumns">
+    </selectDimColumns>
 
     <tableRelations v-if="showModal && modalToShow === 'makeRelations'" :factsTable="factsTable"
                     :chosenTables="chosenTables" :chosenMeasures="chosenMeasures"

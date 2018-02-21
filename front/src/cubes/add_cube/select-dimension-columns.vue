@@ -63,11 +63,6 @@
           eventModalBus.modalToShow('toConfig');
         }
       }
-    },
-    updated() {
-      console.log('22222222222222222');
-      console.log(this.selectedColumns);
-
     }
   }
 

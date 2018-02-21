@@ -119,12 +119,6 @@
           this.tableColumnsNoId = x.data;
         })
       }
-      ,
-      SavedColumns: function () {
-        //for the first select dim
-        this.DimColumns.push(this.SavedColumns)
-
-      }
     }
 
   }
