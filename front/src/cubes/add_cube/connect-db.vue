@@ -29,12 +29,6 @@
           <br>
 
           <label>
-            Database :
-            <input type="text" v-model="database" name="servername">
-          </label>
-          <br>
-
-          <label>
             User Name :
             <input type="text" v-model="username" name="servername">
           </label>
@@ -86,7 +80,6 @@
         engine: 'postgres',
         servername: 'localhost',
         port: '5432',
-        database: 'tutorial',
         username: 'postgres',
         password: 'root',
         loadedDatabases: [],
@@ -101,7 +94,6 @@
           'engine': this.engine,
           'servername': this.servername,
           'port': this.port,
-          'database': this.database,
           'username': this.username,
           'password': this.password
 

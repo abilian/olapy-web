@@ -321,8 +321,10 @@ def confirm_custom_cube():
 def connectDB():
     if request.data and request.method == 'POST':
         data_request = json.loads(request.data)
-        data_connection = {'driver': data_request['engine'].lower(), 'port': data_request['port'],
-                           'password': data_request['password'], 'host': data_request['servername'],
+        data_connection = {'driver': data_request['engine'].lower(),
+                           'port': data_request['port'],
+                           'password': data_request['password'],
+                           'host': data_request['servername'],
                            'user': data_request['username'],
                            'dbms': data_request['engine']}
         executor = MdxEngine(source_type="db", database_config=data_connection)
