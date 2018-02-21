@@ -314,3 +314,16 @@ def confirm_custom_cube():
     return jsonify({'success': True}), 200, {'ContentType': 'application/json'}
     # except:
     #     return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
+
+
+@api('/cubes/connectDB', methods=['POST'])
+@login_required
+def connectDB():
+    if request.data and request.method == 'POST':
+        data_request = json.loads(request.data)
+        data_connection = {'driver': data_request['engine'].lower(), 'port': data_request['port'],
+                           'password': data_request['password'], 'host': data_request['servername'],
+                           'user': data_request['username'],
+                           'dbms': data_request['engine']}
+        executor = MdxEngine(source_type="db", database_config=data_connection)
+        return jsonify(executor.get_cubes_names())
