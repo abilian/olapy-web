@@ -25,14 +25,14 @@
           <div class="modal-body">
             <slot name="body">
               <uploadCsvFiles :newCubeName="newCubeName" v-show="source == 'CSV'"
-                              @uploadStatus="status = $event"></uploadCsvFiles>
-              <connectDb v-show="source == 'DataBase'"></connectDb>
+                              @SelectInputStatus="status = $event"></uploadCsvFiles>
+              <connectDb v-show="source == 'DataBase'" @SelectInputStatus="status = $event"></connectDb>
             </slot>
           </div>
 
           <div class="modal-footer">
             <slot name="footer">
-              <!--<button class="modal-default-button" @click="$emit('uploadStatus', 'second')">-->
+              <!--<button class="modal-default-button" @click="$emit('SelectInputStatus', 'second')">-->
               <button class="modal-default-button" @click="checkUpload();  $emit('newCubeName', newCubeName)">
                 Next
               </button>

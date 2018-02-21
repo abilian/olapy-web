@@ -49,9 +49,6 @@
       modalToShow(modal) {
         this.$emit('modalToShow', modal);
       },
-      uploadStatus(status) {
-        this.$emit('uploadStatus', status);
-      },
       cubeConstructed(cube) {
         this.$emit('cubeConstructed', cube);
       }

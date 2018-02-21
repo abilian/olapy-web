@@ -62,11 +62,8 @@
           </div>
           <span v-if="selectedDatabase !== ''">selected : {{selectedDatabase}}</span>
         </td>
-
       </tr>
     </table>
-
-
     <br>
 
   </div>
@@ -100,6 +97,8 @@
         }).then(x => {
           this.loadedDatabases = x.data;
           this.establishedConnection = 'Success';
+          this.$emit('SelectInputStatus', 'toConfig');
+
         })
           .catch(x => {
             this.selectedDatabase = '';
