@@ -28,8 +28,13 @@
                 </ol>
               </div>
 
-              <button class="modal-default-button" @click="closeChoseCol()">
+              <button class="modal-default-button" @click="saveChoseCol()">
                 Save
+              </button>
+
+
+              <button class="modal-default-button" @click="closeChoseCol()">
+                Close
               </button>
             </slot>
           </div>
@@ -57,9 +62,14 @@
       }
     },
     methods: {
-      closeChoseCol() {
+      saveChoseCol() {
         {
           this.$emit('SavedColumns', this.selectedColumns);
+          eventModalBus.modalToShow('toConfig');
+        }
+      },
+      closeChoseCol() {
+        {
           eventModalBus.modalToShow('toConfig');
         }
       }

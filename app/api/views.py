@@ -221,7 +221,7 @@ def _gen_facts(data_request):
 def check_specified_table_column(table_name, data_request):
     columns = []
     for table_col in data_request['columnsPerDimension']:
-        if table_col['table'].replace('.csv', '') == table_name:
+        if table_col and table_col['table'].replace('.csv', '') == table_name:
             for column in table_col['columns']:
                 columns.append({'name': column})
     return columns
