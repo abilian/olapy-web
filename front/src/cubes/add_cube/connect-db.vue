@@ -1,74 +1,79 @@
 <template>
 
   <div>
-    <div style="position: center">
-      <label>
-        engine :
-        <select v-model="engine">
-          <option disabled value="">Choisissez</option>
-          <option>Postgres</option>
-          <option>Mysql</option>
-          <option>Oracle</option>
-          <option>SQL Server</option>
-        </select>
-      </label>
-      <br>
-
-      <label>
-        Server Name :
-        <input type="text" v-model="servername" name="servername">
-      </label>
-      <br>
-
-      <label>
-        Port :
-        <input type="text" v-model="port" name="servername">
-      </label>
-      <br>
-
-      <label>
-        Database :
-        <input type="text" v-model="database" name="servername">
-      </label>
-      <br>
-
-      <label>
-        User Name :
-        <input type="text" v-model="username" name="servername">
-      </label>
-      <br>
-
-      <label>
-        Password :
-        <input type="text" v-model="password" name="servername">
-      </label>
-      <br>
-
-      <label>
-        Connect :
-        <input type="button" value="Connect" @click="connectDB()">
-      </label>
-
-      <div v-if="establishedConnection !== ''">
-        Connection : {{establishedConnection}}
-      </div>
-
-      <div v-if="establishedConnection.toUpperCase() === 'SUCCESS'">
-        Available databases :
-        <div v-for="database in loadedDatabases">
+    <table style="width:100%">
+      <tr>
+        <td>
           <label>
-            <input type="radio" :id="database" :value="database" v-model="selectedDatabase">
-            <label :for="database">{{database}}</label>
-            <br>
-
+            engine :
+            <select v-model="engine">
+              <option disabled value="">Choisissez</option>
+              <option>Postgres</option>
+              <option>Mysql</option>
+              <option>Oracle</option>
+              <option>SQL Server</option>
+            </select>
           </label>
-        </div>
-        select : {{selectedDatabase}}
-      </div>
+          <br>
+
+          <label>
+            Server Name :
+            <input type="text" v-model="servername" name="servername">
+          </label>
+          <br>
+
+          <label>
+            Port :
+            <input type="text" v-model="port" name="servername">
+          </label>
+          <br>
+
+          <label>
+            Database :
+            <input type="text" v-model="database" name="servername">
+          </label>
+          <br>
+
+          <label>
+            User Name :
+            <input type="text" v-model="username" name="servername">
+          </label>
+          <br>
+
+          <label>
+            Password :
+            <input type="text" v-model="password" name="servername">
+          </label>
+          <br>
+
+          <label>
+            Connect :
+            <input type="button" value="Connect" @click="connectDB()">
+          </label>
+
+          <div v-if="establishedConnection !== ''">
+            Connection : {{establishedConnection}}
+          </div>
+        </td>
+        <td>
+          <div v-if="establishedConnection.toUpperCase() === 'SUCCESS'">
+            Available databases :
+            <div v-for="database in loadedDatabases">
+              <label>
+                <input type="radio" :id="database" :value="database" v-model="selectedDatabase">
+                <label :for="database">{{database}}</label>
+                <br>
+              </label>
+            </div>
+          </div>
+          <span v-if="selectedDatabase !== ''">selected : {{selectedDatabase}}</span>
+        </td>
+
+      </tr>
+    </table>
 
 
-      <br>
-    </div>
+    <br>
 
   </div>
 
@@ -105,6 +110,7 @@
           this.establishedConnection = 'Success';
         })
           .catch(x => {
+            this.selectedDatabase = '';
             this.establishedConnection = 'Failed';
           })
 
