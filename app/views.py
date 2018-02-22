@@ -97,12 +97,12 @@ def dashboard():
     dashboard = config.construct_web_dashboard()
 
     config = ConfigParser(web_config_file_path)
-    cube_config_file = config.construct_cubes()[0]  # one cube right now
+    cube_config_file = config.construct_cubes()
 
     executor = MdxEngine(cube_config=cube_config_file,
                          cubes_path=cubes_path,
                          client_type='web')
-    executor.load_cube(cube_config_file.name)
+    executor.load_cube(cube_config_file['name'])
 
     if not dashboard:
         return ('<h3> your config file (' + web_config_file_path +
@@ -141,12 +141,11 @@ def query_builder():
 
     web_config_file_path = os.path.join(cubes_path, 'web_cube_config.yml')
     config = ConfigParser(web_config_file_path)
-    cube_config_file = config.construct_cubes()[0]  # one cube right now
-
+    cube_config_file = config.construct_cubes()  # one cube right now
     executor = MdxEngine(cube_config=cube_config_file,
                          cubes_path=cubes_path,
                          client_type='web')
-    executor.load_cube(cube_config_file.name)
+    executor.load_cube(cube_config_file['name'])
 
     return render_template('query_builder.html',
                            user=current_user,

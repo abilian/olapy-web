@@ -2,7 +2,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import os
 
-from app.tools.models import Dashboard, Table, Cube, Facts
+from app.tools.models import Dashboard, Table, Facts
 import yaml
 
 
@@ -167,10 +167,9 @@ class ConfigParser:
             else:
                 tables = []
 
-        return [
-            Cube(
-                name=config['name'],
-                source=config['source'],
-                facts=facts,
-                tables=tables)
-        ]
+        return {
+            'name': config['name'],
+            'source': config['source'],
+            'facts': facts,
+            'tables': tables
+        }

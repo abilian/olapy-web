@@ -21,16 +21,6 @@ class Facts(object):
 
 
 @attr.s
-class Cube(object):
-    """Cube class used to encapsulate config file attributes."""
-
-    name = attr.ib()
-    source = attr.ib()
-    facts = attr.ib()
-    tables = attr.ib()
-
-
-@attr.s
 class Table(object):
     """Column class used to encapsulate config file attributes for web client."""
 
