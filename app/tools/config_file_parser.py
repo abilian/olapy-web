@@ -2,7 +2,6 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import os
 
-from app.tools.models import Dashboard, Table, Facts
 import yaml
 
 
@@ -118,17 +117,16 @@ class ConfigParser:
         with open(self.web_config_file_name) as config_file:
             config = yaml.load(config_file)
 
-        return [
-            Dashboard(
-                global_table=config['Dashboard']['Global_table'],
-                PieCharts=config['Dashboard']['PieCharts'],
-                BarCharts=config['Dashboard']['BarCharts'],
-                LineCharts={
-                    config['Dashboard']['LineCharts']['table']:
-                        config['Dashboard']['LineCharts']['columns'] if
-                        'columns' in config['Dashboard']['LineCharts'] else 'ALL'
-                } if 'LineCharts' in config['Dashboard'] else {})
-        ]
+        return {
+            'global_table': config['Dashboard']['Global_table'],
+            'PieCharts': config['Dashboard']['PieCharts'],
+            'BarCharts': config['Dashboard']['BarCharts'],
+            'LineCharts': {
+                config['Dashboard']['LineCharts']['table']:
+                    config['Dashboard']['LineCharts']['columns'] if
+                    'columns' in config['Dashboard']['LineCharts'] else 'ALL'
+            } if 'LineCharts' in config['Dashboard'] else {}
+        }
 
     def construct_cubes(self):
         """
@@ -141,28 +139,28 @@ class ConfigParser:
             config = yaml.load(config_file)
 
             if 'facts' in config:
-                facts = [
-                    Facts(
-                        table_name=config['facts']['table_name'],
-                        keys=dict(
-                            zip(config['facts']['keys']['columns_names'],
-                                config['facts']['keys']['refs'])),
-                        measures=config['facts']['measures'],
-                        columns=config['facts']['columns']
-                        if 'columns' in config['facts'] else '',
-                    )
-                ]
+                facts = {
+                    'table_name': config['facts']['table_name'],
+                    'keys': dict(
+                        zip(config['facts']['keys']['columns_names'],
+                            config['facts']['keys']['refs'])),
+                    'measures': config['facts']['measures'],
+                    'columns': config['facts']['columns']
+                    if 'columns' in config['facts'] else '',
+                }
+
             else:
                 facts = []
 
             if 'tables' in config:
                 tables = [
-                    Table(
-                        name=table['table']['name'],
-                        columns=table['table']['columns'],
-                        new_names={new_col
-                                   for new_col in table['table']['new_names']} if 'new_names' in table['table'] else {},
-                    ) for table in config['tables']
+                    {
+                        'name': table['table']['name'],
+                        'columns': table['table']['columns'],
+                        'new_names': {new_col
+                                      for new_col in table['table']['new_names']} if 'new_names' in table[
+                            'table'] else {},
+                    } for table in config['tables']
                 ]
             else:
                 tables = []

@@ -26,7 +26,7 @@ route = blueprint.route
 
 def _build_charts(dashboard, executer):
     graphs = {}
-    for chart_type, chart_attributs in dashboard.__dict__.items():
+    for chart_type, chart_attributs in dashboard.items():
         if chart_type == 'global_table':
             continue
         ChartClass = getattr(importlib.import_module("app.tools.models"), chart_type[:-1])
@@ -107,17 +107,14 @@ def dashboard():
     if not dashboard:
         return ('<h3> your config file (' + web_config_file_path +
                 ') does not contains dashboard section </h3>')
-    else:
-        # first dashboard only right now
-        dashboard = dashboard[0]
 
     graphs = _build_charts(dashboard, executor)
     # todo margins = True ( prob )
     pivot_table_df = pd.pivot_table(
         executor.star_schema_dataframe,
         values=executor.measures,
-        index=dashboard.global_table['columns'],
-        columns=dashboard.global_table['rows'],
+        index=dashboard['global_table']['columns'],
+        columns=dashboard['global_table']['rows'],
         aggfunc=np.sum)
     return render_template(
         'dashboard.html',
