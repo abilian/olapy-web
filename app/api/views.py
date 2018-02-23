@@ -101,11 +101,15 @@ def clean_temp_dir(olapy_data_dir):
             os.unlink(file_path)
 
 
-def try_construct_cube(cube_path):
-    executor = MdxEngine(source_type='csv', cubes_path=cube_path)
+def try_construct_cube(cube_name, facts='Facts', **kwargs):
+    database_config = kwargs.get('database_config', None)
+    source_type = kwargs.get('source_type', 'csv')
+    cubes_path = kwargs.get('cubes_path', None)
+
+    executor = MdxEngine(database_config=database_config, source_type=source_type, cubes_path=cubes_path)
     # try to construct automatically the cube
     try:
-        executor.load_cube(TEMP_CUBE_NAME)
+        executor.load_cube(cube_name, fact_table_name=facts)
         return {
             'dimensions': executor.get_all_tables_names(ignore_fact=True),
             'facts': executor.facts,
@@ -130,7 +134,8 @@ def add_cube():
                 filename = secure_filename(file_uploaded.filename)
                 file_uploaded.save(os.path.join(TEMP_OLAPY_DIR, "TEMP", TEMP_CUBE_NAME, filename))
 
-        construction = try_construct_cube(os.path.join(TEMP_OLAPY_DIR, "TEMP"))
+        construction = try_construct_cube(cube_name=TEMP_CUBE_NAME, cubes_path=os.path.join(TEMP_OLAPY_DIR, "TEMP"),
+                                          source_type='csv')
         if construction:
             return jsonify(construction)
         else:
@@ -329,3 +334,30 @@ def connectDB():
                            'dbms': data_request['engine']}
         executor = MdxEngine(source_type="db", database_config=data_connection)
         return jsonify(executor.get_cubes_names())
+
+
+@api('/cubes/add_DB_cube', methods=['POST'])
+@login_required
+def add_db_cube():
+    if request.method == 'POST':
+        data = request.get_json()
+        db_credentials = {
+            'dbms': data['engine'].lower(),
+            'user': data['username'],
+            'password': data['password'],
+            'host': data['servername'],
+            'port': data['port'],
+            'db_name': data['selectCube'],
+        }
+
+        construction = try_construct_cube(cube_name=data['selectCube'], source_type='db', facts='facts',
+                                          database_config=db_credentials)
+        if construction:
+            return jsonify(construction)
+        # else:
+        #     return jsonify(
+        #         {'facts': None,
+        #          'dimensions': all table,
+        #          'measures': None
+        #          }
+        #     )

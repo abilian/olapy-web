@@ -54,7 +54,8 @@
             Available databases :
             <div v-for="database in loadedDatabases">
               <label>
-                <input type="radio" :id="database" :value="database" v-model="selectedDatabase">
+                <input type="radio" :id="database" :value="database" v-model="selectedDatabase"
+                       @change="getCubeInfos($event)">
                 <label :for="database">{{database}}</label>
                 <br>
               </label>
@@ -105,6 +106,23 @@
             this.establishedConnection = 'Failed';
           })
 
+      },
+      getCubeInfos(event) {
+        let data = {
+          'selectCube': event.target.value,
+          'engine': this.engine,
+          'servername': this.servername,
+          'port': this.port,
+          'username': this.username,
+          'password': this.password
+
+        };
+        this.$http.post('cubes/add_DB_cube',data)
+          .then(x => {
+            if (x.data.facts != null) {
+              this.$emit('SelectInputStatus', 'success');
+            }
+          });
       }
     }
   }
