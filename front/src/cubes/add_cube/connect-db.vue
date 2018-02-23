@@ -72,6 +72,10 @@
 </template>
 
 <script>
+
+  import {eventModalBus} from '../schema-options.vue';
+
+
   export default {
     data: function () {
       return {
@@ -120,8 +124,12 @@
         this.$http.post('cubes/add_DB_cube',data)
           .then(x => {
             if (x.data.facts != null) {
+              eventModalBus.cubeConstructed(x.data);
               this.$emit('SelectInputStatus', 'success');
             }
+          })
+          .catch(err => {
+            this.$emit('SelectInputStatus', 'failed');
           });
       }
     }
