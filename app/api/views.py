@@ -280,7 +280,7 @@ def cube_conf_to_file(data_request, save_path):
     try:
         with open(path, 'w') as yaml_file:
             yaml.safe_dump(cube, yaml_file)
-        return path
+        return jsonify(path)
     except:
         return None
 
@@ -361,3 +361,24 @@ def add_db_cube():
         #          'measures': None
         #          }
         #     )
+
+
+@api('/cubes/confirm_db_cube', methods=['POST'])
+@login_required
+def confirm_db_cube():
+    if request.method == 'POST':
+        data = request.get_json()
+        config = {
+            'dbms': data['engine'].lower(),
+            'host': data['servername'],
+            'port': data['port'],
+            'user': data['username'],
+            'password': data['password']
+        }
+        path = os.path.join(TEMP_OLAPY_DIR, 'olapy-config.yml')
+        try:
+            with open(path, 'w') as yaml_file:
+                yaml.safe_dump(config, yaml_file, default_flow_style=False)
+                return jsonify(path)
+        except:
+            return None

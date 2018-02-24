@@ -125,6 +125,7 @@
           .then(x => {
             if (x.data.facts != null) {
               eventModalBus.cubeConstructed(x.data);
+              eventModalBus.ConnectionConfig(data);
               this.$emit('SelectInputStatus', 'success');
             }
           })
@@ -132,6 +133,9 @@
             this.$emit('SelectInputStatus', 'failed');
           });
       }
+    },
+    created(){
+      eventModalBus.ConnectionConfig('');
     }
   }
 </script>

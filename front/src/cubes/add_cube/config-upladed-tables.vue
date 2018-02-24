@@ -49,18 +49,26 @@
 
 <script>
 
-  import {eventModalBus} from '../schema-options.vue'
+  import {eventModalBus} from '../schema-options'
 
   export default {
-    props: ['cube', 'cubeName'],
+    props: ['cube', 'cubeName', 'dbConfig'],
     methods: {
       confirmCube: function () {
-        this.$http.post('cubes/confirm_cube', this.cubeName)
-          .then(response => {
-            eventModalBus.modalToShow('success');
-            return response.json();
-          });
-
+        if (this.dbConfig !== '') {
+          this.$http.post('cubes/confirm_db_cube', this.dbConfig)
+            .then(response => {
+              eventModalBus.modalToShow('success');
+              return response.json();
+            });
+        }
+        else {
+          this.$http.post('cubes/confirm_cube', this.cubeName)
+            .then(response => {
+              eventModalBus.modalToShow('success');
+              return response.json();
+            });
+        }
       },
     }
   }

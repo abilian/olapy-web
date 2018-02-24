@@ -6,7 +6,8 @@
     </addCube>
     <!--@close="showModal = false"-->
 
-    <configUploadedTables v-if="showModal && modalToShow === 'second'" :cubeName="newCubeName" :cube="cube">
+    <configUploadedTables v-if="showModal && modalToShow === 'second'" :dbConfig="dbConfig" :cubeName="newCubeName"
+                          :cube="cube">
     </configUploadedTables>
     <keep-alive>
       <customizeCube v-if="showModal && modalToShow === 'toConfig'" :cubeName="newCubeName" :cube="cube"
@@ -51,6 +52,9 @@
       },
       cubeConstructed(cube) {
         this.$emit('cubeConstructed', cube);
+      },
+      ConnectionConfig(config) {
+        this.$emit('ConnectionConfig', config);
       }
 
     }
@@ -62,6 +66,7 @@
         showModal: false,
         modalToShow: 'first',
         cube: '',
+        dbConfig: ''
       }
 
     },
@@ -80,6 +85,9 @@
       });
       eventModalBus.$on('cubeConstructed', (Cube) => {
         this.cube = Cube;
+      });
+      eventModalBus.$on('ConnectionConfig', (config) => {
+        this.dbConfig = config
       });
     }
   }
