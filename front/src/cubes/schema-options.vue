@@ -2,35 +2,35 @@
 
   <div class="schema_options">
     <button id="show-modal" @click="showModal = true">Add Cube</button>
-    <addCube v-if="showModal && modalToShow === 'first'" @newCubeName="newCubeName = $event">
-    </addCube>
+    <add-cube v-if="showModal && modalToShow === 'first'" @newCubeName="newCubeName = $event">
+    </add-cube>
     <!--@close="showModal = false"-->
 
-    <configUploadedTables v-if="showModal && modalToShow === 'second'" :dbConfig="dbConfig" :cubeName="newCubeName"
+    <config-uploaded-tables v-if="showModal && modalToShow === 'second'" :dbConfig="dbConfig" :cubeName="newCubeName"
                           :cube="cube">
-    </configUploadedTables>
+    </config-uploaded-tables>
     <keep-alive>
-      <customizeCube v-if="showModal && modalToShow === 'toConfig'" :cubeName="newCubeName" :cube="cube"
+      <customize-cube v-if="showModal && modalToShow === 'toConfig'" :cubeName="newCubeName" :cube="cube"
                      @factsTable="factsTable = $event" @chosenTables="chosenTables = $event"
                      @chosenMeasures="chosenMeasures = $event" @selectTableColumns="selectTableColumns = $event"
                      :SavedColumns="SavedColumns" :dbConfig="dbConfig" @SavedColumns="SavedColumns = $event">
-      </customizeCube>
+      </customize-cube>
     </keep-alive>
-    <selectDimColumns v-if="showModal && modalToShow === 'choseColumns'" @SavedColumns="SavedColumns = $event"
+    <select-dim-columns v-if="showModal && modalToShow === 'choseColumns'" @SavedColumns="SavedColumns = $event"
                       :selectTableColumns="selectTableColumns">
-    </selectDimColumns>
+    </select-dim-columns>
 
-    <tableRelations v-if="showModal && modalToShow === 'makeRelations'" :factsTable="factsTable"
+    <table-relations v-if="showModal && modalToShow === 'makeRelations'" :factsTable="factsTable"
                     :chosenTables="chosenTables" :chosenMeasures="chosenMeasures" :dbConfig="dbConfig"
                     @tablesAndColumnsResult="tablesAndColumnsResult = $event">
-    </tableRelations>
-    <customCubeResult v-if="showModal && modalToShow === 'confirmCustomCube'" :cubeName="newCubeName"
+    </table-relations>
+    <custom-cube-result v-if="showModal && modalToShow === 'confirmCustomCube'" :cubeName="newCubeName"
                       :factsTable="factsTable" :chosenMeasures="chosenMeasures"
                       :tablesAndColumnsResult="tablesAndColumnsResult" :dbConfig="dbConfig"
                       :SavedColumns="SavedColumns">
-    </customCubeResult>
-    <addedSuccess v-if="showModal && modalToShow === 'success'" @close="showModal = $event">
-    </addedSuccess>
+    </custom-cube-result>
+    <added-success v-if="showModal && modalToShow === 'success'" @close="showModal = $event">
+    </added-success>
   </div>
 
 </template>

@@ -24,9 +24,9 @@
 
           <div class="modal-body">
             <slot name="body">
-              <uploadCsvFiles :newCubeName="newCubeName" v-show="source == 'CSV'"
-                              @SelectInputStatus="status = $event"></uploadCsvFiles>
-              <connectDb v-show="source == 'DataBase'" @SelectInputStatus="status = $event"></connectDb>
+              <upload-csvFiles :newCubeName="newCubeName" v-show="source === 'CSV'"
+                               @SelectInputStatus="status = $event"/>
+              <connect-db v-show="source === 'DataBase'" @SelectInputStatus="status = $event"/>
             </slot>
           </div>
 
