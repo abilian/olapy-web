@@ -26,7 +26,8 @@
     </tableRelations>
     <customCubeResult v-if="showModal && modalToShow === 'confirmCustomCube'" :cubeName="newCubeName"
                       :factsTable="factsTable" :chosenMeasures="chosenMeasures"
-                      :tablesAndColumnsResult="tablesAndColumnsResult" :SavedColumns="SavedColumns">
+                      :tablesAndColumnsResult="tablesAndColumnsResult" :dbConfig="dbConfig"
+                      :SavedColumns="SavedColumns">
     </customCubeResult>
     <addedSuccess v-if="showModal && modalToShow === 'success'" @close="showModal = $event">
     </addedSuccess>
