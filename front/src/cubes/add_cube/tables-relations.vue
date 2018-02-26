@@ -61,7 +61,7 @@
   import {eventModalBus} from '../schema-options.vue'
 
   export default {
-    props: ['factsTable', 'chosenTables', 'chosenMeasures'],
+    props: ['factsTable', 'chosenTables', 'chosenMeasures', 'dbConfig'],
     data: function () {
       return {
         tablesAndColumns: '',
@@ -80,7 +80,11 @@
       for (let key in this.chosenTables) {
         allTables.push(this.chosenTables[key].name);
       }
-      this.$http.post('cubes/get_tables_and_columns', allTables.join(','))
+      let data = {
+        'dbConfig': this.dbConfig,
+        'allTables': allTables.join(',')
+      };
+      this.$http.post('cubes/get_tables_and_columns', data)
         .then(x => {
           this.tablesAndColumns = x.data;
           for (let key in x.data) {

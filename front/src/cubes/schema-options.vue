@@ -21,7 +21,7 @@
     </selectDimColumns>
 
     <tableRelations v-if="showModal && modalToShow === 'makeRelations'" :factsTable="factsTable"
-                    :chosenTables="chosenTables" :chosenMeasures="chosenMeasures"
+                    :chosenTables="chosenTables" :chosenMeasures="chosenMeasures" :dbConfig="dbConfig"
                     @tablesAndColumnsResult="tablesAndColumnsResult = $event">
     </tableRelations>
     <customCubeResult v-if="showModal && modalToShow === 'confirmCustomCube'" :cubeName="newCubeName"

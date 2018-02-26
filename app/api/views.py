@@ -182,14 +182,18 @@ def get_columns_from_files(data):
         return jsonify(result)
 
 
-def get_columns_from_db(data):
-    config = {
+def get_db_config(data):
+    return {
         'dbms': data['dbConfig']['engine'].lower(),
         'host': data['dbConfig']['servername'],
         'port': data['dbConfig']['port'],
         'user': data['dbConfig']['username'],
         'password': data['dbConfig']['password']
     }
+
+
+def get_columns_from_db(data):
+    config = get_db_config(data)
     executor = MdxEngine(database_config=config, source_type='db')
     engine = executor.instantiate_db(data['dbConfig']['selectCube']).engine
     results = engine.execution_options(
@@ -216,20 +220,43 @@ def get_table_columns():
     return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
 
 
+def get_tables_columns_from_db(data):
+    response = {}
+    config = get_db_config(data)
+    executor = MdxEngine(database_config=config, source_type='db')
+    engine = executor.instantiate_db(data['dbConfig']['selectCube']).engine
+    att_tables = data['allTables'].split(',')
+    for table_name in att_tables:
+        results = engine.execution_options(
+            stream_results=True,
+        ).execute('SELECT * FROM {}'.format(table_name))
+        df = pd.DataFrame(iter(results), columns=results.keys())
+        response[table_name] = list(df.columns)
+    return jsonify(response)
+
+
+def get_tables_columns_from_files(data):
+    if isdir(TEMP_DIR):
+        response = {}
+        att_tables = data['allTables'].split(',')
+        for table_name in att_tables:
+            df = pd.read_csv(os.path.join(TEMP_DIR, table_name), sep=';')
+            response[table_name] = list(df.columns)
+        return jsonify(response)
+
+
 @api('/cubes/get_tables_and_columns', methods=['POST'])
 @login_required
 def get_tables_and_columns():
     if request.data and request.method == 'POST':
-        data = request.data.decode('utf-8')
-        if isdir(TEMP_DIR):
-            response = {}
-            att_tables = data.split(',')
-            for table_name in att_tables:
-                table_name = table_name
-                df = pd.read_csv(os.path.join(TEMP_DIR, table_name), sep=';')
-                response[table_name] = list(df.columns)
-            return jsonify(response)
-        return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
+        data = json.loads(request.data.decode('utf-8'))
+        if 'dbConfig' in data:
+            return get_tables_columns_from_db(data)
+        else:
+            return get_tables_columns_from_files(data)
+    # return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
+
+    return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
 
 
 def _gen_facts(data_request):
