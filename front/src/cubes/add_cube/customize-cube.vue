@@ -17,7 +17,6 @@
                   <option>
                 </select>
               </label>
-              <hr>
               <span>Measures : {{ measures.join(', ') }}</span><br>
               <div v-for="column in tableColumnsNoId" style="float: left">
                 <label :for="column">
@@ -25,7 +24,8 @@
                                     v-model="measures">
                 </label>
               </div>
-
+              <br>
+              <hr>
               <div v-for="(table, index) in tables">
                 <label>
                   <select v-model="table.name" @change="updateTableColumns(table.name, index)">
@@ -60,7 +60,7 @@
 
   export default {
 
-    props: ['cube', 'cubeName', 'SavedColumns'],
+    props: ['cube', 'cubeName', 'SavedColumns', 'dbConfig'],
     data: function () {
       return {
         DimColumns: [],
@@ -99,7 +99,8 @@
       updateTableColumns(tableName, index) {
         this.$http.post('cubes/get_table_columns', {
           'tableName': tableName,
-          'WithID': true
+          'WithID': true,
+          'dbConfig': this.dbConfig
         }).then(x => {
           let table_columns = {};
           table_columns[tableName] = x.data;
@@ -114,7 +115,8 @@
       factsTable: function () {
         this.$http.post('cubes/get_table_columns', {
           'tableName': this.factsTable,
-          'WithID': false
+          'WithID': false,
+          'dbConfig': this.dbConfig
         }).then(x => {
           this.tableColumnsNoId = x.data;
         })

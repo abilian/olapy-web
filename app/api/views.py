@@ -169,22 +169,51 @@ def confirm_cube(custom=False):
         return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
 
 
+def get_columns_from_files(data):
+    if isdir(TEMP_DIR):
+        df = pd.read_csv(os.path.join(TEMP_DIR, data['tableName'].decode('utf-8')), sep=';')
+        # todo show columns with there types
+        # df.dtypes.to_dict()
+        if data['WithID']:
+            result = [column for column in df.columns]
+        else:
+            result = [column for column in df.columns if
+                      '_id' not in column.lower()[-3:] and 'id' != column.lower()]
+        return jsonify(result)
+
+
+def get_columns_from_db(data):
+    config = {
+        'dbms': data['dbConfig']['engine'].lower(),
+        'host': data['dbConfig']['servername'],
+        'port': data['dbConfig']['port'],
+        'user': data['dbConfig']['username'],
+        'password': data['dbConfig']['password']
+    }
+    executor = MdxEngine(database_config=config, source_type='db')
+    engine = executor.instantiate_db(data['dbConfig']['selectCube']).engine
+    results = engine.execution_options(
+        stream_results=True,
+    ).execute('SELECT * FROM {}'.format(data['tableName']))
+    df = pd.DataFrame(iter(results), columns=results.keys())
+    if data['WithID']:
+        result = [column for column in df.columns]
+    else:
+        result = [column for column in df.columns if '_id' not in column.lower()[-3:] and 'id' != column.lower()]
+    return jsonify(result)
+
+
 @api('/cubes/get_table_columns', methods=['POST'])
 @login_required
 def get_table_columns():
     data = request.get_json()
+    print(data)
     if data and request.method == 'POST':
-        if isdir(TEMP_DIR):
-            df = pd.read_csv(os.path.join(TEMP_DIR, data['tableName'].decode('utf-8')), sep=';')
-            # todo show columns with there types
-            # df.dtypes.to_dict()
-            if data['WithID']:
-                result = [column for column in df.columns]
-            else:
-                result = [column for column in df.columns if
-                          '_id' not in column.lower()[-3:] and 'id' != column.lower()]
-            return jsonify(result)
-        return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
+        if 'dbConfig' in data:
+            return get_columns_from_db(data)
+        else:
+            return get_columns_from_files(data)
+    return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
 
 
 @api('/cubes/get_tables_and_columns', methods=['POST'])

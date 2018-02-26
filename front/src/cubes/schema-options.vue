@@ -13,7 +13,7 @@
       <customizeCube v-if="showModal && modalToShow === 'toConfig'" :cubeName="newCubeName" :cube="cube"
                      @factsTable="factsTable = $event" @chosenTables="chosenTables = $event"
                      @chosenMeasures="chosenMeasures = $event" @selectTableColumns="selectTableColumns = $event"
-                     :SavedColumns="SavedColumns" @SavedColumns="SavedColumns = $event">
+                     :SavedColumns="SavedColumns" :dbConfig="dbConfig" @SavedColumns="SavedColumns = $event">
       </customizeCube>
     </keep-alive>
     <selectDimColumns v-if="showModal && modalToShow === 'choseColumns'" @SavedColumns="SavedColumns = $event"
