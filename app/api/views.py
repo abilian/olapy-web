@@ -138,7 +138,8 @@ def add_cube():
 
         construction = try_construct_cube(cube_name=TEMP_CUBE_NAME, cubes_path=os.path.join(TEMP_OLAPY_DIR, "TEMP"),
                                           source_type='csv')
-        if construction:
+
+        if 'dimensions' in construction:
             return jsonify(construction)
         else:
             return jsonify(
