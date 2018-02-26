@@ -116,7 +116,9 @@ def try_construct_cube(cube_name, facts='Facts', **kwargs):
             'measures': executor.measures
         }
     except:
-        return {}
+        return {
+            'all_tables': executor.get_all_tables_names(ignore_fact=False),
+        }
 
 
 @api('/cubes/add', methods=['POST'])
@@ -352,15 +354,15 @@ def add_db_cube():
 
         construction = try_construct_cube(cube_name=data['selectCube'], source_type='db', facts='facts',
                                           database_config=db_credentials)
-        if construction:
+        if 'dimensions' in construction:
             return jsonify(construction)
-        # else:
-        #     return jsonify(
-        #         {'facts': None,
-        #          'dimensions': all table,
-        #          'measures': None
-        #          }
-        #     )
+        else:
+            return jsonify(
+                {'facts': None,
+                 'dimensions': construction['all_tables'],
+                 'measures': None
+                 }
+            )
 
 
 @api('/cubes/confirm_db_cube', methods=['POST'])

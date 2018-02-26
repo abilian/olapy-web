@@ -121,20 +121,23 @@
           'password': this.password
 
         };
-        this.$http.post('cubes/add_DB_cube',data)
+        this.$http.post('cubes/add_DB_cube', data)
           .then(x => {
             if (x.data.facts != null) {
-              eventModalBus.cubeConstructed(x.data);
-              eventModalBus.ConnectionConfig(data);
               this.$emit('SelectInputStatus', 'success');
             }
+            else {
+              this.$emit('SelectInputStatus', 'toConfig');
+            }
+            eventModalBus.cubeConstructed(x.data);
+            eventModalBus.ConnectionConfig(data);
           })
           .catch(err => {
             this.$emit('SelectInputStatus', 'failed');
           });
       }
     },
-    created(){
+    created() {
       eventModalBus.ConnectionConfig('');
     }
   }
