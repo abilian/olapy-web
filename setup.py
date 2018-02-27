@@ -31,12 +31,12 @@ class BuildStatic(Command):
 
     def run(self):
         front_dir = join(ROOT, 'front')
-
-        log.info("running 'npm install --quiet'")
-        check_output(['npm', 'install', '--quiet'], cwd=front_dir)
+        # log.info("running 'npm install --quiet'")
+        # check_output(['npm', 'install', '--quiet'], cwd=front_dir)
 
         log.info("running 'npm run build'")
-        check_output(['npm', 'run', 'build'], cwd=front_dir)
+
+        check_output(['yarn','build'], cwd=front_dir)
 
 
 class SdistWithBuildStatic(sdist):
