@@ -212,7 +212,7 @@ def get_columns_from_db(data):
 def get_table_columns():
     data = request.get_json()
     if data and request.method == 'POST':
-        if 'dbConfig' in data:
+        if data['dbConfig']:
             return get_columns_from_db(data)
         else:
             return get_columns_from_files(data)
@@ -249,7 +249,7 @@ def get_tables_columns_from_files(data):
 def get_tables_and_columns():
     if request.data and request.method == 'POST':
         data = json.loads(request.data.decode('utf-8'))
-        if 'dbConfig' in data:
+        if data['dbConfig']:
             return get_tables_columns_from_db(data)
         else:
             return get_tables_columns_from_files(data)
