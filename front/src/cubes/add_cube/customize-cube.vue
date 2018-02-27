@@ -6,7 +6,7 @@
 
           <div class="modal-body">
             <slot name="body">
-              <label>
+              <label v-if="dbConfig === ''">
                 Cube Name:
                 <input type="text" :value="cubeName">
               </label>

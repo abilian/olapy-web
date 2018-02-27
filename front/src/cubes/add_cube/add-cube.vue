@@ -5,7 +5,7 @@
         <div class="modal-container">
 
           <div class="modal-header">
-            <label>
+            <label v-if="source === 'CSV'">
               Cube Name :
 
               <input type="text" v-model="newCubeName">
@@ -64,7 +64,7 @@
         if (this.status === 'failed') {
           eventModalBus.modalToShow('first');
         }
-        else if (this.newCubeName === '') {
+        else if (this.source === 'CSV' && this.newCubeName === '') {
           alert('Please specify a Cube name ');
         }
         else if (this.status === 'toConfig') {
