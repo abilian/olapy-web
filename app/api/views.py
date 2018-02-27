@@ -385,7 +385,7 @@ def try_construct_custom_cube():
     if request.data and request.method == 'POST':
         data_request = json.loads(request.data)
         # todo temp, instead olapy with dict directly
-        if 'dbConfig' in data_request:
+        if data_request['dbConfig']:
             return try_construct_custom_db_cube(data_request)
         else:
             return try_construct_custom_files_cube(data_request)
