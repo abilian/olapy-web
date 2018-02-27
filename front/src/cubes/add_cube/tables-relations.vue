@@ -57,49 +57,47 @@
 </template>
 
 <script>
+import { eventModalBus } from "../schema-options.vue";
 
-  import {eventModalBus} from '../schema-options.vue'
-
-  export default {
-    props: ['factsTable', 'chosenTables', 'chosenMeasures', 'dbConfig'],
-    data: function () {
-      return {
-        tablesAndColumns: '',
-        result: '',
-        tablesAndColumnsResult: {}
-      }
+export default {
+  props: ["factsTable", "chosenTables", "chosenMeasures", "dbConfig"],
+  data: function() {
+    return {
+      tablesAndColumns: "",
+      result: "",
+      tablesAndColumnsResult: {},
+    };
+  },
+  methods: {
+    confirmRelations: function() {
+      this.$emit("tablesAndColumnsResult", this.tablesAndColumnsResult);
+      eventModalBus.modalToShow("confirmCustomCube");
     },
-    methods: {
-      confirmRelations: function () {
-        this.$emit('tablesAndColumnsResult', this.tablesAndColumnsResult);
-        eventModalBus.modalToShow('confirmCustomCube');
-      }
-    },
-    created() {
-      let allTables = [this.factsTable];
-      for (let key in this.chosenTables) {
-        allTables.push(this.chosenTables[key].name);
-      }
-      let data = {
-        'dbConfig': this.dbConfig,
-        'allTables': allTables.join(',')
-      };
-      this.$http.post('cubes/get_tables_and_columns', data)
-        .then(x => {
-          this.tablesAndColumns = x.data;
-          for (let key in x.data) {
-            if (key !== this.factsTable) {
-              this.tablesAndColumnsResult[key] = {
-                'DimCol': '',
-                'FactsCol': ''
-              };
-            }
-          }
-        })
+  },
+  created() {
+    let allTables = [this.factsTable];
+    for (let key in this.chosenTables) {
+      allTables.push(this.chosenTables[key].name);
     }
-  }
-
+    let data = {
+      dbConfig: this.dbConfig,
+      allTables: allTables.join(","),
+    };
+    this.$http.post("cubes/get_tables_and_columns", data).then(x => {
+      this.tablesAndColumns = x.data;
+      for (let key in x.data) {
+        if (key !== this.factsTable) {
+          this.tablesAndColumnsResult[key] = {
+            DimCol: "",
+            FactsCol: "",
+          };
+        }
+      }
+    });
+  },
+};
 </script>
 
 <style scoped>
+
 </style>

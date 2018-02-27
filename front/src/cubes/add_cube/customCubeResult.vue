@@ -26,50 +26,57 @@
 </template>
 
 <script>
+import { eventModalBus } from "../schema-options.vue";
 
-  import {eventModalBus} from '../schema-options.vue'
-
-  export default {
-    props: ['cubeName', 'factsTable', 'tablesAndColumnsResult', 'chosenMeasures', 'SavedColumns', 'dbConfig'],
-    data: function () {
-      return {
-        resultCube: ''
-      }
-    },
-    methods: {
-      confirmCustomCube() {
-        // this.$emit('tablesAndColumnsResult', this.tablesAndColumnsResult);
-        this.$http.post('cubes/confirm_custom_cube', this.cubeName)
-          .then(response => {
-            eventModalBus.modalToShow('success');
-            return response.json();
-          });
-      }
-    },
-    created() {
-      let data = {
-        cubeName: this.cubeName,
-        factsTable: this.factsTable,
-        tablesAndColumnsResult: this.tablesAndColumnsResult,
-        columnsPerDimension: this.SavedColumns,
-        measures: this.chosenMeasures,
-        'dbConfig' : this.dbConfig
-      };
-      this.$http.post('cubes/try_construct_custom_cube', data)
-        .then(x => {
-          this.resultCube = x.data;
-        })
-        .catch(err => {
-          alert('unable to construct cube, check your tables relations');
-          eventModalBus.modalToShow("makeRelations");
+export default {
+  props: [
+    "cubeName",
+    "factsTable",
+    "tablesAndColumnsResult",
+    "chosenMeasures",
+    "SavedColumns",
+    "dbConfig",
+  ],
+  data: function() {
+    return {
+      resultCube: "",
+    };
+  },
+  methods: {
+    confirmCustomCube() {
+      // this.$emit('tablesAndColumnsResult', this.tablesAndColumnsResult);
+      this.$http
+        .post("cubes/confirm_custom_cube", this.cubeName)
+        .then(response => {
+          eventModalBus.modalToShow("success");
+          return response.json();
         });
-    }
-  }
-
+    },
+  },
+  created() {
+    let data = {
+      cubeName: this.cubeName,
+      factsTable: this.factsTable,
+      tablesAndColumnsResult: this.tablesAndColumnsResult,
+      columnsPerDimension: this.SavedColumns,
+      measures: this.chosenMeasures,
+      dbConfig: this.dbConfig,
+    };
+    this.$http
+      .post("cubes/try_construct_custom_cube", data)
+      .then(x => {
+        this.resultCube = x.data;
+      })
+      .catch(err => {
+        alert("unable to construct cube, check your tables relations");
+        eventModalBus.modalToShow("makeRelations");
+      });
+  },
+};
 </script>
 
 <style scoped>
-  .modal-container {
-    width: 900px;
-  }
+.modal-container {
+  width: 900px;
+}
 </style>

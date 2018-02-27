@@ -55,77 +55,78 @@
 </template>
 
 <script>
+import { eventModalBus } from "../schema-options.vue";
 
-  import {eventModalBus} from '../schema-options.vue'
-
-  export default {
-
-    props: ['cube', 'cubeName', 'SavedColumns', 'dbConfig'],
-    data: function () {
-      return {
-        DimColumns: [],
-        factsTable: '',
-        measures: [],
-        tableColumnsNoId: '',
-        tableColumns: {},
-        tables: [{
+export default {
+  props: ["cube", "cubeName", "SavedColumns", "dbConfig"],
+  data: function() {
+    return {
+      DimColumns: [],
+      factsTable: "",
+      measures: [],
+      tableColumnsNoId: "",
+      tableColumns: {},
+      tables: [
+        {
           id: "1",
-          name: ''
-        }]
-      }
+          name: "",
+        },
+      ],
+    };
+  },
+  methods: {
+    removeSection: function(index) {
+      this.tables.splice(index, 1);
     },
-    methods: {
-      removeSection: function (index) {
-        this.tables.splice(index, 1)
-      },
-      addComponent: function () {
-        this.tables.push({
-          id: Math.floor(Math.random() * 6),
-          name: ''
-        });
-        this.DimColumns.push(this.SavedColumns)
-
-      },
-      editColumns() {
-        eventModalBus.modalToShow('choseColumns');
-      },
-      doRelations: function () {
-        this.$emit('factsTable', this.factsTable);
-        this.$emit('chosenTables', this.tables);
-        this.$emit('chosenMeasures', this.measures);
-        this.$emit('SavedColumns', this.DimColumns);
-        eventModalBus.modalToShow('makeRelations');
-      },
-      updateTableColumns(tableName, index) {
-        this.$http.post('cubes/get_table_columns', {
-          'tableName': tableName,
-          'WithID': true,
-          'dbConfig': this.dbConfig
-        }).then(x => {
+    addComponent: function() {
+      this.tables.push({
+        id: Math.floor(Math.random() * 6),
+        name: "",
+      });
+      this.DimColumns.push(this.SavedColumns);
+    },
+    editColumns() {
+      eventModalBus.modalToShow("choseColumns");
+    },
+    doRelations: function() {
+      this.$emit("factsTable", this.factsTable);
+      this.$emit("chosenTables", this.tables);
+      this.$emit("chosenMeasures", this.measures);
+      this.$emit("SavedColumns", this.DimColumns);
+      eventModalBus.modalToShow("makeRelations");
+    },
+    updateTableColumns(tableName, index) {
+      this.$http
+        .post("cubes/get_table_columns", {
+          tableName: tableName,
+          WithID: true,
+          dbConfig: this.dbConfig,
+        })
+        .then(x => {
           let table_columns = {};
           table_columns[tableName] = x.data;
           this.tableColumns[index] = table_columns;
-          this.$emit('selectTableColumns', this.tableColumns[index]);
-          eventModalBus.modalToShow('choseColumns');
+          this.$emit("selectTableColumns", this.tableColumns[index]);
+          eventModalBus.modalToShow("choseColumns");
         });
-
-      },
     },
-    watch: {
-      factsTable: function () {
-        this.$http.post('cubes/get_table_columns', {
-          'tableName': this.factsTable,
-          'WithID': false,
-          'dbConfig': this.dbConfig
-        }).then(x => {
-          this.tableColumnsNoId = x.data;
+  },
+  watch: {
+    factsTable: function() {
+      this.$http
+        .post("cubes/get_table_columns", {
+          tableName: this.factsTable,
+          WithID: false,
+          dbConfig: this.dbConfig,
         })
-      }
-    }
-
-  }
-
+        .then(x => {
+          this.tableColumnsNoId = x.data;
+        });
+    },
+  },
+};
 </script>
 
 <style scoped>
+
 </style>

@@ -46,37 +46,34 @@
 </template>
 
 <script>
+import { eventModalBus } from "../schema-options.vue";
 
-  import {eventModalBus} from '../schema-options.vue'
-
-  export default {
-
-    props: ['selectTableColumns'],
-    data: function () {
-      return {
-        selectedColumns: {
-          'table': Object.keys(this.selectTableColumns)[0],
-          'columns': []
-        }
-
+export default {
+  props: ["selectTableColumns"],
+  data: function() {
+    return {
+      selectedColumns: {
+        table: Object.keys(this.selectTableColumns)[0],
+        columns: [],
+      },
+    };
+  },
+  methods: {
+    saveChoseCol() {
+      {
+        this.$emit("SavedColumns", this.selectedColumns);
+        eventModalBus.modalToShow("toConfig");
       }
     },
-    methods: {
-      saveChoseCol() {
-        {
-          this.$emit('SavedColumns', this.selectedColumns);
-          eventModalBus.modalToShow('toConfig');
-        }
-      },
-      closeChoseCol() {
-        {
-          eventModalBus.modalToShow('toConfig');
-        }
+    closeChoseCol() {
+      {
+        eventModalBus.modalToShow("toConfig");
       }
-    }
-  }
-
+    },
+  },
+};
 </script>
 
 <style scoped>
+
 </style>

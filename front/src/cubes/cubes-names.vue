@@ -8,55 +8,52 @@
 </template>
 
 <script>
+import { eventBus } from "../main.js";
 
-  import {eventBus} from '../main.js';
-
-  export default {
-    data: function () {
-      return {
-        cubesNames: [],
-      };
+export default {
+  data: function() {
+    return {
+      cubesNames: [],
+    };
+  },
+  methods: {
+    getCubes: function() {
+      this.$http
+        .get("cubes")
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          const resultArray = [];
+          for (let key in data) {
+            resultArray.push(data[key]);
+          }
+          this.cubesNames = resultArray;
+        });
     },
-    methods: {
-      getCubes: function () {
-        this.$http.get('cubes')
-          .then(response => {
-            return response.json();
-          })
-          .then(data => {
-            const resultArray = [];
-            for (let key in data) {
-              resultArray.push(data[key]);
-            }
-            this.cubesNames = resultArray;
-          });
-      },
-      changeCurrentCube(cube) {
-        eventBus.queriedCube(cube);
-      }
+    changeCurrentCube(cube) {
+      eventBus.queriedCube(cube);
     },
-    created() {
-      this.getCubes()
-    }
-
-  }
+  },
+  created() {
+    this.getCubes();
+  },
+};
 </script>
 
 <style scoped>
+.schema_box {
+  position: relative;
+  float: left;
+  top: 30px;
+  left: 10px;
+  width: 195px;
+  height: 480px;
+  border: 1px solid #98a6ad;
+}
 
-  .schema_box {
-    position: relative;
-    float: left;
-    top: 30px;
-    left: 10px;
-    width: 195px;
-    height: 480px;
-    border: 1px solid #98a6ad;
-  }
-
-  .schema_box_container {
-    margin-left: 4px;
-    margin-top: 10px
-  }
-
+.schema_box_container {
+  margin-left: 4px;
+  margin-top: 10px;
+}
 </style>

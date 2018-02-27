@@ -27,19 +27,18 @@
 </template>
 
 <script>
+import { eventModalBus } from "../schema-options.vue";
 
-  import {eventModalBus} from '../schema-options.vue'
-
-  export default {
-    methods: {
-      goBack() {
-        this.$emit('close', false);
-        eventModalBus.modalToShow("first");
-      }
-    }
-  }
-
+export default {
+  methods: {
+    goBack() {
+      this.$emit("close", false);
+      eventModalBus.modalToShow("first");
+    },
+  },
+};
 </script>
 
 <style scoped>
+
 </style>

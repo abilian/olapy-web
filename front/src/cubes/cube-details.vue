@@ -9,23 +9,22 @@
 </template>
 
 <script>
+import { eventBus } from "../main.js";
 
-  import {eventBus} from '../main.js';
-
-  export default {
-    data: function () {
-      return {
-        currentCube: '',
-      };
-    },
-    created() {
-      eventBus.$on('queriedCube', (currentCube) => {
-        this.currentCube = currentCube;
-      });
-    }
-
-  }
+export default {
+  data: function() {
+    return {
+      currentCube: "",
+    };
+  },
+  created() {
+    eventBus.$on("queriedCube", currentCube => {
+      this.currentCube = currentCube;
+    });
+  },
+};
 </script>
 
 <style scoped>
+
 </style>

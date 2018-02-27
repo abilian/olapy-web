@@ -22,42 +22,39 @@
 </template>
 
 <script>
+import { eventBus } from "../main.js";
 
-  import {eventBus} from '../main.js';
-
-
-  export default {
-    name: "cube-facts",
-    data: function () {
-      return {
-        facts: {
-          table_name: '',
-          measures: []
-        },
-      };
+export default {
+  name: "cube-facts",
+  data: function() {
+    return {
+      facts: {
+        table_name: "",
+        measures: [],
+      },
+    };
+  },
+  methods: {
+    getCubeFacts: function(currentCube) {
+      //if errors or cube constrcution probs don't show facts
+      this.facts = {};
+      let url = "cubes/facts/".concat(currentCube);
+      this.$http
+        .get(url)
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          this.facts = data;
+        });
     },
-    methods: {
-      getCubeFacts: function (currentCube) {
-        //if errors or cube constrcution probs don't show facts
-        this.facts = {};
-        let url = 'cubes/facts/'.concat(currentCube);
-        this.$http.get(url)
-          .then(response => {
-            return response.json();
-          })
-          .then(data => {
-            this.facts = data;
-          });
-      }
-    },
-    created() {
-      eventBus.$on('queriedCube', (currentCube) => {
-        this.getCubeFacts(currentCube)
-      });
-
-    }
-  }
-
+  },
+  created() {
+    eventBus.$on("queriedCube", currentCube => {
+      this.getCubeFacts(currentCube);
+    });
+  },
+};
 </script>
 
 <style scoped>

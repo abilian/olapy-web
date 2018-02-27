@@ -43,123 +43,118 @@
 </template>
 
 <script>
+import { eventModalBus } from "../schema-options.vue";
 
-  import {eventModalBus} from '../schema-options.vue';
+const STATUS_INITIAL = 0,
+  STATUS_SAVING = 1,
+  STATUS_SUCCESS = 2,
+  STATUS_FAILED = 3;
 
-  const STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3;
-
-  export default {
-    props: ['newCubeName']
-    ,
-    data() {
-      return {
-        uploadedFiles: [],
-        uploadError: null,
-        currentStatus: null,
-        uploadFieldName: 'files'
-      }
+export default {
+  props: ["newCubeName"],
+  data() {
+    return {
+      uploadedFiles: [],
+      uploadError: null,
+      currentStatus: null,
+      uploadFieldName: "files",
+    };
+  },
+  computed: {
+    isInitial() {
+      return this.currentStatus === STATUS_INITIAL;
     },
-    computed: {
-      isInitial() {
-        return this.currentStatus === STATUS_INITIAL;
-      },
-      isSaving() {
-        return this.currentStatus === STATUS_SAVING;
-      },
-      isSuccess() {
-        return this.currentStatus === STATUS_SUCCESS;
-      },
-      isFailed() {
-        return this.currentStatus === STATUS_FAILED;
-      }
+    isSaving() {
+      return this.currentStatus === STATUS_SAVING;
     },
-    methods: {
-      reset() {
-        // reset form to initial state
-        this.currentStatus = STATUS_INITIAL;
-        this.uploadedFiles = [];
-        this.uploadError = null;
-      },
-      save(formData) {
-        // upload data to the server
-        this.currentStatus = STATUS_SAVING;
-        this.$http.post('cubes/add',formData)
-          .then(x => {
-            this.uploadedFiles = [].concat(x.data.dimensions);
-            if (x.data.facts != null) {
-              this.uploadedFiles.push(x.data.facts);
-              this.$emit('SelectInputStatus', 'success');
-            }
-            else {
-              this.$emit('SelectInputStatus', 'toConfig');
-            }
-            eventModalBus.cubeConstructed(x.data);
-            this.currentStatus = STATUS_SUCCESS;
-          })
-          .catch(err => {
-            this.uploadError = err.response;
-            this.currentStatus = STATUS_FAILED;
-            this.$emit('SelectInputStatus', 'failed');
-
-          });
-      },
-      filesChange(fieldName, fileList) {
-        // handle file changes
-        const formData = new FormData();
-
-        if (!fileList.length) return;
-
-        // append the files to FormData
-        Array
-          .from(Array(fileList.length).keys())
-          .map(x => {
-            formData.append(fieldName, fileList[x], fileList[x].name);
-          });
-
-        // save it
-        this.save(formData);
-      }
+    isSuccess() {
+      return this.currentStatus === STATUS_SUCCESS;
     },
-    mounted() {
-      this.reset();
+    isFailed() {
+      return this.currentStatus === STATUS_FAILED;
     },
-  }
+  },
+  methods: {
+    reset() {
+      // reset form to initial state
+      this.currentStatus = STATUS_INITIAL;
+      this.uploadedFiles = [];
+      this.uploadError = null;
+    },
+    save(formData) {
+      // upload data to the server
+      this.currentStatus = STATUS_SAVING;
+      this.$http
+        .post("cubes/add", formData)
+        .then(x => {
+          this.uploadedFiles = [].concat(x.data.dimensions);
+          if (x.data.facts != null) {
+            this.uploadedFiles.push(x.data.facts);
+            this.$emit("SelectInputStatus", "success");
+          } else {
+            this.$emit("SelectInputStatus", "toConfig");
+          }
+          eventModalBus.cubeConstructed(x.data);
+          this.currentStatus = STATUS_SUCCESS;
+        })
+        .catch(err => {
+          this.uploadError = err.response;
+          this.currentStatus = STATUS_FAILED;
+          this.$emit("SelectInputStatus", "failed");
+        });
+    },
+    filesChange(fieldName, fileList) {
+      // handle file changes
+      const formData = new FormData();
 
+      if (!fileList.length) return;
+
+      // append the files to FormData
+      Array.from(Array(fileList.length).keys()).map(x => {
+        formData.append(fieldName, fileList[x], fileList[x].name);
+      });
+
+      // save it
+      this.save(formData);
+    },
+  },
+  mounted() {
+    this.reset();
+  },
+};
 </script>
 
 <style lang="scss" scoped>
+.dropbox {
+  outline: 2px dashed grey; /* the dash box */
+  outline-offset: -10px;
+  background: lightcyan;
+  color: dimgray;
+  padding: 10px 10px;
+  min-height: 200px; /* minimum height */
+  position: relative;
+  cursor: pointer;
+}
 
-  .dropbox {
-    outline: 2px dashed grey; /* the dash box */
-    outline-offset: -10px;
-    background: lightcyan;
-    color: dimgray;
-    padding: 10px 10px;
-    min-height: 200px; /* minimum height */
-    position: relative;
-    cursor: pointer;
-  }
+.input-file {
+  opacity: 0; /* invisible but it's there! */
+  width: 100%;
+  height: 200px;
+  position: absolute;
+  cursor: pointer;
+}
 
-  .input-file {
-    opacity: 0; /* invisible but it's there! */
-    width: 100%;
-    height: 200px;
-    position: absolute;
-    cursor: pointer;
-  }
+.dropbox:hover {
+  background: lightblue; /* when mouse over to the drop zone, change color */
+}
 
-  .dropbox:hover {
-    background: lightblue; /* when mouse over to the drop zone, change color */
-  }
+.dropbox p {
+  font-size: 1.2em;
+  text-align: center;
+  padding: 50px 0;
+}
 
-  .dropbox p {
-    font-size: 1.2em;
-    text-align: center;
-    padding: 50px 0;
-  }
-
-  .container {
-    width: 100%;
-  }
-
+.container {
+  width: 100%;
+}
 </style>

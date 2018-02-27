@@ -72,75 +72,70 @@
 </template>
 
 <script>
+import { eventModalBus } from "../schema-options.vue";
 
-  import {eventModalBus} from '../schema-options.vue';
-
-
-  export default {
-    data: function () {
-      return {
-        engine: 'postgres',
-        servername: 'localhost',
-        port: '5432',
-        username: 'postgres',
-        password: 'root',
-        loadedDatabases: [],
-        establishedConnection: '',
-        selectedDatabase: ''
-
-      }
-    },
-    methods: {
-      connectDB() {
-        this.$http.post('cubes/connectDB', {
-          'engine': this.engine,
-          'servername': this.servername,
-          'port': this.port,
-          'username': this.username,
-          'password': this.password
-
-        }).then(x => {
-          this.loadedDatabases = x.data;
-          this.establishedConnection = 'Success';
-          this.$emit('SelectInputStatus', 'toConfig');
-
+export default {
+  data: function() {
+    return {
+      engine: "postgres",
+      servername: "localhost",
+      port: "5432",
+      username: "postgres",
+      password: "root",
+      loadedDatabases: [],
+      establishedConnection: "",
+      selectedDatabase: "",
+    };
+  },
+  methods: {
+    connectDB() {
+      this.$http
+        .post("cubes/connectDB", {
+          engine: this.engine,
+          servername: this.servername,
+          port: this.port,
+          username: this.username,
+          password: this.password,
         })
-          .catch(x => {
-            this.selectedDatabase = '';
-            this.establishedConnection = 'Failed';
-          })
-
-      },
-      getCubeInfos(event) {
-        let data = {
-          'selectCube': event.target.value,
-          'engine': this.engine,
-          'servername': this.servername,
-          'port': this.port,
-          'username': this.username,
-          'password': this.password
-
-        };
-        this.$http.post('cubes/add_DB_cube', data)
-          .then(x => {
-            if (x.data.facts != null) {
-              this.$emit('SelectInputStatus', 'success');
-            }
-            else {
-              this.$emit('SelectInputStatus', 'toConfig');
-            }
-            eventModalBus.cubeConstructed(x.data);
-            eventModalBus.ConnectionConfig(data);
-          })
-          .catch(err => {
-            this.$emit('SelectInputStatus', 'failed');
-          });
-      }
+        .then(x => {
+          this.loadedDatabases = x.data;
+          this.establishedConnection = "Success";
+          this.$emit("SelectInputStatus", "toConfig");
+        })
+        .catch(x => {
+          this.selectedDatabase = "";
+          this.establishedConnection = "Failed";
+        });
     },
-    created() {
-      eventModalBus.ConnectionConfig('');
-    }
-  }
+    getCubeInfos(event) {
+      let data = {
+        selectCube: event.target.value,
+        engine: this.engine,
+        servername: this.servername,
+        port: this.port,
+        username: this.username,
+        password: this.password,
+      };
+      this.$http
+        .post("cubes/add_DB_cube", data)
+        .then(x => {
+          if (x.data.facts != null) {
+            this.$emit("SelectInputStatus", "success");
+          } else {
+            this.$emit("SelectInputStatus", "toConfig");
+          }
+          eventModalBus.cubeConstructed(x.data);
+          eventModalBus.ConnectionConfig(data);
+        })
+        .catch(err => {
+          this.$emit("SelectInputStatus", "failed");
+        });
+    },
+  },
+  created() {
+    eventModalBus.ConnectionConfig("");
+  },
+};
 </script>
 
 <style scoped>
