@@ -16,7 +16,7 @@ export const eventBus = new Vue({
 
 Vue.config.devtools = true;
 
-new Vue({
+Vue({
   el: "#designer",
   delimiters: ["[[", "]]"],
   render: h => h(App),
