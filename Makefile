@@ -70,6 +70,11 @@ format:
 	isort -rc $(SRC) *.py
 	yapf --style google -r -i $(SRC) *.py
 	isort -rc $(SRC) *.py
+	prettier --write --trailing-comma es5 'front/src/**/**/**.js'
+
+format-js:
+	./front/node_modules/.bin/prettier  --trailing-comma es5 --write \
+		'front/src/**/*.js'	'front/build/**/*.js'	'./front/src/**/*.vue'
 
 update-deps:
 	pip-compile -U > /dev/null
