@@ -36,7 +36,7 @@ class BuildStatic(Command):
 
         log.info("running 'npm run build'")
 
-        check_output(['yarn','build'], cwd=front_dir)
+        check_output(['yarn', 'build'], cwd=front_dir)
 
 
 class SdistWithBuildStatic(sdist):
@@ -72,9 +72,9 @@ setup(
         "Programming Language :: Python :: 2.7",
         # "Topic :: Business intelligence",
     ],
-    cmdclass={
-        'build_static': BuildStatic,
-        'develop': DevelopWithBuildStatic,
-        'sdist': SdistWithBuildStatic,
-    }
+    # cmdclass={
+    #     'build_static': BuildStatic,
+    #     'develop': DevelopWithBuildStatic,
+    #     'sdist': SdistWithBuildStatic,
+    # }
 )

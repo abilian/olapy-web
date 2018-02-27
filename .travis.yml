@@ -7,10 +7,6 @@ cache: pip
 python:
   - "2.7"
   - "3.6"
-node_js:
-  - "8"
-
-before_install: if [[ `npm -v` != 5* ]]; then npm i -g npm; fi
 
 install:
   - pip install -U pip setuptools tox wheel
