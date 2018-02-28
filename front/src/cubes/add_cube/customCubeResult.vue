@@ -16,6 +16,9 @@
                 @click="confirmCustomCube()">
                 Next
               </button>
+              <button class="modal-default-button" @click="$emit('close', false)">
+                close
+              </button>
             </slot>
           </div>
         </div>

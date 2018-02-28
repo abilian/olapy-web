@@ -36,6 +36,9 @@
               <button class="modal-default-button" @click="checkUpload();  $emit('newCubeName', newCubeName)">
                 Next
               </button>
+              <button class="modal-default-button" @click="$emit('close', false)">
+                close
+              </button>
             </slot>
           </div>
         </div>
