@@ -91,6 +91,13 @@ export default {
       this.dbConfig = config;
     });
   },
+  watch: {
+    showModal: function () {
+      this.modalToShow= "first";
+      this.cube = "";
+      this.dbConfig =  ""
+    }
+  }
 };
 </script>
 
