@@ -168,6 +168,7 @@ def confirm_cube(custom=False):
                 return jsonify({'success': True}), 200, {'ContentType': 'application/json'}
         return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
 
+
 @api('/cubes/clean_tmp_dir', methods=['POST'])
 @login_required
 def clean_tmp_dir():
@@ -177,6 +178,7 @@ def clean_tmp_dir():
         for d in dirs:
             shutil.rmtree(os.path.join(root, d))
     return jsonify({'success': True}), 200, {'ContentType': 'application/json'}
+
 
 def get_columns_from_files(data):
     if isdir(TEMP_DIR):
