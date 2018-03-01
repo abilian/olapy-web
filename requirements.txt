@@ -33,7 +33,7 @@ numpy==1.14.1             # via pandas
 packaging==16.8           # via bonobo
 pandas==0.22.0
 pbr==3.1.1                # via stevedore
-plotly==2.4.0
+plotly==2.4.1
 psutil==5.4.3             # via bonobo
 pyparsing==2.2.0          # via packaging
 python-dateutil==2.6.1    # via pandas
@@ -44,7 +44,7 @@ regex==2018.2.21          # via awesome-slugify
 requests==2.18.4          # via bonobo, plotly
 six==1.11.0               # via fs, packaging, plotly, python-dateutil, stevedore, traitlets
 spyne==2.12.14
-sqlalchemy==1.1.16
+sqlalchemy==1.1.17
 stevedore==1.28.0         # via bonobo
 traitlets==4.3.2          # via jupyter-core, nbformat
 typing==3.6.4

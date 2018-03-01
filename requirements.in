@@ -1,7 +1,6 @@
 #olapy
 -e git+https://github.com/abilian/olapy.git#egg=olapy
 
-
 # Web
 Flask
 SQLAlchemy
@@ -10,6 +9,7 @@ WTForms
 Flask-Login
 Flask-SQLAlchemy
 Flask-WTF
+Flask-Migrate
 plotly
 
 # Misc

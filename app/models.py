@@ -6,12 +6,19 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from .extensions import db
 
+cubes = db.Table('cubes',
+                 db.Column('cube_id', db.Integer, db.ForeignKey('cube.id'), primary_key=True),
+                 db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True)
+                 )
+
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True)
     email = db.Column(db.String(120), unique=True)
     password_hash = db.Column(db.String)
+    cubes = db.relationship('Cube', secondary=cubes, lazy='dynamic',
+                            backref=db.backref('users', lazy=True))
 
     @property
     def password(self):
@@ -29,4 +36,15 @@ class User(db.Model, UserMixin):
         return User.query.filter_by(username=username).first()
 
     def __repr__(self):
-        return '<User {}>'.format(self.username)
+        return str(self.__dict__)
+
+
+class Cube(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80))
+    source = db.Column(db.String(50))
+    config = db.Column(db.String(200))
+    db_config = db.Column(db.String(100))
+
+    def __repr__(self):
+        return str(self.__dict__)

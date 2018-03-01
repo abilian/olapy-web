@@ -11,7 +11,7 @@ import os
 
 import yaml
 from flask import Blueprint, jsonify
-from flask_login import login_required
+from flask_login import login_required, current_user
 from olapy.core.mdx.executor.execute import MdxEngine
 from olapy.core.mdx.tools.config_file_parser import ConfigParser
 from olapy.core.mdx.tools.olapy_config_file_parser import DbConfigParser
@@ -19,6 +19,9 @@ from flask import request
 from werkzeug.utils import secure_filename
 import pandas as pd
 import json
+
+from app.extensions import db
+from app.models import Cube
 
 API = Blueprint('api', __name__, template_folder='templates')
 api = API.route
@@ -329,12 +332,19 @@ def _gen_dimensions(data_request):
     return dimensions
 
 
+def todb(cube_conf, dbConfig):
+    # todo teeeempp
+    cube = Cube(users=[current_user], name=cube_conf['name'], source=cube_conf['source'], config=str(cube_conf),
+                db_config=str(dbConfig))
+    db.session.add(cube)
+    db.session.commit()
+
+
 def cube_conf_to_file(data_request, save_path, source='csv', cube_name=None):
     """
     Temporary function
     :return:
     """
-
     facts = _gen_facts(data_request)
     dimensions = _gen_dimensions(data_request)
     cube = {
@@ -344,14 +354,15 @@ def cube_conf_to_file(data_request, save_path, source='csv', cube_name=None):
         'facts': facts,
         'dimensions': dimensions
     }
-
+    dbConfig = data_request['dbConfig']
     path = os.path.join(save_path, 'temp_config.yml')
-    try:
-        with open(path, 'w') as yaml_file:
-            yaml.safe_dump(cube, yaml_file)
-        return path
-    except:
-        return None
+    # try:
+    with open(path, 'w') as yaml_file:
+        yaml.safe_dump(cube, yaml_file)
+        todb(cube, dbConfig)
+    return path
+    # except:
+    #     return None
 
 
 def try_construct_custom_files_cube(data_request):
@@ -456,6 +467,20 @@ def add_db_cube():
             )
 
 
+def todb2(data):
+    config = {
+        'dbms': data['engine'].lower(),
+        'host': data['servername'],
+        'port': data['port'],
+        'user': data['username'],
+        'password': data['password']
+    }
+    cube = Cube(users=[current_user], name=data['selectCube'], source='db', config=None,
+                db_config=str(config))
+    db.session.add(cube)
+    db.session.commit()
+
+
 @api('/cubes/confirm_db_cube', methods=['POST'])
 @login_required
 def confirm_db_cube():
@@ -472,6 +497,7 @@ def confirm_db_cube():
         try:
             with open(path, 'w') as yaml_file:
                 yaml.safe_dump(config, yaml_file, default_flow_style=False)
+                todb2(data)
                 return jsonify(path)
         except:
             return None
