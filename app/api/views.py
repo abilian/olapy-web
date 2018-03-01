@@ -335,7 +335,7 @@ def _gen_dimensions(data_request):
 def todb(cube_conf, dbConfig):
     # todo teeeempp
     queried_cube = User.query.filter(User.id == current_user.id).first().cubes.filter(
-        Cube.name == dbConfig['selectCube'])
+        Cube.name == dbConfig['selectCube']).first()
     if queried_cube:
         queried_cube.name = cube_conf['name']
         queried_cube.source = cube_conf['source']
