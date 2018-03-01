@@ -21,7 +21,7 @@ import pandas as pd
 import json
 
 from app.extensions import db
-from app.models import Cube
+from app.models import Cube, User
 
 API = Blueprint('api', __name__, template_folder='templates')
 api = API.route
@@ -334,9 +334,17 @@ def _gen_dimensions(data_request):
 
 def todb(cube_conf, dbConfig):
     # todo teeeempp
-    cube = Cube(users=[current_user], name=cube_conf['name'], source=cube_conf['source'], config=str(cube_conf),
-                db_config=str(dbConfig))
-    db.session.add(cube)
+    queried_cube = User.query.filter(User.id == current_user.id).first().cubes.filter(
+        Cube.name == dbConfig['selectCube'])
+    if queried_cube:
+        queried_cube.name = cube_conf['name']
+        queried_cube.source = cube_conf['source']
+        queried_cube.config = str(cube_conf)
+        queried_cube.db_config = str(dbConfig)
+    else:
+        cube = Cube(users=[current_user], name=cube_conf['name'], source=cube_conf['source'], config=str(cube_conf),
+                    db_config=str(dbConfig))
+        db.session.add(cube)
     db.session.commit()
 
 
