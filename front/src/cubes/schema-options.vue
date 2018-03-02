@@ -92,13 +92,13 @@ export default {
     });
   },
   watch: {
-    showModal: function () {
-      this.modalToShow= "first";
+    showModal: function() {
+      this.modalToShow = "first";
       this.cube = "";
-      this.dbConfig =  "";
-      this.$http.post("cubes/clean_tmp_dir")
-    }
-  }
+      this.dbConfig = "";
+      this.$http.post("cubes/clean_tmp_dir");
+    },
+  },
 };
 </script>
 
