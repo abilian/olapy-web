@@ -42,15 +42,20 @@ OLAPY_DATA_SOURCE = ('csv')
 OLAPY_CUBE_CONFIG_FILE = '/home/moddoy/PycharmProjects/olapy-web/instance/olapy-data/cubes/cubes-config.yml'
 
 
+def get_cube(cube_name):
+    return User.query.filter(User.id == current_user.id).first().cubes.filter(
+        Cube.name == cube_name).first()
+
+
 def get_cube_source_type(cube_name):
-    cube_result = Cube.query.filter(Cube.name == cube_name).first()
+    cube_result = get_cube(cube_name)
     return cube_result.source
 
 
 def get_config(cube_name):
     # db_conf = None
     # cube_conf = None
-    cube_result = Cube.query.filter(Cube.name == cube_name).first()
+    cube_result = get_cube(cube_name)
     # if 'db' in source_type:
     #     db_config = DbConfigParser()
     #     db_conf = db_config.get_db_credentials(db_config_file)
