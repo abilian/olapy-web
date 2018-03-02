@@ -61,11 +61,12 @@ def get_olapy_config(source_type, db_config_file, cube_config_file):
 @api('/cubes')
 @login_required
 def get_cubes():
-    cubes_path = TEMP_OLAPY_DIR + '/cubes'
-    config = get_olapy_config(OLAPY_DATA_SOURCE, db_config_file=None, cube_config_file=OLAPY_CUBE_CONFIG_FILE)
-    executor = MdxEngine(source_type=OLAPY_DATA_SOURCE, cube_config=config['cube_config'], cubes_path=cubes_path)
-    data = executor.get_cubes_names()
-    return jsonify(data)
+    # cubes_path = TEMP_OLAPY_DIR + '/cubes'
+    # config = get_olapy_config(OLAPY_DATA_SOURCE, db_config_file=None, cube_config_file=OLAPY_CUBE_CONFIG_FILE)
+    # executor = MdxEngine(source_type=OLAPY_DATA_SOURCE, cube_config=config['cube_config'], cubes_path=cubes_path)
+    # data = executor.get_cubes_names()
+    return jsonify([cube.name for cube in Cube.query.all()])
+    # return jsonify(data)
 
 
 @api('/cubes/dimensions/<cube_name>')
