@@ -139,11 +139,11 @@ def add_cube():
                 filename = secure_filename(file_uploaded.filename)
                 file_uploaded.save(os.path.join(TEMP_OLAPY_DIR, "TEMP", TEMP_CUBE_NAME, filename))
 
-        construction = try_construct_cube(cube_name=TEMP_CUBE_NAME, cubes_path=os.path.join(TEMP_OLAPY_DIR, "TEMP"),
-                                          source_type='csv')
+        cube = try_construct_cube(cube_name=TEMP_CUBE_NAME, cubes_path=os.path.join(TEMP_OLAPY_DIR, "TEMP"),
+                                  source_type='csv')
 
-        if 'dimensions' in construction:
-            return jsonify(construction)
+        if 'dimensions' in cube:
+            return jsonify(cube)
         else:
             return jsonify(
                 {'facts': None,
@@ -168,6 +168,7 @@ def confirm_cube(custom=False):
             shutil.rmtree(new_temp_dir)
             if not custom:
                 # custom -> config with config file , no need to return response, instead wait to use the cube conf
+                save_2_db(cube_name=request.data.decode('utf-8'), source='csv', cube_conf=None, dbConfig=None)
                 return jsonify({'success': True}), 200, {'ContentType': 'application/json'}
         return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
 
@@ -332,18 +333,22 @@ def _gen_dimensions(data_request):
     return dimensions
 
 
-def todb(cube_conf, dbConfig):
+def save_2_db(cube_name, source, cube_conf, dbConfig):
     # todo teeeempp
     queried_cube = User.query.filter(User.id == current_user.id).first().cubes.filter(
-        Cube.name == dbConfig['selectCube']).first()
+        Cube.name == cube_name).first()
     if queried_cube:
-        queried_cube.name = cube_conf['name']
-        queried_cube.source = cube_conf['source']
-        queried_cube.config = str(cube_conf)
-        queried_cube.db_config = str(dbConfig)
+        queried_cube.name = cube_name
+        queried_cube.source = source
+        queried_cube.config = str(cube_conf) if cube_conf else None
+        queried_cube.db_config = str(dbConfig) if dbConfig else None
     else:
-        cube = Cube(users=[current_user], name=cube_conf['name'], source=cube_conf['source'], config=str(cube_conf),
-                    db_config=str(dbConfig))
+        cube = Cube(users=[current_user],
+                    name=cube_name,
+                    source=source,
+                    config=str(cube_conf) if cube_conf else None,
+                    db_config=str(dbConfig) if dbConfig else None
+                    )
         db.session.add(cube)
     db.session.commit()
 
@@ -367,7 +372,7 @@ def cube_conf_to_file(data_request, save_path, source='csv', cube_name=None):
     # try:
     with open(path, 'w') as yaml_file:
         yaml.safe_dump(cube, yaml_file)
-        todb(cube, dbConfig)
+        save_2_db(cube_name=cube['name'], source=cube['source'], cube_conf=cube, dbConfig=dbConfig)
     return path
     # except:
     #     return None
