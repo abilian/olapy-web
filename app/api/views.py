@@ -3,6 +3,7 @@
 from __future__ import absolute_import, division, print_function, \
     unicode_literals
 
+import ast
 import shutil
 from distutils.dir_util import copy_tree
 from os.path import expanduser, isdir
@@ -41,21 +42,38 @@ OLAPY_DATA_SOURCE = ('csv')
 OLAPY_CUBE_CONFIG_FILE = '/home/moddoy/PycharmProjects/olapy-web/instance/olapy-data/cubes/cubes-config.yml'
 
 
-def get_olapy_config(source_type, db_config_file, cube_config_file):
-    db_conf = None
-    cube_conf = None
+def get_cube_source_type(cube_name):
+    cube_result = Cube.query.filter(Cube.name == cube_name).first()
+    return cube_result.source
 
-    if 'db' in source_type:
-        db_config = DbConfigParser()
-        db_conf = db_config.get_db_credentials(db_config_file)
 
-    try:
-        cube_config_file_parser = ConfigParser()
-        cube_conf = cube_config_file_parser.get_cube_config(cube_config_file)
-    except (KeyError, IOError):
+def get_config(cube_name):
+    # db_conf = None
+    # cube_conf = None
+    cube_result = Cube.query.filter(Cube.name == cube_name).first()
+    # if 'db' in source_type:
+    #     db_config = DbConfigParser()
+    #     db_conf = db_config.get_db_credentials(db_config_file)
+    #
+    # try:
+    #     cube_config_file_parser = ConfigParser()
+    #     cube_conf = cube_config_file_parser.get_cube_config(cube_config_file)
+    # except (KeyError, IOError):
+    #     db_conf = None
+    # print('////////////////////////////////////////////')
+    # print(json.loads(cube_result.db_config.replace("'", '"')))
+    if cube_result.db_config:
+        db_conf = get_db_config(ast.literal_eval(cube_result.db_config))
+    else:
         db_conf = None
+    if cube_result.config:
+        cube_config = ast.literal_eval(cube_result.config)
+    else:
+        cube_config = None
+
     return {'db_config': db_conf,
-            'cube_config': cube_conf}
+            'cube_config': cube_config
+            }
 
 
 @api('/cubes')
@@ -72,8 +90,11 @@ def get_cubes():
 @api('/cubes/dimensions/<cube_name>')
 @login_required
 def get_cube_dimensions(cube_name):
-    config = get_olapy_config(OLAPY_DATA_SOURCE, db_config_file=None, cube_config_file=OLAPY_CUBE_CONFIG_FILE)
-    executor = MdxEngine(source_type=OLAPY_DATA_SOURCE, cube_config=config['cube_config'])
+    # config = get_olapy_config(OLAPY_DATA_SOURCE, db_config_file=None, cube_config_file=OLAPY_CUBE_CONFIG_FILE)
+    config = get_config(cube_name)
+    source_type = get_cube_source_type(cube_name)
+    executor = MdxEngine(source_type=source_type, database_config=config['db_config'],
+                         cube_config=config['cube_config'])
     executor.load_cube(cube_name)
     data = executor.get_all_tables_names(ignore_fact=True)
     return jsonify(data)
@@ -82,7 +103,7 @@ def get_cube_dimensions(cube_name):
 @api('/cubes/facts/<cube_name>')
 @login_required
 def get_cube_facts(cube_name):
-    config = get_olapy_config(OLAPY_DATA_SOURCE, db_config_file=None, cube_config_file=OLAPY_CUBE_CONFIG_FILE)
+    config = get_config(cube_name)
     executor = MdxEngine(source_type=OLAPY_DATA_SOURCE, cube_config=config['cube_config'])
     executor.load_cube(cube_name)
     data = {'table_name':
@@ -198,18 +219,18 @@ def get_columns_from_files(data):
         return jsonify(result)
 
 
-def get_db_config(data):
+def get_db_config(data_config):
     return {
-        'dbms': data['dbConfig']['engine'].lower(),
-        'host': data['dbConfig']['servername'],
-        'port': data['dbConfig']['port'],
-        'user': data['dbConfig']['username'],
-        'password': data['dbConfig']['password']
+        'dbms': data_config['engine'].lower(),
+        'host': data_config['servername'],
+        'port': data_config['port'],
+        'user': data_config['username'],
+        'password': data_config['password']
     }
 
 
 def get_columns_from_db(data):
-    config = get_db_config(data)
+    config = get_db_config(data['dbConfig'])
     executor = MdxEngine(database_config=config, source_type='db')
     engine = executor.instantiate_db(data['dbConfig']['selectCube']).engine
     results = engine.execution_options(
@@ -237,7 +258,7 @@ def get_table_columns():
 
 def get_tables_columns_from_db(data):
     response = {}
-    config = get_db_config(data)
+    config = get_db_config(data['dbConfig'])
     executor = MdxEngine(database_config=config, source_type='db')
     engine = executor.instantiate_db(data['dbConfig']['selectCube']).engine
     att_tables = data['allTables'].split(',')
@@ -312,23 +333,19 @@ def _gen_dimensions(data_request):
     :param data_request:
     :return:
     """
-    dimensions = [{
-        'dimension':
-            {
-                'name': data_request['factsTable'].replace('.csv', ''),
-                'displayName': data_request['factsTable'].replace('.csv', '')
-            }
-    }]
+    dimensions = [
+        {
+            'name': data_request['factsTable'].replace('.csv', ''),
+            'displayName': data_request['factsTable'].replace('.csv', '')
+        }
+    ]
     for table in data_request['tablesAndColumnsResult']:
         table_name = table.replace('.csv', '')
         columns = check_specified_table_column(table_name, data_request)
         dimensions.append({
-            'dimension':
-                {
-                    'name': table_name,
-                    'displayName': table_name,
-                    'columns': columns
-                }
+            'name': table_name,
+            'displayName': table_name,
+            'columns': columns
         })
 
     return dimensions
@@ -403,7 +420,7 @@ def try_construct_custom_db_cube(data_request):
                                        cube_name=data_request['dbConfig']['selectCube'])
     parser = ConfigParser()
     parsing_result = parser.get_cube_config(conf_file=temp_conf_file)
-    db_config = get_db_config(data_request)
+    db_config = get_db_config(data_request['dbConfig'])
     executor = MdxEngine(cube_config=parsing_result, database_config=db_config, source_type='db')
     # try:
     executor.load_cube(data_request['dbConfig']['selectCube'])
