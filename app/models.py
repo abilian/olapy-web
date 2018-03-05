@@ -5,6 +5,7 @@ from flask_login import UserMixin
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from .extensions import db
+import json
 
 cubes = db.Table('cubes',
                  db.Column('cube_id', db.Integer, db.ForeignKey('cube.id'), primary_key=True),
@@ -43,8 +44,17 @@ class Cube(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80))
     source = db.Column(db.String(50))
-    config = db.Column(db.String(200))
+    _config = db.Column(db.String(200))
+    # _config = db.Column(db.PickleType)
     db_config = db.Column(db.String(100))
+
+    @property
+    def config(self):
+        return json.loads(self._config)
+
+    @config.setter
+    def config(self, value):
+        self._config = json.dumps(value)
 
     def __repr__(self):
         return str(self.__dict__)

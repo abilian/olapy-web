@@ -1,10 +1,11 @@
 # -*- encoding: utf8 -*-
 
-from __future__ import absolute_import, division, print_function, \
-    unicode_literals
+# from __future__ import absolute_import, division, print_function, \
+#     unicode_literals
 
 import ast
 import shutil
+from collections import OrderedDict
 from distutils.dir_util import copy_tree
 from os.path import expanduser, isdir
 
@@ -67,12 +68,13 @@ def get_config(cube_name):
     #     db_conf = None
     # print('////////////////////////////////////////////')
     # print(json.loads(cube_result.db_config.replace("'", '"')))
-    if cube_result.db_config:
+    if cube_result and cube_result.db_config:
         db_conf = get_db_config(ast.literal_eval(cube_result.db_config))
     else:
         db_conf = None
-    if cube_result.config:
-        cube_config = ast.literal_eval(cube_result.config)
+    if cube_result and cube_result.config:
+        # cube_config = ast.literal_eval(cube_result.config)
+        cube_config = cube_result.config
     else:
         cube_config = None
 
@@ -312,10 +314,12 @@ def _gen_facts(data_request):
         columns_names.append(data_request['tablesAndColumnsResult'][table]['FactsCol'])
         refs.append(table.replace('.csv', '') + '.' + data_request['tablesAndColumnsResult'][table]['DimCol'])
 
-    keys = {
-        'columns_names': columns_names,
-        'refs': refs
-    }
+    keys = dict((column, refs[index]) for (index, column) in enumerate(columns_names))
+
+    # keys = {
+    #     'columns_names': columns_names,
+    #     'refs': refs
+    # }
     return {
         'table_name': data_request['factsTable'].replace('.csv', ''),
         'keys': keys,
@@ -324,11 +328,14 @@ def _gen_facts(data_request):
 
 
 def check_specified_table_column(table_name, data_request):
-    columns = []
+    # columns = []
+    # OrderedDict([('licence', 'licence'), ('article', 'article')])
+    columns = OrderedDict()
+    # .update({self.facts: measures})
     for table_col in data_request['columnsPerDimension']:
         if table_col and table_col['table'].replace('.csv', '') == table_name:
             for column in table_col['columns']:
-                columns.append({'name': column})
+                columns.update({column: column})
     return columns
 
 
@@ -363,13 +370,13 @@ def save_2_db(cube_name, source, cube_conf, dbConfig):
     if queried_cube:
         queried_cube.name = cube_name
         queried_cube.source = source
-        queried_cube.config = str(cube_conf) if cube_conf else None
+        queried_cube.config = cube_conf if cube_conf else None
         queried_cube.db_config = str(dbConfig) if dbConfig else None
     else:
         cube = Cube(users=[current_user],
                     name=cube_name,
                     source=source,
-                    config=str(cube_conf) if cube_conf else None,
+                    config=cube_conf if cube_conf else None,
                     db_config=str(dbConfig) if dbConfig else None
                     )
         db.session.add(cube)
@@ -394,7 +401,7 @@ def cube_conf_to_file(data_request, save_path, source='csv', cube_name=None):
     path = os.path.join(save_path, 'temp_config.yml')
     # try:
     with open(path, 'w') as yaml_file:
-        yaml.safe_dump(cube, yaml_file)
+        # yaml.safe_dump(cube, yaml_file)
         save_2_db(cube_name=cube['name'], source=cube['source'], cube_conf=cube, dbConfig=dbConfig)
     return path
     # except:
@@ -421,12 +428,22 @@ def try_construct_custom_files_cube(data_request):
 
 
 def try_construct_custom_db_cube(data_request):
-    temp_conf_file = cube_conf_to_file(data_request, TEMP_OLAPY_DIR, source='db',
-                                       cube_name=data_request['dbConfig']['selectCube'])
-    parser = ConfigParser()
-    parsing_result = parser.get_cube_config(conf_file=temp_conf_file)
+    cube_conf_to_file(data_request, '/home/moddoy/PycharmProjects/olapy-web/instance/olapy-data', source='db',
+                      cube_name=data_request['dbConfig']['selectCube'])
+    # temp_conf_file = cube_conf_to_file(data_request, TEMP_OLAPY_DIR, source='db',
+    #                                    cube_name=data_request['dbConfig']['selectCube'])
+    # parser = ConfigParser()
+    # hne
+    # parsing_result = parser.get_cube_config(conf_file=temp_conf_file)
+    config = get_config(data_request['dbConfig']['selectCube'])
+    # source_type = get_cube_source_type(data_request['dbConfig']['selectCube'])
+    source_type = 'db'
     db_config = get_db_config(data_request['dbConfig'])
-    executor = MdxEngine(cube_config=parsing_result, database_config=db_config, source_type='db')
+    executor = MdxEngine(source_type=source_type, database_config=db_config,
+                         cube_config=config['cube_config'])
+
+    # db_config = get_db_config(data_request['dbConfig'])
+    # executor = MdxEngine(cube_config=parsing_result, database_config=db_config, source_type='db')
     # try:
     executor.load_cube(data_request['dbConfig']['selectCube'])
     if executor.star_schema_dataframe.columns is not None:
