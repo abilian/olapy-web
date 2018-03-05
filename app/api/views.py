@@ -15,8 +15,6 @@ import yaml
 from flask import Blueprint, jsonify
 from flask_login import login_required, current_user
 from olapy.core.mdx.executor.execute import MdxEngine
-from olapy.core.mdx.tools.config_file_parser import ConfigParser
-from olapy.core.mdx.tools.olapy_config_file_parser import DbConfigParser
 from flask import request
 from werkzeug.utils import secure_filename
 import pandas as pd
@@ -30,17 +28,11 @@ api = API.route
 
 ALLOWED_EXTENSIONS = {'csv'}
 # todo remove
-# TODO REMOVE ALL TEMP TEMP TEMP
-# TODO REMOVE ALL TEMP TEMP TEMP
-# TODO REMOVE ALL TEMP TEMP TEMP
 TEMP_CUBE_NAME = 'TEMP_CUBE'
 TEMP_OLAPY_DIR = '/home/moddoy/PycharmProjects/olapy-web/instance/olapy-data'
 TEMP_DIR = os.path.join(TEMP_OLAPY_DIR, 'TEMP', TEMP_CUBE_NAME)
 
 home = expanduser('~')
-# todo all this will be repalced with db
-OLAPY_DATA_SOURCE = ('csv')
-OLAPY_CUBE_CONFIG_FILE = '/home/moddoy/PycharmProjects/olapy-web/instance/olapy-data/cubes/cubes-config.yml'
 
 
 def get_cube(cube_name):
@@ -54,26 +46,12 @@ def get_cube_source_type(cube_name):
 
 
 def get_config(cube_name):
-    # db_conf = None
-    # cube_conf = None
     cube_result = get_cube(cube_name)
-    # if 'db' in source_type:
-    #     db_config = DbConfigParser()
-    #     db_conf = db_config.get_db_credentials(db_config_file)
-    #
-    # try:
-    #     cube_config_file_parser = ConfigParser()
-    #     cube_conf = cube_config_file_parser.get_cube_config(cube_config_file)
-    # except (KeyError, IOError):
-    #     db_conf = None
-    # print('////////////////////////////////////////////')
-    # print(json.loads(cube_result.db_config.replace("'", '"')))
     if cube_result and cube_result.db_config:
         db_conf = get_db_config(ast.literal_eval(cube_result.db_config))
     else:
         db_conf = None
     if cube_result and cube_result.config:
-        # cube_config = ast.literal_eval(cube_result.config)
         cube_config = cube_result.config
     else:
         cube_config = None
@@ -86,18 +64,12 @@ def get_config(cube_name):
 @api('/cubes')
 @login_required
 def get_cubes():
-    # cubes_path = TEMP_OLAPY_DIR + '/cubes'
-    # config = get_olapy_config(OLAPY_DATA_SOURCE, db_config_file=None, cube_config_file=OLAPY_CUBE_CONFIG_FILE)
-    # executor = MdxEngine(source_type=OLAPY_DATA_SOURCE, cube_config=config['cube_config'], cubes_path=cubes_path)
-    # data = executor.get_cubes_names()
     return jsonify([cube.name for cube in Cube.query.all()])
-    # return jsonify(data)
 
 
 @api('/cubes/dimensions/<cube_name>')
 @login_required
 def get_cube_dimensions(cube_name):
-    # config = get_olapy_config(OLAPY_DATA_SOURCE, db_config_file=None, cube_config_file=OLAPY_CUBE_CONFIG_FILE)
     config = get_config(cube_name)
     source_type = get_cube_source_type(cube_name)
     executor = MdxEngine(source_type=source_type, database_config=config['db_config'],
@@ -220,7 +192,6 @@ def get_columns_from_files(data):
     if isdir(TEMP_DIR):
         df = pd.read_csv(os.path.join(TEMP_DIR, data['tableName'].decode('utf-8')), sep=';')
         # todo show columns with there types
-        # df.dtypes.to_dict()
         if data['WithID']:
             result = [column for column in df.columns]
         else:
@@ -300,8 +271,6 @@ def get_tables_and_columns():
             return get_tables_columns_from_db(data)
         else:
             return get_tables_columns_from_files(data)
-    # return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
-
     return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
 
 
@@ -318,11 +287,6 @@ def _gen_facts(data_request):
         refs.append(table.replace('.csv', '') + '.' + data_request['tablesAndColumnsResult'][table]['DimCol'])
 
     keys = dict((column, refs[index]) for (index, column) in enumerate(columns_names))
-
-    # keys = {
-    #     'columns_names': columns_names,
-    #     'refs': refs
-    # }
     return {
         'table_name': data_request['factsTable'].replace('.csv', ''),
         'keys': keys,
@@ -331,10 +295,7 @@ def _gen_facts(data_request):
 
 
 def check_specified_table_column(table_name, data_request):
-    # columns = []
-    # OrderedDict([('licence', 'licence'), ('article', 'article')])
     columns = OrderedDict()
-    # .update({self.facts: measures})
     for table_col in data_request['columnsPerDimension']:
         if table_col and table_col['table'].replace('.csv', '') == table_name:
             for column in table_col['columns']:
@@ -364,26 +325,6 @@ def _gen_dimensions(data_request):
         })
 
     return dimensions
-
-
-# def save_2_db(cube_name, source, cube_conf, dbConfig):
-#     # todo teeeempp
-#     queried_cube = User.query.filter(User.id == current_user.id).first().cubes.filter(
-#         Cube.name == cube_name).first()
-#     if queried_cube:
-#         queried_cube.name = cube_name
-#         queried_cube.source = source
-#         queried_cube.config = cube_conf if cube_conf else None
-#         queried_cube.db_config = str(dbConfig) if dbConfig else None
-#     else:
-#         cube = Cube(users=[current_user],
-#                     name=cube_name,
-#                     source=source,
-#                     config=cube_conf if cube_conf else None,
-#                     db_config=str(dbConfig) if dbConfig else None
-#                     )
-#         db.session.add(cube)
-#     db.session.commit()
 
 
 def save_cube_config_2_db(cube_config, cube_name, source):
@@ -425,16 +366,11 @@ def gen_cube_conf(data_request, source='csv', cube_name=None):
     return {'cube_config': cube_conf,
             'db_config': db_config}
 
-    # except:
-    #     return None
-
 
 def try_construct_custom_files_cube(data_request):
     os.rename(os.path.join(TEMP_OLAPY_DIR, 'TEMP', TEMP_CUBE_NAME),
               os.path.join(TEMP_OLAPY_DIR, 'TEMP', data_request['cubeName']))
-    cube_config = gen_cube_conf(data_request, TEMP_OLAPY_DIR)
-    # parser = ConfigParser()
-    # parsing_result = parser.get_cube_config(conf_file=temp_conf_file)
+    cube_config = gen_cube_conf(data_request=data_request, cube_name=data_request['cubeName'])
     executor = MdxEngine(cube_config=cube_config['cube_config'], cubes_path=os.path.join(TEMP_OLAPY_DIR, 'TEMP'))
     try:
         executor.load_cube(data_request['cubeName'])
@@ -451,26 +387,19 @@ def try_construct_custom_files_cube(data_request):
 
 def try_construct_custom_db_cube(data_request):
     config = gen_cube_conf(data_request, source='db', cube_name=data_request['dbConfig']['selectCube'])
-
-    # config = get_config(data_request['dbConfig']['selectCube'])
-    print('00000000000000000000000000000000000000077')
-    print(config)
     source_type = 'db'
     db_config = get_db_config(data_request['dbConfig'])
     executor = MdxEngine(source_type=source_type, database_config=db_config,
                          cube_config=config['cube_config'])
-
-    # db_config = get_db_config(data_request['dbConfig'])
-    # executor = MdxEngine(cube_config=parsing_result, database_config=db_config, source_type='db')
-    # try:
-    executor.load_cube(data_request['dbConfig']['selectCube'])
-    if executor.star_schema_dataframe.columns is not None:
-        save_cube_config_2_db(config, data_request['dbConfig']['selectCube'], source='db')
-        return jsonify(executor.star_schema_dataframe.fillna('').head().to_html(classes=[
-            'table-bordered table-striped'
-        ], index=False))
-    # except:
-    #     return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
+    try:
+        executor.load_cube(data_request['dbConfig']['selectCube'])
+        if executor.star_schema_dataframe.columns is not None:
+            save_cube_config_2_db(config, data_request['dbConfig']['selectCube'], source='db')
+            return jsonify(executor.star_schema_dataframe.fillna('').head().to_html(classes=[
+                'table-bordered table-striped'
+            ], index=False))
+    except:
+        return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
 
 
 @api('/cubes/try_construct_custom_cube', methods=['POST'])
@@ -488,13 +417,11 @@ def try_construct_custom_cube():
 @api('/cubes/confirm_custom_cube', methods=['POST'])
 @login_required
 def confirm_custom_cube():
-    # try:
-    confirm_cube(custom=True)
-    # os.rename(os.path.join(TEMP_OLAPY_DIR, 'temp_config.yml'),
-    #           os.path.join(TEMP_OLAPY_DIR, 'cubes', 'cubes-config.yml'))
-    return jsonify({'success': True}), 200, {'ContentType': 'application/json'}
-    # except:
-    #     return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
+    try:
+        confirm_cube(custom=True)
+        return jsonify({'success': True}), 200, {'ContentType': 'application/json'}
+    except:
+        return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
 
 
 @api('/cubes/connectDB', methods=['POST'])
