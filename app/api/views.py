@@ -111,7 +111,9 @@ def get_cube_dimensions(cube_name):
 @login_required
 def get_cube_facts(cube_name):
     config = get_config(cube_name)
-    executor = MdxEngine(source_type=OLAPY_DATA_SOURCE, cube_config=config['cube_config'])
+    source_type = get_cube_source_type(cube_name)
+    executor = MdxEngine(source_type=source_type, database_config=config['db_config'],
+                         cube_config=config['cube_config'])
     executor.load_cube(cube_name)
     data = {'table_name':
                 executor.facts,
