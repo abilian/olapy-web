@@ -199,7 +199,8 @@ def confirm_cube(custom=False):
             shutil.rmtree(new_temp_dir)
             if not custom:
                 # custom -> config with config file , no need to return response, instead wait to use the cube conf
-                save_2_db(cube_name=request.data.decode('utf-8'), source='csv', cube_conf=None, dbConfig=None)
+                save_cube_config_2_db(cube_config=None, cube_name=request.data.decode('utf-8'), source='csv')
+                # save_2_db(cube_name=request.data.decode('utf-8'), source='csv', cube_conf=None, dbConfig=None)
                 return jsonify({'success': True}), 200, {'ContentType': 'application/json'}
         return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
 
@@ -365,47 +366,65 @@ def _gen_dimensions(data_request):
     return dimensions
 
 
-def save_2_db(cube_name, source, cube_conf, dbConfig):
-    # todo teeeempp
+# def save_2_db(cube_name, source, cube_conf, dbConfig):
+#     # todo teeeempp
+#     queried_cube = User.query.filter(User.id == current_user.id).first().cubes.filter(
+#         Cube.name == cube_name).first()
+#     if queried_cube:
+#         queried_cube.name = cube_name
+#         queried_cube.source = source
+#         queried_cube.config = cube_conf if cube_conf else None
+#         queried_cube.db_config = str(dbConfig) if dbConfig else None
+#     else:
+#         cube = Cube(users=[current_user],
+#                     name=cube_name,
+#                     source=source,
+#                     config=cube_conf if cube_conf else None,
+#                     db_config=str(dbConfig) if dbConfig else None
+#                     )
+#         db.session.add(cube)
+#     db.session.commit()
+
+
+def save_cube_config_2_db(cube_config, cube_name, source):
     queried_cube = User.query.filter(User.id == current_user.id).first().cubes.filter(
         Cube.name == cube_name).first()
     if queried_cube:
+        # update cube
         queried_cube.name = cube_name
         queried_cube.source = source
-        queried_cube.config = cube_conf if cube_conf else None
-        queried_cube.db_config = str(dbConfig) if dbConfig else None
+        queried_cube.config = cube_config['cube_config'] if cube_config and cube_config['cube_config'] else None
+        queried_cube.db_config = str(cube_config['db_config']) if cube_config and cube_config['db_config'] else None
     else:
+        # add new cube
         cube = Cube(users=[current_user],
                     name=cube_name,
                     source=source,
-                    config=cube_conf if cube_conf else None,
-                    db_config=str(dbConfig) if dbConfig else None
+                    config=cube_config['db_config'] if cube_config and cube_config['db_config'] else None,
+                    db_config=str(cube_config['db_config']) if cube_config and cube_config['db_config'] else None
                     )
         db.session.add(cube)
     db.session.commit()
 
 
-def cube_conf_to_file(data_request, save_path, source='csv', cube_name=None):
+def gen_cube_conf(data_request, source='csv', cube_name=None):
     """
     Temporary function
     :return:
     """
     facts = _gen_facts(data_request)
     dimensions = _gen_dimensions(data_request)
-    cube = {
+    cube_conf = {
         'name': data_request['cubeName'] if not cube_name else cube_name,
         'source': source,
         'xmla_authentication': False,
         'facts': facts,
         'dimensions': dimensions
     }
-    dbConfig = data_request['dbConfig']
-    path = os.path.join(save_path, 'temp_config.yml')
-    # try:
-    with open(path, 'w') as yaml_file:
-        # yaml.safe_dump(cube, yaml_file)
-        save_2_db(cube_name=cube['name'], source=cube['source'], cube_conf=cube, dbConfig=dbConfig)
-    return path
+    db_config = data_request['dbConfig'] if 'dbConfig' in data_request else None
+    return {'cube_config': cube_conf,
+            'db_config': db_config}
+
     # except:
     #     return None
 
@@ -413,13 +432,14 @@ def cube_conf_to_file(data_request, save_path, source='csv', cube_name=None):
 def try_construct_custom_files_cube(data_request):
     os.rename(os.path.join(TEMP_OLAPY_DIR, 'TEMP', TEMP_CUBE_NAME),
               os.path.join(TEMP_OLAPY_DIR, 'TEMP', data_request['cubeName']))
-    temp_conf_file = cube_conf_to_file(data_request, TEMP_OLAPY_DIR)
-    parser = ConfigParser()
-    parsing_result = parser.get_cube_config(conf_file=temp_conf_file)
-    executor = MdxEngine(cube_config=parsing_result, cubes_path=os.path.join(TEMP_OLAPY_DIR, 'TEMP'))
+    cube_config = gen_cube_conf(data_request, TEMP_OLAPY_DIR)
+    # parser = ConfigParser()
+    # parsing_result = parser.get_cube_config(conf_file=temp_conf_file)
+    executor = MdxEngine(cube_config=cube_config['cube_config'], cubes_path=os.path.join(TEMP_OLAPY_DIR, 'TEMP'))
     try:
         executor.load_cube(data_request['cubeName'])
         if executor.star_schema_dataframe.columns is not None:
+            save_cube_config_2_db(cube_config, data_request['cubeName'], source='csv')
             return jsonify(executor.star_schema_dataframe.fillna('').head().to_html(classes=[
                 'table-bordered table-striped'
             ], index=False))
@@ -430,15 +450,11 @@ def try_construct_custom_files_cube(data_request):
 
 
 def try_construct_custom_db_cube(data_request):
-    cube_conf_to_file(data_request, '/home/moddoy/PycharmProjects/olapy-web/instance/olapy-data', source='db',
-                      cube_name=data_request['dbConfig']['selectCube'])
-    # temp_conf_file = cube_conf_to_file(data_request, TEMP_OLAPY_DIR, source='db',
-    #                                    cube_name=data_request['dbConfig']['selectCube'])
-    # parser = ConfigParser()
-    # hne
-    # parsing_result = parser.get_cube_config(conf_file=temp_conf_file)
-    config = get_config(data_request['dbConfig']['selectCube'])
-    # source_type = get_cube_source_type(data_request['dbConfig']['selectCube'])
+    config = gen_cube_conf(data_request, source='db', cube_name=data_request['dbConfig']['selectCube'])
+
+    # config = get_config(data_request['dbConfig']['selectCube'])
+    print('00000000000000000000000000000000000000077')
+    print(config)
     source_type = 'db'
     db_config = get_db_config(data_request['dbConfig'])
     executor = MdxEngine(source_type=source_type, database_config=db_config,
@@ -449,6 +465,7 @@ def try_construct_custom_db_cube(data_request):
     # try:
     executor.load_cube(data_request['dbConfig']['selectCube'])
     if executor.star_schema_dataframe.columns is not None:
+        save_cube_config_2_db(config, data_request['dbConfig']['selectCube'], source='db')
         return jsonify(executor.star_schema_dataframe.fillna('').head().to_html(classes=[
             'table-bordered table-striped'
         ], index=False))
@@ -473,8 +490,8 @@ def try_construct_custom_cube():
 def confirm_custom_cube():
     # try:
     confirm_cube(custom=True)
-    os.rename(os.path.join(TEMP_OLAPY_DIR, 'temp_config.yml'),
-              os.path.join(TEMP_OLAPY_DIR, 'cubes', 'cubes-config.yml'))
+    # os.rename(os.path.join(TEMP_OLAPY_DIR, 'temp_config.yml'),
+    #           os.path.join(TEMP_OLAPY_DIR, 'cubes', 'cubes-config.yml'))
     return jsonify({'success': True}), 200, {'ContentType': 'application/json'}
     # except:
     #     return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
