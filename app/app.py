@@ -52,8 +52,6 @@ def configure_temp_upload_dir(app, olapy_data_dir):
             if os.path.isfile(file_path):
                 os.unlink(file_path)
 
-    app.config['UPLOAD_FOLDER'] = temp_dir
-
 
 def configure_extensions(app):
     # type: (Flask) -> None

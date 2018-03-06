@@ -1,10 +1,11 @@
 # -*- encoding: utf8 -*-
 
-# from __future__ import absolute_import, division, print_function, \
-#     unicode_literals
+from __future__ import absolute_import, division, print_function, \
+    unicode_literals
 
 import ast
 import shutil
+import tempfile
 from collections import OrderedDict
 from distutils.dir_util import copy_tree
 from os.path import expanduser, isdir
@@ -19,6 +20,7 @@ from flask import request
 from werkzeug.utils import secure_filename
 import pandas as pd
 import json
+from flask import current_app
 
 from app.extensions import db
 from app.models import Cube, User
@@ -27,11 +29,9 @@ API = Blueprint('api', __name__, template_folder='templates')
 api = API.route
 
 ALLOWED_EXTENSIONS = {'csv'}
-# todo remove
 TEMP_CUBE_NAME = 'TEMP_CUBE'
-TEMP_OLAPY_DIR = '/home/moddoy/PycharmProjects/olapy-web/instance/olapy-data'
-TEMP_DIR = os.path.join(TEMP_OLAPY_DIR, 'TEMP', TEMP_CUBE_NAME)
-
+OLAPY_TEMP_DIR = os.path.join(tempfile.mkdtemp(), 'TEMP')
+OLAPY_DATA_PATH = os.path.join(current_app.instance_path, 'olapy-data')
 home = expanduser('~')
 
 
@@ -131,18 +131,18 @@ def try_construct_cube(cube_name, facts='Facts', **kwargs):
 @login_required
 def add_cube():
     # temporary
-    if isdir(TEMP_DIR):
-        clean_temp_dir(TEMP_DIR)
+    if isdir(os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME)):
+        clean_temp_dir(os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME))
     else:
-        os.makedirs(TEMP_DIR)
+        os.makedirs(os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME))
     if request.method == 'POST':
         all_file = request.files.getlist('files')
         for file_uploaded in all_file:
             if file_uploaded and allowed_file(file_uploaded.filename):
                 filename = secure_filename(file_uploaded.filename)
-                file_uploaded.save(os.path.join(TEMP_OLAPY_DIR, "TEMP", TEMP_CUBE_NAME, filename))
+                file_uploaded.save(os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME, filename))
 
-        cube = try_construct_cube(cube_name=TEMP_CUBE_NAME, cubes_path=os.path.join(TEMP_OLAPY_DIR, "TEMP"),
+        cube = try_construct_cube(cube_name=TEMP_CUBE_NAME, cubes_path=OLAPY_TEMP_DIR,
                                   source_type='csv')
 
         if 'dimensions' in cube:
@@ -163,11 +163,12 @@ def confirm_cube(custom=False):
         if custom:
             temp_folder = request.data.decode('utf-8')
         else:
-            temp_folder = 'TEMP_CUBE'
-        new_temp_dir = os.path.join(TEMP_OLAPY_DIR, 'TEMP', temp_folder)
+            temp_folder = TEMP_CUBE_NAME
+        new_temp_dir = os.path.join(OLAPY_TEMP_DIR, temp_folder)
         if isdir(new_temp_dir):
             # todo temp to fix
-            copy_tree(new_temp_dir, os.path.join(TEMP_OLAPY_DIR, 'cubes', request.data.decode('utf-8')))
+            copy_tree(new_temp_dir, os.path.join(OLAPY_DATA_PATH, 'cubes',
+                                                 request.data.decode('utf-8')))
             shutil.rmtree(new_temp_dir)
             if not custom:
                 # custom -> config with config file , no need to return response, instead wait to use the cube conf
@@ -180,7 +181,7 @@ def confirm_cube(custom=False):
 @api('/cubes/clean_tmp_dir', methods=['POST'])
 @login_required
 def clean_tmp_dir():
-    for root, dirs, files in os.walk(os.path.join(TEMP_OLAPY_DIR, 'TEMP')):
+    for root, dirs, files in os.walk(OLAPY_TEMP_DIR):
         for f in files:
             os.unlink(os.path.join(root, f))
         for d in dirs:
@@ -189,8 +190,8 @@ def clean_tmp_dir():
 
 
 def get_columns_from_files(data):
-    if isdir(TEMP_DIR):
-        df = pd.read_csv(os.path.join(TEMP_DIR, data['tableName'].decode('utf-8')), sep=';')
+    if isdir(OLAPY_TEMP_DIR):
+        df = pd.read_csv(os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME, data['tableName'].decode('utf-8')), sep=';')
         # todo show columns with there types
         if data['WithID']:
             result = [column for column in df.columns]
@@ -253,11 +254,11 @@ def get_tables_columns_from_db(data):
 
 
 def get_tables_columns_from_files(data):
-    if isdir(TEMP_DIR):
+    if isdir(OLAPY_TEMP_DIR):
         response = {}
         att_tables = data['allTables'].split(',')
         for table_name in att_tables:
-            df = pd.read_csv(os.path.join(TEMP_DIR, table_name), sep=';')
+            df = pd.read_csv(os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME, table_name), sep=';')
             response[table_name] = list(df.columns)
         return jsonify(response)
 
@@ -368,10 +369,10 @@ def gen_cube_conf(data_request, source='csv', cube_name=None):
 
 
 def try_construct_custom_files_cube(data_request):
-    os.rename(os.path.join(TEMP_OLAPY_DIR, 'TEMP', TEMP_CUBE_NAME),
-              os.path.join(TEMP_OLAPY_DIR, 'TEMP', data_request['cubeName']))
+    os.rename(os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME),
+              os.path.join(OLAPY_TEMP_DIR, data_request['cubeName']))
     cube_config = gen_cube_conf(data_request=data_request, cube_name=data_request['cubeName'])
-    executor = MdxEngine(cube_config=cube_config['cube_config'], cubes_path=os.path.join(TEMP_OLAPY_DIR, 'TEMP'))
+    executor = MdxEngine(cube_config=cube_config['cube_config'], cubes_path=OLAPY_TEMP_DIR)
     try:
         executor.load_cube(data_request['cubeName'])
         if executor.star_schema_dataframe.columns is not None:
@@ -380,8 +381,8 @@ def try_construct_custom_files_cube(data_request):
                 'table-bordered table-striped'
             ], index=False))
     except:
-        os.rename(os.path.join(TEMP_OLAPY_DIR, 'TEMP', data_request['cubeName']),
-                  os.path.join(TEMP_OLAPY_DIR, 'TEMP', TEMP_CUBE_NAME))
+        os.rename(os.path.join(OLAPY_TEMP_DIR, data_request['cubeName']),
+                  os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME))
         return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
 
 
@@ -492,7 +493,7 @@ def confirm_db_cube():
             'user': data['username'],
             'password': data['password']
         }
-        path = os.path.join(TEMP_OLAPY_DIR, 'olapy-config.yml')
+        path = os.path.join(OLAPY_DATA_PATH, 'olapy-config.yml')
         try:
             with open(path, 'w') as yaml_file:
                 yaml.safe_dump(config, yaml_file, default_flow_style=False)
