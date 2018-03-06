@@ -11,7 +11,6 @@ from os.path import expanduser, isdir
 
 import os
 
-import yaml
 from flask import Blueprint, jsonify
 from flask_login import login_required, current_user
 from olapy.core.mdx.executor.execute import MdxEngine
@@ -78,17 +77,15 @@ def get_cube_dimensions(cube_name):
 @login_required
 def get_cube_facts(cube_name):
     executor = _load_cube(cube_name)
-    data = {'table_name':
-                executor.facts,
-            'measures':
-                executor.measures
-            }
+    data = {
+        'table_name': executor.facts,
+        'measures': executor.measures
+    }
     return jsonify(data)
 
 
 def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 def clean_temp_dir(olapy_data_dir):
@@ -398,7 +395,6 @@ def try_construct_custom_db_cube(data_request):
 def try_construct_custom_cube():
     if request.data and request.method == 'POST':
         data_request = json.loads(request.data)
-        # todo temp, instead olapy with dict directly
         if data_request['dbConfig']:
             return try_construct_custom_db_cube(data_request)
         else:
@@ -420,12 +416,7 @@ def confirm_custom_cube():
 def connectDB():
     if request.data and request.method == 'POST':
         data_request = json.loads(request.data)
-        data_connection = {'driver': data_request['engine'].lower(),
-                           'port': data_request['port'],
-                           'password': data_request['password'],
-                           'host': data_request['servername'],
-                           'user': data_request['username'],
-                           'dbms': data_request['engine']}
+        data_connection = get_db_config(data_request)
         executor = MdxEngine(source_type="db", database_config=data_connection)
         return jsonify(executor.get_cubes_names())
 
@@ -435,15 +426,7 @@ def connectDB():
 def add_db_cube():
     if request.method == 'POST':
         data = request.get_json()
-        db_credentials = {
-            'dbms': data['engine'].lower(),
-            'user': data['username'],
-            'password': data['password'],
-            'host': data['servername'],
-            'port': data['port'],
-            'db_name': data['selectCube'],
-        }
-
+        db_credentials = get_db_config(data)
         construction = try_construct_cube(cube_name=data['selectCube'], source_type='db', facts='facts',
                                           database_config=db_credentials)
         if 'dimensions' in construction:
