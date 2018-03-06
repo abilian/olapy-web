@@ -31,7 +31,6 @@ api = API.route
 ALLOWED_EXTENSIONS = {'csv'}
 TEMP_CUBE_NAME = 'TEMP_CUBE'
 OLAPY_TEMP_DIR = os.path.join(tempfile.mkdtemp(), 'TEMP')
-OLAPY_DATA_PATH = os.path.join(current_app.instance_path, 'olapy-data')
 home = expanduser('~')
 
 
@@ -167,7 +166,7 @@ def confirm_cube(custom=False):
         new_temp_dir = os.path.join(OLAPY_TEMP_DIR, temp_folder)
         if isdir(new_temp_dir):
             # todo temp to fix
-            copy_tree(new_temp_dir, os.path.join(OLAPY_DATA_PATH, 'cubes',
+            copy_tree(new_temp_dir, os.path.join(current_app.instance_path, 'olapy-data', 'cubes',
                                                  request.data.decode('utf-8')))
             shutil.rmtree(new_temp_dir)
             if not custom:
@@ -493,7 +492,7 @@ def confirm_db_cube():
             'user': data['username'],
             'password': data['password']
         }
-        path = os.path.join(OLAPY_DATA_PATH, 'olapy-config.yml')
+        path = os.path.join(current_app.instance_path, 'olapy-data', 'olapy-config.yml')
         try:
             with open(path, 'w') as yaml_file:
                 yaml.safe_dump(config, yaml_file, default_flow_style=False)
