@@ -3,7 +3,7 @@ from __future__ import absolute_import, division, print_function, \
 
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
-from flask.ext.migrate import Migrate
+from flask_migrate import Migrate
 
 db = SQLAlchemy()
 
