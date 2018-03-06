@@ -3,7 +3,6 @@
 from __future__ import absolute_import, division, print_function, \
     unicode_literals
 
-import ast
 import shutil
 import tempfile
 from collections import OrderedDict
@@ -46,18 +45,10 @@ def get_cube_source_type(cube_name):
 
 def get_config(cube_name):
     cube_result = get_cube(cube_name)
-    if cube_result and cube_result.db_config:
-        db_conf = get_db_config(ast.literal_eval(cube_result.db_config))
-    else:
-        db_conf = None
-    if cube_result and cube_result.config:
-        cube_config = cube_result.config
-    else:
-        cube_config = None
-
-    return {'db_config': db_conf,
-            'cube_config': cube_config
-            }
+    return {
+        'db_config': cube_result.db_config if cube_result and cube_result.db_config else None,
+        'cube_config': cube_result.config if cube_result and cube_result.config else None
+    }
 
 
 @api('/cubes')
@@ -66,14 +57,19 @@ def get_cubes():
     return jsonify([cube.name for cube in Cube.query.all()])
 
 
-@api('/cubes/dimensions/<cube_name>')
-@login_required
-def get_cube_dimensions(cube_name):
+def _load_cube(cube_name):
     config = get_config(cube_name)
     source_type = get_cube_source_type(cube_name)
     executor = MdxEngine(source_type=source_type, database_config=config['db_config'],
                          cube_config=config['cube_config'])
     executor.load_cube(cube_name)
+    return executor
+
+
+@api('/cubes/dimensions/<cube_name>')
+@login_required
+def get_cube_dimensions(cube_name):
+    executor = _load_cube(cube_name)
     data = executor.get_all_tables_names(ignore_fact=True)
     return jsonify(data)
 
@@ -81,11 +77,7 @@ def get_cube_dimensions(cube_name):
 @api('/cubes/facts/<cube_name>')
 @login_required
 def get_cube_facts(cube_name):
-    config = get_config(cube_name)
-    source_type = get_cube_source_type(cube_name)
-    executor = MdxEngine(source_type=source_type, database_config=config['db_config'],
-                         cube_config=config['cube_config'])
-    executor.load_cube(cube_name)
+    executor = _load_cube(cube_name)
     data = {'table_name':
                 executor.facts,
             'measures':
@@ -106,7 +98,7 @@ def clean_temp_dir(olapy_data_dir):
             os.unlink(file_path)
 
 
-def try_construct_cube(cube_name, facts='Facts', **kwargs):
+def try_construct_cube(cube_name, **kwargs):
     database_config = kwargs.get('database_config', None)
     source_type = kwargs.get('source_type', 'csv')
     cubes_path = kwargs.get('cubes_path', None)
@@ -114,7 +106,7 @@ def try_construct_cube(cube_name, facts='Facts', **kwargs):
     executor = MdxEngine(database_config=database_config, source_type=source_type, cubes_path=cubes_path)
     # try to construct automatically the cube
     try:
-        executor.load_cube(cube_name, fact_table_name=facts)
+        executor.load_cube(cube_name)
         return {
             'dimensions': executor.get_all_tables_names(ignore_fact=True),
             'facts': executor.facts,
@@ -172,7 +164,6 @@ def confirm_cube(custom=False):
             if not custom:
                 # custom -> config with config file , no need to return response, instead wait to use the cube conf
                 save_cube_config_2_db(cube_config=None, cube_name=request.data.decode('utf-8'), source='csv')
-                # save_2_db(cube_name=request.data.decode('utf-8'), source='csv', cube_conf=None, dbConfig=None)
                 return jsonify({'success': True}), 200, {'ContentType': 'application/json'}
         return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
 
@@ -466,37 +457,14 @@ def add_db_cube():
             )
 
 
-def todb2(data):
-    config = {
-        'dbms': data['engine'].lower(),
-        'host': data['servername'],
-        'port': data['port'],
-        'user': data['username'],
-        'password': data['password']
-    }
-    cube = Cube(users=[current_user], name=data['selectCube'], source='db', config=None,
-                db_config=str(config))
-    db.session.add(cube)
-    db.session.commit()
-
-
 @api('/cubes/confirm_db_cube', methods=['POST'])
 @login_required
 def confirm_db_cube():
     if request.method == 'POST':
         data = request.get_json()
-        config = {
-            'dbms': data['engine'].lower(),
-            'host': data['servername'],
-            'port': data['port'],
-            'user': data['username'],
-            'password': data['password']
-        }
-        path = os.path.join(current_app.instance_path, 'olapy-data', 'olapy-config.yml')
         try:
-            with open(path, 'w') as yaml_file:
-                yaml.safe_dump(config, yaml_file, default_flow_style=False)
-                todb2(data)
-                return jsonify(path)
+            config = {'cube_config': get_db_config(data)}
+            save_cube_config_2_db(cube_config=config, cube_name=data['selectCube'], source='db')
+            return jsonify({'success': True}), 200, {'ContentType': 'application/json'}
         except:
-            return None
+            return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
