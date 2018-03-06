@@ -462,9 +462,7 @@ def add_db_cube():
 def confirm_db_cube():
     if request.method == 'POST':
         data = request.get_json()
-        try:
-            config = {'cube_config': get_db_config(data)}
-            save_cube_config_2_db(cube_config=config, cube_name=data['selectCube'], source='db')
-            return jsonify({'success': True}), 200, {'ContentType': 'application/json'}
-        except:
-            return jsonify({'success': False}), 400, {'ContentType': 'application/json'}
+        config = {'cube_config': get_db_config(data),
+                  'db_config': None}
+        save_cube_config_2_db(cube_config=config, cube_name=data['selectCube'], source='db')
+        return jsonify({'success': True}), 200, {'ContentType': 'application/json'}
