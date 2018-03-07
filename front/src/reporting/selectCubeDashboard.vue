@@ -5,15 +5,18 @@
         <div class="modal-container">
 
           <div class="modal-header">
-            <label>
-              Cube :
-
-              <input type="text">
-            </label>
           </div>
 
           <div class="modal-body">
             <slot name="body">
+              <label>
+                <select v-model="selectedCube">
+                  <option disabled value="">Choose</option>
+                    <option v-for="cube in userCubes">
+                      {{ cube.name }}
+                    </option>
+                </select>
+              </label>
             </slot>
           </div>
 
@@ -35,7 +38,17 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data: function() {
+    selectedCube = "";
+    userCubes = [];
+  },
+  created() {
+    this.$http.post("cubes", data).then(x => {
+      this.userCubes.push(x.data);
+    });
+  },
+};
 </script>
 
 <style>
