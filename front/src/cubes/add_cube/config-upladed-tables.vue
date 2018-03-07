@@ -65,7 +65,11 @@ export default {
             return response.json();
           });
       } else {
-        this.$http.post("cubes/confirm_cube", this.cubeName).then(response => {
+        let data = {
+          'cubeName' : this.cubeName,
+          'customCube' : false
+        };
+        this.$http.post("cubes/confirm_cube", data).then(response => {
           eventModalBus.modalToShow("success");
           return response.json();
         });

@@ -48,8 +48,12 @@ export default {
   methods: {
     confirmCustomCube() {
       // this.$emit('tablesAndColumnsResult', this.tablesAndColumnsResult);
+      let data = {
+          'cubeName' : this.cubeName,
+          'customCube' : true
+        };
       this.$http
-        .post("cubes/confirm_custom_cube", this.cubeName)
+        .post("cubes/confirm_cube", data)
         .then(response => {
           eventModalBus.modalToShow("success");
           return response.json();

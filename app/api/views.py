@@ -145,23 +145,23 @@ def add_cube():
 
 @api('/cubes/confirm_cube', methods=['POST'])
 @login_required
-def confirm_cube(custom=False):
+def confirm_cube():
     if request.data:
-        if custom:
-            temp_folder = request.data.decode('utf-8')
+        request_data = json.loads(request.data)
+        custom_cube = request_data['customCube']
+        cube_name = request_data['cubeName'].decode('utf-8')
+        if custom_cube:
+            temp_folder = cube_name
         else:
             temp_folder = TEMP_CUBE_NAME
         new_temp_dir = os.path.join(OLAPY_TEMP_DIR, temp_folder)
         if isdir(new_temp_dir):
-            olapy_data_dir = os.path.join(current_app.instance_path, 'olapy-data', 'cubes',
-                                          request.data.decode('utf-8'))
+            olapy_data_dir = os.path.join(current_app.instance_path, 'olapy-data', 'cubes', cube_name)
             copy_tree(new_temp_dir, olapy_data_dir)
             shutil.rmtree(new_temp_dir)
-            if not custom:
-                # custom -> config with config file , no need to return response, instead wait to use the cube conf
-                save_cube_config_2_db(cube_config=None, cube_name=request.data.decode('utf-8'), source='csv')
-                return jsonify({'success': True}), 200
-        return jsonify({'success': False}), 400
+            # custom -> config with config file , no need to return response, instead wait to use the cube conf
+            save_cube_config_2_db(config=None, cube_name=cube_name, source='csv')
+            return jsonify({'success': True}), 200
 
 
 @api('/cubes/clean_tmp_dir', methods=['POST'])
@@ -315,22 +315,25 @@ def _gen_dimensions(data_request):
     return dimensions
 
 
-def save_cube_config_2_db(cube_config, cube_name, source):
+def save_cube_config_2_db(config, cube_name, source):
     queried_cube = User.query.filter(User.id == current_user.id).first().cubes.filter(
         Cube.name == cube_name).first()
+    # config can be None
+    cube_config = config.get('cube_config') if config else None
+    db_config = config.get('db_config') if config else None
     if queried_cube:
         # update cube
         queried_cube.name = cube_name
         queried_cube.source = source
-        queried_cube.config = cube_config.get('cube_config')
-        queried_cube.db_config = cube_config.get('db_config')
+        queried_cube.config = cube_config
+        queried_cube.db_config = db_config
     else:
         # add new cube
         cube = Cube(users=[current_user],
                     name=cube_name,
                     source=source,
-                    config=cube_config.get('cube_config'),
-                    db_config=cube_config.get('db_config')
+                    config=cube_config,
+                    db_config=db_config
                     )
         db.session.add(cube)
     db.session.commit()
@@ -401,17 +404,8 @@ def construct_custom_cube():
             star_schema_table = construct_custom_files_cube(data_request)
         if star_schema_table:
             return jsonify(star_schema_table)
-
-
-@api('/cubes/confirm_custom_cube', methods=['POST'])
-@login_required
-def confirm_custom_cube():
-    # todo fusion with confirm_db_cube
-    try:
-        confirm_cube(custom=True)
-        return jsonify({'success': True}), 200
-    except:
-        return jsonify({'success': False}), 400
+        else:
+            raise Exception('unable to construct cube')
 
 
 @api('/cubes/connectDB', methods=['POST'])
@@ -448,5 +442,5 @@ def confirm_db_cube():
     request_data = request.get_json()
     config = {'cube_config': get_db_config(request_data),
               'db_config': None}
-    save_cube_config_2_db(cube_config=config, cube_name=request_data['selectCube'], source='db')
+    save_cube_config_2_db(config=config, cube_name=request_data['selectCube'], source='db')
     return jsonify({'success': True}), 200
