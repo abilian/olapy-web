@@ -126,28 +126,27 @@ def add_cube():
         clean_temp_dir(cube_dir)
     else:
         os.makedirs(cube_dir)
-    if request.method == 'POST':
-        all_file = request.files.getlist('files')
-        for file_uploaded in all_file:
-            if file_uploaded and allowed_file(file_uploaded.filename):
-                filename = secure_filename(file_uploaded.filename)
-                file_uploaded.save(os.path.join(cube_dir, filename))
-        cube = construct_cube(cube_name=TEMP_CUBE_NAME, cubes_path=OLAPY_TEMP_DIR, source_type='csv')
-        if 'dimensions' in cube:
-            return jsonify(cube)
-        else:
-            return jsonify(
-                {'facts': None,
-                 'dimensions': [file.filename for file in all_file],
-                 'measures': None
-                 }
-            )
+    all_file = request.files.getlist('files')
+    for file_uploaded in all_file:
+        if file_uploaded and allowed_file(file_uploaded.filename):
+            filename = secure_filename(file_uploaded.filename)
+            file_uploaded.save(os.path.join(cube_dir, filename))
+    cube = construct_cube(cube_name=TEMP_CUBE_NAME, cubes_path=OLAPY_TEMP_DIR, source_type='csv')
+    if 'dimensions' in cube:
+        return jsonify(cube)
+    else:
+        return jsonify(
+            {'facts': None,
+             'dimensions': [file.filename for file in all_file],
+             'measures': None
+             }
+        )
 
 
 @api('/cubes/confirm_cube', methods=['POST'])
 @login_required
 def confirm_cube(custom=False):
-    if request.data and request.method == 'POST':
+    if request.data:
         if custom:
             temp_folder = request.data.decode('utf-8')
         else:
@@ -218,7 +217,7 @@ def get_columns_from_db(db_cube_config):
 @login_required
 def get_table_columns():
     db_cube_config = request.get_json()
-    if db_cube_config and request.method == 'POST':
+    if db_cube_config:
         if db_cube_config['dbConfig']:
             return jsonify(get_columns_from_db(db_cube_config))
         else:
@@ -253,7 +252,7 @@ def get_tables_columns_from_files(db_cube_config):
 @api('/cubes/get_tables_and_columns', methods=['POST'])
 @login_required
 def get_tables_and_columns():
-    if request.data and request.method == 'POST':
+    if request.data:
         db_cube_config = json.loads(request.data.decode('utf-8'))
         if db_cube_config['dbConfig']:
             return jsonify(get_tables_columns_from_db(db_cube_config))
@@ -394,7 +393,7 @@ def construct_custom_db_cube(data_request):
 @api('/cubes/try_construct_custom_cube', methods=['POST'])
 @login_required
 def construct_custom_cube():
-    if request.data and request.method == 'POST':
+    if request.data:
         data_request = json.loads(request.data)
         if data_request['dbConfig']:
             star_schema_table = construct_custom_db_cube(data_request)
@@ -418,7 +417,7 @@ def confirm_custom_cube():
 @api('/cubes/connectDB', methods=['POST'])
 @login_required
 def connectDB():
-    if request.data and request.method == 'POST':
+    if request.data:
         data_request = json.loads(request.data)
         data_connection = get_db_config(data_request)
         executor = MdxEngine(source_type="db", database_config=data_connection)
@@ -428,28 +427,26 @@ def connectDB():
 @api('/cubes/add_DB_cube', methods=['POST'])
 @login_required
 def add_db_cube():
-    if request.method == 'POST':
-        request_data = request.get_json()
-        db_credentials = get_db_config(request_data)
-        construction = construct_cube(cube_name=request_data['selectCube'], source_type='db', facts='facts',
-                                      database_config=db_credentials)
-        if 'dimensions' in construction:
-            return jsonify(construction)
-        else:
-            return jsonify(
-                {'facts': None,
-                 'dimensions': construction['all_tables'],
-                 'measures': None
-                 }
-            )
+    request_data = request.get_json()
+    db_credentials = get_db_config(request_data)
+    construction = construct_cube(cube_name=request_data['selectCube'], source_type='db', facts='facts',
+                                  database_config=db_credentials)
+    if 'dimensions' in construction:
+        return jsonify(construction)
+    else:
+        return jsonify(
+            {'facts': None,
+             'dimensions': construction['all_tables'],
+             'measures': None
+             }
+        )
 
 
 @api('/cubes/confirm_db_cube', methods=['POST'])
 @login_required
 def confirm_db_cube():
-    if request.method == 'POST':
-        request_data = request.get_json()
-        config = {'cube_config': get_db_config(request_data),
-                  'db_config': None}
-        save_cube_config_2_db(cube_config=config, cube_name=request_data['selectCube'], source='db')
-        return jsonify({'success': True}), 200
+    request_data = request.get_json()
+    config = {'cube_config': get_db_config(request_data),
+              'db_config': None}
+    save_cube_config_2_db(cube_config=config, cube_name=request_data['selectCube'], source='db')
+    return jsonify({'success': True}), 200
