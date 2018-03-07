@@ -222,7 +222,7 @@ def get_table_columns():
             return jsonify(get_columns_from_db(db_cube_config))
         else:
             return jsonify(get_columns_from_files(db_cube_config))
-    return jsonify({'success': False}), 400
+    raise Exception('cube config is not specified')
 
 
 def get_tables_columns_from_db(db_cube_config):
@@ -258,7 +258,7 @@ def get_tables_and_columns():
             return jsonify(get_tables_columns_from_db(db_cube_config))
         else:
             return jsonify(get_tables_columns_from_files(db_cube_config))
-    return jsonify({'success': False}), 400
+    raise Exception('cube config is not specified')
 
 
 def _gen_facts(data_request):
