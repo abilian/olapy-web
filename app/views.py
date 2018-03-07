@@ -157,3 +157,12 @@ def schema_designer():
     return render_template('schema_designer.html',
                            user=current_user,
                            user_cubes=cubes_names)
+
+@route('/reporting', methods=['GET', 'POST'])
+@login_required
+def reporting():
+    executor = MdxEngine()
+    cubes_names = executor.get_cubes_names()
+    return render_template('reporting.html',
+                           user=current_user,
+                           user_cubes=cubes_names)
