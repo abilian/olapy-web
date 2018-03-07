@@ -66,8 +66,8 @@ export default {
           });
       } else {
         let data = {
-          'cubeName' : this.cubeName,
-          'customCube' : false
+          cubeName: this.cubeName,
+          customCube: false,
         };
         this.$http.post("cubes/confirm_cube", data).then(response => {
           eventModalBus.modalToShow("success");

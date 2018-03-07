@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueResource from "vue-resource";
 import App from "./App.vue";
-import Reporting from "./reporting/reporting.vue"
+import Reporting from "./reporting/reporting.vue";
 
 Vue.use(VueResource);
 
@@ -22,7 +22,6 @@ new Vue({
   delimiters: ["[[", "]]"],
   render: h => h(App),
 });
-
 
 new Vue({
   el: "#reporting",

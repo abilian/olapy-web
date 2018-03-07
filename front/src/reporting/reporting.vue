@@ -8,20 +8,18 @@
 
 
 <script>
+import selectCubeDashboard from "./selectCubeDashboard";
 
-  import selectCubeDashboard from './selectCubeDashboard'
-
-  export default {
-    data: function () {
-      return {
-        selectCubeModal: false
-      };
-    },
-    components: {
-      'select-cube-dashboard': selectCubeDashboard
-    }
-  };
-
+export default {
+  data: function() {
+    return {
+      selectCubeModal: false,
+    };
+  },
+  components: {
+    "select-cube-dashboard": selectCubeDashboard,
+  },
+};
 </script>
 
 <style>
