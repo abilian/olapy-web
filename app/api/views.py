@@ -65,7 +65,7 @@ def _load_cube(cube_name):
     return executor
 
 
-@api('/cubes/dimensions/<cube_name>')
+@api('/cubes/<cube_name>/dimensions')
 @login_required
 def get_cube_dimensions(cube_name):
     executor = _load_cube(cube_name)
@@ -73,7 +73,7 @@ def get_cube_dimensions(cube_name):
     return jsonify(data)
 
 
-@api('/cubes/facts/<cube_name>')
+@api('/cubes/<cube_name>/facts')
 @login_required
 def get_cube_facts(cube_name):
     executor = _load_cube(cube_name)

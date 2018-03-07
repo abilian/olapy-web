@@ -38,7 +38,7 @@ export default {
     getCubeFacts: function(currentCube) {
       //if errors or cube constrcution probs don't show facts
       this.facts = {};
-      let url = "cubes/facts/".concat(currentCube);
+      let url = "cubes/" + currentCube + "/facts";
       this.$http
         .get(url)
         .then(response => {

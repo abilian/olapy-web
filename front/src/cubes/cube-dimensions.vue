@@ -24,7 +24,7 @@ export default {
     getCubeDimensions: function(currentCube) {
       //if errors or cube constrcution probs don't show dimensions
       this.dimensions = [];
-      let url = "cubes/dimensions/".concat(currentCube);
+      let url = "cubes/" + currentCube + "/dimensions";
       this.$http
         .get(url)
         .then(response => {
