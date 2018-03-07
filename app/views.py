@@ -158,6 +158,7 @@ def schema_designer():
                            user=current_user,
                            user_cubes=cubes_names)
 
+
 @route('/reporting', methods=['GET', 'POST'])
 @login_required
 def reporting():
