@@ -54,7 +54,8 @@ def get_config(cube_name):
 @api('/cubes')
 @login_required
 def get_cubes():
-    return jsonify([cube.name for cube in Cube.query.all()])
+    user_cubes = User.query.filter(User.id == current_user.id).first().cubes.all()
+    return jsonify([cube.name for cube in user_cubes])
 
 
 def _load_cube(cube_name):
