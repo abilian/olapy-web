@@ -160,8 +160,8 @@ def confirm_cube():
             copy_tree(new_temp_dir, olapy_data_dir)
             shutil.rmtree(new_temp_dir)
             # custom -> config with config file , no need to return response, instead wait to use the cube conf
-            save_cube_config_2_db(config=None, cube_name=cube_name, source='csv')
-            return jsonify({'success': True}), 200
+        save_cube_config_2_db(config=None, cube_name=cube_name, source='csv')
+        return jsonify({'success': True}), 200
 
 
 @api('/cubes/clean_tmp_dir', methods=['POST'])
