@@ -15,6 +15,7 @@ from flask import Blueprint, jsonify
 from flask_login import login_required, current_user
 from olapy.core.mdx.executor.execute import MdxEngine
 from flask import request
+from pathlib import Path
 from werkzeug.utils import secure_filename
 import pandas as pd
 import json
@@ -26,7 +27,7 @@ from app.models import Cube, User
 API = Blueprint('api', __name__, template_folder='templates')
 api = API.route
 
-ALLOWED_EXTENSIONS = {'csv'}
+ALLOWED_EXTENSIONS = {'.csv'}
 TEMP_CUBE_NAME = 'TEMP_CUBE'
 OLAPY_TEMP_DIR = os.path.join(tempfile.mkdtemp(), 'TEMP')
 home = expanduser('~')
@@ -85,7 +86,8 @@ def get_cube_facts(cube_name):
 
 
 def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+    file_extension = Path(filename).suffix
+    return file_extension in ALLOWED_EXTENSIONS
 
 
 def clean_temp_dir(olapy_data_dir):
@@ -119,16 +121,17 @@ def try_construct_cube(cube_name, **kwargs):
 @login_required
 def add_cube():
     # temporary
-    if isdir(os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME)):
-        clean_temp_dir(os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME))
+    cube_dir = os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME)
+    if isdir(cube_dir):
+        clean_temp_dir(cube_dir)
     else:
-        os.makedirs(os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME))
+        os.makedirs(cube_dir)
     if request.method == 'POST':
         all_file = request.files.getlist('files')
         for file_uploaded in all_file:
             if file_uploaded and allowed_file(file_uploaded.filename):
                 filename = secure_filename(file_uploaded.filename)
-                file_uploaded.save(os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME, filename))
+                file_uploaded.save(os.path.join(cube_dir, filename))
 
         cube = try_construct_cube(cube_name=TEMP_CUBE_NAME, cubes_path=OLAPY_TEMP_DIR,
                                   source_type='csv')
@@ -178,7 +181,8 @@ def clean_tmp_dir():
 
 def get_columns_from_files(data):
     if isdir(OLAPY_TEMP_DIR):
-        df = pd.read_csv(os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME, data['tableName'].decode('utf-8')), sep=';')
+        cube_file_path = os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME, data['tableName'].decode('utf-8'))
+        df = pd.read_csv(cube_file_path, sep=';')
         # todo show columns with there types
         if data['WithID']:
             result = [column for column in df.columns]
@@ -245,7 +249,8 @@ def get_tables_columns_from_files(data):
         response = {}
         att_tables = data['allTables'].split(',')
         for table_name in att_tables:
-            df = pd.read_csv(os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME, table_name), sep=';')
+            file_path = os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME, table_name)
+            df = pd.read_csv(file_path, sep=';')
             response[table_name] = list(df.columns)
         return jsonify(response)
 
@@ -297,10 +302,11 @@ def _gen_dimensions(data_request):
     :param data_request:
     :return:
     """
+    facts_table = data_request['factsTable'].replace('.csv', '')
     dimensions = [
         {
-            'name': data_request['factsTable'].replace('.csv', ''),
-            'displayName': data_request['factsTable'].replace('.csv', '')
+            'name': facts_table,
+            'displayName': facts_table
         }
     ]
     for table in data_request['tablesAndColumnsResult']:
