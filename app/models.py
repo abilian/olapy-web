@@ -9,8 +9,13 @@ import json
 
 cubes = db.Table('cubes',
                  db.Column('cube_id', db.Integer, db.ForeignKey('cube.id'), primary_key=True),
-                 db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True)
+                 db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
                  )
+
+cubes_dashboards = db.Table('cubes_dashboards',
+                            db.Column('cube_id', db.Integer, db.ForeignKey('cube.id'), primary_key=True),
+                            db.Column('dashboard_id', db.Integer, db.ForeignKey('dashboard.id'), primary_key=True),
+                            )
 
 
 class User(db.Model, UserMixin):
@@ -20,6 +25,7 @@ class User(db.Model, UserMixin):
     password_hash = db.Column(db.String)
     cubes = db.relationship('Cube', secondary=cubes, lazy='dynamic',
                             backref=db.backref('users', lazy=True))
+    dashboards = db.relationship('Dashboard', backref='user', lazy=True)
 
     @property
     def password(self):
@@ -65,3 +71,12 @@ class Cube(db.Model):
 
     def __repr__(self):
         return str(self.__dict__)
+
+
+class Dashboard(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'),
+                        nullable=False)
+    cubes = db.relationship('Cube', secondary=cubes_dashboards, lazy='dynamic',
+                            backref=db.backref('dashboards', lazy=True))
