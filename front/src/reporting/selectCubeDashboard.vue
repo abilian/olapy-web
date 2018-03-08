@@ -47,7 +47,7 @@ export default {
   },
   created() {
     this.$http
-      .get("cubes")
+      .get("api/cubes")
       .then(response => {
         return response.json();
       })
