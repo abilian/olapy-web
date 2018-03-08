@@ -80,3 +80,6 @@ class Dashboard(db.Model):
                         nullable=False)
     cubes = db.relationship('Cube', secondary=cubes_dashboards, lazy='dynamic',
                             backref=db.backref('dashboards', lazy=True))
+
+    def __repr__(self):
+        return str(self.__dict__)
