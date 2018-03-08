@@ -52,11 +52,9 @@ export default {
         return response.json();
       })
       .then(data => {
-        const resultArray = [];
         for (let key in data) {
-          resultArray.push(data[key]);
+          this.userCubes.push(data[key]);
         }
-        this.userCubes = resultArray;
       });
   },
 };

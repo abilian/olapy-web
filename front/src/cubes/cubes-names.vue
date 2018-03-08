@@ -24,11 +24,9 @@ export default {
           return response.json();
         })
         .then(data => {
-          const resultArray = [];
           for (let key in data) {
-            resultArray.push(data[key]);
+            this.cubesNames.push(data[key]);
           }
-          this.cubesNames = resultArray;
         });
     },
     changeCurrentCube(cube) {
