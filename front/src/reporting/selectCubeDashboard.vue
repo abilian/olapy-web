@@ -41,21 +41,23 @@
 export default {
   data: function() {
     return {
-      selectedCube : "",
-      userCubes : []
-    }
+      selectedCube: "",
+      userCubes: [],
+    };
   },
   created() {
-    this.$http.get("cubes").then(response => {
-          return response.json();
-        })
-        .then(data => {
-          const resultArray = [];
-          for (let key in data) {
-            resultArray.push(data[key]);
-          }
-          this.userCubes = resultArray;
-        });
+    this.$http
+      .get("cubes")
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        const resultArray = [];
+        for (let key in data) {
+          resultArray.push(data[key]);
+        }
+        this.userCubes = resultArray;
+      });
   },
 };
 </script>
