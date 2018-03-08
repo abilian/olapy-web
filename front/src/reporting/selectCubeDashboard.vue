@@ -23,10 +23,10 @@
           <div class="modal-footer">
             <slot name="footer">
               <!--<button class="modal-default-button" @click="$emit('SelectInputStatus', 'second')">-->
-              <button class="modal-default-button">
+              <button class="modal-default-button" @click="$emit('interface', 'dashboardMaker')">
                 Next
               </button>
-              <button class="modal-default-button" @click="$emit('close', false)">
+              <button class="modal-default-button" @click="$emit('interface', 'main')">
                 close
               </button>
             </slot>
