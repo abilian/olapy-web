@@ -13,7 +13,7 @@
                 <select v-model="selectedCube">
                   <option disabled value="">Choose</option>
                     <option v-for="cube in userCubes">
-                      {{ cube.name }}
+                      {{ cube }}
                     </option>
                 </select>
               </label>
@@ -40,13 +40,22 @@
 <script>
 export default {
   data: function() {
-    selectedCube = "";
-    userCubes = [];
+    return {
+      selectedCube : "",
+      userCubes : []
+    }
   },
   created() {
-    this.$http.post("cubes", data).then(x => {
-      this.userCubes.push(x.data);
-    });
+    this.$http.get("cubes").then(response => {
+          return response.json();
+        })
+        .then(data => {
+          const resultArray = [];
+          for (let key in data) {
+            resultArray.push(data[key]);
+          }
+          this.userCubes = resultArray;
+        });
   },
 };
 </script>
