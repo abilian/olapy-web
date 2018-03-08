@@ -2,7 +2,7 @@
   <div>
     <input type="button" value="new dashboard" @click="selectCubeModal = true"/>
 
-    <select-cube-dashboard v-show="selectCubeModal"/>
+    <select-cube-dashboard v-show="selectCubeModal" @close="selectCubeModal = $event"/>
     <hr>
     <user-dashboards/>
   </div>
