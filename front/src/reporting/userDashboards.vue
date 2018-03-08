@@ -13,26 +13,25 @@
 </template>
 
 <script>
-  export default {
-
-    data: function () {
-      return {
-        userDashboards: [],
-      };
-    },
-    created() {
-      this.$http
-        .get("dash_api/dashboards")
-        .then(response => {
-          return response.json();
-        })
-        .then(data => {
-          for (let key in data) {
-            this.userDashboards.push(data[key]);
-          }
-        });
-    },
-  }
+export default {
+  data: function() {
+    return {
+      userDashboards: [],
+    };
+  },
+  created() {
+    this.$http
+      .get("dash_api/dashboards")
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        for (let key in data) {
+          this.userDashboards.push(data[key]);
+        }
+      });
+  },
+};
 </script>
 
 <style scoped>
