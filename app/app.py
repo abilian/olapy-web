@@ -82,9 +82,11 @@ def configure_blueprints(app):
     # type: (Flask) -> None
 
     from .views import blueprint
+    from .dashboard_api.views import DASH_API
     from .api.views import API
 
-    app.register_blueprint(API, url_prefix='/api')
+    app.register_blueprint(API, url_prefix='/api/')
+    app.register_blueprint(DASH_API, url_prefix='/dash_api/')
     app.register_blueprint(blueprint)
 
 

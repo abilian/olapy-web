@@ -100,7 +100,7 @@ export default {
     },
     updateTableColumns(tableName, index) {
       this.$http
-        .post("cubes/get_table_columns", {
+        .post("api/cubes/get_table_columns", {
           tableName: tableName,
           WithID: true,
           dbConfig: this.dbConfig,
@@ -117,7 +117,7 @@ export default {
   watch: {
     factsTable: function() {
       this.$http
-        .post("cubes/get_table_columns", {
+        .post("api/cubes/get_table_columns", {
           tableName: this.factsTable,
           WithID: false,
           dbConfig: this.dbConfig,

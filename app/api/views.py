@@ -51,7 +51,7 @@ def get_config(cube_name):
     }
 
 
-@api('/cubes')
+@api('cubes')
 @login_required
 def get_cubes():
     user_cubes = User.query.filter(User.id == current_user.id).first().cubes.all()
@@ -67,7 +67,7 @@ def _load_cube(cube_name):
     return executor
 
 
-@api('/cubes/<cube_name>/dimensions')
+@api('cubes/<cube_name>/dimensions')
 @login_required
 def get_cube_dimensions(cube_name):
     executor = _load_cube(cube_name)
@@ -75,7 +75,7 @@ def get_cube_dimensions(cube_name):
     return jsonify(tables_names)
 
 
-@api('/cubes/<cube_name>/facts')
+@api('cubes/<cube_name>/facts')
 @login_required
 def get_cube_facts(cube_name):
     cube = _load_cube(cube_name)
@@ -118,7 +118,7 @@ def construct_cube(cube_name, **kwargs):
         }
 
 
-@api('/cubes/add', methods=['POST'])
+@api('cubes/add', methods=['POST'])
 @login_required
 def add_cube():
     # temporary
@@ -144,7 +144,7 @@ def add_cube():
         )
 
 
-@api('/cubes/confirm_cube', methods=['POST'])
+@api('cubes/confirm_cube', methods=['POST'])
 @login_required
 def confirm_cube():
     if request.data:
@@ -165,7 +165,7 @@ def confirm_cube():
         return jsonify({'success': True}), 200
 
 
-@api('/cubes/clean_tmp_dir', methods=['POST'])
+@api('cubes/clean_tmp_dir', methods=['POST'])
 @login_required
 def clean_tmp_dir():
     for root, dirs, files in os.walk(OLAPY_TEMP_DIR):
@@ -214,7 +214,7 @@ def get_columns_from_db(db_cube_config):
     return result
 
 
-@api('/cubes/get_table_columns', methods=['POST'])
+@api('cubes/get_table_columns', methods=['POST'])
 @login_required
 def get_table_columns():
     db_cube_config = request.get_json()
@@ -250,7 +250,7 @@ def get_tables_columns_from_files(db_cube_config):
         return response
 
 
-@api('/cubes/get_tables_and_columns', methods=['POST'])
+@api('cubes/get_tables_and_columns', methods=['POST'])
 @login_required
 def get_tables_and_columns():
     if request.data:
@@ -394,7 +394,7 @@ def construct_custom_db_cube(data_request):
         return None
 
 
-@api('/cubes/try_construct_custom_cube', methods=['POST'])
+@api('cubes/try_construct_custom_cube', methods=['POST'])
 @login_required
 def construct_custom_cube():
     if request.data:
@@ -409,7 +409,7 @@ def construct_custom_cube():
             raise Exception('unable to construct cube')
 
 
-@api('/cubes/connectDB', methods=['POST'])
+@api('cubes/connectDB', methods=['POST'])
 @login_required
 def connectDB():
     if request.data:
@@ -419,7 +419,7 @@ def connectDB():
         return jsonify(executor.get_cubes_names())
 
 
-@api('/cubes/add_DB_cube', methods=['POST'])
+@api('cubes/add_DB_cube', methods=['POST'])
 @login_required
 def add_db_cube():
     request_data = request.get_json()
@@ -437,7 +437,7 @@ def add_db_cube():
         )
 
 
-@api('/cubes/confirm_db_cube', methods=['POST'])
+@api('cubes/confirm_db_cube', methods=['POST'])
 @login_required
 def confirm_db_cube():
     request_data = request.get_json()

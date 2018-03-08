@@ -19,7 +19,7 @@ export default {
   methods: {
     getCubes: function() {
       this.$http
-        .get("cubes")
+        .get("api/cubes")
         .then(response => {
           return response.json();
         })

@@ -86,7 +86,7 @@ export default {
       dbConfig: this.dbConfig,
       allTables: allTables.join(","),
     };
-    this.$http.post("cubes/get_tables_and_columns", data).then(x => {
+    this.$http.post("api/cubes/get_tables_and_columns", data).then(x => {
       this.tablesAndColumns = x.data;
       for (let key in x.data) {
         if (key !== this.factsTable) {

@@ -52,7 +52,7 @@ export default {
         cubeName: this.cubeName,
         customCube: true,
       };
-      this.$http.post("cubes/confirm_cube", data).then(response => {
+      this.$http.post("api/cubes/confirm_cube", data).then(response => {
         eventModalBus.modalToShow("success");
         return response.json();
       });
@@ -68,7 +68,7 @@ export default {
       dbConfig: this.dbConfig,
     };
     this.$http
-      .post("cubes/try_construct_custom_cube", data)
+      .post("api/cubes/try_construct_custom_cube", data)
       .then(x => {
         this.resultCube = x.data;
       })

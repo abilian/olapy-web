@@ -90,7 +90,7 @@ export default {
   methods: {
     connectDB() {
       this.$http
-        .post("cubes/connectDB", {
+        .post("api/cubes/connectDB", {
           engine: this.engine,
           servername: this.servername,
           port: this.port,
@@ -117,7 +117,7 @@ export default {
         password: this.password,
       };
       this.$http
-        .post("cubes/add_DB_cube", data)
+        .post("api/cubes/add_DB_cube", data)
         .then(x => {
           if (x.data.facts != null) {
             this.$emit("SelectInputStatus", "success");

@@ -85,7 +85,7 @@ export default {
       // upload data to the server
       this.currentStatus = STATUS_SAVING;
       this.$http
-        .post("cubes/add", formData)
+        .post("api/cubes/add", formData)
         .then(x => {
           this.uploadedFiles = [].concat(x.data.dimensions);
           if (x.data.facts != null) {

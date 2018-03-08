@@ -5,7 +5,7 @@ import Reporting from "./reporting/reporting.vue";
 
 Vue.use(VueResource);
 
-Vue.http.options.root = "http://127.0.0.1:5000/api/";
+Vue.http.options.root = "http://127.0.0.1:5000/";
 
 export const eventBus = new Vue({
   methods: {

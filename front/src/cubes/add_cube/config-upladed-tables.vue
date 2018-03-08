@@ -59,7 +59,7 @@ export default {
     confirmCube: function() {
       if (this.dbConfig !== "") {
         this.$http
-          .post("cubes/confirm_db_cube", this.dbConfig)
+          .post("api/cubes/confirm_db_cube", this.dbConfig)
           .then(response => {
             eventModalBus.modalToShow("success");
             return response.json();
@@ -69,7 +69,7 @@ export default {
           cubeName: this.cubeName,
           customCube: false,
         };
-        this.$http.post("cubes/confirm_cube", data).then(response => {
+        this.$http.post("api/cubes/confirm_cube", data).then(response => {
           eventModalBus.modalToShow("success");
           return response.json();
         });
