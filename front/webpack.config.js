@@ -1,7 +1,13 @@
-var path = require('path')
-var webpack = require('webpack')
+var path = require('path');
+var webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
+  plugins: [
+    new UglifyJsPlugin({
+      'sourceMap': true
+    })
+  ],
   entry: './src/main.js',
   output: {
     // path: path.resolve(__dirname, './dist'),
@@ -29,7 +35,10 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        query: {
+          presets: ['es2015'],
+        },
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
