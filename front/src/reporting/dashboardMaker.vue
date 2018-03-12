@@ -12,10 +12,13 @@
         <!--<h4 class="title">Pie</h4>-->
         <!--<div ref="pie"></div>-->
         <!--<div v-for="(element, index) in list" :key="index">{{element.name}}</div>-->
+        <!--<div class="table-responsive" v-html="resultCube">-->
       </draggable>
       <h2>List 2 Draggable</h2>
       <draggable v-model="list2" class="dashboard" :options="{group:'charts'}">
-        <div v-for="(element, index) in list2" :key="index">{{element.name}}</div>
+        <!--style="border-style: dotted; background-color: white; border-color: #c7ddef"-->
+        <div  v-for="(element, index) in list2" :id="element.type + (index - 1)">{{element.type + (index - 1)}}</div>
+        <!--<div id="pie"></div>-->
       </draggable>
 
 
@@ -41,48 +44,65 @@
     data: function () {
       return {
         list: [{
-          name: "Pie"
+          type: "pie"
         }, {
-          name: "Bar"
+          type: "scatter"
         }, {
-          name: "Scatter"
+          type: "bar"
         }],
+
+
         list2: [{
-          name: "fig1"
-        }, {
-          name: "fig2"
-        }, {
-          name: "fig3"
+          type: "-"
         }]
       };
     },
     methods: {
-      // add: function () {
-      //   this.list.push({
-      //     name: 'Bar'
-      //   });
-      // },
-      // replace: function () {
-      //   this.list = [{
-      //     name: 'Pie'
-      //   }]
-      // }
+      genGraph(grapheType) {
+        if (grapheType === 'bar') {
+          //todo replace with rest api
+          let data = [{
+            x: ['giraffes', 'orangutans', 'monkeys'],
+            y: [20, 14, 23],
+            type: 'bar'
+          }];
+          return {
+            'data': data
+          }
+        }
+        else if (grapheType === 'pie') {
+          let data = [{
+            values: [19, 26, 55],
+            labels: ['Residential', 'Non-Residential', 'Utility'],
+            type: 'pie'
+          }];
+
+          let layout = {
+            height: 400,
+            width: 500
+          };
+          return {
+            'data': data,
+            'layout': layout
+          }
+        }
+
+
+      }
     },
     components: {
       draggable,
     },
-    mounted () {
-      // Plotly.plot(
-      //   this.$refs.pie,
-      //   [{
-      //     values: [19, 26, 55],
-      //     labels: ['Residential', 'Non-Residential', 'Utility'],
-      //     type: 'pie'
-      //   }],
-      //   {
-      //     margin: {t: 0, l: 0, b: 0, r: 0}
-      //   }
-      // )
+    watch: {
+
+      list2: function (list) {
+        let chartType = list[[list.length - 1]].type;
+        console.log(chartType);
+        let chartDiv = chartType + (list.length - 3); // - 2 normalement
+        let graph = this.genGraph(chartType);
+        Plotly.newPlot(chartDiv, graph.data, graph.layout);
+
+      }
     }
   };
 </script>
