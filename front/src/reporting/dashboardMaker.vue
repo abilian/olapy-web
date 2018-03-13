@@ -1,17 +1,6 @@
 <template>
   <div>
     my dashboard :
-    <draggable v-model="list" class="dash-toolbox" :move="onMove"
-               :options="{group:{ name:'charts',  pull:'clone' }}">
-      <div><img class="toolbox-icons"
-                src="https://cdn4.iconfinder.com/data/icons/flat-business-icon-set/450/bar_chart-512.png"/></div>
-      <div><img class="toolbox-icons"
-                src="http://www.myiconfinder.com/uploads/iconsets/256-256-08f7586f151e4761d26cb03276ac9b71.png"/>
-      </div>
-
-    </draggable>
-
-
     <draggable v-model="list2" class="dashboard" :options="{group:'charts'}">
       <!--style="border-style: dotted; background-color: white; border-color: #c7ddef"-->
       <div id="divDash">
@@ -20,6 +9,15 @@
     </draggable>
 
 
+    <draggable v-model="list" class="dash-toolbox" :move="onMove"
+               :options="{group:{ name:'charts',  pull:'clone' }}">
+      <div><img :key="0" class="toolbox-icons"
+                src="https://cdn4.iconfinder.com/data/icons/flat-business-icon-set/450/bar_chart-512.png"/></div>
+      <div><img :key="2" class="toolbox-icons"
+                src="http://www.myiconfinder.com/uploads/iconsets/256-256-08f7586f151e4761d26cb03276ac9b71.png"/>
+      </div>
+
+    </draggable>
     <!--<div class="dash-toolbox">-->
       <!--&lt;!&ndash;todo change flask or vue delimiter&ndash;&gt;-->
       <!--<img class="toolbox-icons"-->
@@ -119,7 +117,7 @@
 
   .dash-toolbox {
     position: fixed;
-    margin: 36% 22%;
+    margin: 32% 22%;
     background: #c7ddef;
     width: 50%;
     height: 50px;
