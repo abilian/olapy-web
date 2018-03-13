@@ -22,17 +22,16 @@ import dashboardMarker from "./dashboardMaker";
 export default {
   data: function() {
     return {
-      reportingInterface: 'main',
+      reportingInterface: "main",
     };
   },
   components: {
     "select-cube-dashboard": selectCubeDashboard,
     "user-dashboards": userDashboards,
-    "dashboard-marker" : dashboardMarker
+    "dashboard-marker": dashboardMarker,
   },
 };
 </script>
 
 <style>
-
 </style>

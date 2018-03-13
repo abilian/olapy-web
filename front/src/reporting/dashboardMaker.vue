@@ -53,120 +53,117 @@
 </template>
 
 <script>
+import Plotly from "plotly.js";
+import draggable from "vuedraggable";
+import VueGridLayout from "vue-grid-layout";
 
-  import Plotly from 'plotly.js'
-  import draggable from 'vuedraggable'
-  import VueGridLayout from 'vue-grid-layout'
+var GridLayout = VueGridLayout.GridLayout;
+var GridItem = VueGridLayout.GridItem;
 
-  var GridLayout = VueGridLayout.GridLayout;
-	var GridItem = VueGridLayout.GridItem;
+export default {
+  data: function() {
+    return {
+      layout: [{ x: 0, y: 0, w: 2, h: 2, i: "0" }],
+      list: [
+        {
+          type: "bar",
+        },
+        {
+          type: "scatter",
+        },
+        {
+          type: "pie",
+        },
+      ],
 
-
-  export default {
-    data: function () {
-      return {
-        layout: [{"x":0,"y":0,"w":2,"h":2,"i":"0"}],
-        list: [{
-          type: "bar"
-        }, {
-          type: "scatter"
-        }, {
-          type: "pie"
-        }],
-
-
-        list2: [],
-        draggedChart : ''
-      };
-    },
-    methods: {
-      genGraph(grapheType) {
-        if (grapheType === 'bar') {
-          //todo replace with rest api
-          let data = [{
-            x: ['giraffes', 'orangutans', 'monkeys'],
+      list2: [],
+      draggedChart: "",
+    };
+  },
+  methods: {
+    genGraph(grapheType) {
+      if (grapheType === "bar") {
+        //todo replace with rest api
+        let data = [
+          {
+            x: ["giraffes", "orangutans", "monkeys"],
             y: [20, 14, 23],
-            type: 'bar'
-          }];
-          return {
-            'data': data
-          }
-        }
-        else if (grapheType === 'pie') {
-          let data = [{
+            type: "bar",
+          },
+        ];
+        return {
+          data: data,
+        };
+      } else if (grapheType === "pie") {
+        let data = [
+          {
             values: [19, 26, 55],
-            labels: ['Residential', 'Non-Residential', 'Utility'],
-            type: 'pie'
-          }];
+            labels: ["Residential", "Non-Residential", "Utility"],
+            type: "pie",
+          },
+        ];
 
-          let layout = {
-            height: 400,
-            width: 500
-          };
-          return {
-            'data': data,
-            'layout': layout
-          }
-        }
-
-
-      },
-      onMove({relatedContext, draggedContext}) {
-        this.draggedChart = draggedContext.element.type;
-
+        let layout = {
+          height: 400,
+          width: 500,
+        };
+        return {
+          data: data,
+          layout: layout,
+        };
       }
     },
-
-    components: {
-      draggable,
-      GridLayout,
-      GridItem,
+    onMove({ relatedContext, draggedContext }) {
+      this.draggedChart = draggedContext.element.type;
     },
-    watch: {
+  },
 
-      list2: function (list) {
-        // let chartType = list[[list.length - 1]].type;
-        let chartDiv = this.draggedChart + (list.length - 2);
-        // let chartDiv = chartType + (list.length - 2);
+  components: {
+    draggable,
+    GridLayout,
+    GridItem,
+  },
+  watch: {
+    list2: function(list) {
+      // let chartType = list[[list.length - 1]].type;
+      let chartDiv = this.draggedChart + (list.length - 2);
+      // let chartDiv = chartType + (list.length - 2);
 
-        //create div dynamically
-        let divDash = document.getElementById('dashGrid');
-        this.layout.push({"x":2,"y":0,"w":2,"h":4,"i":"1"}); //todo calculation
-        let innerDiv = document.createElement('div');
-        innerDiv.id = chartDiv;
-        divDash.appendChild(innerDiv);
+      //create div dynamically
+      let divDash = document.getElementById("dashGrid");
+      this.layout.push({ x: 2, y: 0, w: 2, h: 4, i: "1" }); //todo calculation
+      let innerDiv = document.createElement("div");
+      innerDiv.id = chartDiv;
+      divDash.appendChild(innerDiv);
 
-        let graph = this.genGraph(this.draggedChart);
-        Plotly.newPlot(chartDiv, graph.data, graph.layout);
-
-      }
-    }
-  };
+      let graph = this.genGraph(this.draggedChart);
+      Plotly.newPlot(chartDiv, graph.data, graph.layout);
+    },
+  },
+};
 </script>
 
 <style scoped>
+.dash-toolbox {
+  position: fixed;
+  margin: 32% 22%;
+  background: #c7ddef;
+  width: 50%;
+  height: 50px;
+  border-radius: 25px;
+  float: right;
+}
 
-  .dash-toolbox {
-    position: fixed;
-    margin: 32% 22%;
-    background: #c7ddef;
-    width: 50%;
-    height: 50px;
-    border-radius: 25px;
-    float: right;
-  }
+.toolbox-icons {
+  margin: 10px 0 0 15px;
+  width: 30px;
+  height: 30px;
+  float: left;
+}
 
-  .toolbox-icons {
-    margin: 10px 0 0 15px;
-    width: 30px;
-    height: 30px;
-    float: left;
-  }
-
-
-  .dashboard {
-    border-style: dotted;
-    height: 50px;
-    width: 100%;
-  }
+.dashboard {
+  border-style: dotted;
+  height: 50px;
+  width: 100%;
+}
 </style>

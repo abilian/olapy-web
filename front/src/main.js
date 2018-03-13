@@ -7,8 +7,8 @@ Vue.use(VueResource);
 
 Vue.http.options.root = "http://127.0.0.1:5000/";
 
-window.$ = require('jquery');
-window.$ = $.extend(require('jquery-ui'));
+window.$ = require("jquery");
+window.$ = $.extend(require("jquery-ui"));
 
 export const eventBus = new Vue({
   methods: {
