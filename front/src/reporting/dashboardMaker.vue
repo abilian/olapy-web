@@ -1,10 +1,32 @@
 <template>
   <div>
     my dashboard :
+
     <draggable v-model="list2" class="dashboard" :options="{group:'charts'}">
       <!--style="border-style: dotted; background-color: white; border-color: #c7ddef"-->
       <div id="divDash">
         <!--<div v-for="(element, index) in list2" :id="element.type + (index)">{{element.type + (index)}}</div>-->
+        <grid-layout
+          :layout="layout"
+          :col-num="12"
+          :row-height="30"
+          :is-draggable="true"
+          :is-resizable="true"
+          :is-mirrored="false"
+          :vertical-compact="true"
+          :margin="[10, 10]"
+          :use-css-transforms="true">
+
+          <grid-item id="dashGrid" v-for="item in layout"
+                     :x="item.x"
+                     :y="item.y"
+                     :w="item.w"
+                     :h="item.h"
+                     :i="item.i">
+
+          </grid-item>
+        </grid-layout>
+
       </div>
     </draggable>
 
@@ -34,16 +56,22 @@
 
   import Plotly from 'plotly.js'
   import draggable from 'vuedraggable'
+  import VueGridLayout from 'vue-grid-layout'
+
+  var GridLayout = VueGridLayout.GridLayout;
+	var GridItem = VueGridLayout.GridItem;
+
 
   export default {
     data: function () {
       return {
+        layout: [{"x":0,"y":0,"w":2,"h":2,"i":"0"}],
         list: [{
-          type: "pie"
+          type: "bar"
         }, {
           type: "scatter"
         }, {
-          type: "bar"
+          type: "pie"
         }],
 
 
@@ -91,6 +119,8 @@
 
     components: {
       draggable,
+      GridLayout,
+      GridItem,
     },
     watch: {
 
@@ -100,7 +130,8 @@
         // let chartDiv = chartType + (list.length - 2);
 
         //create div dynamically
-        let divDash = document.getElementById('divDash');
+        let divDash = document.getElementById('dashGrid');
+        this.layout.push({"x":2,"y":0,"w":2,"h":4,"i":"1"}); //todo calculation
         let innerDiv = document.createElement('div');
         innerDiv.id = chartDiv;
         divDash.appendChild(innerDiv);

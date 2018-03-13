@@ -89,7 +89,12 @@ if (process.env.NODE_ENV === 'production') {
     //   }
     // }),
     new UglifyJSPlugin({
-      sourceMap: true
+      sourceMap: true,
+      uglifyOptions: {
+        compress: {
+          warnings: false
+        }
+      }
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
