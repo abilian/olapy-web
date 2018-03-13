@@ -1,27 +1,22 @@
 <template>
   <div>
     my dashboard :
-
- <!--:move="checkMove" -->
-    <!--, put:false-->
-    <draggable v-model="list" class="dash-toolbox"
-               :options="{group:{ name:'charts',  pull:'clone' }}" @start="isDragging=true" @end="isDragging=false">
+    <draggable v-model="list" class="dash-toolbox" :move="onMove"
+               :options="{group:{ name:'charts',  pull:'clone' }}">
       <div><img class="toolbox-icons"
                 src="https://cdn4.iconfinder.com/data/icons/flat-business-icon-set/450/bar_chart-512.png"/></div>
       <div><img class="toolbox-icons"
                 src="http://www.myiconfinder.com/uploads/iconsets/256-256-08f7586f151e4761d26cb03276ac9b71.png"/>
       </div>
-      <!--<h4 class="title">Pie</h4>-->
-      <!--<div ref="pie"></div>-->
-      <!--<div v-for="(element, index) in list" :key="index">{{element.name}}</div>-->
-      <!--<div class="table-responsive" v-html="resultCube">-->
+
     </draggable>
 
 
-    <draggable v-model="list2" class="dashboard" :move="onMove" :options="{group:'charts'}">
+    <draggable v-model="list2" class="dashboard" :options="{group:'charts'}">
       <!--style="border-style: dotted; background-color: white; border-color: #c7ddef"-->
-      <div v-for="(element, index) in list2" :id="element.type + (index)">{{element.type + (index)}}</div>
-      <!--<div id="pie"></div>-->
+      <div id="divDash">
+        <!--<div v-for="(element, index) in list2" :id="element.type + (index)">{{element.type + (index)}}</div>-->
+      </div>
     </draggable>
 
 
@@ -54,7 +49,8 @@
         }],
 
 
-        list2: []
+        list2: [],
+        draggedChart : ''
       };
     },
     methods: {
@@ -89,19 +85,10 @@
 
 
       },
-      checkMove: function (evt) {
-        console.log(evt);
-        console.log(draggedContext.element.type);
-        // return (evt.draggedContext.element.type !== 'apple');
-      },
-      onMove ({relatedContext, draggedContext}) {
-        console.log('onMove');
-        console.log(relatedContext.element.type);
-        console.log(draggedContext.element.type);
-      const relatedElement = relatedContext.element;
-      const draggedElement = draggedContext.element;
-      return (!relatedElement || !relatedElement.fixed) && !draggedElement.fixed
-    }
+      onMove({relatedContext, draggedContext}) {
+        this.draggedChart = draggedContext.element.type;
+
+      }
     },
 
     components: {
@@ -110,21 +97,19 @@
     watch: {
 
       list2: function (list) {
-        let chartType = list[[list.length - 1]].type;
-        let chartDiv = chartType + (list.length - 2);
-        let graph = this.genGraph(chartType);
+        // let chartType = list[[list.length - 1]].type;
+        let chartDiv = this.draggedChart + (list.length - 2);
+        // let chartDiv = chartType + (list.length - 2);
+
+        //create div dynamically
+        let divDash = document.getElementById('divDash');
+        let innerDiv = document.createElement('div');
+        innerDiv.id = chartDiv;
+        divDash.appendChild(innerDiv);
+
+        let graph = this.genGraph(this.draggedChart);
         Plotly.newPlot(chartDiv, graph.data, graph.layout);
 
-      },
-      isDragging(newValue) {
-        if (newValue) {
-          console.log(newValue);
-          return
-        }
-        this.$nextTick(() => {
-          console.log('$nextTick');
-          console.log(newValue);
-        })
       }
     }
   };
