@@ -16,13 +16,12 @@
           :margin="[10, 10]"
           :use-css-transforms="true">
 
-          <grid-item v-for="item in layout"
+          <grid-item v-for="(item, index) in layout" v-show="index < layout.length - 1"
                      :x="item.x"
                      :y="item.y"
                      :w="item.w"
                      :h="item.h"
                      :i="item.i">
-
           </grid-item>
         </grid-layout>
     </draggable>
@@ -60,7 +59,7 @@ var GridItem = VueGridLayout.GridItem;
 export default {
   data: function() {
     return {
-      layout: [],
+      layout: [{ x: 0, y: 0, w: 6, h: 6, i: "-1"}],
       list: [
         {
           type: "bar",
@@ -122,15 +121,13 @@ export default {
   },
   watch: {
     list2: function(list) {
+      this.layout.push({ x: 0, y: 0, w: 6, h: 6, i: this.layout.length}); //todo calculation
       let chartDiv = this.draggedChart + (list.length - 1);
       //create div dynamically
       let gridItems = document.getElementsByClassName("vue-grid-item");
-      let divDash = gridItems[gridItems.length - 2]; //-2 because last element is the vue-grid-placeholder
-      console.log(divDash);
-      this.layout.push({ x: 0, y: 0, w: 6, h: 6, i: this.layout.length}); //todo calculation
+      let divDash = gridItems[gridItems.length - 2 ]; //-2 because last element is the vue-grid-placeholder
       let innerDiv = document.createElement("div");
       innerDiv.id = chartDiv;
-      console.log(chartDiv);
       divDash.appendChild(innerDiv);
 
 
