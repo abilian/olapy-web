@@ -2,10 +2,9 @@
   <div>
     my dashboard :
 
-    <draggable v-model="list2" class="dashboard" :options="{group:'charts'}">
-      <!--style="border-style: dotted; background-color: white; border-color: #c7ddef"-->
-      <div id="divDash">
-        <!--<div v-for="(element, index) in list2" :id="element.type + (index)">{{element.type + (index)}}</div>-->
+    <draggable id="divDash" v-model="list2" class="dashboard" :options="{group:'charts', sort: false}">
+      style="border-style: dotted; background-color: white; border-color: #c7ddef"
+        <div v-for="(element, index) in list2" :id="element.type + (index)">{{element.type + (index)}}</div>
         <grid-layout
           :layout="layout"
           :col-num="12"
@@ -26,8 +25,6 @@
 
           </grid-item>
         </grid-layout>
-
-      </div>
     </draggable>
 
 
@@ -63,7 +60,7 @@ var GridItem = VueGridLayout.GridItem;
 export default {
   data: function() {
     return {
-      layout: [{ x: 0, y: 0, w: 2, h: 2, i: "0" }],
+      layout: [{ x: 0, y: 0, w: 5, h: 5, i: "0" }],
       list: [
         {
           type: "bar",
@@ -131,7 +128,7 @@ export default {
 
       //create div dynamically
       let divDash = document.getElementById("dashGrid");
-      this.layout.push({ x: 2, y: 0, w: 2, h: 4, i: "1" }); //todo calculation
+      this.layout.push({ x: 2, y: 0, w: 6, h: 6, i: "1" }); //todo calculation
       let innerDiv = document.createElement("div");
       innerDiv.id = chartDiv;
       divDash.appendChild(innerDiv);
@@ -166,4 +163,31 @@ export default {
   height: 50px;
   width: 100%;
 }
+
+.vue-grid-item .text {
+    font-size: 24px;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 100%;
+    width: 100%;
+}
+
+.vue-grid-item .no-drag {
+    height: 100%;
+    width: 100%;
+}
+
+.vue-grid-item .minMax {
+    font-size: 12px;
+}
+
+.vue-grid-item .add {
+    cursor: pointer;
+}
+
 </style>
