@@ -3,8 +3,8 @@
     my dashboard :
 
     <draggable id="divDash" v-model="list2" class="dashboard" :options="{group:'charts', sort: false}">
-      style="border-style: dotted; background-color: white; border-color: #c7ddef"
-        <div v-for="(element, index) in list2" :id="element.type + (index)">{{element.type + (index)}}</div>
+      {{layout}}
+        <!--<div v-for="(element, index) in list2" :id="element.type + (index)">{{element.type + (index)}}</div>-->
         <grid-layout
           :layout="layout"
           :col-num="12"
@@ -16,7 +16,7 @@
           :margin="[10, 10]"
           :use-css-transforms="true">
 
-          <grid-item id="dashGrid" v-for="item in layout"
+          <grid-item v-for="item in layout"
                      :x="item.x"
                      :y="item.y"
                      :w="item.w"
@@ -60,7 +60,7 @@ var GridItem = VueGridLayout.GridItem;
 export default {
   data: function() {
     return {
-      layout: [{ x: 0, y: 0, w: 5, h: 5, i: "0" }],
+      layout: [],
       list: [
         {
           type: "bar",
@@ -122,16 +122,17 @@ export default {
   },
   watch: {
     list2: function(list) {
-      // let chartType = list[[list.length - 1]].type;
-      let chartDiv = this.draggedChart + (list.length - 2);
-      // let chartDiv = chartType + (list.length - 2);
-
+      let chartDiv = this.draggedChart + (list.length - 1);
       //create div dynamically
-      let divDash = document.getElementById("dashGrid");
-      this.layout.push({ x: 2, y: 0, w: 6, h: 6, i: "1" }); //todo calculation
+      let gridItems = document.getElementsByClassName("vue-grid-item");
+      let divDash = gridItems[gridItems.length - 2]; //-2 because last element is the vue-grid-placeholder
+      console.log(divDash);
+      this.layout.push({ x: 0, y: 0, w: 6, h: 6, i: this.layout.length}); //todo calculation
       let innerDiv = document.createElement("div");
       innerDiv.id = chartDiv;
+      console.log(chartDiv);
       divDash.appendChild(innerDiv);
+
 
       let graph = this.genGraph(this.draggedChart);
       Plotly.newPlot(chartDiv, graph.data, graph.layout);
@@ -164,6 +165,68 @@ export default {
   width: 100%;
 }
 
+  /*** EXAMPLE ***/
+#content {
+    width: 100%;
+}
+
+.vue-grid-layout {
+    background: #eee;
+}
+
+.layoutJSON {
+    background: #ddd;
+    border: 1px solid black;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.eventsJSON {
+    background: #ddd;
+    border: 1px solid black;
+    margin-top: 10px;
+    padding: 10px;
+    height: 100px;
+    overflow-y: scroll;
+}
+
+.columns {
+    -moz-columns: 120px;
+    -webkit-columns: 120px;
+    columns: 120px;
+}
+
+
+
+.vue-resizable-handle {
+    z-index: 5000;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    bottom: 0;
+    right: 0;
+    background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pg08IS0tIEdlbmVyYXRvcjogQWRvYmUgRmlyZXdvcmtzIENTNiwgRXhwb3J0IFNWRyBFeHRlbnNpb24gYnkgQWFyb24gQmVhbGwgKGh0dHA6Ly9maXJld29ya3MuYWJlYWxsLmNvbSkgLiBWZXJzaW9uOiAwLjYuMSAgLS0+DTwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DTxzdmcgaWQ9IlVudGl0bGVkLVBhZ2UlMjAxIiB2aWV3Qm94PSIwIDAgNiA2IiBzdHlsZT0iYmFja2dyb3VuZC1jb2xvcjojZmZmZmZmMDAiIHZlcnNpb249IjEuMSINCXhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiDQl4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjZweCIgaGVpZ2h0PSI2cHgiDT4NCTxnIG9wYWNpdHk9IjAuMzAyIj4NCQk8cGF0aCBkPSJNIDYgNiBMIDAgNiBMIDAgNC4yIEwgNCA0LjIgTCA0LjIgNC4yIEwgNC4yIDAgTCA2IDAgTCA2IDYgTCA2IDYgWiIgZmlsbD0iIzAwMDAwMCIvPg0JPC9nPg08L3N2Zz4=');
+    background-position: bottom right;
+    padding: 0 3px 3px 0;
+    background-repeat: no-repeat;
+    background-origin: content-box;
+    box-sizing: border-box;
+    cursor: se-resize;
+}
+
+.vue-grid-item:not(.vue-grid-placeholder) {
+    background: #ccc;
+    border: 1px solid black;
+}
+
+.vue-grid-item.resizing {
+    opacity: 0.9;
+}
+
+.vue-grid-item.static {
+    background: #cce;
+}
+
 .vue-grid-item .text {
     font-size: 24px;
     text-align: center;
@@ -190,4 +253,18 @@ export default {
     cursor: pointer;
 }
 
+.vue-draggable-handle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 0;
+    left: 0;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10'><circle cx='5' cy='5' r='5' fill='#999999'/></svg>") no-repeat;
+    background-position: bottom right;
+    padding: 0 8px 8px 0;
+    background-repeat: no-repeat;
+    background-origin: content-box;
+    box-sizing: border-box;
+    cursor: pointer;
+}
 </style>
