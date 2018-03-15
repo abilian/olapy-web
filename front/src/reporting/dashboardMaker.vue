@@ -21,7 +21,8 @@
                      :y="item.y"
                      :w="item.w"
                      :h="item.h"
-                     :i="item.i">
+                     :i="item.i"
+                     @resize="resize">
           </grid-item>
         </grid-layout>
     </draggable>
@@ -59,7 +60,7 @@ var GridItem = VueGridLayout.GridItem;
 export default {
   data: function() {
     return {
-      layout: [{ x: 0, y: 0, w: 6, h: 6, i: "-1"}],
+      layout: [{ x: 0, y: 0, w: 10, h: 10, i: "-1"}],
       list: [
         {
           type: "bar",
@@ -99,19 +100,28 @@ export default {
           },
         ];
 
-        let layout = {
-          height: 400,
-          width: 500,
-        };
+        // let layout = {
+        //   height: 400,
+        //   width: 500,
+        // };
         return {
           data: data,
-          layout: layout,
+          // layout: layout,
         };
       }
     },
     onMove({ relatedContext, draggedContext }) {
       this.draggedChart = draggedContext.element.type;
     },
+    resize: function (i, newH, newW) {
+      let graphDiv = document.getElementById('pie0');
+      // graphDiv.style.width = (newW * 82) + 'px';
+      // graphDiv.style.height = (newH * 48) + 'px';
+      graphDiv.style.width = "95%";
+      graphDiv.style.height = "95%";
+      Plotly.Plots.resize(graphDiv);
+
+    }
   },
 
   components: {
@@ -133,6 +143,7 @@ export default {
 
       let graph = this.genGraph(this.draggedChart);
       Plotly.newPlot(chartDiv, graph.data, graph.layout);
+
     },
   },
 };
