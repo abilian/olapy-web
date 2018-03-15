@@ -114,11 +114,8 @@ export default {
       this.draggedChart = draggedContext.element.type;
     },
     resize: function (i, newH, newW) {
-      let allPlots = document.getElementsByClassName("js-plotly-plot");
-      let currentPlot = allPlots[parseInt(i)];
-      let plotDiv = document.getElementById(currentPlot.id);
+      let plotDiv = document.getElementById(i);
       Plotly.Plots.resize(plotDiv);
-
     }
   },
 
@@ -129,16 +126,15 @@ export default {
   },
   watch: {
     list2: function(list) {
-      this.layout.push({ x: 0, y: 0, w: 6, h: 8, i: this.layout.length}); //todo calculation
       let chartDiv = this.draggedChart + (list.length - 1);
+      this.layout[list.length - 1].i = chartDiv;
+      this.layout.push({x: 0, y: 0, w: 6, h: 8, i: ""}); //prepare next div //todo calculation
       //create div dynamically
       let gridItems = document.getElementsByClassName("vue-grid-item");
       let divDash = gridItems[gridItems.length - 2 ]; //-2 because last element is the vue-grid-placeholder
       let innerDiv = document.createElement("div");
       innerDiv.id = chartDiv;
       divDash.appendChild(innerDiv);
-
-
       let graph = this.genGraph(this.draggedChart);
       Plotly.newPlot(chartDiv, graph.data, graph.layout)
         .then(function () {
