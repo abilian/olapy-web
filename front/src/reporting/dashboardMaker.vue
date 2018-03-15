@@ -60,7 +60,7 @@ var GridItem = VueGridLayout.GridItem;
 export default {
   data: function() {
     return {
-      layout: [{ x: 0, y: 0, w: 6, h: 8, i: "-1"}],
+      layout: [{ x: 0, y: 0, w: 6, h: 8, i: "0"}],
       list: [
         {
           type: "bar",
@@ -114,12 +114,10 @@ export default {
       this.draggedChart = draggedContext.element.type;
     },
     resize: function (i, newH, newW) {
-      let graphDiv = document.getElementById('pie0');
-      // graphDiv.style.width = (newW * 82) + 'px';
-      // graphDiv.style.height = (newH * 48) + 'px';
-      // graphDiv.style.width = "95%";
-      // graphDiv.style.height = "95%";
-      Plotly.Plots.resize(graphDiv);
+      let allPlots = document.getElementsByClassName("js-plotly-plot");
+      let currentPlot = allPlots[parseInt(i)];
+      let plotDiv = document.getElementById(currentPlot.id);
+      Plotly.Plots.resize(plotDiv);
 
     }
   },
