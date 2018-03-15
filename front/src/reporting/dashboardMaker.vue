@@ -60,7 +60,7 @@ var GridItem = VueGridLayout.GridItem;
 export default {
   data: function() {
     return {
-      layout: [{ x: 0, y: 0, w: 10, h: 10, i: "-1"}],
+      layout: [{ x: 0, y: 0, w: 6, h: 8, i: "-1"}],
       list: [
         {
           type: "bar",
@@ -117,8 +117,8 @@ export default {
       let graphDiv = document.getElementById('pie0');
       // graphDiv.style.width = (newW * 82) + 'px';
       // graphDiv.style.height = (newH * 48) + 'px';
-      graphDiv.style.width = "95%";
-      graphDiv.style.height = "95%";
+      // graphDiv.style.width = "95%";
+      // graphDiv.style.height = "95%";
       Plotly.Plots.resize(graphDiv);
 
     }
@@ -131,7 +131,7 @@ export default {
   },
   watch: {
     list2: function(list) {
-      this.layout.push({ x: 0, y: 0, w: 6, h: 6, i: this.layout.length}); //todo calculation
+      this.layout.push({ x: 0, y: 0, w: 6, h: 8, i: this.layout.length}); //todo calculation
       let chartDiv = this.draggedChart + (list.length - 1);
       //create div dynamically
       let gridItems = document.getElementsByClassName("vue-grid-item");
@@ -142,8 +142,13 @@ export default {
 
 
       let graph = this.genGraph(this.draggedChart);
-      Plotly.newPlot(chartDiv, graph.data, graph.layout);
-
+      Plotly.newPlot(chartDiv, graph.data, graph.layout)
+        .then(function () {
+          let graphDiv = document.getElementById(chartDiv);
+          graphDiv.style.width = "95%";
+          graphDiv.style.height = "95%";
+          return Plotly.Plots.resize(graphDiv);
+        });
     },
   },
 };
