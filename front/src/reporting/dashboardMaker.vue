@@ -23,6 +23,9 @@
                      :h="item.h"
                      :i="item.i"
                      @resize="resize">
+            <button type="button" class="btn btn-danger btn-lg" style="margin-right: 0; float: right"
+                    @click="removeItem(item.i)"><span
+              class="glyphicon glyphicon-remove"></span></button>
           </grid-item>
         </grid-layout>
     </draggable>
@@ -78,6 +81,11 @@ export default {
     };
   },
   methods: {
+    removeItem(index){
+      let i = this.layout.map(item => item.i).indexOf(index);
+      this.layout.splice(i, 1);
+      this.list2.splice(i, 1);
+    },
     genGraph(grapheType) {
       if (grapheType === "bar") {
         //todo replace with rest api
@@ -273,5 +281,9 @@ export default {
     background-origin: content-box;
     box-sizing: border-box;
     cursor: pointer;
+}
+
+.btn-lg {
+  padding: 10px 13px;
 }
 </style>
