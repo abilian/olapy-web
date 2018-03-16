@@ -133,8 +133,8 @@ export default {
     GridItem,
   },
   watch: {
-    list2: function (list, newList) {
-      if (list.length > newList.length) { // watch when add only/ not when remove
+    list2: function (list, oldList) {
+      if (list.length > oldList.length) { // watch when add only/ not when remove
         let chartDiv = this.draggedChart + (list.length - 1);
         this.layout[list.length - 1].i = chartDiv;
         this.layout.push({x: 0, y: 0, w: 6, h: 8, i: ""}); //prepare next div //todo calculation
