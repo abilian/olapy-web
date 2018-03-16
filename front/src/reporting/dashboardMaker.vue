@@ -81,10 +81,10 @@ export default {
     };
   },
   methods: {
-    removeItem(index){
+    removeItem(index) {
       let i = this.layout.map(item => item.i).indexOf(index);
-      this.layout.splice(i, 1);
       this.list2.splice(i, 1);
+      this.layout.splice(i, 1);
     },
     genGraph(grapheType) {
       if (grapheType === "bar") {
@@ -133,24 +133,27 @@ export default {
     GridItem,
   },
   watch: {
-    list2: function(list) {
-      let chartDiv = this.draggedChart + (list.length - 1);
-      this.layout[list.length - 1].i = chartDiv;
-      this.layout.push({x: 0, y: 0, w: 6, h: 8, i: ""}); //prepare next div //todo calculation
-      //create div dynamically
-      let gridItems = document.getElementsByClassName("vue-grid-item");
-      let divDash = gridItems[gridItems.length - 2 ]; //-2 because last element is the vue-grid-placeholder
-      let innerDiv = document.createElement("div");
-      innerDiv.id = chartDiv;
-      divDash.appendChild(innerDiv);
-      let graph = this.genGraph(this.draggedChart);
-      Plotly.newPlot(chartDiv, graph.data, graph.layout)
-        .then(function () {
-          let graphDiv = document.getElementById(chartDiv);
-          graphDiv.style.width = "95%";
-          graphDiv.style.height = "95%";
-          return Plotly.Plots.resize(graphDiv);
-        });
+    list2: function (list, newList) {
+      if (list.length > newList.length) { // watch when add only/ not when remove
+        let chartDiv = this.draggedChart + (list.length - 1);
+        this.layout[list.length - 1].i = chartDiv;
+        this.layout.push({x: 0, y: 0, w: 6, h: 8, i: ""}); //prepare next div //todo calculation
+        //create div dynamically
+        let gridItems = document.getElementsByClassName("vue-grid-item");
+        let divDash = gridItems[gridItems.length - 2]; //-2 because last element is the vue-grid-placeholder
+        let innerDiv = document.createElement("div");
+        innerDiv.id = chartDiv;
+        divDash.appendChild(innerDiv);
+        let graph = this.genGraph(this.draggedChart);
+        Plotly.newPlot(chartDiv, graph.data, graph.layout)
+          .then(function () {
+            let graphDiv = document.getElementById(chartDiv);
+            graphDiv.style.width = "95%";
+            graphDiv.style.height = "95%";
+            return Plotly.Plots.resize(graphDiv);
+          });
+      }
+
     },
   },
 };
