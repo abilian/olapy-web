@@ -10,6 +10,10 @@
           <div class="modal-body">
             <slot name="body">
               <label>
+                Dashboard Name:
+                <input type="text" v-model="dashboardName">
+              </label>
+              <label>
                 <select v-model="selectedCube">
                   <option disabled value="">Choose</option>
                     <option v-for="cube in userCubes">
@@ -23,7 +27,7 @@
           <div class="modal-footer">
             <slot name="footer">
               <!--<button class="modal-default-button" @click="$emit('SelectInputStatus', 'second')">-->
-              <button class="modal-default-button" @click="$emit('interface', 'dashboardMaker')">
+              <button class="modal-default-button" @click="validateCubeSelection()">
                 Next
               </button>
               <button class="modal-default-button" @click="$emit('interface', 'main')">
@@ -41,9 +45,19 @@
 export default {
   data: function() {
     return {
+      dashboardName : "",
       selectedCube: "",
       userCubes: [],
     };
+  },
+  methods: {
+    validateCubeSelection() {
+      if (this.dashboardName && this.selectedCube) {
+        this.$emit('dashboardName', this.dashboardName);
+        this.$emit('selectedCube', this.selectedCube);
+        this.$emit('interface', 'dashboardMaker');
+      }
+    }
   },
   created() {
     this.$http

@@ -1,6 +1,8 @@
 <template>
   <div>
     my dashboard :
+    {{dashboardName}}
+    {{selectedCube}}
 
     <draggable id="divDash" v-model="list2" class="dashboard" :options="{group:'charts', sort: false}">
       {{layout}}
@@ -61,6 +63,7 @@ var GridLayout = VueGridLayout.GridLayout;
 var GridItem = VueGridLayout.GridItem;
 
 export default {
+  props: ['dashboardName', 'selectedCube'],
   data: function() {
     return {
       layout: [{ x: 0, y: 0, w: 6, h: 8, i: "0"}],
