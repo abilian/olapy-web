@@ -10,10 +10,6 @@
           <div class="modal-body">
             <slot name="body">
               <label>
-                Dashboard Name:
-                <input type="text" v-model="dashboardName">
-              </label>
-              <label>
                 <select v-model="selectedCube">
                   <option disabled value="">Choose</option>
                     <option v-for="cube in userCubes">
@@ -45,15 +41,13 @@
 export default {
   data: function() {
     return {
-      dashboardName : "",
       selectedCube: "",
       userCubes: [],
     };
   },
   methods: {
     validateCubeSelection() {
-      if (this.dashboardName && this.selectedCube) {
-        this.$emit('dashboardName', this.dashboardName);
+      if (this.selectedCube) {
         this.$emit('selectedCube', this.selectedCube);
         this.$emit('interface', 'dashboardMaker');
       }
