@@ -89,10 +89,9 @@ def dashboard():
     # type: () -> text_type
     """Generate Dashboard with charts from web_config_file.
     """
-    # TODO use plotly dashboard !!!
-    cubes_path = os.path.join(current_app.instance_path, 'olapy-data', 'cubes')
+    olapy_data_location = os.path.join(current_app.instance_path, 'olapy-data')
 
-    web_config_file_path = os.path.join(cubes_path, 'web_cube_config.yml')
+    web_config_file_path = os.path.join(olapy_data_location, 'cubes', 'web_cube_config.yml')
     config = ConfigParser(web_config_file_path)
     dashboard = config.construct_web_dashboard()
 
@@ -100,8 +99,7 @@ def dashboard():
     cube_config_file = config.construct_cubes()
 
     executor = MdxEngine(cube_config=cube_config_file,
-                         cubes_path=cubes_path,
-                         client_type='web')
+                         olapy_data_location=olapy_data_location)
     executor.load_cube(cube_config_file['name'])
 
     if not dashboard:
