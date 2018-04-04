@@ -102,10 +102,10 @@ def clean_temp_dir(olapy_data_dir):
 
 
 def construct_cube(cube_name, **kwargs):
-    database_config = kwargs.get('database_config', None)
+    sqla_engine = kwargs.get('sqla_engine', None)
     source_type = kwargs.get('source_type', 'csv')
     olapy_data_location = kwargs.get('olapy_data_location', None)
-    executor = MdxEngine(database_config=database_config, source_type=source_type,
+    executor = MdxEngine(sqla_engine=sqla_engine, source_type=source_type,
                          olapy_data_location=olapy_data_location, cubes_folder=TEMP_CUBE_NAME)
     # try to construct automatically the cube
     try:
@@ -194,19 +194,10 @@ def get_columns_from_files(db_cube_config):
         return result
 
 
-def get_db_config(data_config):
-    return {
-        'dbms': data_config['engine'].lower(),
-        'host': data_config['servername'],
-        'port': data_config['port'],
-        'user': data_config['username'],
-        'password': data_config['password']
-    }
-
-
 def get_columns_from_db(db_cube_config):
-    config = get_db_config(db_cube_config['dbConfig'])
-    executor = MdxEngine(database_config=config, source_type='db')
+    sqla_uri = generate_sqla_uri(db_cube_config['dbConfig'])
+    sqla_engine = create_engine(sqla_uri)
+    executor = MdxEngine(sqla_engine=sqla_engine, source_type='db')
     engine = executor.instantiate_db(db_cube_config['dbConfig']['selectCube']).engine
     results = engine.execution_options(
         stream_results=True,
@@ -233,8 +224,9 @@ def get_table_columns():
 
 def get_tables_columns_from_db(db_cube_config):
     response = {}
-    config = get_db_config(db_cube_config['dbConfig'])
-    executor = MdxEngine(database_config=config, source_type='db')
+    sqla_uri = generate_sqla_uri(db_cube_config['dbConfig'])
+    sqla_engine = create_engine(sqla_uri)
+    executor = MdxEngine(sqla_engine=sqla_engine, source_type='db')
     engine = executor.instantiate_db(db_cube_config['dbConfig']['selectCube']).engine
     att_tables = db_cube_config['allTables'].split(',')
     for table_name in att_tables:
@@ -386,8 +378,9 @@ def construct_custom_files_cube(data_request):
 def construct_custom_db_cube(data_request):
     config = gen_cube_conf(data_request, source='db', cube_name=data_request['dbConfig']['selectCube'])
     source_type = 'db'
-    db_config = get_db_config(data_request['dbConfig'])
-    executor = MdxEngine(source_type=source_type, database_config=db_config,
+    sqla_uri = generate_sqla_uri(data_request['dbConfig'])
+    sqla_engine = create_engine(sqla_uri)
+    executor = MdxEngine(source_type=source_type, sqla_engine=sqla_engine,
                          cube_config=config['cube_config'])
     try:
         executor.load_cube(data_request['dbConfig']['selectCube'])
@@ -440,9 +433,10 @@ def connectDB():
 @login_required
 def add_db_cube():
     request_data = request.get_json()
-    db_credentials = get_db_config(request_data)
+    sqla_uri = generate_sqla_uri(json.loads(request.data))
+    sqla_engine = create_engine(sqla_uri)
     construction = construct_cube(cube_name=request_data['selectCube'], source_type='db', facts='facts',
-                                  database_config=db_credentials)
+                                  sqla_engine=sqla_engine)
     if 'dimensions' in construction:
         return jsonify(construction)
     else:
@@ -458,7 +452,7 @@ def add_db_cube():
 @login_required
 def confirm_db_cube():
     request_data = request.get_json()
-    config = {'cube_config': get_db_config(request_data),
+    config = {'cube_config': generate_sqla_uri(request_data),
               'db_config': None}
     save_cube_config_2_db(config=config, cube_name=request_data['selectCube'], source='db')
     return jsonify({'success': True}), 200
