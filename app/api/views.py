@@ -422,7 +422,8 @@ def generate_sqla_uri(db_credentials):
     server = db_credentials['servername']
     port = db_credentials['port']
     # todo change
-    return urlunparse((engine, user, password, "", "", "")) + '@' + server + ':' + port
+    # return urlunparse((engine, user, password, "", "", "")) + '@' + server + ':' + port
+    return engine + '://' + user + ':' + password + '@' + server + ':' + port
 
 
 @api('cubes/connectDB', methods=['POST'])
