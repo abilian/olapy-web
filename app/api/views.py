@@ -107,7 +107,8 @@ def construct_cube(cube_name, **kwargs):
                          olapy_data_location=olapy_data_location, cubes_folder=TEMP_CUBE_NAME)
     # try to construct automatically the cube
     try:
-        executor.load_cube(cube_name)
+        temp_cube_path = os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME)
+        executor.load_cube(cube_name, cube_folder=temp_cube_path)
         return {
             'dimensions': executor.get_all_tables_names(ignore_fact=True),
             'facts': executor.facts,
@@ -124,7 +125,7 @@ def construct_cube(cube_name, **kwargs):
 def add_cube():
     # temporary
     #  2 TEMP_CUBE_NAME = first is the all cubes folder, the second is the current cube folder
-    cube_dir = os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME, TEMP_CUBE_NAME)
+    cube_dir = os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME)
     if isdir(cube_dir):
         clean_temp_dir(cube_dir)
     else:
@@ -157,7 +158,7 @@ def confirm_cube():
             temp_folder = cube_name
         else:
             temp_folder = TEMP_CUBE_NAME
-        new_temp_dir = os.path.join(OLAPY_TEMP_DIR, temp_folder, temp_folder)
+        new_temp_dir = os.path.join(OLAPY_TEMP_DIR, temp_folder)
         if isdir(new_temp_dir):
             olapy_data_dir = os.path.join(current_app.instance_path, 'olapy-data', 'cubes', cube_name)
             copy_tree(new_temp_dir, olapy_data_dir)
@@ -367,7 +368,8 @@ def construct_custom_files_cube(data_request):
     cube_config = gen_cube_conf(data_request=data_request, cube_name=data_request['cubeName'])
     executor = MdxEngine(cube_config=cube_config['cube_config'], olapy_data_location=OLAPY_TEMP_DIR)
     try:
-        executor.load_cube(data_request['cubeName'])
+        temp_cube_path = os.path.join(OLAPY_TEMP_DIR, data_request['cubeName'])
+        executor.load_cube(data_request['cubeName'], cube_folder=temp_cube_path)
         if executor.star_schema_dataframe.columns is not None:
             save_cube_config_2_db(cube_config, data_request['cubeName'], source='csv')
             return executor.star_schema_dataframe.fillna('').head().to_html(classes=[
