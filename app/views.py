@@ -134,14 +134,13 @@ def query_builder():
     :return: pivottable.js
     """
 
-    cubes_path = os.path.join(current_app.instance_path, 'olapy-data', 'cubes')
+    olapy_data_location = os.path.join(current_app.instance_path, 'olapy-data')
 
-    web_config_file_path = os.path.join(cubes_path, 'web_cube_config.yml')
+    web_config_file_path = os.path.join(olapy_data_location, 'cubes', 'web_cube_config.yml')
     config = ConfigParser(web_config_file_path)
     cube_config_file = config.construct_cubes()  # one cube right now
     executor = MdxEngine(cube_config=cube_config_file,
-                         cubes_path=cubes_path,
-                         client_type='web')
+                         olapy_data_location=olapy_data_location)
     executor.load_cube(cube_config_file['name'])
 
     return render_template('query_builder.html',
