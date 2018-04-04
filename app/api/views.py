@@ -449,7 +449,7 @@ def add_db_cube():
 @login_required
 def confirm_db_cube():
     request_data = request.get_json()
-    config = {'cube_config': generate_sqla_uri(request_data),
-              'db_config': None}
+    config = {'cube_config': None,
+              'db_config': generate_sqla_uri(request_data)}
     save_cube_config_2_db(config=config, cube_name=request_data['selectCube'], source='db')
     return jsonify({'success': True}), 200
