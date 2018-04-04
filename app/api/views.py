@@ -102,8 +102,9 @@ def clean_temp_dir(olapy_data_dir):
 def construct_cube(cube_name, **kwargs):
     database_config = kwargs.get('database_config', None)
     source_type = kwargs.get('source_type', 'csv')
-    cubes_path = kwargs.get('cubes_path', None)
-    executor = MdxEngine(database_config=database_config, source_type=source_type, olapy_data_location=cubes_path)
+    olapy_data_location = kwargs.get('olapy_data_location', None)
+    executor = MdxEngine(database_config=database_config, source_type=source_type,
+                         olapy_data_location=olapy_data_location, cubes_folder=TEMP_CUBE_NAME)
     # try to construct automatically the cube
     try:
         executor.load_cube(cube_name)
@@ -122,7 +123,8 @@ def construct_cube(cube_name, **kwargs):
 @login_required
 def add_cube():
     # temporary
-    cube_dir = os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME)
+    #  2 TEMP_CUBE_NAME = first is the all cubes folder, the second is the current cube folder
+    cube_dir = os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME, TEMP_CUBE_NAME)
     if isdir(cube_dir):
         clean_temp_dir(cube_dir)
     else:
@@ -132,7 +134,7 @@ def add_cube():
         if file_uploaded and allowed_file(file_uploaded.filename):
             filename = secure_filename(file_uploaded.filename)
             file_uploaded.save(os.path.join(cube_dir, filename))
-    cube = construct_cube(cube_name=TEMP_CUBE_NAME, cubes_path=OLAPY_TEMP_DIR, source_type='csv')
+    cube = construct_cube(cube_name=TEMP_CUBE_NAME, olapy_data_location=OLAPY_TEMP_DIR, source_type='csv')
     if 'dimensions' in cube:
         return jsonify(cube)
     else:
@@ -155,7 +157,7 @@ def confirm_cube():
             temp_folder = cube_name
         else:
             temp_folder = TEMP_CUBE_NAME
-        new_temp_dir = os.path.join(OLAPY_TEMP_DIR, temp_folder)
+        new_temp_dir = os.path.join(OLAPY_TEMP_DIR, temp_folder, temp_folder)
         if isdir(new_temp_dir):
             olapy_data_dir = os.path.join(current_app.instance_path, 'olapy-data', 'cubes', cube_name)
             copy_tree(new_temp_dir, olapy_data_dir)
