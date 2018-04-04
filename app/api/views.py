@@ -158,13 +158,13 @@ def confirm_cube():
             temp_folder = cube_name
         else:
             temp_folder = TEMP_CUBE_NAME
+            save_cube_config_2_db(config=None, cube_name=cube_name, source='csv')
         new_temp_dir = os.path.join(OLAPY_TEMP_DIR, temp_folder)
         if isdir(new_temp_dir):
             olapy_data_dir = os.path.join(current_app.instance_path, 'olapy-data', 'cubes', cube_name)
             copy_tree(new_temp_dir, olapy_data_dir)
             shutil.rmtree(new_temp_dir)
             # custom -> config with config file , no need to return response, instead wait to use the cube conf
-        save_cube_config_2_db(config=None, cube_name=cube_name, source='csv')
         return jsonify({'success': True}), 200
 
 
