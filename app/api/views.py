@@ -413,7 +413,12 @@ def generate_sqla_uri(db_credentials):
     port = db_credentials['port']
     # todo change
     # return urlunparse((engine, user, password, "", "", "")) + '@' + server + ':' + port
-    return engine + '://' + user + ':' + password + '@' + server + ':' + port
+    if 'selectCube' in db_credentials:
+        selected_db = '/' + db_credentials['selectCube']
+    else:
+        selected_db = ''
+
+    return engine + '://' + user + ':' + password + '@' + server + ':' + port + selected_db
 
 
 @api('cubes/connectDB', methods=['POST'])
