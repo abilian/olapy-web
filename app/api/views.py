@@ -432,8 +432,8 @@ def add_db_cube():
     request_data = request.get_json()
     sqla_uri = generate_sqla_uri(json.loads(request.data))
     sqla_engine = create_engine(sqla_uri)
-    construction = construct_cube(cube_name=request_data['selectCube'], source_type='db', facts='facts',
-                                  sqla_engine=sqla_engine)
+    construction = construct_cube(cube_name=request_data['selectCube'], source_type='db',
+                                  sqla_engine=sqla_engine, olapy_data_location=current_app.instance_path)
     if 'dimensions' in construction:
         return jsonify(construction)
     else:
