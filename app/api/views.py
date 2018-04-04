@@ -61,8 +61,9 @@ def get_cubes():
 def _load_cube(cube_name):
     config = get_config(cube_name)
     source_type = get_cube_source_type(cube_name)
+    olapy_data_location = os.path.join(current_app.instance_path, 'olapy-data')
     executor = MdxEngine(source_type=source_type, database_config=config['db_config'],
-                         cube_config=config['cube_config'])
+                         cube_config=config['cube_config'], olapy_data_location=olapy_data_location)
     executor.load_cube(cube_name)
     return executor
 
@@ -102,8 +103,7 @@ def construct_cube(cube_name, **kwargs):
     database_config = kwargs.get('database_config', None)
     source_type = kwargs.get('source_type', 'csv')
     cubes_path = kwargs.get('cubes_path', None)
-
-    executor = MdxEngine(database_config=database_config, source_type=source_type, cubes_path=cubes_path)
+    executor = MdxEngine(database_config=database_config, source_type=source_type, olapy_data_location=cubes_path)
     # try to construct automatically the cube
     try:
         executor.load_cube(cube_name)
@@ -363,7 +363,7 @@ def construct_custom_files_cube(data_request):
     os.rename(os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME),
               os.path.join(OLAPY_TEMP_DIR, data_request['cubeName']))
     cube_config = gen_cube_conf(data_request=data_request, cube_name=data_request['cubeName'])
-    executor = MdxEngine(cube_config=cube_config['cube_config'], cubes_path=OLAPY_TEMP_DIR)
+    executor = MdxEngine(cube_config=cube_config['cube_config'], olapy_data_location=OLAPY_TEMP_DIR)
     try:
         executor.load_cube(data_request['cubeName'])
         if executor.star_schema_dataframe.columns is not None:
