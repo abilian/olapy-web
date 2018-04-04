@@ -8,6 +8,7 @@ import tempfile
 from collections import OrderedDict
 from distutils.dir_util import copy_tree
 from os.path import expanduser, isdir
+from six.moves.urllib.parse import urlunparse
 
 import os
 
@@ -16,6 +17,7 @@ from flask_login import login_required, current_user
 from olapy.core.mdx.executor.execute import MdxEngine
 from flask import request
 from pathlib import Path
+from sqlalchemy import create_engine
 from werkzeug.utils import secure_filename
 import pandas as pd
 import json
@@ -413,13 +415,23 @@ def construct_custom_cube():
             raise Exception('unable to construct cube')
 
 
+def generate_sqla_uri(db_credentials):
+    engine = db_credentials['engine'].lower().replace('postgres', 'postgresql')
+    user = db_credentials['username']
+    password = db_credentials['password']
+    server = db_credentials['servername']
+    port = db_credentials['port']
+    # todo change
+    return urlunparse((engine, user, password, "", "", "")) + '@' + server + ':' + port
+
+
 @api('cubes/connectDB', methods=['POST'])
 @login_required
 def connectDB():
     if request.data:
-        data_request = json.loads(request.data)
-        data_connection = get_db_config(data_request)
-        executor = MdxEngine(source_type="db", database_config=data_connection)
+        sqla_uri = generate_sqla_uri(json.loads(request.data))
+        sqla_engine = create_engine(sqla_uri)
+        executor = MdxEngine(source_type="db", sqla_engine=sqla_engine)
         return jsonify(executor.get_cubes_names())
 
 
