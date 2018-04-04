@@ -101,10 +101,7 @@ def clean_temp_dir(olapy_data_dir):
             os.unlink(file_path)
 
 
-def construct_cube(cube_name, **kwargs):
-    sqla_engine = kwargs.get('sqla_engine', None)
-    source_type = kwargs.get('source_type', 'csv')
-    olapy_data_location = kwargs.get('olapy_data_location', None)
+def construct_cube(cube_name, sqla_engine=None, source_type='csv', olapy_data_location=None):
     executor = MdxEngine(sqla_engine=sqla_engine, source_type=source_type,
                          olapy_data_location=olapy_data_location, cubes_folder=TEMP_CUBE_NAME)
     # try to construct automatically the cube
