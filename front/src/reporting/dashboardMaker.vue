@@ -6,6 +6,8 @@
       <input type="text" v-model="dashboardName">
     </label>
 
+
+    <chart-props v-if="showChartProps === true" @showChartProps="showChartProps = $event"></chart-props>
     <draggable id="divDash" v-model="list2" class="dashboard" :options="{group:'charts', sort: false}">
       {{layout}}
         <!--<div v-for="(element, index) in list2" :id="element.type + (index)">{{element.type + (index)}}</div>-->
@@ -60,6 +62,7 @@
 import Plotly from "plotly.js";
 import draggable from "vuedraggable";
 import VueGridLayout from "vue-grid-layout";
+import ChartProps from "./chartProps"
 
 let GridLayout = VueGridLayout.GridLayout;
 let GridItem = VueGridLayout.GridItem;
@@ -68,6 +71,7 @@ export default {
   props: ['selectedCube'],
   data: function() {
     return {
+      showChartProps : false,
       dashboardName : "",
       layout: [{ x: 0, y: 0, w: 6, h: 8, i: "0"}],
       list: [
@@ -137,6 +141,7 @@ export default {
     draggable,
     GridLayout,
     GridItem,
+    "chart-props": ChartProps,
   },
   watch: {
     list2: function (list, oldList) {
@@ -150,6 +155,7 @@ export default {
         let innerDiv = document.createElement("div");
         innerDiv.id = chartDiv;
         divDash.appendChild(innerDiv);
+        this.showChartProps = true;
         let graph = this.genGraph(this.draggedChart);
         Plotly.newPlot(chartDiv, graph.data, graph.layout)
           .then(function () {
@@ -227,6 +233,7 @@ export default {
 .vue-grid-item .add {
     cursor: pointer;
 }
+
 
 .btn-lg {
   padding: 10px 13px;
