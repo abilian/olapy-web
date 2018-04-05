@@ -7,7 +7,7 @@
     </label>
 
 
-    <chart-props v-if="showChartProps === true" @showChartProps="showChartProps = $event"></chart-props>
+    <chart-props :chartType="draggedChart" v-if="showChartProps === true" @showChartProps="showChartProps = $event"></chart-props>
     <draggable id="divDash" v-model="list2" class="dashboard" :options="{group:'charts', sort: false}">
       {{layout}}
         <!--<div v-for="(element, index) in list2" :id="element.type + (index)">{{element.type + (index)}}</div>-->

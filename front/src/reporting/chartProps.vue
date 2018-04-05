@@ -5,6 +5,7 @@
         <div class="modal-container">
 
           <div class="modal-header">
+            {{chartType}}
           </div>
 
           <div class="modal-body">
@@ -15,6 +16,24 @@
                     <option v-for="cube in userCubes">
                       {{ cube }}
                     </option>
+                </select>
+              </label>
+              <hr>
+              <label>
+                <select v-model="selectedDimension" v-show="allDimensions.length > 0">
+                  <option disabled value="">Choose</option>
+                  <option v-for="dimension in allDimensions">
+                    {{ dimension }}
+                  </option>
+                </select>
+              </label>
+              <hr>
+              <label>
+                <select v-model="selectedMeasures" v-show="selectedCube !== ''">
+                  <option disabled value="">Choose</option>
+                  <option v-for="measure in allMeasures">
+                    {{ measure }}
+                  </option>
                 </select>
               </label>
             </slot>
@@ -39,10 +58,15 @@
 
 <script>
 export default {
+  props: ["chartType"],
   data: function() {
     return {
       selectedCube: "",
       userCubes: [],
+      allDimensions: [],
+      selectedDimension: "",
+      allMeasures : [],
+      selectedMeasures : []
     };
   },
   methods: {
@@ -52,6 +76,28 @@ export default {
         this.$emit('showChartProps', false);
       }
     }
+  },
+  watch: {
+    selectedCube: function (selectedCube) {
+      this.$http.get("api/cubes/" + selectedCube + "/dimensions")
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        for (let key in data) {
+          this.allDimensions.push(data[key]);
+        }
+      });
+
+      this.$http.get("api/cubes/" + selectedCube + "/facts")
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          this.allMeasures = data['measures'];
+        });
+    }
+
   },
   created() {
     this.$http
