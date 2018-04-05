@@ -195,8 +195,7 @@ def get_columns_from_db(db_cube_config):
     sqla_uri = generate_sqla_uri(db_cube_config['dbConfig'])
     sqla_engine = create_engine(sqla_uri)
     executor = MdxEngine(sqla_engine=sqla_engine, source_type='db')
-    engine = executor.instantiate_db(db_cube_config['dbConfig']['selectCube']).engine
-    results = engine.execution_options(
+    results = executor.sqla_engine.execution_options(
         stream_results=True,
     ).execute('SELECT * FROM {}'.format(db_cube_config['tableName']))
     df = pd.DataFrame(iter(results), columns=results.keys())
@@ -224,10 +223,10 @@ def get_tables_columns_from_db(db_cube_config):
     sqla_uri = generate_sqla_uri(db_cube_config['dbConfig'])
     sqla_engine = create_engine(sqla_uri)
     executor = MdxEngine(sqla_engine=sqla_engine, source_type='db')
-    engine = executor.instantiate_db(db_cube_config['dbConfig']['selectCube']).engine
     att_tables = db_cube_config['allTables'].split(',')
     for table_name in att_tables:
-        results = engine.execution_options(stream_results=True).execute('SELECT * FROM {}'.format(table_name))
+        results = executor.sqla_engine.execution_options(stream_results=True).execute(
+            'SELECT * FROM {}'.format(table_name))
         df = pd.DataFrame(iter(results), columns=results.keys())
         response[table_name] = list(df.columns)
     return response
@@ -348,7 +347,7 @@ def gen_cube_conf(data_request, source='csv', cube_name=None):
         'facts': facts,
         'dimensions': dimensions
     }
-    db_config = data_request.get('dbConfig')
+    db_config = generate_sqla_uri(data_request.get('dbConfig'))
     return {'cube_config': cube_conf,
             'db_config': db_config}
 
