@@ -63,8 +63,12 @@ def get_cubes():
 def _load_cube(cube_name):
     config = get_config(cube_name)
     source_type = get_cube_source_type(cube_name)
+    if config['db_config']:
+        sqla_engine = create_engine(config['db_config'])
+    else:
+        sqla_engine = None
     olapy_data_location = os.path.join(current_app.instance_path, 'olapy-data')
-    executor = MdxEngine(source_type=source_type, database_config=config['db_config'],
+    executor = MdxEngine(source_type=source_type, sqla_engine=sqla_engine,
                          cube_config=config['cube_config'], olapy_data_location=olapy_data_location)
     executor.load_cube(cube_name)
     return executor
