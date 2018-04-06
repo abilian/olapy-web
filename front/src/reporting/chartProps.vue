@@ -57,8 +57,11 @@
 </template>
 
 <script>
+
+import Plotly from "plotly.js";
+
 export default {
-  props: ["chartType"],
+  props: ["chartType","currentChartDiv"],
   data: function() {
     return {
       selectedCube: "",
@@ -72,6 +75,40 @@ export default {
     };
   },
   methods: {
+    genGraph(grapheType, chartData) {
+      if (grapheType === "bar") {
+        //todo replace with rest api
+        let data = [
+          {
+            x: ["giraffes", "orangutans", "monkeys"],
+            y: [20, 14, 23],
+            type: "bar",
+          },
+        ];
+        return {
+          data: data,
+        };
+      } else if (grapheType === "pie") {
+        let data = [
+          {
+            values: Object.values(chartData),
+            labels: Object.keys(chartData),
+            // values: [19, 26, 55],
+            // labels: ["Residential", "Non-Residential", "Utility"],
+            type: "pie",
+          },
+        ];
+
+        // let layout = {
+        //   height: 400,
+        //   width: 500,
+        // };
+        return {
+          data: data,
+          // layout: layout,
+        };
+      }
+    },
     validateChartProps() {
       if (this.selectedCube) {
         let data = {
@@ -81,13 +118,16 @@ export default {
         };
         this.$http.post("api/cubes/chart_columns", data)
           .then(response => {
-            for (let key in response.body) {
-              this.labels.push(key);
-              this.values.push(response.body[key])
-            }
+            let graph = this.genGraph(this.chartType, response.body);
+            let ChartDiv= this.currentChartDiv;
+            Plotly.newPlot(ChartDiv, graph.data, graph.layout)
+              .then(function () {
+                let graphDiv = document.getElementById(ChartDiv);
+                graphDiv.style.width = "95%";
+                graphDiv.style.height = "95%";
+                return Plotly.Plots.resize(graphDiv);
+              });
           });
-        this.$emit('labels', this.labels);
-        this.$emit('values', this.values);
         this.$emit('selectedCube', this.selectedCube);
         this.$emit('showChartProps', false);
       }

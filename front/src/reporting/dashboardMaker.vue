@@ -7,10 +7,9 @@
     </label>
 
 
-    <chart-props :chartType="draggedChart" v-if="showChartProps === true" @labels="labels = $event"
-                 @values="values = $event" @showChartProps="showChartProps = $event"></chart-props>
+    <chart-props :currentChartDiv="currentChartDiv" :chartType="draggedChart" v-if="showChartProps === true"
+                 @showChartProps="showChartProps = $event"></chart-props>
     <draggable id="divDash" v-model="list2" class="dashboard" :options="{group:'charts', sort: false}">
-      {{layout}}
         <!--<div v-for="(element, index) in list2" :id="element.type + (index)">{{element.type + (index)}}</div>-->
         <grid-layout
           :layout="layout"
@@ -60,6 +59,7 @@
 </template>
 
 <script>
+
 import Plotly from "plotly.js";
 import draggable from "vuedraggable";
 import VueGridLayout from "vue-grid-layout";
@@ -73,9 +73,8 @@ export default {
   data: function() {
     return {
       showChartProps : false,
+      currentChartDiv : '',
       dashboardName : "",
-      labels : [],
-      values :  [],
       layout: [{ x: 0, y: 0, w: 6, h: 8, i: "0"}],
       list: [
         {
@@ -98,41 +97,6 @@ export default {
       let i = this.layout.map(item => item.i).indexOf(index);
       this.list2.splice(i, 1);
       this.layout.splice(i, 1);
-    },
-    genGraph(grapheType) {
-      this.showChartProps = true;
-      if (grapheType === "bar") {
-        //todo replace with rest api
-        let data = [
-          {
-            x: ["giraffes", "orangutans", "monkeys"],
-            y: [20, 14, 23],
-            type: "bar",
-          },
-        ];
-        return {
-          data: data,
-        };
-      } else if (grapheType === "pie") {
-        let data = [
-          {
-            values: this.values,
-            labels: this.labels,
-            // values: [19, 26, 55],
-            // labels: ["Residential", "Non-Residential", "Utility"],
-            type: "pie",
-          },
-        ];
-
-        // let layout = {
-        //   height: 400,
-        //   width: 500,
-        // };
-        return {
-          data: data,
-          // layout: layout,
-        };
-      }
     },
     onMove({ relatedContext, draggedContext }) {
       this.draggedChart = draggedContext.element.type;
@@ -160,15 +124,9 @@ export default {
         let divDash = gridItems[gridItems.length - 2]; //-2 because last element is the vue-grid-placeholder
         let innerDiv = document.createElement("div");
         innerDiv.id = chartDiv;
+        this.currentChartDiv = chartDiv;
         divDash.appendChild(innerDiv);
-        let graph = this.genGraph(this.draggedChart);
-        Plotly.newPlot(chartDiv, graph.data, graph.layout)
-          .then(function () {
-            let graphDiv = document.getElementById(chartDiv);
-            graphDiv.style.width = "95%";
-            graphDiv.style.height = "95%";
-            return Plotly.Plots.resize(graphDiv);
-          });
+        this.showChartProps = true;
       }
 
     },
