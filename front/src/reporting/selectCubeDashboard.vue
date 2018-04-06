@@ -48,10 +48,10 @@ export default {
   methods: {
     validateCubeSelection() {
       if (this.selectedCube) {
-        this.$emit('selectedCube', this.selectedCube);
-        this.$emit('interface', 'dashboardMaker');
+        this.$emit("selectedCube", this.selectedCube);
+        this.$emit("interface", "dashboardMaker");
       }
-    }
+    },
   },
   created() {
     this.$http

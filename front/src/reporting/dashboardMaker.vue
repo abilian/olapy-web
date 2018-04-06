@@ -59,23 +59,22 @@
 </template>
 
 <script>
-
 import Plotly from "plotly.js";
 import draggable from "vuedraggable";
 import VueGridLayout from "vue-grid-layout";
-import ChartProps from "./chartProps"
+import ChartProps from "./chartProps";
 
 let GridLayout = VueGridLayout.GridLayout;
 let GridItem = VueGridLayout.GridItem;
 
 export default {
-  props: ['selectedCube'],
+  props: ["selectedCube"],
   data: function() {
     return {
-      showChartProps : false,
-      currentChartDiv : '',
-      dashboardName : "",
-      layout: [{ x: 0, y: 0, w: 6, h: 8, i: "0"}],
+      showChartProps: false,
+      currentChartDiv: "",
+      dashboardName: "",
+      layout: [{ x: 0, y: 0, w: 6, h: 8, i: "0" }],
       list: [
         {
           type: "bar",
@@ -101,10 +100,10 @@ export default {
     onMove({ relatedContext, draggedContext }) {
       this.draggedChart = draggedContext.element.type;
     },
-    resize: function (i, newH, newW) {
+    resize: function(i, newH, newW) {
       let plotDiv = document.getElementById(i);
       Plotly.Plots.resize(plotDiv);
-    }
+    },
   },
 
   components: {
@@ -114,11 +113,12 @@ export default {
     "chart-props": ChartProps,
   },
   watch: {
-    list2: function (list, oldList) {
-      if (list.length > oldList.length) { // watch when add only/ not when remove
+    list2: function(list, oldList) {
+      if (list.length > oldList.length) {
+        // watch when add only/ not when remove
         let chartDiv = this.draggedChart + (list.length - 1);
         this.layout[list.length - 1].i = chartDiv;
-        this.layout.push({x: 0, y: 0, w: 6, h: 8, i: ""}); //prepare next div //todo calculation
+        this.layout.push({ x: 0, y: 0, w: 6, h: 8, i: "" }); //prepare next div //todo calculation
         //create div dynamically
         let gridItems = document.getElementsByClassName("vue-grid-item");
         let divDash = gridItems[gridItems.length - 2]; //-2 because last element is the vue-grid-placeholder
@@ -128,7 +128,6 @@ export default {
         divDash.appendChild(innerDiv);
         this.showChartProps = true;
       }
-
     },
   },
 };
@@ -159,44 +158,43 @@ export default {
 }
 
 .vue-grid-item:not(.vue-grid-placeholder) {
-    background: #ccc;
-    border: 1px solid black;
+  background: #ccc;
+  border: 1px solid black;
 }
 
 .vue-grid-item.resizing {
-    opacity: 0.9;
+  opacity: 0.9;
 }
 
 .vue-grid-item.static {
-    background: #cce;
+  background: #cce;
 }
 
 .vue-grid-item .text {
-    font-size: 24px;
-    text-align: center;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    height: 100%;
-    width: 100%;
+  font-size: 24px;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  height: 100%;
+  width: 100%;
 }
 
 .vue-grid-item .no-drag {
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
 }
 
 .vue-grid-item .minMax {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .vue-grid-item .add {
-    cursor: pointer;
+  cursor: pointer;
 }
-
 
 .btn-lg {
   padding: 10px 13px;

@@ -57,21 +57,20 @@
 </template>
 
 <script>
-
 import Plotly from "plotly.js";
 
 export default {
-  props: ["chartType","currentChartDiv"],
+  props: ["chartType", "currentChartDiv"],
   data: function() {
     return {
       selectedCube: "",
       userCubes: [],
       allColumns: [],
       selectedColumn: "",
-      allMeasures : [],
-      selectedMeasures : [],
-      labels : [],
-      values : []
+      allMeasures: [],
+      selectedMeasures: [],
+      labels: [],
+      values: [],
     };
   },
   methods: {
@@ -114,46 +113,45 @@ export default {
         let data = {
           selectedCube: this.selectedCube,
           selectedColumn: this.selectedColumn,
-          selectedMeasures: this.selectedMeasures
+          selectedMeasures: this.selectedMeasures,
         };
-        this.$http.post("api/cubes/chart_columns", data)
-          .then(response => {
-            let graph = this.genGraph(this.chartType, response.body);
-            let ChartDiv= this.currentChartDiv;
-            Plotly.newPlot(ChartDiv, graph.data, graph.layout)
-              .then(function () {
-                let graphDiv = document.getElementById(ChartDiv);
-                graphDiv.style.width = "95%";
-                graphDiv.style.height = "95%";
-                return Plotly.Plots.resize(graphDiv);
-              });
+        this.$http.post("api/cubes/chart_columns", data).then(response => {
+          let graph = this.genGraph(this.chartType, response.body);
+          let ChartDiv = this.currentChartDiv;
+          Plotly.newPlot(ChartDiv, graph.data, graph.layout).then(function() {
+            let graphDiv = document.getElementById(ChartDiv);
+            graphDiv.style.width = "95%";
+            graphDiv.style.height = "95%";
+            return Plotly.Plots.resize(graphDiv);
           });
-        this.$emit('selectedCube', this.selectedCube);
-        this.$emit('showChartProps', false);
+        });
+        this.$emit("selectedCube", this.selectedCube);
+        this.$emit("showChartProps", false);
       }
-    }
+    },
   },
   watch: {
-    selectedCube: function (selectedCube) {
-      this.$http.get("api/cubes/" + selectedCube + "/columns")
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        for (let key in data) {
-          this.allColumns.push(data[key]);
-        }
-      });
-
-      this.$http.get("api/cubes/" + selectedCube + "/facts")
+    selectedCube: function(selectedCube) {
+      this.$http
+        .get("api/cubes/" + selectedCube + "/columns")
         .then(response => {
           return response.json();
         })
         .then(data => {
-          this.allMeasures = data['measures'];
+          for (let key in data) {
+            this.allColumns.push(data[key]);
+          }
         });
-    }
 
+      this.$http
+        .get("api/cubes/" + selectedCube + "/facts")
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          this.allMeasures = data["measures"];
+        });
+    },
   },
   created() {
     this.$http
