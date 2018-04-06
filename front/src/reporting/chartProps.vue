@@ -20,9 +20,9 @@
               </label>
               <hr>
               <label>
-                <select v-model="selectedDimension" v-show="allDimensions.length > 0">
+                <select v-model="selectedColumn" v-show="allColumns.length > 0">
                   <option disabled value="">Choose</option>
-                  <option v-for="dimension in allDimensions">
+                  <option v-for="dimension in allColumns">
                     {{ dimension }}
                   </option>
                 </select>
@@ -63,15 +63,31 @@ export default {
     return {
       selectedCube: "",
       userCubes: [],
-      allDimensions: [],
-      selectedDimension: "",
+      allColumns: [],
+      selectedColumn: "",
       allMeasures : [],
-      selectedMeasures : []
+      selectedMeasures : [],
+      labels : [],
+      values : []
     };
   },
   methods: {
     validateChartProps() {
       if (this.selectedCube) {
+        let data = {
+          selectedCube: this.selectedCube,
+          selectedColumn: this.selectedColumn,
+          selectedMeasures: this.selectedMeasures
+        };
+        this.$http.post("api/cubes/chart_columns", data)
+          .then(response => {
+            for (let key in response.body) {
+              this.labels.push(key);
+              this.values.push(response.body[key])
+            }
+          });
+        this.$emit('labels', this.labels);
+        this.$emit('values', this.values);
         this.$emit('selectedCube', this.selectedCube);
         this.$emit('showChartProps', false);
       }
@@ -79,13 +95,13 @@ export default {
   },
   watch: {
     selectedCube: function (selectedCube) {
-      this.$http.get("api/cubes/" + selectedCube + "/dimensions")
+      this.$http.get("api/cubes/" + selectedCube + "/columns")
       .then(response => {
         return response.json();
       })
       .then(data => {
         for (let key in data) {
-          this.allDimensions.push(data[key]);
+          this.allColumns.push(data[key]);
         }
       });
 

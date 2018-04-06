@@ -7,7 +7,8 @@
     </label>
 
 
-    <chart-props :chartType="draggedChart" v-if="showChartProps === true" @showChartProps="showChartProps = $event"></chart-props>
+    <chart-props :chartType="draggedChart" v-if="showChartProps === true" @labels="labels = $event"
+                 @values="values = $event" @showChartProps="showChartProps = $event"></chart-props>
     <draggable id="divDash" v-model="list2" class="dashboard" :options="{group:'charts', sort: false}">
       {{layout}}
         <!--<div v-for="(element, index) in list2" :id="element.type + (index)">{{element.type + (index)}}</div>-->
@@ -73,6 +74,8 @@ export default {
     return {
       showChartProps : false,
       dashboardName : "",
+      labels : [],
+      values :  [],
       layout: [{ x: 0, y: 0, w: 6, h: 8, i: "0"}],
       list: [
         {
@@ -97,6 +100,7 @@ export default {
       this.layout.splice(i, 1);
     },
     genGraph(grapheType) {
+      this.showChartProps = true;
       if (grapheType === "bar") {
         //todo replace with rest api
         let data = [
@@ -112,8 +116,10 @@ export default {
       } else if (grapheType === "pie") {
         let data = [
           {
-            values: [19, 26, 55],
-            labels: ["Residential", "Non-Residential", "Utility"],
+            values: this.values,
+            labels: this.labels,
+            // values: [19, 26, 55],
+            // labels: ["Residential", "Non-Residential", "Utility"],
             type: "pie",
           },
         ];
@@ -155,7 +161,6 @@ export default {
         let innerDiv = document.createElement("div");
         innerDiv.id = chartDiv;
         divDash.appendChild(innerDiv);
-        this.showChartProps = true;
         let graph = this.genGraph(this.draggedChart);
         Plotly.newPlot(chartDiv, graph.data, graph.layout)
           .then(function () {

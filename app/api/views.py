@@ -461,3 +461,19 @@ def confirm_db_cube():
               'db_config': generate_sqla_uri(request_data)}
     save_cube_config_2_db(config=config, cube_name=request_data['selectCube'], source='db')
     return jsonify({'success': True}), 200
+
+
+@api('cubes/chart_columns', methods=['POST'])
+@login_required
+def get_chart_columns_result():
+    request_data = request.get_json()
+    executor = _load_cube(request_data['selectedCube'])
+    return executor.star_schema_dataframe.groupby([request_data['selectedColumn']]).sum()[
+        request_data['selectedMeasures']].to_json()
+
+
+@api('cubes/<cube_name>/columns')
+@login_required
+def get_cube_columns(cube_name):
+    executor = _load_cube(cube_name)
+    return jsonify(list(executor.star_schema_dataframe.columns))
