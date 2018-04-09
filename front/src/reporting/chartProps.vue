@@ -73,7 +73,7 @@ export default {
       selectedColumn: "",
       allMeasures: [],
       selectedMeasures: [],
-      chartTitle : '',
+      chartTitle: "",
       labels: [],
       values: [],
     };
@@ -115,8 +115,13 @@ export default {
           selectedColumn: this.selectedColumn,
           selectedMeasures: this.selectedMeasures,
         };
-        if (this.chartTitle === '') {
-          this.chartTitle = data.selectedMeasures + ' of ' + data.selectedColumn + ' from ' + data.selectedCube
+        if (this.chartTitle === "") {
+          this.chartTitle =
+            data.selectedMeasures +
+            " of " +
+            data.selectedColumn +
+            " from " +
+            data.selectedCube;
         }
         this.$http.post("api/cubes/chart_columns", data).then(response => {
           let graph = this.genGraph(this.chartType, response.body);
