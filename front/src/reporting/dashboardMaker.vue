@@ -39,11 +39,13 @@
 
     <draggable v-model="list" class="dash-toolbox" :move="onMove"
                :options="{group:{ name:'charts',  pull:'clone' }}">
-      <div><img :key="0" class="toolbox-icons"
-                src="https://cdn4.iconfinder.com/data/icons/flat-business-icon-set/450/bar_chart-512.png"/></div>
-      <div><img :key="2" class="toolbox-icons"
-                src="http://www.myiconfinder.com/uploads/iconsets/256-256-08f7586f151e4761d26cb03276ac9b71.png"/>
-      </div>
+      <img class="toolbox-icons"
+           src="https://cdn4.iconfinder.com/data/icons/flat-business-icon-set/450/bar_chart-512.png"/>
+      <img class="toolbox-icons"
+           src="http://icons.iconarchive.com/icons/oxygen-icons.org/oxygen/256/Actions-office-chart-line-stacked-icon.png"/>
+      <img class="toolbox-icons"
+           src="http://www.myiconfinder.com/uploads/iconsets/256-256-08f7586f151e4761d26cb03276ac9b71.png"/>
+
 
     </draggable>
     <!--<div class="dash-toolbox">-->
@@ -75,16 +77,23 @@ export default {
       currentChartDiv: "",
       dashboardName: "",
       layout: [{ x: 0, y: 0, w: 6, h: 8, i: "0" }],
+      //todo fix empty type
       list: [
         {
           type: "bar",
         },
         {
+          type: "",
+        },
+        {
           type: "scatter",
         },
         {
-          type: "pie",
+          type: "",
         },
+        {
+          type: "pie",
+        }
       ],
 
       list2: [],

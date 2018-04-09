@@ -81,12 +81,12 @@ export default {
   methods: {
     genGraph(grapheType, chartData) {
       let data;
-      if (grapheType === "bar") {
+      if (["bar", "scatter"].includes(grapheType)) {
         data = [
           {
             y: Object.values(chartData),
             x: Object.keys(chartData),
-            type: "bar",
+            type: grapheType,
           },
         ];
       } else if (grapheType === "pie") {
@@ -94,7 +94,7 @@ export default {
           {
             values: Object.values(chartData),
             labels: Object.keys(chartData),
-            type: "pie",
+            type: grapheType,
           },
         ];
       }
