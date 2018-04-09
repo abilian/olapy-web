@@ -476,4 +476,5 @@ def get_chart_columns_result():
 @login_required
 def get_cube_columns(cube_name):
     executor = _load_cube(cube_name)
-    return jsonify(list(executor.star_schema_dataframe.columns))
+    return jsonify([column for column in executor.star_schema_dataframe.columns if
+                    column.lower()[-3:] != '_id' and column not in executor.measures])
