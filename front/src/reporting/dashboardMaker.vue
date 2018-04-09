@@ -37,25 +37,18 @@
     </draggable>
 
 
-    <draggable v-model="list" class="dash-toolbox" :move="onMove"
+    <draggable :list="list" class="dash-toolbox" :move="onMove"
                :options="{group:{ name:'charts',  pull:'clone' }}">
-      <img class="toolbox-icons"
-           src="https://cdn4.iconfinder.com/data/icons/flat-business-icon-set/450/bar_chart-512.png"/>
-      <img class="toolbox-icons"
-           src="http://icons.iconarchive.com/icons/oxygen-icons.org/oxygen/256/Actions-office-chart-line-stacked-icon.png"/>
-      <img class="toolbox-icons"
-           src="http://www.myiconfinder.com/uploads/iconsets/256-256-08f7586f151e4761d26cb03276ac9b71.png"/>
-
-
-    </draggable>
-    <!--<div class="dash-toolbox">-->
-      <!--&lt;!&ndash;todo change flask or vue delimiter&ndash;&gt;-->
+        <div style="float: right" v-for="element in list">{{element}}</div>
+      <!--todo put images-->
       <!--<img class="toolbox-icons"-->
            <!--src="https://cdn4.iconfinder.com/data/icons/flat-business-icon-set/450/bar_chart-512.png"/>-->
       <!--<img class="toolbox-icons"-->
+           <!--src="http://icons.iconarchive.com/icons/oxygen-icons.org/oxygen/256/Actions-office-chart-line-stacked-icon.png"/>-->
+      <!--<img class="toolbox-icons"-->
            <!--src="http://www.myiconfinder.com/uploads/iconsets/256-256-08f7586f151e4761d26cb03276ac9b71.png"/>-->
 
-    <!--</div>-->
+    </draggable>
   </div>
 
 </template>
@@ -78,24 +71,7 @@ export default {
       dashboardName: "",
       layout: [{ x: 0, y: 0, w: 6, h: 8, i: "0" }],
       //todo fix empty type
-      list: [
-        {
-          type: "bar",
-        },
-        {
-          type: "",
-        },
-        {
-          type: "scatter",
-        },
-        {
-          type: "",
-        },
-        {
-          type: "pie",
-        }
-      ],
-
+      list: ["bar", "scatter", "pie"],
       list2: [],
       draggedChart: "",
     };
@@ -107,7 +83,8 @@ export default {
       this.layout.splice(i, 1);
     },
     onMove({ relatedContext, draggedContext }) {
-      this.draggedChart = draggedContext.element.type;
+      // this.draggedChart = draggedContext.element; todo index *2 every time ??
+      this.draggedChart = this.list[draggedContext.index];
     },
     resize: function(i, newH, newW) {
       let plotDiv = document.getElementById(i);
