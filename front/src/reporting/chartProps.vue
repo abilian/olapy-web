@@ -6,6 +6,10 @@
 
           <div class="modal-header">
             {{chartType}}
+            <label>
+              Chart Title
+              <input type="text" v-model="chartTitle">
+            </label>
           </div>
 
           <div class="modal-body">
@@ -69,6 +73,7 @@ export default {
       selectedColumn: "",
       allMeasures: [],
       selectedMeasures: [],
+      chartTitle : '',
       labels: [],
       values: [],
     };
@@ -98,13 +103,14 @@ export default {
           },
         ];
 
-        // let layout = {
-        //   height: 400,
-        //   width: 500,
-        // };
+        let layout = {
+          title: this.chartTitle,
+          // height: 400,
+          // width: 500,
+        };
         return {
           data: data,
-          // layout: layout,
+          layout: layout,
         };
       }
     },
@@ -115,6 +121,9 @@ export default {
           selectedColumn: this.selectedColumn,
           selectedMeasures: this.selectedMeasures,
         };
+        if (this.chartTitle === '') {
+          this.chartTitle = data.selectedMeasures + ' of ' + data.selectedColumn + ' from ' + data.selectedCube
+        }
         this.$http.post("api/cubes/chart_columns", data).then(response => {
           let graph = this.genGraph(this.chartType, response.body);
           let ChartDiv = this.currentChartDiv;
