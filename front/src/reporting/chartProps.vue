@@ -80,39 +80,33 @@ export default {
   },
   methods: {
     genGraph(grapheType, chartData) {
+      let data;
       if (grapheType === "bar") {
-        //todo replace with rest api
-        let data = [
+        data = [
           {
-            x: ["giraffes", "orangutans", "monkeys"],
-            y: [20, 14, 23],
+            y: Object.values(chartData),
+            x: Object.keys(chartData),
             type: "bar",
           },
         ];
-        return {
-          data: data,
-        };
       } else if (grapheType === "pie") {
-        let data = [
+        data = [
           {
             values: Object.values(chartData),
             labels: Object.keys(chartData),
-            // values: [19, 26, 55],
-            // labels: ["Residential", "Non-Residential", "Utility"],
             type: "pie",
           },
         ];
-
-        let layout = {
-          title: this.chartTitle,
-          // height: 400,
-          // width: 500,
-        };
-        return {
-          data: data,
-          layout: layout,
-        };
       }
+      let layout = {
+        title: this.chartTitle,
+        // height: 400,
+        // width: 500,
+      };
+      return {
+        data: data,
+        layout: layout,
+      };
     },
     validateChartProps() {
       if (this.selectedCube) {
