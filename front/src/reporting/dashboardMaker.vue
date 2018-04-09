@@ -83,11 +83,11 @@ export default {
       this.layout.splice(i, 1);
     },
     onMove({ relatedContext, draggedContext }) {
-      // this.draggedChart = draggedContext.element; todo index *2 every time ??
-      this.draggedChart = this.list[draggedContext.index];
+      this.draggedChart = draggedContext.element;
+      // this.draggedChart = this.list[draggedContext.index];
     },
-    resize: function(i, newH, newW) {
-      let plotDiv = document.getElementById(i);
+    resize: function(id) {
+      let plotDiv = document.getElementById(id);
       Plotly.Plots.resize(plotDiv);
     },
   },
