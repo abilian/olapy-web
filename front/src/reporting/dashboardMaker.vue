@@ -96,7 +96,7 @@ export default {
           dashboardContent: CircularJSON.stringify(document.getElementById('divDash').children)
           // dashboardContent: stringify(document.getElementById('divDash').children)
         };
-        this.$http.post("api/dashboard/save", data)
+        this.$http.post("dashboard_api/save", data)
       }
     },
   },
