@@ -12,11 +12,6 @@ cubes = db.Table('cubes',
                  db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
                  )
 
-cubes_dashboards = db.Table('cubes_dashboards',
-                            db.Column('cube_id', db.Integer, db.ForeignKey('cube.id'), primary_key=True),
-                            db.Column('dashboard_id', db.Integer, db.ForeignKey('dashboard.id'), primary_key=True),
-                            )
-
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -76,10 +71,16 @@ class Cube(db.Model):
 class Dashboard(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'),
-                        nullable=False)
-    cubes = db.relationship('Cube', secondary=cubes_dashboards, lazy='dynamic',
-                            backref=db.backref('dashboards', lazy=True))
+    content = db.Column(db.String(3000), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    # @property
+    # def content(self):
+    #     return json.loads(self._content)
+    #
+    # @content.setter
+    # def content(self, value):
+    #     self._content = json.dumps(value)
 
     def __repr__(self):
         return str(self.__dict__)
