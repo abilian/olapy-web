@@ -478,3 +478,11 @@ def get_cube_columns(cube_name):
     executor = _load_cube(cube_name)
     return jsonify([column for column in executor.star_schema_dataframe.columns if
                     column.lower()[-3:] != '_id' and column not in executor.measures])
+
+@api('dashboard/save', methods=['POST'])
+@login_required
+def save_dashboard():
+    request_data = request.get_json()
+    print(request_data)
+
+

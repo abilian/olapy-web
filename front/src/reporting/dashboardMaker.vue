@@ -1,47 +1,50 @@
 <template>
   <div>
+    <!--<form @submit="saveDashboard" action="#" method="post">-->
+      <label>
+        Dashboard name:
+        <input type="text" v-model="dashboardName" required>
+      </label>
 
-    <label>
-      Dashboard name:
-      <input type="text" v-model="dashboardName">
-    </label>
+      <input style="float: right;" type="submit" value="save" @click="saveDashboard">
 
-    <chart-props :currentChartDiv="currentChartDiv" :chartType="draggedChart" v-if="showChartProps === true"
-                 @showChartProps="showChartProps = $event"></chart-props>
-    <draggable id="divDash" v-model="list2" class="dashboard" :options="{group:'charts', sort: false}">
-      <!--<div v-for="(element, index) in list2" :id="element.type + (index)">{{element.type + (index)}}</div>-->
-      <grid-layout
-        :layout="layout"
-        :col-num="12"
-        :row-height="30"
-        :is-draggable="true"
-        :is-resizable="true"
-        :is-mirrored="false"
-        :vertical-compact="true"
-        :margin="[10, 10]"
-        :use-css-transforms="true">
+      <chart-props :currentChartDiv="currentChartDiv" :chartType="draggedChart" v-if="showChartProps === true"
+                   @showChartProps="showChartProps = $event"></chart-props>
+      <draggable id="divDash" v-model="list2" class="dashboard" :options="{group:'charts', sort: false}">
+        <!--<div v-for="(element, index) in list2" :id="element.type + (index)">{{element.type + (index)}}</div>-->
+        <grid-layout
+          :layout="layout"
+          :col-num="12"
+          :row-height="30"
+          :is-draggable="true"
+          :is-resizable="true"
+          :is-mirrored="false"
+          :vertical-compact="true"
+          :margin="[10, 10]"
+          :use-css-transforms="true">
 
-        <grid-item v-for="(item, index) in layout" v-show="index < layout.length - 1"
-                   :x="item.x"
-                   :y="item.y"
-                   :w="item.w"
-                   :h="item.h"
-                   :i="item.i"
-                   @resize="resize">
-          <button type="button" class="btn btn-danger btn-lg" style="margin-right: 0; float: right"
-                  @click="removeItem(item.i)"><span
-            class="glyphicon glyphicon-remove"></span></button>
-        </grid-item>
-      </grid-layout>
-    </draggable>
+          <grid-item v-for="(item, index) in layout" v-show="index < layout.length - 1"
+                     :x="item.x"
+                     :y="item.y"
+                     :w="item.w"
+                     :h="item.h"
+                     :i="item.i"
+                     @resize="resize">
+            <button type="button" class="btn btn-danger btn-lg" style="margin-right: 0; float: right"
+                    @click="removeItem(item.i)"><span
+              class="glyphicon glyphicon-remove"></span></button>
+          </grid-item>
+        </grid-layout>
+      </draggable>
 
 
-    <draggable :list="list" class="dash-toolbox" :move="onMove"
-               :options="{group:{ name:'charts',  pull:'clone' }}">
-      <div v-for="element in list">
-        <img class="toolbox-icons" :src="'/static/icons/' + element + 'chart.png'">
-      </div>
-    </draggable>
+      <draggable :list="list" class="dash-toolbox" :move="onMove"
+                 :options="{group:{ name:'charts',  pull:'clone' }}">
+        <div v-for="element in list">
+          <img class="toolbox-icons" :src="'/static/icons/' + element + 'chart.png'">
+        </div>
+      </draggable>
+    <!--</form>-->
   </div>
 
 </template>
@@ -51,6 +54,8 @@ import Plotly from "plotly.js";
 import draggable from "vuedraggable";
 import VueGridLayout from "vue-grid-layout";
 import ChartProps from "./chartProps";
+
+var stringify = require('json-stringify-safe');
 
 let GridLayout = VueGridLayout.GridLayout;
 let GridItem = VueGridLayout.GridItem;
@@ -75,16 +80,25 @@ export default {
       this.list2.splice(i, 1);
       this.layout.splice(i, 1);
     },
-    onMove({ relatedContext, draggedContext }) {
+    onMove({relatedContext, draggedContext}) {
       this.draggedChart = draggedContext.element;
       // this.draggedChart = this.list[draggedContext.index];
     },
-    resize: function(id) {
+    resize: function (id) {
       let plotDiv = document.getElementById(id);
       Plotly.Plots.resize(plotDiv);
     },
+    saveDashboard() {
+      // let dashboardContent = document.getElementById('divDash').querySelectorAll('*')
+      if (this.dashboardName) {
+        let data = {
+          dashboardName: this.dashboardName,
+          dashboardContent: stringify(document.getElementById('divDash').children)
+        };
+        this.$http.post("api/dashboard/save", data)
+      }
+    },
   },
-
   components: {
     draggable,
     GridLayout,
