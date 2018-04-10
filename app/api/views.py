@@ -478,3 +478,30 @@ def get_cube_columns(cube_name):
     executor = _load_cube(cube_name)
     return jsonify([column for column in executor.star_schema_dataframe.columns if
                     column.lower()[-3:] != '_id' and column not in executor.measures])
+
+
+@api('dashboard/save', methods=['POST'])
+@login_required
+def save_dashboard():
+    request_data = request.get_json()
+    user_dashboard = User.query.filter(User.id == current_user.id).first().dashboards
+    if user_dashboard:
+        # update dashboard
+        user_dashboard.name = request_data['dashboardName']
+        user_dashboard.content = request_data['dashboardContent']
+    else:
+        # add new cube
+        cube = Dashboard(name=request_data['dashboardName'],
+                         content=request_data['dashboardContent'],
+                         user_id=current_user.id
+                         )
+        db.session.add(cube)
+    db.session.commit()
+    return jsonify({'success': True}), 200
+
+
+@api('dashboard/all')
+@login_required
+def all_dashboard():
+    all_dashboards = User.query.filter(User.id == current_user.id).first().dashboards
+    return jsonify([dashboard.name for dashboard in all_dashboards])

@@ -21,7 +21,7 @@ export default {
   },
   created() {
     this.$http
-      .get("dashboard_api/all")
+      .get("api/dashboard/all")
       .then(response => {
         return response.json();
       })
