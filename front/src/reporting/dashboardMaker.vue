@@ -55,7 +55,7 @@ import draggable from "vuedraggable";
 import VueGridLayout from "vue-grid-layout";
 import ChartProps from "./chartProps";
 
-var stringify = require('json-stringify-safe');
+let CircularJSON = require('circular-json');
 
 let GridLayout = VueGridLayout.GridLayout;
 let GridItem = VueGridLayout.GridItem;
@@ -93,7 +93,8 @@ export default {
       if (this.dashboardName) {
         let data = {
           dashboardName: this.dashboardName,
-          dashboardContent: stringify(document.getElementById('divDash').children)
+          dashboardContent: CircularJSON.stringify(document.getElementById('divDash').children)
+          // dashboardContent: stringify(document.getElementById('divDash').children)
         };
         this.$http.post("api/dashboard/save", data)
       }
