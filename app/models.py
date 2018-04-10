@@ -20,7 +20,7 @@ class User(db.Model, UserMixin):
     password_hash = db.Column(db.String)
     cubes = db.relationship('Cube', secondary=cubes, lazy='dynamic',
                             backref=db.backref('users', lazy=True))
-    dashboards = db.relationship('Dashboard', backref='user', lazy=True)
+    dashboards = db.relationship('Dashboard', backref='user', lazy='dynamic')
 
     @property
     def password(self):

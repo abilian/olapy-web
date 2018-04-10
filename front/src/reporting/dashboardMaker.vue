@@ -1,17 +1,21 @@
 <template>
   <div>
     <!--<form @submit="saveDashboard" action="#" method="post">-->
-      <label>
-        Dashboard name:
-        <input type="text" v-model="dashboardName" required>
-      </label>
+    <label>
+      Dashboard name:
+      <input type="text" v-model="dashboardName" required>
+    </label>
 
-      <input style="float: right;" type="submit" value="save" @click="saveDashboard">
+    <input style="float: right;" type="submit" value="save" @click="saveDashboard">
 
-      <chart-props :currentChartDiv="currentChartDiv" :chartType="draggedChart" v-if="showChartProps === true"
-                   @showChartProps="showChartProps = $event"></chart-props>
+    <chart-props :currentChartDiv="currentChartDiv" :chartType="draggedChart" v-if="showChartProps === true"
+                 @showChartProps="showChartProps = $event"></chart-props>
+
+    <slot>
       <draggable id="divDash" v-model="list2" class="dashboard" :options="{group:'charts', sort: false}">
         <!--<div v-for="(element, index) in list2" :id="element.type + (index)">{{element.type + (index)}}</div>-->
+
+
         <grid-layout
           :layout="layout"
           :col-num="12"
@@ -36,14 +40,15 @@
           </grid-item>
         </grid-layout>
       </draggable>
+    </slot>
 
+    <draggable :list="list" class="dash-toolbox" :move="onMove"
+               :options="{group:{ name:'charts',  pull:'clone' }}">
+      <div v-for="element in list">
+        <img class="toolbox-icons" :src="'/static/icons/' + element + 'chart.png'">
+      </div>
+    </draggable>
 
-      <draggable :list="list" class="dash-toolbox" :move="onMove"
-                 :options="{group:{ name:'charts',  pull:'clone' }}">
-        <div v-for="element in list">
-          <img class="toolbox-icons" :src="'/static/icons/' + element + 'chart.png'">
-        </div>
-      </draggable>
     <!--</form>-->
   </div>
 

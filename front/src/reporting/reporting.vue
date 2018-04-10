@@ -6,11 +6,13 @@
       <!--<select-cube-dashboard v-if="reportingInterface === 'newDashboard'"-->
                              <!--@selectedCube="selectedCube = $event" @interface="reportingInterface = $event"/>-->
       <!--<hr>-->
-      <user-dashboards/>
+      <user-dashboards @selectedDashboard="selectedDashboard = $event"
+                       @reportingInterface="reportingInterface = $event"/>
     </div>
 
-    <dashboard-marker v-if="reportingInterface === 'dashboardMaker'"
-                      :selectedCube="selectedCube" @interface="reportingInterface = $event"/>
+    <dashboard-marker v-if="reportingInterface === 'dashboardMaker'" @interface="reportingInterface = $event">
+      {{this.selectedDashboard.content}}
+    </dashboard-marker>
 
   </div>
 </template>
