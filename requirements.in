@@ -17,3 +17,5 @@ plotly
 typing
 pathlib
 
+#DB_Tools
+psycopg2

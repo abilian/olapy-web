@@ -4,7 +4,7 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
--e file:///home/moddoy/PycharmProjects/olapy
+-e git+https://github.com/abilian/olapy.git#egg=olapy
 alembic==0.9.9            # via flask-migrate
 appdirs==1.4.3            # via fs
 attrs==17.4.0
@@ -16,14 +16,12 @@ chardet==3.0.4            # via requests
 click==6.7                # via flask
 colorama==0.3.9           # via bonobo
 decorator==4.2.1          # via plotly, traitlets
-enum34==1.1.6             # via fs, traitlets
 flask-login==0.4.1
 flask-migrate==2.1.1
 flask-sqlalchemy==2.3.2
 flask-wtf==0.14.2
 flask==0.12.2
 fs==2.0.20                # via bonobo
-functools32==3.2.3.post2  # via jsonschema
 idna==2.6                 # via requests
 ipython-genutils==0.2.0   # via nbformat, traitlets
 itsdangerous==0.24        # via flask
@@ -46,7 +44,7 @@ pyparsing==2.2.0          # via packaging
 python-dateutil==2.7.2    # via alembic, pandas
 python-dotenv==0.8.2
 python-editor==1.0.3      # via alembic
-pytz==2018.3              # via fs, pandas, plotly, spyne
+pytz==2018.4              # via fs, pandas, plotly, spyne
 pyyaml==3.12
 regex==2018.2.21          # via awesome-slugify
 requests==2.18.4          # via bonobo, plotly
