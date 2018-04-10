@@ -6,48 +6,41 @@
       <input type="text" v-model="dashboardName">
     </label>
 
-
     <chart-props :currentChartDiv="currentChartDiv" :chartType="draggedChart" v-if="showChartProps === true"
                  @showChartProps="showChartProps = $event"></chart-props>
     <draggable id="divDash" v-model="list2" class="dashboard" :options="{group:'charts', sort: false}">
-        <!--<div v-for="(element, index) in list2" :id="element.type + (index)">{{element.type + (index)}}</div>-->
-        <grid-layout
-          :layout="layout"
-          :col-num="12"
-          :row-height="30"
-          :is-draggable="true"
-          :is-resizable="true"
-          :is-mirrored="false"
-          :vertical-compact="true"
-          :margin="[10, 10]"
-          :use-css-transforms="true">
+      <!--<div v-for="(element, index) in list2" :id="element.type + (index)">{{element.type + (index)}}</div>-->
+      <grid-layout
+        :layout="layout"
+        :col-num="12"
+        :row-height="30"
+        :is-draggable="true"
+        :is-resizable="true"
+        :is-mirrored="false"
+        :vertical-compact="true"
+        :margin="[10, 10]"
+        :use-css-transforms="true">
 
-          <grid-item v-for="(item, index) in layout" v-show="index < layout.length - 1"
-                     :x="item.x"
-                     :y="item.y"
-                     :w="item.w"
-                     :h="item.h"
-                     :i="item.i"
-                     @resize="resize">
-            <button type="button" class="btn btn-danger btn-lg" style="margin-right: 0; float: right"
-                    @click="removeItem(item.i)"><span
-              class="glyphicon glyphicon-remove"></span></button>
-          </grid-item>
-        </grid-layout>
+        <grid-item v-for="(item, index) in layout" v-show="index < layout.length - 1"
+                   :x="item.x"
+                   :y="item.y"
+                   :w="item.w"
+                   :h="item.h"
+                   :i="item.i"
+                   @resize="resize">
+          <button type="button" class="btn btn-danger btn-lg" style="margin-right: 0; float: right"
+                  @click="removeItem(item.i)"><span
+            class="glyphicon glyphicon-remove"></span></button>
+        </grid-item>
+      </grid-layout>
     </draggable>
 
 
     <draggable :list="list" class="dash-toolbox" :move="onMove"
                :options="{group:{ name:'charts',  pull:'clone' }}">
-        <div style="float: right" v-for="element in list">{{element}}</div>
-      <!--todo put images-->
-      <!--<img class="toolbox-icons"-->
-           <!--src="https://cdn4.iconfinder.com/data/icons/flat-business-icon-set/450/bar_chart-512.png"/>-->
-      <!--<img class="toolbox-icons"-->
-           <!--src="http://icons.iconarchive.com/icons/oxygen-icons.org/oxygen/256/Actions-office-chart-line-stacked-icon.png"/>-->
-      <!--<img class="toolbox-icons"-->
-           <!--src="http://www.myiconfinder.com/uploads/iconsets/256-256-08f7586f151e4761d26cb03276ac9b71.png"/>-->
-
+      <div v-for="element in list">
+        <img class="toolbox-icons" :src="'/static/icons/' + element + 'chart.png'">
+      </div>
     </draggable>
   </div>
 
