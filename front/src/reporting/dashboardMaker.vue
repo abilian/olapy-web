@@ -67,6 +67,7 @@ export default {
   props: ["selectedDashboard"],
   data: function() {
     return {
+      newDash : true,
       layout : [{x: 0, y: 0, w: 6, h: 8, i: "0"}],
       usedCharts : [],
       dashboardName : "",
@@ -111,7 +112,7 @@ export default {
   },
   watch: {
     usedCharts: function(list, oldList) {
-      if (list.length > oldList.length) {
+      if (list.length > oldList.length && this.newDash) {
         // watch when add only/ not when remove
         let chartDiv = this.draggedChart + (list.length - 1);
         this.layout[list.length - 1].i = chartDiv;
@@ -129,6 +130,7 @@ export default {
   },
   created() {
     if (this.selectedDashboard) {
+      this.newDash = false;
       this.layout = this.selectedDashboard['charts_layout'];
       this.usedCharts = this.selectedDashboard['charts'];
       this.dashboardName = this.selectedDashboard['name']
