@@ -484,7 +484,8 @@ def get_cube_columns(cube_name):
 @login_required
 def save_dashboard():
     request_data = request.get_json()
-    user_dashboard = User.query.filter(User.id == current_user.id).first().dashboards.first()
+    user_dashboard = User.query.filter(User.id == current_user.id).first().dashboards.filter(
+        Dashboard.name == request_data['dashboardName']).first()
     if user_dashboard:
         # update dashboard
         user_dashboard.name = request_data['dashboardName']
@@ -492,12 +493,12 @@ def save_dashboard():
         user_dashboard.charts_layout = request_data['layout']
     else:
         # add new cube
-        cube = Dashboard(name=request_data['dashboardName'],
-                         charts=request_data['usedCharts'],
-                         charts_layout=request_data['layout'],
-                         user_id=current_user.id
-                         )
-        db.session.add(cube)
+        dashboard = Dashboard(name=request_data['dashboardName'],
+                              charts=request_data['usedCharts'],
+                              charts_layout=request_data['layout'],
+                              user_id=current_user.id
+                              )
+        db.session.add(dashboard)
     db.session.commit()
     return jsonify({'success': True}), 200
 
@@ -518,5 +519,5 @@ def get_dashboard(dashboard_name):
     return jsonify({
         'name': dashboard.name,
         'charts': dashboard.charts,
-        'charts_layout' : dashboard.charts_layout
+        'charts_layout': dashboard.charts_layout
     })
