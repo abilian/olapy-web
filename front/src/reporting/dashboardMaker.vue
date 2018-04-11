@@ -7,45 +7,43 @@
     </label>
 
     <input style="float: right;" type="submit" value="save" @click="saveDashboard">
-
+    {{layout}}
+    *********************
+    {{usedCharts}}
     <chart-props :currentChartDiv="currentChartDiv" :chartType="draggedChart" v-if="showChartProps === true"
                  @showChartProps="showChartProps = $event"></chart-props>
+    <draggable id="divDash" v-model="usedCharts" class="dashboard" :options="{group:'charts', sort: false}">
 
-    <slot>
-      <draggable id="divDash" v-model="list2" class="dashboard" :options="{group:'charts', sort: false}">
-        <!--<div v-for="(element, index) in list2" :id="element.type + (index)">{{element.type + (index)}}</div>-->
+      <div v-for="(element, index) in usedCharts" :id="element.type + (index)">{{element.type + (index)}}</div>
 
+      <grid-layout
+        :layout="layout"
+        :col-num="12"
+        :row-height="30"
+        :is-draggable="true"
+        :is-resizable="true"
+        :is-mirrored="false"
+        :vertical-compact="true"
+        :margin="[10, 10]"
+        :use-css-transforms="true">
 
-        <grid-layout
-          :layout="layout"
-          :col-num="12"
-          :row-height="30"
-          :is-draggable="true"
-          :is-resizable="true"
-          :is-mirrored="false"
-          :vertical-compact="true"
-          :margin="[10, 10]"
-          :use-css-transforms="true">
-
-          <grid-item v-for="(item, index) in layout" v-show="index < layout.length - 1"
-                     :x="item.x"
-                     :y="item.y"
-                     :w="item.w"
-                     :h="item.h"
-                     :i="item.i"
-                     @resize="resize">
-            <button type="button" class="btn btn-danger btn-lg" style="margin-right: 0; float: right"
-                    @click="removeItem(item.i)"><span
-              class="glyphicon glyphicon-remove"></span></button>
-          </grid-item>
-        </grid-layout>
-      </draggable>
-    </slot>
-
-    <draggable :list="list" class="dash-toolbox" :move="onMove"
+        <grid-item v-for="(item, index) in layout" v-show="index < layout.length - 1"
+                   :x="item.x"
+                   :y="item.y"
+                   :w="item.w"
+                   :h="item.h"
+                   :i="item.i"
+                   @resize="resize">
+          <button type="button" class="btn btn-danger btn-lg" style="margin-right: 0; float: right"
+                  @click="removeItem(item.i)"><span
+            class="glyphicon glyphicon-remove"></span></button>
+        </grid-item>
+      </grid-layout>
+    </draggable>
+    <draggable :list="chartTypes" class="dash-toolbox" :move="onMove"
                :options="{group:{ name:'charts',  pull:'clone' }}">
-      <div v-for="element in list">
-        <img class="toolbox-icons" :src="'/static/icons/' + element + 'chart.png'">
+      <div v-for="chart_type in chartTypes">
+        <img class="toolbox-icons" :src="'/static/icons/' + chart_type + 'chart.png'">
       </div>
     </draggable>
 
@@ -73,16 +71,15 @@ export default {
       currentChartDiv: "",
       dashboardName: "",
       layout: [{ x: 0, y: 0, w: 6, h: 8, i: "0" }],
-      //todo fix empty type
-      list: ["bar", "scatter", "pie"],
-      list2: [],
+      chartTypes: ["bar", "scatter", "pie"],
+      usedCharts: [],
       draggedChart: "",
     };
   },
   methods: {
     removeItem(index) {
       let i = this.layout.map(item => item.i).indexOf(index);
-      this.list2.splice(i, 1);
+      this.usedCharts.splice(i, 1);
       this.layout.splice(i, 1);
     },
     onMove({relatedContext, draggedContext}) {
@@ -112,7 +109,7 @@ export default {
     "chart-props": ChartProps,
   },
   watch: {
-    list2: function(list, oldList) {
+    usedCharts: function(list, oldList) {
       if (list.length > oldList.length) {
         // watch when add only/ not when remove
         let chartDiv = this.draggedChart + (list.length - 1);
