@@ -95,7 +95,8 @@ export default {
       if (this.dashboardName) {
         let data = {
           dashboardName: this.dashboardName,
-          dashboardContent: CircularJSON.stringify(document.getElementById('divDash').children)
+          usedCharts: this.usedCharts,
+          layout : this.layout
           // dashboardContent: stringify(document.getElementById('divDash').children)
         };
         this.$http.post("api/dashboard/save", data)

@@ -71,16 +71,25 @@ class Cube(db.Model):
 class Dashboard(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
-    content = db.Column(db.String(3000), nullable=False)
+    _charts = db.Column(db.String(120), nullable=True)
+    _charts_layout = db.Column(db.String(200), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-    # @property
-    # def content(self):
-    #     return json.loads(self._content)
-    #
-    # @content.setter
-    # def content(self, value):
-    #     self._content = json.dumps(value)
+    @property
+    def charts(self):
+        return json.loads(self._charts)
+
+    @charts.setter
+    def charts(self, value):
+        self._charts = json.dumps(value)
+
+    @property
+    def charts_layout(self):
+        return json.loads(self._charts_layout)
+
+    @charts_layout.setter
+    def charts_layout(self, value):
+        self._charts_layout = json.dumps(value)
 
     def __repr__(self):
         return str(self.__dict__)

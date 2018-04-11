@@ -488,11 +488,13 @@ def save_dashboard():
     if user_dashboard:
         # update dashboard
         user_dashboard.name = request_data['dashboardName']
-        user_dashboard.content = request_data['dashboardContent']
+        user_dashboard.charts = request_data['usedCharts']
+        user_dashboard.charts_layout = request_data['layout']
     else:
         # add new cube
         cube = Dashboard(name=request_data['dashboardName'],
-                         content=request_data['dashboardContent'],
+                         charts=request_data['usedCharts'],
+                         charts_layout=request_data['layout'],
                          user_id=current_user.id
                          )
         db.session.add(cube)

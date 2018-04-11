@@ -1,18 +1,16 @@
 <template>
   <div>
 
-    <div  v-if="reportingInterface !== 'dashboardMaker'">
+    <div v-if="reportingInterface !== 'dashboardMaker'">
       <input type="button" value="new dashboard" @click="reportingInterface = 'dashboardMaker'"/>
       <!--<select-cube-dashboard v-if="reportingInterface === 'newDashboard'"-->
-                             <!--@selectedCube="selectedCube = $event" @interface="reportingInterface = $event"/>-->
+      <!--@selectedCube="selectedCube = $event" @interface="reportingInterface = $event"/>-->
       <!--<hr>-->
       <user-dashboards @selectedDashboard="selectedDashboard = $event"
                        @reportingInterface="reportingInterface = $event"/>
     </div>
 
-    <dashboard-marker v-if="reportingInterface === 'dashboardMaker'" @interface="reportingInterface = $event">
-      {{this.selectedDashboard.content}}
-    </dashboard-marker>
+    <dashboard-marker v-if="reportingInterface === 'dashboardMaker'" @interface="reportingInterface = $event"/>
 
   </div>
 </template>
