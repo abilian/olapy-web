@@ -10,6 +10,8 @@
     {{layout}}
     *********************
     {{usedCharts}}
+    ---------------------------
+    {{selectedDashboard}}
     <chart-props :currentChartDiv="currentChartDiv" :chartType="draggedChart" v-if="showChartProps === true"
                  @showChartProps="showChartProps = $event"></chart-props>
     <draggable id="divDash" v-model="usedCharts" class="dashboard" :options="{group:'charts', sort: false}">
@@ -58,23 +60,46 @@ import draggable from "vuedraggable";
 import VueGridLayout from "vue-grid-layout";
 import ChartProps from "./chartProps";
 
-let CircularJSON = require('circular-json');
-
 let GridLayout = VueGridLayout.GridLayout;
 let GridItem = VueGridLayout.GridItem;
 
 export default {
-  props: ["selectedCube"],
+  props: ["selectedDashboard"],
   data: function() {
     return {
       showChartProps: false,
       currentChartDiv: "",
-      dashboardName: "",
-      layout: [{ x: 0, y: 0, w: 6, h: 8, i: "0" }],
       chartTypes: ["bar", "scatter", "pie"],
-      usedCharts: [],
       draggedChart: "",
     };
+  },
+  computed: {
+    layout: function () {
+      if (this.selectedDashboard) {
+        return this.selectedDashboard['charts_layout']
+      }
+      else {
+        return [{x: 0, y: 0, w: 6, h: 8, i: "0"}]
+      }
+
+    },
+    usedCharts: function () {
+      if (this.selectedDashboard) {
+        return this.selectedDashboard['charts']
+      }
+      else {
+        return []
+      }
+
+    },
+    dashboardName: function () {
+      if (this.selectedDashboard) {
+        return this.selectedDashboard['name']
+      }
+      else {
+        return ""
+      }
+    },
   },
   methods: {
     removeItem(index) {

@@ -10,7 +10,7 @@
                        @reportingInterface="reportingInterface = $event"/>
     </div>
 
-    <dashboard-marker v-if="reportingInterface === 'dashboardMaker'" @interface="reportingInterface = $event"/>
+    <dashboard-marker v-if="reportingInterface === 'dashboardMaker'" :selectedDashboard="selectedDashboard" @interface="reportingInterface = $event"/>
 
   </div>
 </template>

@@ -517,5 +517,6 @@ def get_dashboard(dashboard_name):
     # return jsonify(dashboard)
     return jsonify({
         'name': dashboard.name,
-        'content': dashboard.content
+        'charts': dashboard.charts,
+        'charts_layout' : dashboard.charts_layout
     })
