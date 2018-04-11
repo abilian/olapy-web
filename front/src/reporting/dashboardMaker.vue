@@ -67,39 +67,14 @@ export default {
   props: ["selectedDashboard"],
   data: function() {
     return {
+      layout : [{x: 0, y: 0, w: 6, h: 8, i: "0"}],
+      usedCharts : [],
+      dashboardName : "",
       showChartProps: false,
       currentChartDiv: "",
       chartTypes: ["bar", "scatter", "pie"],
       draggedChart: "",
     };
-  },
-  computed: {
-    layout: function () {
-      if (this.selectedDashboard) {
-        return this.selectedDashboard['charts_layout']
-      }
-      else {
-        return [{x: 0, y: 0, w: 6, h: 8, i: "0"}]
-      }
-
-    },
-    usedCharts: function () {
-      if (this.selectedDashboard) {
-        return this.selectedDashboard['charts']
-      }
-      else {
-        return []
-      }
-
-    },
-    dashboardName: function () {
-      if (this.selectedDashboard) {
-        return this.selectedDashboard['name']
-      }
-      else {
-        return ""
-      }
-    },
   },
   methods: {
     removeItem(index) {
@@ -151,6 +126,13 @@ export default {
         this.showChartProps = true;
       }
     },
+  },
+  created() {
+    if (this.selectedDashboard) {
+      this.layout = this.selectedDashboard['charts_layout'];
+      this.usedCharts = this.selectedDashboard['charts'];
+      this.dashboardName = this.selectedDashboard['name']
+    }
   },
 };
 </script>
