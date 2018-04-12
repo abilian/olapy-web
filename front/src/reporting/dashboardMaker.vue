@@ -132,7 +132,7 @@ export default {
         divDash.appendChild(innerDiv);
         this.showChartProps = true;
       }
-    }
+    },
   },
   created() {
     if (this.selectedDashboard) {
@@ -140,6 +140,26 @@ export default {
       this.layout = this.selectedDashboard['charts_layout'];
       this.usedCharts = this.selectedDashboard['charts'];
       this.dashboardName = this.selectedDashboard['name']
+    }
+  },
+  mounted: function () {
+    if (this.selectedDashboard) {
+      let gridItems = document.getElementsByClassName("vue-grid-item");
+      for (let chart_data in this.selectedDashboard['charts_data']) {
+        let divDash = gridItems[gridItems.length - 2]; //-2 because last element is the vue-grid-placeholder
+        let innerDiv = document.createElement("div");
+        innerDiv.id = this.layout[chart_data].i;
+        divDash.appendChild(innerDiv);
+        Plotly.newPlot(this.layout[chart_data].i,
+          this.selectedDashboard['charts_data'][chart_data].data,
+          this.selectedDashboard['charts_data'][chart_data].layout)
+          .then(function () {
+            let graphDiv = document.getElementById(this.layout[chart_data].i);
+            graphDiv.style.width = "95%";
+            graphDiv.style.height = "95%";
+            return Plotly.Plots.resize(graphDiv);
+          });
+      }
     }
   },
 };
