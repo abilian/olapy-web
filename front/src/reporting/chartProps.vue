@@ -74,8 +74,7 @@ export default {
       allMeasures: [],
       selectedMeasures: [],
       chartTitle: "",
-      labels: [],
-      values: [],
+
     };
   },
   methods: {
@@ -125,8 +124,9 @@ export default {
         }
         this.$http.post("api/cubes/chart_columns", data).then(response => {
           let graph = this.genGraph(this.chartType, response.body);
+          this.$emit("chartData", graph);
           let ChartDiv = this.currentChartDiv;
-          Plotly.newPlot(ChartDiv, graph.data, graph.layout).then(function() {
+          Plotly.newPlot(ChartDiv, graph.data, graph.layout).then(function () {
             let graphDiv = document.getElementById(ChartDiv);
             graphDiv.style.width = "95%";
             graphDiv.style.height = "95%";
@@ -135,6 +135,7 @@ export default {
         });
         this.$emit("selectedCube", this.selectedCube);
         this.$emit("showChartProps", false);
+
       }
     },
   },

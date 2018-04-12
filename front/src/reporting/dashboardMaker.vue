@@ -13,6 +13,7 @@
     ---------------------------
     {{selectedDashboard}}
     <chart-props :currentChartDiv="currentChartDiv" :chartType="draggedChart" v-if="showChartProps === true"
+                 @chartData="chartData.push($event)" @selectedCube="selectedCube =$event"
                  @showChartProps="showChartProps = $event"></chart-props>
     <draggable id="divDash" v-model="usedCharts" class="dashboard" :options="{group:'charts', sort: false}">
 
@@ -75,6 +76,7 @@ export default {
       currentChartDiv: "",
       chartTypes: ["bar", "scatter", "pie"],
       draggedChart: "",
+      chartData : []
     };
   },
   methods: {
@@ -97,10 +99,14 @@ export default {
         let data = {
           dashboardName: this.dashboardName,
           usedCharts: this.usedCharts,
-          layout : this.layout
+          layout : this.layout,
+          chartData: this.chartData
           // dashboardContent: stringify(document.getElementById('divDash').children)
         };
         this.$http.post("api/dashboard/save", data)
+      }
+      else{
+        alert('missing dashboardName')
       }
     },
   },
@@ -126,7 +132,7 @@ export default {
         divDash.appendChild(innerDiv);
         this.showChartProps = true;
       }
-    },
+    }
   },
   created() {
     if (this.selectedDashboard) {
