@@ -68,15 +68,15 @@ export default {
   props: ["selectedDashboard"],
   data: function() {
     return {
-      newDash : true,
-      layout : [{x: 0, y: 0, w: 6, h: 8, i: "0"}],
-      usedCharts : [],
-      dashboardName : "",
+      newDash: true,
+      layout: [{ x: 0, y: 0, w: 6, h: 8, i: "0" }],
+      usedCharts: [],
+      dashboardName: "",
       showChartProps: false,
       currentChartDiv: "",
       chartTypes: ["bar", "scatter", "pie"],
       draggedChart: "",
-      chartData : []
+      chartData: [],
     };
   },
   methods: {
@@ -85,11 +85,11 @@ export default {
       this.usedCharts.splice(i, 1);
       this.layout.splice(i, 1);
     },
-    onMove({relatedContext, draggedContext}) {
+    onMove({ relatedContext, draggedContext }) {
       this.draggedChart = draggedContext.element;
       // this.draggedChart = this.list[draggedContext.index];
     },
-    resize: function (id) {
+    resize: function(id) {
       let plotDiv = document.getElementById(id);
       Plotly.Plots.resize(plotDiv);
     },
@@ -99,14 +99,13 @@ export default {
         let data = {
           dashboardName: this.dashboardName,
           usedCharts: this.usedCharts,
-          layout : this.layout,
-          chartData: this.chartData
+          layout: this.layout,
+          chartData: this.chartData,
           // dashboardContent: stringify(document.getElementById('divDash').children)
         };
-        this.$http.post("api/dashboard/save", data)
-      }
-      else{
-        alert('missing dashboardName')
+        this.$http.post("api/dashboard/save", data);
+      } else {
+        alert("missing dashboardName");
       }
     },
   },
@@ -137,28 +136,32 @@ export default {
   created() {
     if (this.selectedDashboard) {
       this.newDash = false;
-      this.layout = this.selectedDashboard['charts_layout'];
-      this.usedCharts = this.selectedDashboard['charts'];
-      this.dashboardName = this.selectedDashboard['name']
+      this.layout = this.selectedDashboard["charts_layout"];
+      this.usedCharts = this.selectedDashboard["charts"];
+      this.dashboardName = this.selectedDashboard["name"];
     }
   },
-  mounted: function () {
+  mounted: function() {
     if (this.selectedDashboard) {
       let gridItems = document.getElementsByClassName("vue-grid-item");
-      for (let chart_data in this.selectedDashboard['charts_data']) {
-        let divDash = gridItems[gridItems.length - 2]; //-2 because last element is the vue-grid-placeholder
+      for (let chart_data in this.selectedDashboard["charts_data"]) {
+        let divDash = gridItems[gridItems.length - 3]; //-2 because last element is the vue-grid-placeholder
         let innerDiv = document.createElement("div");
         innerDiv.id = this.layout[chart_data].i;
         divDash.appendChild(innerDiv);
-        Plotly.newPlot(this.layout[chart_data].i,
-          this.selectedDashboard['charts_data'][chart_data].data,
-          this.selectedDashboard['charts_data'][chart_data].layout)
-          .then(function () {
-            let graphDiv = document.getElementById(this.layout[chart_data].i);
-            graphDiv.style.width = "95%";
-            graphDiv.style.height = "95%";
-            return Plotly.Plots.resize(graphDiv);
-          });
+
+        Plotly.newPlot(
+          this.layout[chart_data].i,
+          this.selectedDashboard["charts_data"][chart_data].data,
+          this.selectedDashboard["charts_data"][chart_data].layout
+        );
+        // .then(function () {
+        let graphDiv = document.getElementById(this.layout[chart_data].i);
+        graphDiv.style.width = "95%";
+        graphDiv.style.height = "95%";
+        // return
+        Plotly.Plots.resize(graphDiv);
+        // });
       }
     }
   },
