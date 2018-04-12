@@ -74,7 +74,6 @@ export default {
       allMeasures: [],
       selectedMeasures: [],
       chartTitle: "",
-
     };
   },
   methods: {
@@ -122,7 +121,8 @@ export default {
             " from " +
             data.selectedCube;
         }
-        this.$http.post("api/cubes/chart_columns", data)
+        this.$http
+          .post("api/cubes/chart_columns", data)
           .then(response => {
             return response.json();
           })
@@ -130,19 +130,16 @@ export default {
             let graph = this.genGraph(this.chartType, data);
             this.$emit("chartData", graph);
             let ChartDiv = this.currentChartDiv;
-            Plotly.newPlot(ChartDiv, graph.data, graph.layout)
-              .then(function () {
+            Plotly.newPlot(ChartDiv, graph.data, graph.layout).then(function() {
               let graphDiv = document.getElementById(ChartDiv);
               graphDiv.style.width = "95%";
               graphDiv.style.height = "95%";
               return Plotly.Plots.resize(graphDiv);
-
             });
             this.$emit("showChartProps", false);
           });
         this.$emit("selectedCube", this.selectedCube);
       }
-
     },
   },
   watch: {

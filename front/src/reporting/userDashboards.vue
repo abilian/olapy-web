@@ -21,23 +21,20 @@ export default {
     };
   },
   methods: {
-    selectDashboard(dashboard){
-      this.$http
-        .get("api/dashboard/" + dashboard)
-        .then(response => {
-          // this.selectedDashboard = response.json();
+    selectDashboard(dashboard) {
+      this.$http.get("api/dashboard/" + dashboard).then(response => {
+        // this.selectedDashboard = response.json();
 
-          this.$emit("selectedDashboard", response.body);
-          this.$emit("reportingInterface", "dashboardMaker");
-          // return response.json();
-        })
+        this.$emit("selectedDashboard", response.body);
+        this.$emit("reportingInterface", "dashboardMaker");
+        // return response.json();
+      });
       // .then(data => {
       //   for (let key in data) {
       //     this.userDashboards.push(data[key]);
       //   }
       // });
-
-    }
+    },
   },
   created() {
     this.$http
