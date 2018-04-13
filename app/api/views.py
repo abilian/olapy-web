@@ -351,7 +351,11 @@ def gen_cube_conf(data_request, source='csv', cube_name=None):
         'facts': facts,
         'dimensions': dimensions
     }
-    db_config = generate_sqla_uri(data_request.get('dbConfig'))
+    if data_request.get('dbConfig'):
+        db_config = generate_sqla_uri(data_request.get('dbConfig'))
+    else:
+        db_config = None
+
     return {'cube_config': cube_conf,
             'db_config': db_config}
 
