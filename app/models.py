@@ -74,20 +74,21 @@ class Dashboard(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     chart = db.relationship("Chart", uselist=False, backref="dashboard")
 
+
 class Chart(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    _charts = db.Column(db.String(120), nullable=True)
+    _used_charts = db.Column(db.String(120), nullable=True)
     _charts_layout = db.Column(db.String(200), nullable=False)
     _charts_data = db.Column(db.String(500), nullable=False)
     dashboard_id = db.Column(db.Integer, db.ForeignKey('dashboard.id'))
 
     @property
-    def charts(self):
-        return json.loads(self._charts)
+    def used_charts(self):
+        return json.loads(self._used_charts)
 
-    @charts.setter
-    def charts(self, value):
-        self._charts = json.dumps(value)
+    @used_charts.setter
+    def used_charts(self, value):
+        self._used_charts = json.dumps(value)
 
     @property
     def charts_layout(self):

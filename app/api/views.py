@@ -493,12 +493,12 @@ def save_dashboard():
     if user_dashboard:
         # update dashboard
         user_dashboard.name = request_data['dashboardName']
-        user_dashboard.chart.charts = request_data['usedCharts']
+        user_dashboard.chart.used_charts = request_data['usedCharts']
         user_dashboard.chart.charts_layout = request_data['layout']
         user_dashboard.chart.charts_data = request_data['chartData']
     else:
         # add new cube
-        chart = Chart(charts=request_data['usedCharts'],
+        chart = Chart(used_charts=request_data['usedCharts'],
                       charts_layout=request_data['layout'],
                       charts_data=request_data['chartData'])
         dashboard = Dashboard(name=request_data['dashboardName'],
@@ -524,7 +524,7 @@ def get_dashboard(dashboard_name):
         Dashboard.name == dashboard_name).first()
     return jsonify({
         'name': dashboard.name,
-        'charts': dashboard.chart.charts,
+        'used_charts': dashboard.chart.used_charts,
         'charts_layout': dashboard.chart.charts_layout,
         'charts_data': dashboard.chart.charts_data
     })

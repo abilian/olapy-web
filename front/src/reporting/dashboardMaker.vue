@@ -157,7 +157,7 @@ export default {
     if (this.selectedDashboard) {
       this.allowModification = false;
       this.layout = this.selectedDashboard["charts_layout"];
-      this.usedCharts = this.selectedDashboard["charts"];
+      this.usedCharts = this.selectedDashboard["used_charts"];
       this.dashboardName = this.selectedDashboard["name"];
       this.chartData = this.selectedDashboard["charts_data"];
     }
