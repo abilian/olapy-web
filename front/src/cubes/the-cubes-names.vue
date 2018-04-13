@@ -1,7 +1,7 @@
 <template>
   <div class="schema_box">
-    <div class="schema_box_container" v-for="cube in cubesNames">
-      <input type="button" :value="cube" @click="changeCurrentCube(cube)"><br>
+    <div class="schema_box_container" v-for="(cube, index) in cubesNames">
+      <input type="button" :value="cube" :key="index" @click="changeCurrentCube(cube)"><br>
     </div>
 
   </div>

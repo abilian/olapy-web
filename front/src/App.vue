@@ -12,9 +12,9 @@
 
 
 <script>
-import Cubes from "./cubes/cubes-names.vue";
-import SchemaOptions from "./cubes/schema-options";
-import SchemaProps from "./cubes/schema-props";
+import Cubes from "./cubes/the-cubes-names.vue";
+import SchemaOptions from "./cubes/base-schema-options";
+import SchemaProps from "./cubes/the-schema-props";
 
 export default {
   delimiters: ["[[", "]]"],

@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { eventModalBus } from "../schema-options.vue";
+import { eventModalBus } from "../base-schema-options.vue";
 
 export default {
   methods: {

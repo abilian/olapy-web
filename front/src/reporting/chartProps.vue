@@ -64,7 +64,10 @@
 import Plotly from "plotly.js";
 
 export default {
-  props: ["chartType", "currentChartDiv"],
+  props: {
+    chartType: String,
+    currentChartDiv: String,
+  },
   data: function() {
     return {
       selectedCube: "",

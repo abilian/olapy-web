@@ -29,17 +29,17 @@
 </template>
 
 <script>
-import { eventModalBus } from "../schema-options.vue";
+import { eventModalBus } from "../base-schema-options.vue";
 
 export default {
-  props: [
-    "cubeName",
-    "factsTable",
-    "tablesAndColumnsResult",
-    "chosenMeasures",
-    "SavedColumns",
-    "dbConfig",
-  ],
+  props: {
+    cubeName: String,
+    factsTable: String,
+    tablesAndColumnsResult: String,
+    chosenMeasures: String,
+    SavedColumns: String,
+    dbConfig: String,
+  },
   data: function() {
     return {
       resultCube: "",

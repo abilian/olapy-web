@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { eventModalBus } from "../schema-options.vue";
+import { eventModalBus } from "../base-schema-options.vue";
 
 const STATUS_INITIAL = 0,
   STATUS_SAVING = 1,
@@ -51,7 +51,9 @@ const STATUS_INITIAL = 0,
   STATUS_FAILED = 3;
 
 export default {
-  props: ["newCubeName"],
+  props: {
+    newCubeName: String,
+  },
   data() {
     return {
       uploadedFiles: [],

@@ -1,9 +1,9 @@
 <template>
   <div>
     <h3>dimensions</h3>
-    <div v-for="dimension in dimensions">
+    <div v-for="(dimension, index) in dimensions">
       <label>
-        <input type="text" :name="dimension" :value="dimension">
+        <input type="text" :key="index" :name="dimension" :value="dimension">
       </label>
     </div>
   </div>

@@ -8,10 +8,10 @@
       </label>
       <hr>
       <span>Measures :</span> <br>
-      <div v-for="measure in facts.measures">
+      <div v-for="(measure, index) in facts.measures">
 
         <label>
-          <input type="text" :name="measure" :value="measure">
+          <input type="text" :key="index" :name="measure" :value="measure">
         </label>
       </div>
       <label>

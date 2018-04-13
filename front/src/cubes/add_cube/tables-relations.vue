@@ -33,7 +33,7 @@
                   <td>
                     <label>
                       <select style="float: left;" v-model="tablesAndColumnsResult[index]['FactsCol']">
-                        <option v-for="item in tablesAndColumns[factsTable]" :value="item">{{ item }}
+                        <option v-for="(item, index) in tablesAndColumns[factsTable]" :key="index" :value="item">{{ item }}
                         <option>
                       </select>
                     </label>
@@ -60,10 +60,15 @@
 </template>
 
 <script>
-import { eventModalBus } from "../schema-options.vue";
+import { eventModalBus } from "../base-schema-options.vue";
 
 export default {
-  props: ["factsTable", "chosenTables", "chosenMeasures", "dbConfig"],
+  props: {
+    factsTable: String,
+    chosenTables: String,
+    chosenMeasures: String,
+    dbConfig: String,
+  },
   data: function() {
     return {
       tablesAndColumns: "",

@@ -24,9 +24,17 @@
 
           <div class="modal-body">
             <slot name="body">
-              <upload-csv-files :newCubeName="newCubeName" v-show="source === 'CSV'"
-                               @SelectInputStatus="status = $event"/>
-              <connect-db v-show="source === 'DataBase'" @SelectInputStatus="status = $event"/>
+
+              <upload-csv-files
+                :newCubeName="newCubeName"
+                v-show="source === 'CSV'"
+                @SelectInputStatus="status = $event"/>
+
+              <connect-db
+                v-show="source === 'DataBase'"
+                @SelectInputStatus="status = $event"/>
+
+
             </slot>
           </div>
 
@@ -51,7 +59,7 @@
 <script>
 import uploadFiles from "./upload-files";
 import connectDb from "./connect-db";
-import { eventModalBus } from "../schema-options.vue";
+import { eventModalBus } from "../base-schema-options.vue";
 
 export default {
   data: function() {

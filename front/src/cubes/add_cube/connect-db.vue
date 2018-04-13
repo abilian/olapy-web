@@ -52,9 +52,9 @@
         <td>
           <div v-if="establishedConnection.toUpperCase() === 'SUCCESS'">
             Available databases :
-            <div v-for="database in loadedDatabases">
+            <div v-for="(database, index) in loadedDatabases">
               <label>
-                <input type="radio" :id="database" :value="database" v-model="selectedDatabase"
+                <input type="radio" :key="index" :id="database" :value="database" v-model="selectedDatabase"
                        @change="getCubeInfos($event)">
                 <label :for="database">{{database}}</label>
                 <br>
@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import { eventModalBus } from "../schema-options.vue";
+import { eventModalBus } from "../base-schema-options.vue";
 
 export default {
   data: function() {

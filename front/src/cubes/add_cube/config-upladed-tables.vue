@@ -13,19 +13,19 @@
 
               <hr>
               Measures :
-              <div v-for="measure in this.cube.measures">
+              <div v-for="(measure, index) in this.cube.measures">
 
                 <label>
-                  <input type="text" :value="measure">
+                  <input type="text" :key="index" :value="measure">
                 </label>
               </div>
 
               <hr>
               Dimensions :
-              <div v-for="dimension in this.cube.dimensions">
+              <div v-for="(dimension, index) in this.cube.dimensions">
 
                 <label>
-                  <input type="text" :value="dimension">
+                  <input type="text" :key="index" :value="dimension">
                 </label>
               </div>
             </slot>
@@ -51,10 +51,14 @@
 </template>
 
 <script>
-import { eventModalBus } from "../schema-options";
+import { eventModalBus } from "../base-schema-options";
 
 export default {
-  props: ["cube", "cubeName", "dbConfig"],
+  props: {
+    cube: String,
+    cubeName: String,
+    dbConfig: String,
+  },
   methods: {
     confirmCube: function() {
       if (this.dbConfig !== "") {

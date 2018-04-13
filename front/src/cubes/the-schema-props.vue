@@ -14,9 +14,9 @@
 </template>
 
 <script>
-import cubeDetails from "./cube-details";
-import cubeDimensions from "./cube-dimensions";
-import cubeFacts from "./cube-facts";
+import cubeDetails from "./the-cube-details";
+import cubeDimensions from "./the-cube-dimensions";
+import cubeFacts from "./the-cube-facts";
 
 export default {
   data: function() {

@@ -12,42 +12,63 @@
     {{usedCharts}}
     ---------------------------
     {{selectedDashboard}}
-    <chart-props :currentChartDiv="currentChartDiv" :chartType="draggedChart" v-if="showChartProps === true"
-                 @chartData="chartData.push($event)" @selectedCube="selectedCube =$event"
-                 @showChartProps="showChartProps = $event"></chart-props>
-    <draggable id="divDash" v-model="usedCharts" class="dashboard" :options="{group:'charts', sort: false}">
+    <chart-props
+      :currentChartDiv="currentChartDiv"
+      :chartType="draggedChart"
+      v-if="showChartProps === true"
+      @chartData="chartData.push($event)"
+      @selectedCube="selectedCube =$event"
+      @showChartProps="showChartProps = $event"/>
+
+
+    <draggable
+      id="divDash"
+      v-model="usedCharts"
+      class="dashboard"
+      :options="{group:'charts', sort: false}">
 
       <div v-for="(element, index) in usedCharts" :id="element.type + (index)">{{element.type + (index)}}</div>
 
-      <grid-layout
-        :layout="layout"
-        :col-num="12"
-        :row-height="30"
-        :is-draggable="true"
-        :is-resizable="true"
-        :is-mirrored="false"
-        :vertical-compact="true"
-        :margin="[10, 10]"
-        :use-css-transforms="true">
+        <grid-layout
+          :layout="layout"
+          :col-num="12"
+          :row-height="30"
+          :is-draggable="true"
+          :is-resizable="true"
+          :is-mirrored="false"
+          :vertical-compact="true"
+          :margin="[10, 10]"
+          :use-css-transforms="true">
 
-        <grid-item v-for="(item, index) in layout" v-show="index < layout.length - 1"
-                   :x="item.x"
-                   :y="item.y"
-                   :w="item.w"
-                   :h="item.h"
-                   :i="item.i"
-                   @resize="resize">
-          <button type="button" class="btn btn-danger btn-lg" style="margin-right: 0; float: right"
-                  @click="removeItem(item.i)"><span
-            class="glyphicon glyphicon-remove"></span></button>
-        </grid-item>
+          <grid-item v-for="(item, index) in layout" v-show="index < layout.length - 1"
+                     :x="item.x"
+                     :y="item.y"
+                     :w="item.w"
+                     :h="item.h"
+                     :i="item.i"
+                     @resize="resize">
+
+            <button type="button"
+                    class="btn btn-danger btn-lg"
+                    style="margin-right: 0; float: right"
+                    @click="removeItem(item.i)">
+              <span class="glyphicon glyphicon-remove"></span></button>
+          </grid-item>
+
       </grid-layout>
+
     </draggable>
-    <draggable :list="chartTypes" class="dash-toolbox" :move="onMove"
-               :options="{group:{ name:'charts',  pull:'clone' }}">
+
+    <draggable
+      :list="chartTypes"
+      class="dash-toolbox"
+      :move="onMove"
+      :options="{group:{ name:'charts',  pull:'clone' }}">
+
       <div v-for="chart_type in chartTypes">
         <img class="toolbox-icons" :src="'/static/icons/' + chart_type + 'chart.png'">
       </div>
+
     </draggable>
 
     <!--</form>-->
@@ -65,7 +86,9 @@ let GridLayout = VueGridLayout.GridLayout;
 let GridItem = VueGridLayout.GridItem;
 
 export default {
-  props: ["selectedDashboard"],
+  props: {
+    selectedDashboard: String,
+  },
   data: function() {
     return {
       newDash: true,
@@ -113,7 +136,7 @@ export default {
     draggable,
     GridLayout,
     GridItem,
-    "chart-props": ChartProps,
+    chartProps: ChartProps,
   },
   watch: {
     usedCharts: function(list, oldList) {
@@ -187,7 +210,7 @@ export default {
 }
 
 .dashboard {
-  border-style: dotted;
+  propsborder-style: dotted;
   height: 50px;
   width: 100%;
 }

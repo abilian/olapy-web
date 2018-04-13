@@ -13,14 +13,14 @@
               <label>
                 Facts :
                 <select v-model="factsTable">
-                  <option v-for="item in cube.dimensions" :value="item">{{ item }}
+                  <option v-for="(item, index) in cube.dimensions" :key="index" :value="item">{{ item }}
                   <option>
                 </select>
               </label>
               <span>Measures : {{ measures.join(', ') }}</span><br>
-              <div v-for="column in tableColumnsNoId" style="float: left">
+              <div v-for="(column, index) in tableColumnsNoId" style="float: left">
                 <label :for="column">
-                  {{column}} <input type="checkbox" :id="column" :value="column"
+                  {{column}} <input type="checkbox" :id="column" :key="index" :value="column"
                                     v-model="measures">
                 </label>
               </div>
@@ -28,8 +28,8 @@
               <hr>
               <div v-for="(table, index) in tables">
                 <label>
-                  <select v-model="table.name" @change="updateTableColumns(table.name, index)">
-                    <option v-for="item in cube.dimensions" :value="item">{{ item }}
+                  <select v-model="table.name" :key="index" @change="updateTableColumns(table.name, index)">
+                    <option v-for="(item, index) in cube.dimensions" :key="index" :value="item">{{ item }}
                     <option>
                   </select>
                 </label>
@@ -58,10 +58,15 @@
 </template>
 
 <script>
-import { eventModalBus } from "../schema-options.vue";
+import { eventModalBus } from "../base-schema-options.vue";
 
 export default {
-  props: ["cube", "cubeName", "SavedColumns", "dbConfig"],
+  props: {
+    cube: String,
+    cubeName: String,
+    SavedColumns: String,
+    dbConfig: String,
+  },
   data: function() {
     return {
       DimColumns: [],

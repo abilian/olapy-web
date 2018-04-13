@@ -7,10 +7,10 @@
           <div class="modal-body">
             <slot name="body">
               Select columns to use in <u>good order</u> <b>(including the id column)</b>
-              <div v-for="columns in selectTableColumns">
-                <div v-for="column in columns" style="float: left">
+              <div v-for="(columns, columns_index) in selectTableColumns">
+                <div v-for="(column, column_index) in columns" style="float: left">
                   <label :for="column">
-                    <input v-model="selectedColumns['columns']" type="checkbox" :value="column">
+                    <input v-model="selectedColumns['columns']" :key="columns_index + column_index" type="checkbox" :value="column">
                     {{column}}
                   </label>
                 </div>
@@ -46,10 +46,12 @@
 </template>
 
 <script>
-import { eventModalBus } from "../schema-options.vue";
+import { eventModalBus } from "../base-schema-options.vue";
 
 export default {
-  props: ["selectTableColumns"],
+  props: {
+    selectTableColumns: String,
+  },
   data: function() {
     return {
       selectedColumns: {
