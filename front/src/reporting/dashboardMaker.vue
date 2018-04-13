@@ -159,6 +159,7 @@ export default {
       this.layout = this.selectedDashboard["charts_layout"];
       this.usedCharts = this.selectedDashboard["charts"];
       this.dashboardName = this.selectedDashboard["name"];
+      this.chartData = this.selectedDashboard["charts_data"];
     }
   },
   mounted: function() {
