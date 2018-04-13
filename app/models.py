@@ -71,11 +71,15 @@ class Cube(db.Model):
 class Dashboard(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
-    # todo maybe chart in other model
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    chart = db.relationship("Chart", uselist=False, backref="dashboard")
+
+class Chart(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
     _charts = db.Column(db.String(120), nullable=True)
     _charts_layout = db.Column(db.String(200), nullable=False)
     _charts_data = db.Column(db.String(500), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    dashboard_id = db.Column(db.Integer, db.ForeignKey('dashboard.id'))
 
     @property
     def charts(self):
