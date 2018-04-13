@@ -165,7 +165,7 @@ export default {
     if (this.selectedDashboard) {
       let gridItems = document.getElementsByClassName("vue-grid-item");
       for (let chart_data in this.selectedDashboard["charts_data"]) {
-        let divDash = gridItems[gridItems.length - 3];
+        let divDash = gridItems[chart_data];
         let innerDiv = document.createElement("div");
         innerDiv.id = this.layout[chart_data].i;
         divDash.appendChild(innerDiv);
