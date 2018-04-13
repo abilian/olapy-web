@@ -210,7 +210,7 @@ export default {
 }
 
 .dashboard {
-  propsborder-style: dotted;
+  border-style: dotted;
   height: 50px;
   width: 100%;
 }
