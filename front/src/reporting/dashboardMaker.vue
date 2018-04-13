@@ -7,11 +7,8 @@
     </label>
 
     <input style="float: right;" type="submit" value="save" @click="saveDashboard">
-    {{layout}}
-    *********************
-    {{usedCharts}}
-    ---------------------------
-    {{selectedDashboard}}
+    <input style="float: right;" type="button" :value=" 'enable modification :' + allowModification"
+           @click="allowModification = !allowModification">
     <chart-props
       :currentChartDiv="currentChartDiv"
       :chartType="draggedChart"
@@ -91,7 +88,7 @@ export default {
   },
   data: function() {
     return {
-      newDash: true,
+      allowModification: true,
       layout: [{ x: 0, y: 0, w: 6, h: 8, i: "0" }],
       usedCharts: [],
       dashboardName: "",
@@ -140,7 +137,7 @@ export default {
   },
   watch: {
     usedCharts: function(list, oldList) {
-      if (list.length > oldList.length && this.newDash) {
+      if (list.length > oldList.length && this.allowModification) {
         // watch when add only/ not when remove
         let chartDiv = this.draggedChart + (list.length - 1);
         this.layout[list.length - 1].i = chartDiv;
@@ -158,7 +155,7 @@ export default {
   },
   created() {
     if (this.selectedDashboard) {
-      this.newDash = false;
+      this.allowModification = false;
       this.layout = this.selectedDashboard["charts_layout"];
       this.usedCharts = this.selectedDashboard["charts"];
       this.dashboardName = this.selectedDashboard["name"];
@@ -168,23 +165,19 @@ export default {
     if (this.selectedDashboard) {
       let gridItems = document.getElementsByClassName("vue-grid-item");
       for (let chart_data in this.selectedDashboard["charts_data"]) {
-        let divDash = gridItems[gridItems.length - 3]; //-2 because last element is the vue-grid-placeholder
+        let divDash = gridItems[gridItems.length - 3];
         let innerDiv = document.createElement("div");
         innerDiv.id = this.layout[chart_data].i;
         divDash.appendChild(innerDiv);
-
         Plotly.newPlot(
           this.layout[chart_data].i,
           this.selectedDashboard["charts_data"][chart_data].data,
           this.selectedDashboard["charts_data"][chart_data].layout
         );
-        // .then(function () {
         let graphDiv = document.getElementById(this.layout[chart_data].i);
         graphDiv.style.width = "95%";
         graphDiv.style.height = "95%";
-        // return
         Plotly.Plots.resize(graphDiv);
-        // });
       }
     }
   },
