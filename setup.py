@@ -3,17 +3,18 @@ from __future__ import absolute_import, division, print_function
 
 from distutils import log
 from distutils.command.sdist import sdist
-
-from pip.download import PipSession
-from subprocess import check_output
-from pip.req import parse_requirements
 from os.path import dirname, join, realpath
-from setuptools import find_packages, setup, Command
-from setuptools.command.develop import develop
+from subprocess import check_output
 
-session = PipSession()
-_install_requires = parse_requirements('requirements.in', session=session)
-install_requires = [str(ir.req) for ir in _install_requires]
+import setuptools
+from pkg_resources import parse_requirements
+from setuptools import Command, find_packages, setup
+from setuptools.command.develop import develop
+from setuptools.command.sdist import sdist
+
+_install_requires = parse_requirements(open("requirements.in"))
+install_requires = [str(req) for req in _install_requires]
+
 
 ROOT = realpath(join(dirname(__file__)))
 
