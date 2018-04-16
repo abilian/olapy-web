@@ -2,17 +2,19 @@
 from __future__ import absolute_import, division, print_function
 
 from distutils import log
-
-from os.path import realpath, join, dirname
+from distutils.command.sdist import sdist
+from os.path import dirname, join, realpath
 from subprocess import check_output
-from setuptools.command.sdist import sdist
-from pkg_resources import parse_requirements
-from setuptools import find_packages, setup, Command
-from setuptools.command.develop import develop
 
+import setuptools
+from pkg_resources import parse_requirements
+from setuptools import Command, find_packages, setup
+from setuptools.command.develop import develop
+from setuptools.command.sdist import sdist
 
 _install_requires = parse_requirements(open("requirements.in"))
 install_requires = [str(req) for req in _install_requires]
+
 
 ROOT = realpath(join(dirname(__file__)))
 
