@@ -1,6 +1,12 @@
-*.pyc
 *.egg-info
-instance
+*.pyc
 
-front/static/build.js
+.idea
+.pytest_cache
+.tox
+
 front/node_modules/
+front/static/build.js
+front/yarn-error.log
+
+instance
