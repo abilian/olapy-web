@@ -39,11 +39,11 @@ def dropdb():
 
 @app.cli.command(short_help='Run web Server')
 @click.option(
-    '--host', '-h', default='0.0.0.0', help='The interface to bind to.')
+    '--host', '-h', default='127.0.0.1', help='The interface to bind to.')
 @click.option('--port', '-p', default=5000, help='The port to bind to.')
 def run(host, port):
     app.run(host=host, port=port)
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='127.0.0.1', port=5000)
