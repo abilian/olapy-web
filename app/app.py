@@ -21,7 +21,6 @@ def create_app():
     # type: () -> Flask
 
     app = Flask(__name__, static_folder='../front/static')
-
     # app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
     install_secret_key(app)
 

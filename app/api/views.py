@@ -8,7 +8,6 @@ import tempfile
 from collections import OrderedDict
 from distutils.dir_util import copy_tree
 from os.path import expanduser, isdir
-from six.moves.urllib.parse import urlunparse
 
 import os
 
@@ -23,7 +22,7 @@ import pandas as pd
 import json
 from flask import current_app
 
-from app.extensions import db
+from app.extensions import db, auth
 from app.models import Cube, User, Dashboard, Chart
 
 API = Blueprint('api', __name__, template_folder='templates')
@@ -52,9 +51,8 @@ def get_config(cube_name):
         'cube_config': cube_result.config if cube_result and cube_result.config else None
     }
 
-
 @api('cubes')
-@login_required
+@auth.login_required
 def get_cubes():
     user_cubes = User.query.filter(User.id == current_user.id).first().cubes.all()
     return jsonify([cube.name for cube in user_cubes])
@@ -73,9 +71,8 @@ def _load_cube(cube_name):
     executor.load_cube(cube_name)
     return executor
 
-
+@auth.login_required
 @api('cubes/<cube_name>/dimensions')
-@login_required
 def get_cube_dimensions(cube_name):
     executor = _load_cube(cube_name)
     tables_names = executor.get_all_tables_names(ignore_fact=True)
@@ -83,7 +80,7 @@ def get_cube_dimensions(cube_name):
 
 
 @api('cubes/<cube_name>/facts')
-@login_required
+@auth.login_required
 def get_cube_facts(cube_name):
     cube = _load_cube(cube_name)
     cube_info = {
@@ -124,7 +121,7 @@ def construct_cube(cube_name, sqla_engine=None, source_type='csv', olapy_data_lo
 
 
 @api('cubes/add', methods=['POST'])
-@login_required
+@auth.login_required
 def add_cube():
     # temporary
     #  2 TEMP_CUBE_NAME = first is the all cubes folder, the second is the current cube folder
@@ -151,7 +148,7 @@ def add_cube():
 
 
 @api('cubes/confirm_cube', methods=['POST'])
-@login_required
+@auth.login_required
 def confirm_cube():
     if request.data:
         request_data = json.loads(request.data)
@@ -172,7 +169,7 @@ def confirm_cube():
 
 
 @api('cubes/clean_tmp_dir', methods=['POST'])
-@login_required
+@auth.login_required
 def clean_tmp_dir():
     for root, dirs, files in os.walk(OLAPY_TEMP_DIR):
         for f in files:
@@ -211,7 +208,7 @@ def get_columns_from_db(db_cube_config):
 
 
 @api('cubes/get_table_columns', methods=['POST'])
-@login_required
+@auth.login_required
 def get_table_columns():
     db_cube_config = request.get_json()
     if db_cube_config:
@@ -248,7 +245,7 @@ def get_tables_columns_from_files(db_cube_config):
 
 
 @api('cubes/get_tables_and_columns', methods=['POST'])
-@login_required
+@auth.login_required
 def get_tables_and_columns():
     if request.data:
         db_cube_config = json.loads(request.data.decode('utf-8'))
@@ -398,7 +395,7 @@ def construct_custom_db_cube(data_request):
 
 
 @api('cubes/try_construct_custom_cube', methods=['POST'])
-@login_required
+@auth.login_required
 def construct_custom_cube():
     if request.data:
         data_request = json.loads(request.data)
@@ -429,7 +426,7 @@ def generate_sqla_uri(db_credentials):
 
 
 @api('cubes/connectDB', methods=['POST'])
-@login_required
+@auth.login_required
 def connectDB():
     if request.data:
         sqla_uri = generate_sqla_uri(json.loads(request.data))
@@ -439,7 +436,7 @@ def connectDB():
 
 
 @api('cubes/add_DB_cube', methods=['POST'])
-@login_required
+@auth.login_required
 def add_db_cube():
     request_data = request.get_json()
     sqla_uri = generate_sqla_uri(json.loads(request.data))
@@ -458,7 +455,7 @@ def add_db_cube():
 
 
 @api('cubes/confirm_db_cube', methods=['POST'])
-@login_required
+@auth.login_required
 def confirm_db_cube():
     request_data = request.get_json()
     config = {'cube_config': None,
@@ -468,7 +465,7 @@ def confirm_db_cube():
 
 
 @api('cubes/chart_columns', methods=['POST'])
-@login_required
+@auth.login_required
 def get_chart_columns_result():
     request_data = request.get_json()
     executor = _load_cube(request_data['selectedCube'])
@@ -477,7 +474,7 @@ def get_chart_columns_result():
 
 
 @api('cubes/<cube_name>/columns')
-@login_required
+@auth.login_required
 def get_cube_columns(cube_name):
     executor = _load_cube(cube_name)
     return jsonify([column for column in executor.star_schema_dataframe.columns if
@@ -485,7 +482,7 @@ def get_cube_columns(cube_name):
 
 
 @api('dashboard/save', methods=['POST'])
-@login_required
+@auth.login_required
 def save_dashboard():
     request_data = request.get_json()
     user_dashboard = User.query.filter(User.id == current_user.id).first().dashboards.filter(
@@ -511,14 +508,14 @@ def save_dashboard():
 
 
 @api('dashboard/all')
-@login_required
+@auth.login_required
 def all_dashboard():
     all_dashboards = User.query.filter(User.id == current_user.id).first().dashboards
     return jsonify([dashboard.name for dashboard in all_dashboards])
 
 
 @api('dashboard/<dashboard_name>')
-@login_required
+@auth.login_required
 def get_dashboard(dashboard_name):
     dashboard = User.query.filter(User.id == current_user.id).first().dashboards.filter(
         Dashboard.name == dashboard_name).first()
