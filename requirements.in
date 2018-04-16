@@ -2,13 +2,12 @@ olapy
 
 # Web
 Flask
-SQLAlchemy
-WTForms
-# Pin these for now
 Flask-Login
+Flask-Migrate
 Flask-SQLAlchemy
 Flask-WTF
-Flask-Migrate
+SQLAlchemy
+WTForms
 plotly
 
 # Misc
@@ -16,4 +15,4 @@ typing
 pathlib
 
 #DB_Tools
-psycopg2
+psycopg2-binary

@@ -1,16 +1,23 @@
-sudo: required
 dist: trusty
-group: deprecated-2017Q3
+sudo: false
 
 language: python
-cache: pip
+
+cache:
+  pip: true
+
 python:
   - "2.7"
   - "3.6"
 
 install:
-  - pip install -U pip setuptools tox wheel
+  - pip install -U pip setuptools tox tox-travis wheel
   - export FLASK_APP=manage.py
+
+matrix:
+  include:
+    - python: 3.6
+      env: TOXENV=lint
 
 script:
   - tox
