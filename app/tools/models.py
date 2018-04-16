@@ -55,7 +55,6 @@ class Chart(object):
 
 
 class PieChart(Chart):
-    Chart.ids_patter = 'pie_graph-{}'
 
     def generate_pie_graph(self, dataframe):
         # type: (pd.DataFrame) -> Dict
@@ -118,7 +117,6 @@ class PieChart(Chart):
 
 class BarChart(Chart):
     # def __init__(self, *args, **kwargs):
-    Chart.ids_patter = 'bar_graph-{}'
 
     # super(Chart, self).__init__()
 
@@ -170,7 +168,6 @@ class BarChart(Chart):
 
 
 class LineChart(Chart):
-    Chart.ids_patter = 'line_graph-{}'
 
     def generate_line_graph(self, dataframe):
         # type: (pd.DataFrame) -> Dict
