@@ -22,7 +22,7 @@ import pandas as pd
 import json
 from flask import current_app
 
-from app.extensions import db, auth
+from app.extensions import db
 from app.models import Cube, User, Dashboard, Chart
 
 API = Blueprint('api', __name__, template_folder='templates')
@@ -51,11 +51,12 @@ def get_config(cube_name):
         'cube_config': cube_result.config if cube_result and cube_result.config else None
     }
 
+
 @api('cubes')
-@auth.login_required
 def get_cubes():
-    user_cubes = User.query.filter(User.id == current_user.id).first().cubes.all()
-    return jsonify([cube.name for cube in user_cubes])
+    if current_user.is_authenticated:
+        user_cubes = User.query.filter(User.id == current_user.id).first().cubes.all()
+        return jsonify([cube.name for cube in user_cubes])
 
 
 def _load_cube(cube_name):
@@ -71,23 +72,24 @@ def _load_cube(cube_name):
     executor.load_cube(cube_name)
     return executor
 
-@auth.login_required
+
 @api('cubes/<cube_name>/dimensions')
 def get_cube_dimensions(cube_name):
-    executor = _load_cube(cube_name)
-    tables_names = executor.get_all_tables_names(ignore_fact=True)
-    return jsonify(tables_names)
+    if current_user.is_authenticated:
+        executor = _load_cube(cube_name)
+        tables_names = executor.get_all_tables_names(ignore_fact=True)
+        return jsonify(tables_names)
 
 
 @api('cubes/<cube_name>/facts')
-@auth.login_required
 def get_cube_facts(cube_name):
-    cube = _load_cube(cube_name)
-    cube_info = {
-        'table_name': cube.facts,
-        'measures': cube.measures
-    }
-    return jsonify(cube_info)
+    if current_user.is_authenticated:
+        cube = _load_cube(cube_name)
+        cube_info = {
+            'table_name': cube.facts,
+            'measures': cube.measures
+        }
+        return jsonify(cube_info)
 
 
 def allowed_file(filename):
@@ -121,36 +123,35 @@ def construct_cube(cube_name, sqla_engine=None, source_type='csv', olapy_data_lo
 
 
 @api('cubes/add', methods=['POST'])
-@auth.login_required
 def add_cube():
     # temporary
     #  2 TEMP_CUBE_NAME = first is the all cubes folder, the second is the current cube folder
-    cube_dir = os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME)
-    if isdir(cube_dir):
-        clean_temp_dir(cube_dir)
-    else:
-        os.makedirs(cube_dir)
-    all_file = request.files.getlist('files')
-    for file_uploaded in all_file:
-        if file_uploaded and allowed_file(file_uploaded.filename):
-            filename = secure_filename(file_uploaded.filename)
-            file_uploaded.save(os.path.join(cube_dir, filename))
-    cube = construct_cube(cube_name=TEMP_CUBE_NAME, olapy_data_location=OLAPY_TEMP_DIR, source_type='csv')
-    if 'dimensions' in cube:
-        return jsonify(cube)
-    else:
-        return jsonify(
-            {'facts': None,
-             'dimensions': [file.filename for file in all_file],
-             'measures': None
-             }
-        )
+    if current_user.is_authenticated:
+        cube_dir = os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME)
+        if isdir(cube_dir):
+            clean_temp_dir(cube_dir)
+        else:
+            os.makedirs(cube_dir)
+        all_file = request.files.getlist('files')
+        for file_uploaded in all_file:
+            if file_uploaded and allowed_file(file_uploaded.filename):
+                filename = secure_filename(file_uploaded.filename)
+                file_uploaded.save(os.path.join(cube_dir, filename))
+        cube = construct_cube(cube_name=TEMP_CUBE_NAME, olapy_data_location=OLAPY_TEMP_DIR, source_type='csv')
+        if 'dimensions' in cube:
+            return jsonify(cube)
+        else:
+            return jsonify(
+                {'facts': None,
+                 'dimensions': [file.filename for file in all_file],
+                 'measures': None
+                 }
+            )
 
 
 @api('cubes/confirm_cube', methods=['POST'])
-@auth.login_required
 def confirm_cube():
-    if request.data:
+    if request.data and current_user.is_authenticated:
         request_data = json.loads(request.data)
         custom_cube = request_data['customCube']
         cube_name = request_data['cubeName'].decode('utf-8')
@@ -169,14 +170,14 @@ def confirm_cube():
 
 
 @api('cubes/clean_tmp_dir', methods=['POST'])
-@auth.login_required
 def clean_tmp_dir():
-    for root, dirs, files in os.walk(OLAPY_TEMP_DIR):
-        for f in files:
-            os.unlink(os.path.join(root, f))
-        for d in dirs:
-            shutil.rmtree(os.path.join(root, d))
-    return jsonify({'success': True}), 200
+    if current_user.is_authenticated:
+        for root, dirs, files in os.walk(OLAPY_TEMP_DIR):
+            for f in files:
+                os.unlink(os.path.join(root, f))
+            for d in dirs:
+                shutil.rmtree(os.path.join(root, d))
+        return jsonify({'success': True}), 200
 
 
 def get_columns_from_files(db_cube_config):
@@ -208,15 +209,15 @@ def get_columns_from_db(db_cube_config):
 
 
 @api('cubes/get_table_columns', methods=['POST'])
-@auth.login_required
 def get_table_columns():
-    db_cube_config = request.get_json()
-    if db_cube_config:
-        if db_cube_config['dbConfig']:
-            return jsonify(get_columns_from_db(db_cube_config))
-        else:
-            return jsonify(get_columns_from_files(db_cube_config))
-    raise Exception('cube config is not specified')
+    if current_user.is_authenticated:
+        db_cube_config = request.get_json()
+        if db_cube_config:
+            if db_cube_config['dbConfig']:
+                return jsonify(get_columns_from_db(db_cube_config))
+            else:
+                return jsonify(get_columns_from_files(db_cube_config))
+        raise Exception('cube config is not specified')
 
 
 def get_tables_columns_from_db(db_cube_config):
@@ -245,9 +246,8 @@ def get_tables_columns_from_files(db_cube_config):
 
 
 @api('cubes/get_tables_and_columns', methods=['POST'])
-@auth.login_required
 def get_tables_and_columns():
-    if request.data:
+    if request.data and current_user.is_authenticated:
         db_cube_config = json.loads(request.data.decode('utf-8'))
         if db_cube_config['dbConfig']:
             return jsonify(get_tables_columns_from_db(db_cube_config))
@@ -395,9 +395,8 @@ def construct_custom_db_cube(data_request):
 
 
 @api('cubes/try_construct_custom_cube', methods=['POST'])
-@auth.login_required
 def construct_custom_cube():
-    if request.data:
+    if request.data and current_user.is_authenticated:
         data_request = json.loads(request.data)
         if data_request['dbConfig']:
             star_schema_table = construct_custom_db_cube(data_request)
@@ -426,9 +425,8 @@ def generate_sqla_uri(db_credentials):
 
 
 @api('cubes/connectDB', methods=['POST'])
-@auth.login_required
 def connectDB():
-    if request.data:
+    if request.data and current_user.is_authenticated:
         sqla_uri = generate_sqla_uri(json.loads(request.data))
         sqla_engine = create_engine(sqla_uri)
         executor = MdxEngine(source_type="db", sqla_engine=sqla_engine)
@@ -436,92 +434,92 @@ def connectDB():
 
 
 @api('cubes/add_DB_cube', methods=['POST'])
-@auth.login_required
 def add_db_cube():
-    request_data = request.get_json()
-    sqla_uri = generate_sqla_uri(json.loads(request.data))
-    sqla_engine = create_engine(sqla_uri)
-    construction = construct_cube(cube_name=request_data['selectCube'], source_type='db',
-                                  sqla_engine=sqla_engine, olapy_data_location=current_app.instance_path)
-    if 'dimensions' in construction:
-        return jsonify(construction)
-    else:
-        return jsonify(
-            {'facts': None,
-             'dimensions': construction['all_tables'],
-             'measures': None
-             }
-        )
+    if current_user.is_authenticated:
+        request_data = request.get_json()
+        sqla_uri = generate_sqla_uri(json.loads(request.data))
+        sqla_engine = create_engine(sqla_uri)
+        construction = construct_cube(cube_name=request_data['selectCube'], source_type='db',
+                                      sqla_engine=sqla_engine, olapy_data_location=current_app.instance_path)
+        if 'dimensions' in construction:
+            return jsonify(construction)
+        else:
+            return jsonify(
+                {'facts': None,
+                 'dimensions': construction['all_tables'],
+                 'measures': None
+                 }
+            )
 
 
 @api('cubes/confirm_db_cube', methods=['POST'])
-@auth.login_required
 def confirm_db_cube():
-    request_data = request.get_json()
-    config = {'cube_config': None,
-              'db_config': generate_sqla_uri(request_data)}
-    save_cube_config_2_db(config=config, cube_name=request_data['selectCube'], source='db')
-    return jsonify({'success': True}), 200
+    if current_user.is_authenticated:
+        request_data = request.get_json()
+        config = {'cube_config': None,
+                  'db_config': generate_sqla_uri(request_data)}
+        save_cube_config_2_db(config=config, cube_name=request_data['selectCube'], source='db')
+        return jsonify({'success': True}), 200
 
 
 @api('cubes/chart_columns', methods=['POST'])
-@auth.login_required
 def get_chart_columns_result():
-    request_data = request.get_json()
-    executor = _load_cube(request_data['selectedCube'])
-    return executor.star_schema_dataframe.groupby([request_data['selectedColumn']]).sum()[
-        request_data['selectedMeasures']].to_json()
+    if current_user.is_authenticated:
+        request_data = request.get_json()
+        executor = _load_cube(request_data['selectedCube'])
+        return executor.star_schema_dataframe.groupby([request_data['selectedColumn']]).sum()[
+            request_data['selectedMeasures']].to_json()
 
 
 @api('cubes/<cube_name>/columns')
-@auth.login_required
 def get_cube_columns(cube_name):
-    executor = _load_cube(cube_name)
-    return jsonify([column for column in executor.star_schema_dataframe.columns if
-                    column.lower()[-3:] != '_id' and column not in executor.measures])
+    if current_user.is_authenticated:
+        executor = _load_cube(cube_name)
+        return jsonify([column for column in executor.star_schema_dataframe.columns if
+                        column.lower()[-3:] != '_id' and column not in executor.measures])
 
 
 @api('dashboard/save', methods=['POST'])
-@auth.login_required
 def save_dashboard():
-    request_data = request.get_json()
-    user_dashboard = User.query.filter(User.id == current_user.id).first().dashboards.filter(
-        Dashboard.name == request_data['dashboardName']).first()
-    if user_dashboard:
-        # update dashboard
-        user_dashboard.name = request_data['dashboardName']
-        user_dashboard.chart.used_charts = request_data['usedCharts']
-        user_dashboard.chart.charts_layout = request_data['layout']
-        user_dashboard.chart.charts_data = request_data['chartData']
-    else:
-        # add new cube
-        chart = Chart(used_charts=request_data['usedCharts'],
-                      charts_layout=request_data['layout'],
-                      charts_data=request_data['chartData'])
-        dashboard = Dashboard(name=request_data['dashboardName'],
-                              user_id=current_user.id,
-                              chart=chart
-                              )
-        db.session.add(dashboard)
-    db.session.commit()
-    return jsonify({'success': True}), 200
+    if current_user.is_authenticated:
+        request_data = request.get_json()
+        user_dashboard = User.query.filter(User.id == current_user.id).first().dashboards.filter(
+            Dashboard.name == request_data['dashboardName']).first()
+        if user_dashboard:
+            # update dashboard
+            user_dashboard.name = request_data['dashboardName']
+            user_dashboard.chart.used_charts = request_data['usedCharts']
+            user_dashboard.chart.charts_layout = request_data['layout']
+            user_dashboard.chart.charts_data = request_data['chartData']
+        else:
+            # add new cube
+            chart = Chart(used_charts=request_data['usedCharts'],
+                          charts_layout=request_data['layout'],
+                          charts_data=request_data['chartData'])
+            dashboard = Dashboard(name=request_data['dashboardName'],
+                                  user_id=current_user.id,
+                                  chart=chart
+                                  )
+            db.session.add(dashboard)
+        db.session.commit()
+        return jsonify({'success': True}), 200
 
 
 @api('dashboard/all')
-@auth.login_required
 def all_dashboard():
-    all_dashboards = User.query.filter(User.id == current_user.id).first().dashboards
-    return jsonify([dashboard.name for dashboard in all_dashboards])
+    if current_user.is_authenticated:
+        all_dashboards = User.query.filter(User.id == current_user.id).first().dashboards
+        return jsonify([dashboard.name for dashboard in all_dashboards])
 
 
 @api('dashboard/<dashboard_name>')
-@auth.login_required
 def get_dashboard(dashboard_name):
-    dashboard = User.query.filter(User.id == current_user.id).first().dashboards.filter(
-        Dashboard.name == dashboard_name).first()
-    return jsonify({
-        'name': dashboard.name,
-        'used_charts': dashboard.chart.used_charts,
-        'charts_layout': dashboard.chart.charts_layout,
-        'charts_data': dashboard.chart.charts_data
-    })
+    if current_user.is_authenticated:
+        dashboard = User.query.filter(User.id == current_user.id).first().dashboards.filter(
+            Dashboard.name == dashboard_name).first()
+        return jsonify({
+            'name': dashboard.name,
+            'used_charts': dashboard.chart.used_charts,
+            'charts_layout': dashboard.chart.charts_layout,
+            'charts_data': dashboard.chart.charts_data
+        })
