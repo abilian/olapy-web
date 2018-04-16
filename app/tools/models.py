@@ -1,6 +1,4 @@
-from __future__ import absolute_import, division, print_function
-# unicode_literals causes some problems with plotly
-# , unicode_literals
+from __future__ import absolute_import, division, print_function, unicode_literals
 
 import attr
 from typing import Dict
@@ -115,7 +113,7 @@ class PieChart(Chart):
         return [self.generate_pie_graph(df) for df in self._gen_df_rows_occurrences()]
 
     def _get_pattern(self):
-        return 'pie_graph-{}'
+        return b'pie_graph-{}'
 
 
 class BarChart(Chart):
@@ -168,7 +166,7 @@ class BarChart(Chart):
         return [self.generate_bar_graph(df) for df in self._gen_df_rows_occurrences()]
 
     def _get_pattern(self):
-        return 'bar_graph-{}'
+        return b'bar_graph-{}'
 
 
 class LineChart(Chart):
@@ -221,4 +219,4 @@ class LineChart(Chart):
         return [self.generate_line_graph(df) for df in self._gen_df_rows_occurrences()]
 
     def _get_pattern(self):
-        return 'line_graph-{}'
+        return b'line_graph-{}'
