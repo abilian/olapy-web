@@ -16,8 +16,13 @@ from .extensions import db, login_manager, migrate
 
 ALLOWED_EXTENSIONS = {'csv'}
 
+default_config = {
+    # SQLALCHEMY_DATABASE_URI need flask instance_path
+    "DEBUG": True
+}
 
-def create_app():
+
+def create_app(config=default_config):
     # type: () -> Flask
 
     app = Flask(__name__, static_folder='../front/static')
@@ -27,9 +32,12 @@ def create_app():
     olapy_data_dir = join(app.instance_path, 'olapy-data')
     if not isdir(olapy_data_dir):
         os.makedirs(olapy_data_dir)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + join(olapy_data_dir, 'olapy.db')
 
-    app.config['DEBUG'] = True
+    # app.config = config
+    app.config['SQLALCHEMY_DATABASE_URI'] = config.get('SQLALCHEMY_DATABASE_URI',
+                                                       'sqlite:///' + join(olapy_data_dir, 'olapy.db'))
+
+    app.config['DEBUG'] = config.get('DEBUG')
 
     configure_extensions(app)
     configure_logger(app)
