@@ -4,6 +4,7 @@ import os
 
 import yaml
 
+
 # TEMPORARY JUST FOR QUERY BUILDER
 class ConfigParser:
     def __init__(self, web_config_file_name=None):

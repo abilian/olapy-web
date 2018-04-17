@@ -69,7 +69,6 @@ def logout():
     return redirect(url_for('.login'))
 
 
-
 @route('/query_builder', methods=['GET', 'POST'])
 @login_required
 def query_builder():
