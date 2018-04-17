@@ -22,7 +22,7 @@ default_config = {
 }
 
 
-def create_app(config=default_config):
+def create_app(config=default_config, *args, **kwargs):
     # type: () -> Flask
 
     app = Flask(__name__, static_folder='../front/static')
@@ -37,7 +37,8 @@ def create_app(config=default_config):
     app.config['SQLALCHEMY_DATABASE_URI'] = config.get('SQLALCHEMY_DATABASE_URI',
                                                        'sqlite:///' + join(olapy_data_dir, 'olapy.db'))
 
-    app.config['DEBUG'] = config.get('DEBUG')
+    app.config.update(config)
+    # ['DEBUG'] = config.get('DEBUG')
 
     configure_extensions(app)
     configure_logger(app)
