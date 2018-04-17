@@ -1,9 +1,9 @@
 from app.models import User
 
 
-def test_user_creation(db):
+def test_user_creation(session):
     user = User(username="test", email="test@test.com", password='test')
-    db.session.add(user)
-    db.session.commit()
+    session.add(user)
+    session.commit()
 
     assert user.id > 0
