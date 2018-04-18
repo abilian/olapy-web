@@ -12,6 +12,7 @@ def app():
     settings = {
         'SQLALCHEMY_DATABASE_URI': TEST_DATABASE_URI,
         'TESTING': True,
+        'LOGIN_DISABLED': True,
         'WTF_CSRF_ENABLED': False
     }
     return create_app(settings)
