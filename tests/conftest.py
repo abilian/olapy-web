@@ -39,7 +39,7 @@ def client(app):
 
 
 #
-@fixture(scope='module')
+@fixture(scope='module', autouse=True)
 def admin_user(session):
     user = User(
         username="admin",
