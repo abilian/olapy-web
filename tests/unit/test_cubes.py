@@ -24,3 +24,21 @@ def test_upload_cube(client):
         u'tests/test_cubes/sales/Product.csv',
         u'tests/test_cubes/sales/Geography.csv'
     ])
+
+
+def test_add_db_cube(client):
+    with client:
+        client.post('/login', data=dict(username="admin", password="admin"))
+
+        #  in the web , ypu don't put a string connection, instead each connexion param separately
+        db_credentials = dict(selectCube='olapy_web_test',
+                              engine='postgres',
+                              servername='localhost',
+                              port='5432',
+                              username='postgres',
+                              password='root')
+        response = client.post('api/cubes/add_DB_cube', data=json.dumps(db_credentials),
+                               content_type='application/json').data
+        cube = json.loads(response)
+        assert sorted(cube['dimensions']) == sorted(['geography', 'product', 'time'])
+        assert sorted(cube['measures']) == sorted(['amount', 'count'])
