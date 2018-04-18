@@ -150,7 +150,8 @@ def confirm_cube():
     if request.data:
         request_data = json.loads(request.data)
         custom_cube = request_data['customCube']
-        cube_name = request_data['cubeName'].decode('utf-8')
+        # cube_name = request_data['cubeName'].decode('utf-8')
+        cube_name = request_data['cubeName']
         if custom_cube:
             temp_folder = cube_name
         else:
