@@ -6,23 +6,20 @@ from app.app import create_app
 from app.extensions import db as _db
 from app.models import User
 
-# output db, in which we will save our cube, users....
-TEST_DATABASE_URI = 'sqlite://'
-
 # input db from which we will get our tables
 # TODO: sqlite not working fine in web, so this this temp until we fix this
-SQLA_URI_TEST = "postgresql://postgres:root@localhost/olapy_web_test"
+INPUT_TABLES_EXAMPLES = "postgresql://postgres:root@localhost/olapy_web_test"
 
 
 @fixture(scope='module')
 def app():
     settings = {
-        'SQLALCHEMY_DATABASE_URI': TEST_DATABASE_URI,
+        'SQLALCHEMY_DATABASE_URI': 'sqlite://',
         'TESTING': True,
         'LOGIN_DISABLED': True,
         'WTF_CSRF_ENABLED': False
     }
-    engine = sqlalchemy.create_engine(SQLA_URI_TEST)
+    engine = sqlalchemy.create_engine(INPUT_TABLES_EXAMPLES)
     create_insert(engine, False)
     yield create_app(settings)
     drop_tables(engine, False)
