@@ -8,7 +8,7 @@ from os.path import isdir, join
 import sys
 
 import jinja2
-from typing import Any
+from typing import Any, Dict, Text
 
 from flask import Flask, render_template
 
@@ -22,8 +22,8 @@ default_config = {
 }
 
 
-def create_app(config=default_config, *args, **kwargs):
-    # type: () -> Flask
+def create_app(config=default_config):
+    # type: (Dict[Text, Any]) -> Flask
 
     app = Flask(__name__, static_folder='../front/static')
     # app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
