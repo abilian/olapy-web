@@ -9,7 +9,7 @@ def test_user_creation(session):
     assert user.id > 0
 
 
-def test_login_logout(client, user_admin):
+def test_login_logout(client, admin_user):
     response = client.post('/login', data=dict(
         username="admin",
         password="admin"

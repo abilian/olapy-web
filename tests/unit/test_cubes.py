@@ -16,9 +16,8 @@ def test_add_cube(client):
         'files': files,
     })
     result = json.loads(response.data)
-    assert result == {u'facts': None,
-                      u'measures': None,
-                      u'dimensions': [u'tests/test_cubes/sales/Time.csv',
-                                      u'tests/test_cubes/sales/Facts.csv',
-                                      u'tests/test_cubes/sales/Product.csv',
-                                      u'tests/test_cubes/sales/Geography.csv']}
+
+    assert sorted(result['dimensions']) == sorted([u'tests/test_cubes/sales/Time.csv',
+                                                   u'tests/test_cubes/sales/Facts.csv',
+                                                   u'tests/test_cubes/sales/Product.csv',
+                                                   u'tests/test_cubes/sales/Geography.csv'])
