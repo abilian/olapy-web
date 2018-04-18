@@ -8,7 +8,7 @@ TEST_CUBE = 'tests/test_cubes/sales'
 
 def test_add_cube(client):
     files = [
-        open(join(TEST_CUBE, file), 'r')
+        open(join(TEST_CUBE, file), 'rb')
         for file in listdir(TEST_CUBE) if isfile(join(TEST_CUBE, file))
     ]
 
