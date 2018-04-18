@@ -10,7 +10,7 @@ attrs==17.4.0             # via olapy
 awesome-slugify==1.6.5    # via olapy
 bonobo-sqlalchemy==0.5.1  # via olapy
 bonobo==0.5.2             # via bonobo-sqlalchemy, olapy
-certifi==2018.1.18        # via requests
+certifi==2018.4.16        # via requests
 chardet==3.0.4            # via requests
 click==6.7                # via flask, olapy
 colorama==0.3.9           # via bonobo
@@ -39,7 +39,7 @@ pathlib==1.0.1
 pbr==4.0.2                # via stevedore
 plotly==2.5.1
 psutil==5.4.5             # via bonobo
-psycopg2==2.7.4
+psycopg2-binary==2.7.4
 pyparsing==2.2.0          # via packaging
 python-dateutil==2.7.2    # via alembic, pandas
 python-dotenv==0.8.2      # via olapy
