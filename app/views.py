@@ -69,7 +69,7 @@ def logout():
     return redirect(url_for('.login'))
 
 
-@route('/query_builder', methods=['GET', 'POST'])
+@route('/query_builder')
 @login_required
 def query_builder():
     # type: () -> text_type
@@ -92,7 +92,7 @@ def query_builder():
                            dataframe_csv=executor.star_schema_dataframe.to_csv(encoding="utf-8"))
 
 
-@route('/designer', methods=['GET', 'POST'])
+@route('/designer')
 @login_required
 def schema_designer():
     executor = MdxEngine()
@@ -102,7 +102,7 @@ def schema_designer():
                            user_cubes=cubes_names)
 
 
-@route('/reporting', methods=['GET', 'POST'])
+@route('/reporting')
 @login_required
 def reporting():
     executor = MdxEngine()
