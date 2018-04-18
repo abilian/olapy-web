@@ -178,7 +178,8 @@ def clean_tmp_dir():
 
 def get_columns_from_files(db_cube_config):
     if isdir(OLAPY_TEMP_DIR):
-        cube_file_path = os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME, db_cube_config['tableName'].decode('utf-8'))
+        # cube_file_path = os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME, db_cube_config['tableName'].decode('utf-8'))
+        cube_file_path = os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME, db_cube_config['tableName'])
         df = pd.read_csv(cube_file_path, sep=';')
         # todo show columns with there types
         if db_cube_config['WithID']:
@@ -243,7 +244,8 @@ def get_tables_columns_from_files(db_cube_config):
 @api('cubes/get_tables_and_columns', methods=['POST'])
 def get_tables_and_columns():
     if request.data:
-        db_cube_config = json.loads(request.data.decode('utf-8'))
+        # db_cube_config = json.loads(request.data.decode('utf-8'))
+        db_cube_config = json.loads(request.data)
         if db_cube_config['dbConfig']:
             return jsonify(get_tables_columns_from_db(db_cube_config))
         else:
