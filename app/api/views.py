@@ -12,7 +12,7 @@ from os.path import expanduser, isdir
 import os
 
 from flask import Blueprint, jsonify
-from flask_login import login_required, current_user
+from flask_login import current_user
 from olapy.core.mdx.executor.execute import MdxEngine
 from flask import request
 from pathlib import Path

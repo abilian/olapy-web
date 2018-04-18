@@ -80,22 +80,22 @@ export default {
     };
   },
   methods: {
-    genGraph(grapheType, chartData) {
+    genGraph(graphType, chartData) {
       let data;
-      if (["bar", "scatter"].includes(grapheType)) {
+      if (["bar", "scatter"].includes(graphType)) {
         data = [
           {
             y: Object.values(chartData),
             x: Object.keys(chartData),
-            type: grapheType,
+            type: graphType,
           },
         ];
-      } else if (grapheType === "pie") {
+      } else if (graphType === "pie") {
         data = [
           {
             values: Object.values(chartData),
             labels: Object.keys(chartData),
-            type: grapheType,
+            type: graphType,
           },
         ];
       }
