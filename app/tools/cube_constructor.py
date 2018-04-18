@@ -23,19 +23,6 @@ class ConfigParser:
 
         return os.path.isfile(self.web_config_file_name)
 
-    def get_cubes_names(self):
-        """Get all cubes names in the config file.
-        :return: dict with dict name as key and cube source as value (csv | postgres | mysql | oracle | mssql)
-        """
-        file_path = self.web_config_file_name
-        with open(file_path) as config_file:
-            config = yaml.load(config_file)
-
-            try:
-                return {config['name']: config['source']}
-            except BaseException:  # pragma: no cover
-                raise ValueError('missed name or source tags')
-
     def construct_web_dashboard(self):
         """
         Parse olapy-web config web file.
