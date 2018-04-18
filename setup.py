@@ -6,7 +6,6 @@ from distutils.command.sdist import sdist
 from os.path import dirname, join, realpath
 from subprocess import check_output
 
-import setuptools
 from pkg_resources import parse_requirements
 from setuptools import Command, find_packages, setup
 from setuptools.command.develop import develop
