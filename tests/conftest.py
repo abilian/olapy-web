@@ -8,7 +8,7 @@ from app.models import User
 
 # input db from which we will get our tables
 # TODO: sqlite not working fine in web, so this this temp until we fix this
-INPUT_TABLES_EXAMPLES = "postgresql://postgres:root@localhost/olapy_web_test"
+DEMO_DATABASE = "postgresql://postgres:root@localhost/olapy_web_test"
 
 
 @fixture(scope='module')
@@ -19,7 +19,7 @@ def app():
         'LOGIN_DISABLED': True,
         'WTF_CSRF_ENABLED': False
     }
-    engine = sqlalchemy.create_engine(INPUT_TABLES_EXAMPLES)
+    engine = sqlalchemy.create_engine(DEMO_DATABASE)
     create_insert(engine, False)
     yield create_app(settings)
     drop_tables(engine, False)
