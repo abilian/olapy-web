@@ -103,11 +103,10 @@ def clean_temp_dir(olapy_data_dir):
 
 def construct_cube(cube_name, sqla_engine=None, source_type='csv', olapy_data_location=None):
     executor = MdxEngine(sqla_engine=sqla_engine, source_type=source_type,
-                         olapy_data_location=olapy_data_location, cubes_folder=TEMP_CUBE_NAME)
+                         olapy_data_location=olapy_data_location, cubes_folder='')
     # try to construct automatically the cube
     try:
-        temp_cube_path = os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME)
-        executor.load_cube(cube_name, cube_folder=temp_cube_path)
+        executor.load_cube(cube_name)
         return {
             'dimensions': executor.get_all_tables_names(ignore_fact=True),
             'facts': executor.facts,
@@ -358,10 +357,9 @@ def construct_custom_files_cube(data_request):
     os.rename(os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME),
               os.path.join(OLAPY_TEMP_DIR, data_request['cubeName']))
     cube_config = gen_cube_conf(data_request=data_request, cube_name=data_request['cubeName'])
-    executor = MdxEngine(cube_config=cube_config['cube_config'], olapy_data_location=OLAPY_TEMP_DIR)
+    executor = MdxEngine(cube_config=cube_config['cube_config'], olapy_data_location=OLAPY_TEMP_DIR, cubes_folder='')
     try:
-        temp_cube_path = os.path.join(OLAPY_TEMP_DIR, data_request['cubeName'])
-        executor.load_cube(data_request['cubeName'], cube_folder=temp_cube_path)
+        executor.load_cube(data_request['cubeName'])
         if executor.star_schema_dataframe.columns is not None:
             save_cube_config_2_db(cube_config, data_request['cubeName'], source='csv')
             return executor.star_schema_dataframe.fillna('').head().to_html(classes=[
