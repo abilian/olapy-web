@@ -29,16 +29,15 @@ def create_app(config=default_config):
     # app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
     install_secret_key(app)
 
-    olapy_data_dir = join(app.instance_path, 'olapy-data')
+    olapy_data_dir = config.get('OLAPY_DATA',
+                                join(app.instance_path, 'olapy-data'))
     if not isdir(olapy_data_dir):
         os.makedirs(olapy_data_dir)
 
-    # app.config = config
     app.config['SQLALCHEMY_DATABASE_URI'] = config.get('SQLALCHEMY_DATABASE_URI',
                                                        'sqlite:///' + join(olapy_data_dir, 'olapy.db'))
 
     app.config.update(config)
-    # ['DEBUG'] = config.get('DEBUG')
 
     configure_extensions(app)
     configure_logger(app)

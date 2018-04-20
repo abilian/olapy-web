@@ -149,7 +149,6 @@ def confirm_cube():
     if request.data:
         request_data = json.loads(request.data)
         custom_cube = request_data['customCube']
-        # cube_name = request_data['cubeName'].decode('utf-8')
         cube_name = request_data['cubeName']
         if custom_cube:
             temp_folder = cube_name
@@ -177,7 +176,6 @@ def clean_tmp_dir():
 
 def get_columns_from_files(db_cube_config):
     if isdir(OLAPY_TEMP_DIR):
-        # cube_file_path = os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME, db_cube_config['tableName'].decode('utf-8'))
         cube_file_path = os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME, db_cube_config['tableName'])
         df = pd.read_csv(cube_file_path, sep=';')
         # todo show columns with there types

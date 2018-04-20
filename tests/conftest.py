@@ -1,3 +1,6 @@
+import os
+import tempfile
+
 import sqlalchemy
 from pytest import fixture
 from tests.db_creation_utils import create_insert, drop_tables
@@ -9,6 +12,7 @@ from app.models import User
 # input db from which we will get our tables
 # TODO: sqlite not working fine in web, so this this temp until we fix this
 DEMO_DATABASE = "postgresql://postgres:root@localhost/olapy_web_test"
+OLAPY_DATA_TEMP = os.path.join(tempfile.mkdtemp(), 'OLAPY_DATA_TEMP')
 
 
 @fixture(scope='module')
@@ -17,7 +21,8 @@ def app():
         'SQLALCHEMY_DATABASE_URI': 'sqlite://',
         'TESTING': True,
         'LOGIN_DISABLED': True,
-        'WTF_CSRF_ENABLED': False
+        'WTF_CSRF_ENABLED': False,
+        'OLAPY_DATA': OLAPY_DATA_TEMP
     }
     engine = sqlalchemy.create_engine(DEMO_DATABASE)
     create_insert(engine, False)
