@@ -61,9 +61,9 @@ def test_add_dashboard(client):
             data=json.dumps(dashboard_config),
             content_type='application/json')
 
-        assert '"success": true' in response.data
+        assert b'"success": true' in response.data
         all_dashboards = client.get('api/dashboard/all').data
-        assert "dashboard_test" in all_dashboards
+        assert b"dashboard_test" in all_dashboards
         add_dashboard = json.loads(client.get('api/dashboard/dashboard_test').data)
         assert add_dashboard['name'] == 'dashboard_test'
         assert add_dashboard['used_charts'] == ['pie']

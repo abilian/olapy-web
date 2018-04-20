@@ -64,4 +64,4 @@ def test_add_dashboard(client):
             data=json.dumps(dashboard_config),
             content_type='application/json')
 
-        assert '"success": true' in response.data
+        assert b'"success": true' in response.data
