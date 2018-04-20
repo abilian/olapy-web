@@ -387,7 +387,7 @@ def construct_custom_db_cube(data_request):
         return None
 
 
-@api('cubes/try_construct_custom_cube', methods=['POST'])
+@api('cubes/construct_custom_cube', methods=['POST'])
 def construct_custom_cube():
     if request.data:
         data_request = json.loads(request.data)

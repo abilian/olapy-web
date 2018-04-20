@@ -68,7 +68,7 @@ export default {
       dbConfig: this.dbConfig,
     };
     this.$http
-      .post("api/cubes/try_construct_custom_cube", data)
+      .post("api/cubes/construct_custom_cube", data)
       .then(x => {
         this.resultCube = x.data;
       })
