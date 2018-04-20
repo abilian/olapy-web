@@ -25,9 +25,9 @@ def app():
         'OLAPY_DATA': OLAPY_DATA_TEMP
     }
     engine = sqlalchemy.create_engine(DEMO_DATABASE)
-    create_insert(engine, False)
+    create_insert(engine)
     yield create_app(settings)
-    drop_tables(engine, False)
+    drop_tables(engine)
 
 
 @fixture(scope='module')
