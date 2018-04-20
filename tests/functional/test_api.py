@@ -58,7 +58,8 @@ def test_add_dashboard(client):
             chartData=chart_data)
         response = client.post(
             'api/dashboard/save',
-            data=json.dumps(dashboard_config))
+            data=json.dumps(dashboard_config),
+            content_type='application/json')
 
         assert '"success": true' in response.data
         all_dashboards = client.get('api/dashboard/all').data
