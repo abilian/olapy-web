@@ -3,7 +3,7 @@ from os import listdir
 
 from os.path import isfile, join
 
-TEST_CUBE = 'tests/test_cubes/sales'
+TEST_CUBE = 'tests/demo_csv_cubes/sales'
 
 
 def test_upload_cube(client):
@@ -19,10 +19,10 @@ def test_upload_cube(client):
     result = json.loads(response.data)
 
     assert sorted(result['dimensions']) == sorted([
-        u'tests/test_cubes/sales/Time.csv',
-        u'tests/test_cubes/sales/Facts.csv',
-        u'tests/test_cubes/sales/Product.csv',
-        u'tests/test_cubes/sales/Geography.csv'
+        u'tests/demo_csv_cubes/sales/Time.csv',
+        u'tests/demo_csv_cubes/sales/Facts.csv',
+        u'tests/demo_csv_cubes/sales/Product.csv',
+        u'tests/demo_csv_cubes/sales/Geography.csv'
     ])
 
 

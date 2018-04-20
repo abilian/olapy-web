@@ -3,7 +3,7 @@ from os import listdir
 
 from os.path import isfile, join
 
-TEST_CUBE = 'tests/test_cubes/sales'
+TEST_CUBE = 'tests/demo_csv_cubes/sales'
 CSV_TEST_CUBE = u'test'
 DB_TEST_CUBE = u'olapy_web_test'
 
