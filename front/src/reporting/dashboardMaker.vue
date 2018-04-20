@@ -114,14 +114,12 @@ export default {
       Plotly.Plots.resize(plotDiv);
     },
     saveDashboard() {
-      // let dashboardContent = document.getElementById('divDash').querySelectorAll('*')
       if (this.dashboardName) {
         let data = {
           dashboardName: this.dashboardName,
           usedCharts: this.usedCharts,
           layout: this.layout,
           chartData: this.chartData,
-          // dashboardContent: stringify(document.getElementById('divDash').children)
         };
         this.$http.post("api/dashboard/save", data);
       } else {

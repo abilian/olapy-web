@@ -3,6 +3,8 @@ from os import listdir
 
 from os.path import isfile, join
 
+from tests.utils import chart_data
+
 TEST_CUBE = 'tests/demo_csv_cubes/sales'
 CSV_TEST_CUBE = u'test'
 DB_TEST_CUBE = u'olapy_web_test'
@@ -43,3 +45,24 @@ def test_add_db_cube(client):
         added_cube_result = client.get('api/cubes').data
         result = json.loads(added_cube_result)
         assert DB_TEST_CUBE in result
+
+
+def test_add_dashboard(client):
+    with client:
+        client.post('/login', data=dict(username='admin', password='admin'))
+
+        dashboard_config = dict(
+            dashboardName='dashboard_test',
+            usedCharts=['pie'],
+            layout=[{'x': 0, 'y': 0, 'w': 6, 'h': 8, 'i': "pie0"}],
+            chartData=chart_data)
+        response = client.post(
+            'api/dashboard/save',
+            data=json.dumps(dashboard_config))
+
+        assert '"success": true' in response.data
+        all_dashboards = client.get('api/dashboard/all').data
+        assert "dashboard_test" in all_dashboards
+        add_dashboard = json.loads(client.get('api/dashboard/dashboard_test').data)
+        assert add_dashboard['name'] == 'dashboard_test'
+        assert add_dashboard['used_charts'] == ['pie']
