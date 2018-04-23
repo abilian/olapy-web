@@ -104,12 +104,13 @@ export default {
       eventModalBus.modalToShow("makeRelations");
     },
     updateTableColumns(tableName, index) {
+      let data = {
+        tableName: tableName,
+        WithID: true,
+        dbConfig: this.dbConfig,
+      };
       this.$http
-        .post("api/cubes/get_table_columns", {
-          tableName: tableName,
-          WithID: true,
-          dbConfig: this.dbConfig,
-        })
+        .post("api/cubes/get_table_columns", data)
         .then(x => {
           let table_columns = {};
           table_columns[tableName] = x.data;
@@ -121,12 +122,13 @@ export default {
   },
   watch: {
     factsTable: function() {
+      let data = {
+        tableName: this.factsTable,
+        WithID: false,
+        dbConfig: this.dbConfig,
+      };
       this.$http
-        .post("api/cubes/get_table_columns", {
-          tableName: this.factsTable,
-          WithID: false,
-          dbConfig: this.dbConfig,
-        })
+        .post("api/cubes/get_table_columns", data)
         .then(x => {
           this.tableColumnsNoId = x.data;
         });

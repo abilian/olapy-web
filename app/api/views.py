@@ -204,7 +204,7 @@ def get_columns_from_db(db_cube_config):
 
 @api('cubes/get_table_columns', methods=['POST'])
 def get_table_columns():
-    db_cube_config = request.get_json()
+    db_cube_config = json.loads(request.data)
     if db_cube_config:
         if db_cube_config['dbConfig']:
             return jsonify(get_columns_from_db(db_cube_config))
