@@ -6,7 +6,7 @@ import yaml
 
 
 # TEMPORARY JUST FOR QUERY BUILDER
-class ConfigParser:
+class ConfigParser: # pragma: no cover
     def __init__(self, web_config_file_name=None):
 
         if web_config_file_name:

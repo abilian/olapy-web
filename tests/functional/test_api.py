@@ -4,6 +4,7 @@ from os import listdir
 
 from os.path import isfile, join
 
+from app.api.views import get_cube_source_type, get_config, get_cube_facts
 from tests.utils import chart_data
 
 CUBE_PATH = 'tests/demo_csv_cubes/sales'
@@ -26,18 +27,34 @@ def test_add_csv_cube(client):
         added_cube_result = client.get('api/cubes').data
         result = json.loads(added_cube_result)
         assert 'test' in result
+        assert get_cube_source_type('test') == 'csv'
 
 
 def test_add_custom_csv_cube(client):
     with client:
         client.post('/login', data=dict(username="admin", password="admin"))
         current_dir = os.getcwd()
-        os.chdir(CUSTOM_CUBE_PATH)  # to send files to server with their real names, not names as path
+        os.chdir(
+            CUSTOM_CUBE_PATH
+        )  # to send files to server with their real names, not names as path
         files = [
             open(file, 'rb') for file in listdir(os.getcwd()) if isfile(file)
         ]
         os.chdir(current_dir)
         client.post('api/cubes/add', data={'files': files})
+
+        request_data = {
+            'WithID': False,
+            'tableName': 'food_facts.csv',
+            'dbConfig': ''
+        }
+        columns = client.post(
+            'api/cubes/get_table_columns', data=json.dumps(request_data))
+
+        assert json.loads(columns.data) == [
+            "units_ordered", "units_shipped", "warehouse_sales",
+            "warehouse_cost", "supply_time", "store_invoice"
+        ]
 
         request_data = {
             'cubeName': 'custom_test',
@@ -63,6 +80,8 @@ def test_add_custom_csv_cube(client):
         added_cube_result = client.get('api/cubes').data
         result = json.loads(added_cube_result)
         assert 'custom_test' in result
+        cube_config = get_config('custom_test')['cube_config']
+        assert cube_config['name'] == 'custom_test'
 
 
 def test_add_db_cube(client):
@@ -88,6 +107,18 @@ def test_add_db_cube(client):
         added_cube_result = client.get('api/cubes').data
         result = json.loads(added_cube_result)
         assert 'olapy_web_test' in result
+        facts_details = client.get('api/cubes/olapy_web_test/facts').data
+        excpected_facts_details = {
+            "measures": ["amount", "count"],
+            "table_name": "facts"
+        }
+        assert json.loads(facts_details) == excpected_facts_details
+
+        dimensions_details = client.get(
+            'api/cubes/olapy_web_test/dimensions').data
+        excpected_dimensions_details = ["product", "time", "geography"]
+
+        assert json.loads(dimensions_details) == excpected_dimensions_details
 
 
 def test_add_dashboard(client):
