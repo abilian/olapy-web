@@ -75,7 +75,7 @@ format-py:
 
 format-js:
 	./front/node_modules/.bin/prettier --write --trailing-comma es5 \
-		'front/src/**/*.js' 'front/src/**/*.vue'
+		'front/src/**/*.js' 'front/tests/**/*.js' 'front/src/**/*.vue'
 
 update-deps:
 	pip-compile -U > /dev/null
