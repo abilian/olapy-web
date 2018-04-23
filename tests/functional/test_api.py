@@ -118,7 +118,7 @@ def test_add_db_cube(client):
             'api/cubes/olapy_web_test/dimensions').data
         excpected_dimensions_details = ["product", "time", "geography"]
 
-        assert json.loads(dimensions_details) == excpected_dimensions_details
+        assert sorted(json.loads(dimensions_details)) == sorted(excpected_dimensions_details)
 
 
 def test_add_dashboard(client):
