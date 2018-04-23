@@ -12,5 +12,4 @@ describe("ConnectDB", () => {
         "<option>SQL Server</option>"
     );
   });
-
 });
