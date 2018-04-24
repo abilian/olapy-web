@@ -17,13 +17,13 @@ describe("schemaOptions", () => {
 describe("ConnectDB", () => {
   test("available databases", () => {
     const wrapper = mount(ConnectDB);
-    let available_databases = Array.apply(
+    let available_dbms = Array.apply(
       null,
       wrapper.find("select").element.options
     ).map(function(el) {
       return el.text;
     });
-    expect(available_databases).toEqual([
+    expect(available_dbms).toEqual([
       "Choisissez",
       "Postgres",
       "Mysql",
