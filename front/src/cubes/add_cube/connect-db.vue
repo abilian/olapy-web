@@ -6,7 +6,7 @@
         <td>
           <label>
             engine :
-            <select v-model="engine">
+            <select v-model="engine" id="db-engine">
               <option disabled value="">Choisissez</option>
               <option>Postgres</option>
               <option>Mysql</option>
@@ -18,31 +18,31 @@
 
           <label>
             Server Name :
-            <input type="text" v-model="servername" name="servername">
+            <input type="text" v-model="servername"  id="servername" name="servername">
           </label>
           <br>
 
           <label>
             Port :
-            <input type="text" v-model="port" name="servername">
+            <input type="text" v-model="port" name="port" id="port">
           </label>
           <br>
 
           <label>
             User Name :
-            <input type="text" v-model="username" name="servername">
+            <input type="text" v-model="username" name="username" id="username">
           </label>
           <br>
 
           <label>
             Password :
-            <input type="text" v-model="password" name="servername">
+            <input type="text" v-model="password" name="password" id="password">
           </label>
           <br>
 
           <label>
             Connect :
-            <input type="button" value="Connect" @click="connectDB()">
+            <input type="button" value="Connect" id="show-databases-btn" @click="connectDB()">
           </label>
 
           <div v-if="establishedConnection !== ''">
@@ -52,7 +52,7 @@
         <td>
           <div v-if="establishedConnection.toUpperCase() === 'SUCCESS'">
             Available databases :
-            <div v-for="(database, index) in loadedDatabases">
+            <div id="available-databases" v-for="(database, index) in loadedDatabases">
               <label>
                 <input type="radio" :key="index" :id="database" :value="database" v-model="selectedDatabase"
                        @change="getCubeInfos($event)">
