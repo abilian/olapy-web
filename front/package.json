@@ -10,7 +10,8 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "lint": "eslint --ext .js,.vue src",
     "test": "jest",
-    "test-with-coverage": "jest --coverage"
+    "test-with-coverage": "jest --coverage",
+    "test-e2e": "node_modules/testcafe/bin/testcafe.js chrome tests/e2e/"
   },
   "dependencies": {
     "jquery": "^3.3.1",
@@ -44,6 +45,7 @@
     "eslint-plugin-node": "^5.2.0",
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^3.0.1",
+    "eslint-plugin-testcafe": "^0.2.1",
     "eslint-plugin-vue": "^4.0.0",
     "file-loader": "^1.1.4",
     "jest": "^22.4.3",
@@ -51,6 +53,7 @@
     "node-sass": "^4.7.2",
     "prettier": "^1.11.1",
     "sass-loader": "^6.0.6",
+    "testcafe": "^0.19.2",
     "uglifyjs-webpack-plugin": "^1.2.2",
     "vue-loader": "^13.0.5",
     "vue-template-compiler": "^2.4.4",
@@ -61,7 +64,8 @@
   "jest": {
     "moduleFileExtensions": [
       "js",
-      "vue"
+      "vue",
+      "json"
     ],
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/src/$1"
