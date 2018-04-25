@@ -21,9 +21,11 @@ Installation
 
 To set up the application, run, ideally in a virtualenv::
 
-    pip install -r requirements.txt
+    make develop
 
     export FLASK_APP=manage.py
+
+(see `make pip`, `make js`, `make build` etc).
 
 Usage
 -----
