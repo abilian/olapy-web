@@ -46,6 +46,13 @@ Run:
 
   - **password**: admin
 
+3. visit `127.0.0.1:5000` (and not localhost, for cross-origins concerns)
+
+Add data
+~~~~~~~~
+
+You can add csv data files under `~/olapy-data/cubes/my-project/`.
+
 
 Developing
 ----------
