@@ -21,9 +21,11 @@ Installation
 
 To set up the application, run, ideally in a virtualenv::
 
-    pip install -r requirements.txt
+    make develop
 
     export FLASK_APP=manage.py
+
+(see `make pip`, `make js`, `make build` etc).
 
 Usage
 -----
@@ -43,6 +45,13 @@ Run:
   - **login**: admin
 
   - **password**: admin
+
+3. visit `127.0.0.1:5000` (and not localhost, for cross-origins concerns)
+
+Add data
+~~~~~~~~
+
+You can add csv data files under `~/olapy-data/cubes/my-project/`.
 
 
 Developing
