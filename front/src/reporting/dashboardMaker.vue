@@ -37,7 +37,9 @@
           :margin="[10, 10]"
           :use-css-transforms="true">
 
-          <grid-item v-for="(item, index) in layout" v-show="index < layout.length - 1"
+          <grid-item v-for="(item, index) in layout"
+                     v-show="index < layout.length - 1"
+                     :key="index"
                      :x="item.x"
                      :y="item.y"
                      :w="item.w"

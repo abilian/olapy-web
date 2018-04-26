@@ -14,7 +14,7 @@
                 Facts :
                 <select v-model="factsTable">
                   <option v-for="(item, index) in cube.dimensions" :key="index" :value="item">{{ item }}
-                  <option>
+                  </option>
                 </select>
               </label>
               <span>Measures : {{ measures.join(', ') }}</span><br>
@@ -30,7 +30,7 @@
                 <label>
                   <select v-model="table.name" :key="index" @change="updateTableColumns(table.name, index)">
                     <option v-for="(item, index) in cube.dimensions" :key="index" :value="item">{{ item }}
-                    <option>
+                    </option>
                   </select>
                 </label>
                 <button type="button" @click="removeSection(index)">Remove</button>
