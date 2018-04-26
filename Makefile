@@ -48,7 +48,7 @@ lint-python:
 # Running web server
 #
 run:
-	flask run
+	FLASK_APP=manage.py  flask run
 
 
 clean:
