@@ -7,7 +7,7 @@ Installation
 Install from Github
 *******************
 
-The project sources are stored in `Github repository <https://github.com/abilian/olapy-web>`_.
+The project sources are stored in a `Github repository <https://github.com/abilian/olapy-web>`_.
 
 Download from Github::
 
@@ -17,7 +17,4 @@ Download from Github::
 
 Install::
 
-    pip install -r requirements.txt
-
-    python setup.py install
-
+    make develop

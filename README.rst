@@ -72,6 +72,15 @@ or simply (on Unix-like systems)::
 
     make test
 
+Documentation
+~~~~~~~~~~~~~
+
+To build the documentation, run::
+
+    make doc
+
+and open ``docs/_build/html/index.html``.
+
 
 Credits
 -------

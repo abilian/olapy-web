@@ -99,3 +99,6 @@ release:
 build:
 	cd front && yarn build
 	python manage.py
+
+doc:
+	cd docs && make html

@@ -10,6 +10,7 @@ py-cpuinfo
 pylint
 pytest
 pytest-cov
+sphinx
+sphinx_rtd_theme
 tox
 yapf==0.20.0
-
