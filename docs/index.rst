@@ -6,7 +6,7 @@
 Welcome to Olapy-web's documentation!
 =====================================
 
-Olapy-web is the web client that can ben integrated with `Olapy <https://pypi.python.org/pypi/olapy>`_
+Olapy-web is the web client that can be integrated with `Olapy <https://pypi.python.org/pypi/olapy>`_
 
 .. image:: img/pivottable.gif
 

@@ -25,7 +25,7 @@
                     <label>
                       <select v-model="tablesAndColumnsResult[index]['DimCol']">
                         <option v-for="item in tablesAndColumns[index]" :value="item">{{ item }}
-                        <option>
+                        </option>
                       </select>
                     </label>
                     &rArr;
@@ -34,7 +34,7 @@
                     <label>
                       <select style="float: left;" v-model="tablesAndColumnsResult[index]['FactsCol']">
                         <option v-for="(item, index) in tablesAndColumns[factsTable]" :key="index" :value="item">{{ item }}
-                        <option>
+                        </option>
                       </select>
                     </label>
                   </td>

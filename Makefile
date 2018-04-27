@@ -34,7 +34,7 @@ develop: pip js
 #
 # Linting
 #
-lint: lint-python
+lint: lint-python lint-js
 
 lint-python:
 	@echo "--> Linting Python files"
@@ -44,11 +44,14 @@ lint-python:
 	@echo "Running pylint, some errors reported might be false positives"
 	-pylint -E --rcfile .pylint.rc $(SRC)
 
+lint-js:
+	cd front && make lint
+
 #
 # Running web server
 #
 run:
-	flask run
+	FLASK_APP=manage.py  flask run
 
 
 clean:
@@ -78,8 +81,7 @@ format-py:
 	isort -rc $(SRC) *.py
 
 format-js:
-	./front/node_modules/.bin/prettier --write --trailing-comma es5 \
-		'front/src/**/*.js' 'front/tests/**/*.js' 'front/src/**/*.vue'
+	cd front && make format
 
 update-deps:
 	pip-compile -U > /dev/null
@@ -99,3 +101,6 @@ release:
 build:
 	cd front && yarn build
 	python manage.py
+
+doc:
+	cd docs && make html
