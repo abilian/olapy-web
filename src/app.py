@@ -25,7 +25,7 @@ default_config = {
 def create_app(config=default_config):
     # type: (Dict[Text, Any]) -> Flask
 
-    app = Flask(__name__, static_folder='../front/static')
+    app = Flask(__name__, static_folder='../src/front/static')
     # src.config['SECRET_KEY'] = os.environ['SECRET_KEY']
     install_secret_key(app)
 
@@ -103,8 +103,8 @@ def configure_jinja_loader(app):
 
     my_loader = jinja2.ChoiceLoader([
         app.jinja_loader,
-        jinja2.FileSystemLoader([os.path.join(basedir, 'front/'),
-                                 os.path.join(basedir, 'front', 'templates/')]),
+        jinja2.FileSystemLoader([os.path.join(basedir, 'src', 'front/'),
+                                 os.path.join(basedir, 'src', 'front', 'templates/')]),
     ])
 
     app.jinja_loader = my_loader
