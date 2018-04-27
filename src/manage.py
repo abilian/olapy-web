@@ -58,7 +58,7 @@ cli.add_command(dropdb)
 if __name__ == '__main__':
     try:
         imp.reload(sys)
-        sys.setdefaultencoding("UTF8") # type: ignore
+        sys.setdefaultencoding("UTF8")  # type: ignore
     except Exception:
         pass
 
