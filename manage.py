@@ -12,7 +12,7 @@ from sqlalchemy.exc import IntegrityError
 app = create_app()
 
 
-@app.cli.command(short_help='Initialize database')
+@app.cli.command('init', short_help='Initialize database')
 @click.pass_context
 def initdb(ctx):
     try:

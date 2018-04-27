@@ -38,7 +38,7 @@ Run the demo
 Run:
 
 
-1. flask initdb to initialize the db and some demos
+1. flask init to initialize the db and some demos
 
 2. flask run to run application, using the following credential to log in:
 
