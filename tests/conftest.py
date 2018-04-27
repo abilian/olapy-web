@@ -5,9 +5,9 @@ import sqlalchemy
 from pytest import fixture
 from tests.db_creation_utils import create_insert, drop_tables
 
-from app.app import create_app
-from app.extensions import db as _db
-from app.models import User
+from src.app import create_app
+from src.extensions import db as _db
+from src.models import User
 
 # input db from which we will get our tables
 # TODO: sqlite not working fine in web, so this this temp until we fix this

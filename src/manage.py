@@ -5,8 +5,8 @@ import os
 import sys
 
 import click
-from app.app import create_app, db
-from app.models import User
+from src.app import create_app, db
+from src.models import User
 from sqlalchemy.exc import IntegrityError
 
 app = create_app()
@@ -46,6 +46,14 @@ def dropdb():
 def run(host, port):
     app.run(host=host, port=port)
 
+
+@click.group()
+def cli():
+    pass
+
+
+cli.add_command(initdb)
+cli.add_command(dropdb)
 
 if __name__ == '__main__':
     try:

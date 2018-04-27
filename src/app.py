@@ -26,7 +26,7 @@ def create_app(config=default_config):
     # type: (Dict[Text, Any]) -> Flask
 
     app = Flask(__name__, static_folder='../front/static')
-    # app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
+    # src.config['SECRET_KEY'] = os.environ['SECRET_KEY']
     install_secret_key(app)
 
     olapy_data_dir = config.get('OLAPY_DATA',
@@ -89,7 +89,7 @@ def configure_blueprints(app):
     # type: (Flask) -> None
 
     from .views import blueprint
-    from .api.views import API
+    from .olapy_web.api.views import API
 
     app.register_blueprint(API, url_prefix='/api/')
     app.register_blueprint(blueprint)

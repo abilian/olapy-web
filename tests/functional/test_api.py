@@ -4,7 +4,7 @@ from os import listdir
 
 from os.path import isfile, join
 
-from app.api.views import get_cube_source_type, get_config, get_cube_facts
+from olapy_web.api.views import get_cube_source_type, get_config
 from tests.utils import chart_data
 
 CUBE_PATH = 'tests/demo_csv_cubes/sales'
