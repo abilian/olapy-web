@@ -1,12 +1,12 @@
 olapy
 
 # Web
-Flask
+flask
 Flask-Login
 Flask-Migrate
 Flask-SQLAlchemy
 Flask-WTF
-SQLAlchemy
+SQLAlchemy<1.2
 WTForms
 plotly
 

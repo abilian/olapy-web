@@ -63,7 +63,7 @@ setup(
     url='https://github.com/abilian/olapy-web',
     long_description=open('README.rst').read(),
     install_requires=install_requires,
-    include_package_data=False,
+    include_package_data=True,
     classifiers=[
         "Programming Language :: Python",
         'Development Status :: 3 - Alpha',

@@ -1,4 +1,6 @@
 include *.rst *.txt *.ini *.py *.cfg *.yml *.html *.in
-recursive-include web/static *
-recursive-include web/templates *
-recursive-include cubes_templates *
+recursive-include src/front/src *
+recursive-include src/front/templates *
+recursive-include src/front/static *
+recursive-exclude src/node_modules *
+prune .git
