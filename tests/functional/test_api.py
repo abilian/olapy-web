@@ -141,7 +141,8 @@ def test_add_dashboard(client):
             data=json.dumps(dashboard_config),
             content_type='application/json')
 
-        assert b'"success": true' in response.data
+        response_state = json.loads(response.data)
+        assert response_state['success'] == True
         all_dashboards = client.get('api/dashboard/all').data
         assert b"dashboard_test" in all_dashboards
         add_dashboard = json.loads(
