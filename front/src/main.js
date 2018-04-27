@@ -20,14 +20,18 @@ export const eventBus = new Vue({
 
 Vue.config.devtools = true;
 
-Vue({
-  el: "#designer",
-  delimiters: ["[[", "]]"],
-  render: h => h(App),
-});
+if (document.getElementById("designer")) {
+  new Vue({
+    el: "#designer",
+    delimiters: ["[[", "]]"],
+    render: h => h(App),
+  });
+}
 
-Vue({
-  el: "#reporting",
-  delimiters: ["[[", "]]"],
-  render: h => h(Reporting),
-});
+if (document.getElementById("reporting")) {
+  new Vue({
+    el: "#reporting",
+    delimiters: ["[[", "]]"],
+    render: h => h(Reporting),
+  });
+}
