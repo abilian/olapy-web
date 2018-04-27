@@ -23,38 +23,35 @@ module.exports = {
     filename: 'build.js'
   },
   module: {
-    rules: [
+    loaders: [
       {
-        test: /\.css$/,
-        use: [
-          'vue-style-loader',
-          'css-loader'
-        ],
-      },      {
         test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          loaders: {
-          }
-          // other vue-loader options go here
-        }
+        loader: "vue-loader",
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        loader: "babel-loader",
         exclude: /node_modules/,
         query: {
-          presets: ['es2015','stage-2'],
+          // https://github.com/babel/babel-loader#options
+          cacheDirectory: true,
+          presets: ["es2015", "stage-2"],
         },
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]?[hash]'
-        }
-      }
-    ]
+        test: /\.css$/,
+        loader: "style-loader!css-loader",
+      },
+
+      {
+        test: /\.scss$/,
+        loader: "style-loader!css!sass",
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
+        loader: "url-loader",
+      },
+    ],
   },
   resolve: {
     alias: {
