@@ -18,7 +18,7 @@ def test_upload_cube(client):
         'api/cubes/add', data={
             'files': files,
         })
-    result = json.loads(response.data)
+    result = response.get_json()
 
     assert sorted(result['dimensions']) == sorted([
         u'tests/demo_csv_cubes/sales/Time.csv',
@@ -63,5 +63,4 @@ def test_add_dashboard(client):
             'api/dashboard/save',
             data=json.dumps(dashboard_config),
             content_type='application/json')
-        response_state = json.loads(response.data)
-        assert response_state['success'] == True
+        assert response.get_json()['success'] == True
