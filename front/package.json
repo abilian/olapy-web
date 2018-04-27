@@ -14,8 +14,12 @@
     "test-e2e": "node_modules/testcafe/bin/testcafe.js chrome tests/e2e/"
   },
   "dependencies": {
+    "c3": "^0.5.4",
+    "d3": "^5.1.0",
     "jquery": "^3.3.1",
+    "jquery-csv": "^0.8.9",
     "jquery-ui": "^1.12.1",
+    "pivottable": "^2.20.0",
     "plotly.js": "^1.35.2",
     "vue": "^2.5.11",
     "vue-grid-layout": "^2.1.12",
