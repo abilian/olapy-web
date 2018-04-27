@@ -52,7 +52,7 @@ def get_config(cube_name):
     }
 
 
-@api('cubes')
+@api('/cubes')
 def get_cubes():
     user_cubes = User.query.filter(User.id == current_user.id).first().cubes.all()
     return jsonify([cube.name for cube in user_cubes])
@@ -72,14 +72,14 @@ def _load_cube(cube_name):
     return executor
 
 
-@api('cubes/<cube_name>/dimensions')
+@api('/cubes/<cube_name>/dimensions')
 def get_cube_dimensions(cube_name):
     executor = _load_cube(cube_name)
     tables_names = executor.get_all_tables_names(ignore_fact=True)
     return jsonify(tables_names)
 
 
-@api('cubes/<cube_name>/facts')
+@api('/cubes/<cube_name>/facts')
 def get_cube_facts(cube_name):
     cube = _load_cube(cube_name)
     cube_info = {
@@ -118,7 +118,7 @@ def construct_cube(cube_name, sqla_engine=None, source_type='csv', olapy_data_lo
         }
 
 
-@api('cubes/add', methods=['POST'])
+@api('/cubes/add', methods=['POST'])
 def add_cube():
     # temporary
     #  2 TEMP_CUBE_NAME = first is the all cubes folder, the second is the current cube folder
@@ -144,7 +144,7 @@ def add_cube():
         )
 
 
-@api('cubes/confirm_cube', methods=['POST'])
+@api('/cubes/confirm_cube', methods=['POST'])
 def confirm_cube():
     if request.data:
         request_data = json.loads(request.data)
@@ -164,7 +164,7 @@ def confirm_cube():
         return jsonify({'success': True}), 200
 
 
-@api('cubes/clean_tmp_dir', methods=['POST'])
+@api('/cubes/clean_tmp_dir', methods=['POST'])
 def clean_tmp_dir():
     for root, dirs, files in os.walk(OLAPY_TEMP_DIR):
         for f in files:
@@ -202,7 +202,7 @@ def get_columns_from_db(db_cube_config):
     return result
 
 
-@api('cubes/get_table_columns', methods=['POST'])
+@api('/cubes/get_table_columns', methods=['POST'])
 def get_table_columns():
     db_cube_config = json.loads(request.data)
     if db_cube_config:
@@ -238,7 +238,7 @@ def get_tables_columns_from_files(db_cube_config):
         return response
 
 
-@api('cubes/get_tables_and_columns', methods=['POST'])
+@api('/cubes/get_tables_and_columns', methods=['POST'])
 def get_tables_and_columns():
     if request.data:
         # db_cube_config = json.loads(request.data.decode('utf-8'))
@@ -387,7 +387,7 @@ def construct_custom_db_cube(data_request):
         return None
 
 
-@api('cubes/construct_custom_cube', methods=['POST'])
+@api('/cubes/construct_custom_cube', methods=['POST'])
 def construct_custom_cube():
     if request.data:
         data_request = json.loads(request.data)
@@ -417,7 +417,7 @@ def generate_sqla_uri(db_credentials):
     return engine + '://' + user + ':' + password + '@' + server + ':' + port + selected_db
 
 
-@api('cubes/connectDB', methods=['POST'])
+@api('/cubes/connectDB', methods=['POST'])
 def connectDB():
     if request.data:
         sqla_uri = generate_sqla_uri(json.loads(request.data))
@@ -426,7 +426,7 @@ def connectDB():
         return jsonify(executor.get_cubes_names())
 
 
-@api('cubes/add_DB_cube', methods=['POST'])
+@api('/cubes/add_DB_cube', methods=['POST'])
 def add_db_cube():
     request_data = request.get_json()
     sqla_uri = generate_sqla_uri(json.loads(request.data))
@@ -444,7 +444,7 @@ def add_db_cube():
         )
 
 
-@api('cubes/confirm_db_cube', methods=['POST'])
+@api('/cubes/confirm_db_cube', methods=['POST'])
 def confirm_db_cube():
     request_data = request.get_json()
     config = {'cube_config': None,
@@ -453,7 +453,7 @@ def confirm_db_cube():
     return jsonify({'success': True}), 200
 
 
-@api('cubes/chart_columns', methods=['POST'])
+@api('/cubes/chart_columns', methods=['POST'])
 def get_chart_columns_result():
     request_data = request.get_json()
     executor = _load_cube(request_data['selectedCube'])
@@ -461,14 +461,14 @@ def get_chart_columns_result():
         request_data['selectedMeasures']].to_json()
 
 
-@api('cubes/<cube_name>/columns')
+@api('/cubes/<cube_name>/columns')
 def get_cube_columns(cube_name):
     executor = _load_cube(cube_name)
     return jsonify([column for column in executor.star_schema_dataframe.columns if
                     column.lower()[-3:] != '_id' and column not in executor.measures])
 
 
-@api('dashboard/save', methods=['POST'])
+@api('/dashboard/save', methods=['POST'])
 def save_dashboard():
     request_data = request.get_json()
     user_dashboard = User.query.filter(User.id == current_user.id).first().dashboards.filter(
@@ -493,13 +493,13 @@ def save_dashboard():
     return jsonify({'success': True}), 200
 
 
-@api('dashboard/all')
+@api('/dashboard/all')
 def all_dashboard():
     all_dashboards = User.query.filter(User.id == current_user.id).first().dashboards
     return jsonify([dashboard.name for dashboard in all_dashboards])
 
 
-@api('dashboard/<dashboard_name>')
+@api('/dashboard/<dashboard_name>')
 def get_dashboard(dashboard_name):
     dashboard = User.query.filter(User.id == current_user.id).first().dashboards.filter(
         Dashboard.name == dashboard_name).first()
