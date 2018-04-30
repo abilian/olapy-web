@@ -99,8 +99,8 @@ release:
 	cd /tmp/olapy-web ; python setup.py sdist upload
 
 build:
-	cd front && yarn build
-	python manage.py
+	cd src/front && yarn build
+	python src/manage.py
 
 doc:
 	cd docs && make html
