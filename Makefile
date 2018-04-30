@@ -1,7 +1,7 @@
 .PHONY: test unit full-test clean setup stage deploy
 
 
-SRC=app
+SRC=src
 PKG=$(SRC)
 
 default: test lint
@@ -27,7 +27,7 @@ pip:
 	pip install -e .
 	@echo ""
 js:
-	cd front && yarn
+	cd src/front && yarn
 
 develop: pip js
 
@@ -45,7 +45,7 @@ lint-python:
 	-pylint -E --rcfile .pylint.rc $(SRC)
 
 lint-js:
-	cd front && make lint
+	cd src/front && make lint
 
 #
 # Running web server
@@ -81,7 +81,7 @@ format-py:
 	isort -rc $(SRC) *.py
 
 format-js:
-	cd front && make format
+	cd src/front && make format
 
 update-deps:
 	pip-compile -U > /dev/null
