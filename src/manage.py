@@ -5,8 +5,8 @@ import os
 import sys
 
 import click
-from src.app import create_app, db
-from src.models import User
+from .app import create_app, db
+from .models import User
 from sqlalchemy.exc import IntegrityError
 
 app = create_app()
@@ -54,6 +54,7 @@ def cli():
 
 cli.add_command(initdb)
 cli.add_command(dropdb)
+cli.add_command(run)
 
 if __name__ == '__main__':
     try:
