@@ -1,20 +1,20 @@
 var path = require('path');
 var webpack = require('webpack');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+// const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
-  plugins: [
-    // new webpack.optimize.UglifyJsPlugin({
-    //   mangle: false,
-    //   sourceMap : true,
-    //   compress: {
-    //     warnings: false,
-    //   },
-    // })
-    new UglifyJSPlugin({
-      sourceMap : true
-    })
-  ],
+  // plugins: [
+  //   // new webpack.optimize.UglifyJsPlugin({
+  //   //   mangle: false,
+  //   //   sourceMap : true,
+  //   //   compress: {
+  //   //     warnings: false,
+  //   //   },
+  //   // })
+  //   new UglifyJSPlugin({
+  //     sourceMap : true
+  //   })
+  // ],
   entry: './src/main.js',
   output: {
     // path: path.resolve(__dirname, './dist'),
@@ -85,14 +85,14 @@ if (process.env.NODE_ENV === 'production') {
     //     warnings: false
     //   }
     // }),
-    new UglifyJSPlugin({
-      sourceMap: true,
-      uglifyOptions: {
-        compress: {
-          warnings: false
-        }
-      }
-    }),
+    // new UglifyJSPlugin({
+    //   sourceMap: true,
+    //   uglifyOptions: {
+    //     compress: {
+    //       warnings: false
+    //     }
+    //   }
+    // }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
     })
