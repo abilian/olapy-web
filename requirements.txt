@@ -19,7 +19,7 @@ flask-login==0.4.1
 flask-migrate==2.1.1
 flask-sqlalchemy==2.3.2
 flask-wtf==0.14.2
-flask==1.0
+flask==1.0.1
 fs==2.0.20                # via bonobo
 idna==2.6                 # via requests
 ipython-genutils==0.2.0   # via nbformat, traitlets
@@ -31,7 +31,7 @@ lxml==4.2.1               # via olapy
 mako==1.0.7               # via alembic
 markupsafe==1.0           # via jinja2, mako
 nbformat==4.4.0           # via plotly
-numpy==1.14.2             # via pandas
+numpy==1.14.3             # via pandas
 olapy==0.6.2
 packaging==16.8           # via bonobo
 pandas==0.22.0            # via olapy
