@@ -22,8 +22,8 @@ import pandas as pd
 import json
 from flask import current_app
 
-from .models import Cube, User, Dashboard, Chart
-from .extensions import db
+from ...models import Cube, User, Dashboard, Chart
+from ...extensions import db
 
 API = Blueprint('api', __name__, template_folder='templates')
 api = API.route
