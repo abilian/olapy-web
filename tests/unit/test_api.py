@@ -1,8 +1,10 @@
+from __future__ import absolute_import, division, print_function, \
+    unicode_literals
+
 import json
 from os import listdir
 
 from os.path import isfile, join
-
 from tests.utils import chart_data
 
 TEST_CUBE = 'tests/demo_csv_cubes/sales'
@@ -34,12 +36,12 @@ def test_add_db_cube(client):
 
         #  in the web , ypu don't put a string connection, instead each connexion param separately
         db_credentials = dict(
-            selectCube='olapy_web_test',
-            engine='postgres',
-            servername='localhost',
-            port='5432',
-            username='postgres',
-            password='root')
+            selectCube='main',
+            engine='sqlite',
+            servername='',
+            port='',
+            username='',
+            password='')
         response = client.post(
             'api/cubes/add_DB_cube',
             data=json.dumps(db_credentials),

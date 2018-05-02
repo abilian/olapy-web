@@ -10,6 +10,7 @@ from distutils.dir_util import copy_tree
 from os.path import expanduser, isdir
 
 import os
+from urlparse import urlunparse
 
 from flask import Blueprint, jsonify
 from flask_login import current_user
@@ -22,6 +23,7 @@ import pandas as pd
 import json
 from flask import current_app
 
+from tests.conftest import DEMO_DATABASE
 from ...models import Cube, User, Dashboard, Chart
 from ...extensions import db
 
@@ -61,14 +63,17 @@ def get_cubes():
 def _load_cube(cube_name):
     config = get_config(cube_name)
     source_type = get_cube_source_type(cube_name)
-    if config['db_config']:
+    if 'sqlite://' in config['db_config'] and cube_name == 'main':
+        # not instantiating new engine , use test demo db, not passing serialized engine with post
+        sqla_engine = DEMO_DATABASE
+    elif config['db_config']:
         sqla_engine = create_engine(config['db_config'])
     else:
         sqla_engine = None
     olapy_data_location = os.path.join(current_app.instance_path, 'olapy-data')
     executor = MdxEngine(source_type=source_type, sqla_engine=sqla_engine,
                          cube_config=config['cube_config'], olapy_data_location=olapy_data_location)
-    executor.load_cube(cube_name)
+    executor.load_cube(cube_name, fact_table_name='facts')
     return executor
 
 
@@ -106,7 +111,7 @@ def construct_cube(cube_name, sqla_engine=None, source_type='csv', olapy_data_lo
                          olapy_data_location=olapy_data_location, cubes_folder='')
     # try to construct automatically the cube
     try:
-        executor.load_cube(cube_name)
+        executor.load_cube(cube_name, fact_table_name='facts')
         return {
             'dimensions': executor.get_all_tables_names(ignore_fact=True),
             'facts': executor.facts,
@@ -402,19 +407,23 @@ def construct_custom_cube():
 
 
 def generate_sqla_uri(db_credentials):
-    engine = db_credentials['engine'].lower().replace('postgres', 'postgresql')
-    user = db_credentials['username']
-    password = db_credentials['password']
-    server = db_credentials['servername']
-    port = db_credentials['port']
-    # todo change
-    # return urlunparse((engine, user, password, "", "", "")) + '@' + server + ':' + port
-    if 'selectCube' in db_credentials:
-        selected_db = '/' + db_credentials['selectCube']
+    engine = db_credentials.get('engine').lower().replace('postgres', 'postgresql')
+    user = db_credentials.get('username')
+    password = db_credentials.get('password')
+    server = db_credentials.get('servername')
+    port = db_credentials.get('port')
+    if not user and not server and db_credentials['selectCube'] == 'main':
+        selected_cube = '//'
     else:
-        selected_db = ''
-
-    return engine + '://' + user + ':' + password + '@' + server + ':' + port + selected_db
+        selected_cube = db_credentials['selectCube']
+    if password:
+        password = ':' + password
+    if port:
+        port = ':' + port
+    if server:
+        server = '@' + server
+    netloc = user + password + server + port
+    return urlunparse((engine, netloc, selected_cube, "", "", ""))
 
 
 @api('/cubes/connectDB', methods=['POST'])
@@ -429,8 +438,14 @@ def connectDB():
 @api('/cubes/add_DB_cube', methods=['POST'])
 def add_db_cube():
     request_data = request.get_json()
-    sqla_uri = generate_sqla_uri(json.loads(request.data))
-    sqla_engine = create_engine(sqla_uri)
+    if not request.json.get('servername') and not request.json.get('username') and request.json.get(
+            'engine') == "sqlite":
+        sqla_engine = DEMO_DATABASE
+    #     for test use demo database sqla engine not creating new one , and not passing the engine with the post
+    else:
+        sqla_uri = generate_sqla_uri(request.json)
+        sqla_engine = create_engine(sqla_uri)
+
     construction = construct_cube(cube_name=request_data['selectCube'], source_type='db',
                                   sqla_engine=sqla_engine, olapy_data_location=current_app.instance_path)
     if 'dimensions' in construction:

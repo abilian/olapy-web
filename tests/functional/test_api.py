@@ -1,10 +1,13 @@
+from __future__ import absolute_import, division, print_function, \
+    unicode_literals
+
 import json
 import os
 from os import listdir
 
 from os.path import isfile, join
-from src.olapy_web.api.views import get_cube_source_type, get_config
 
+from src.olapy_web.api.views import get_cube_source_type, get_config
 from tests.utils import chart_data
 
 CUBE_PATH = 'tests/demo_csv_cubes/sales'
@@ -87,12 +90,13 @@ def test_add_db_cube(client):
         client.post('/login', data=dict(username="admin", password="admin"))
         #  in the web , ypu don't put a string connection, instead each connexion param separately
         db_credentials = dict(
-            selectCube='olapy_web_test',
-            engine='postgres',
-            servername='localhost',
-            port='5432',
-            username='postgres',
-            password='root')
+            selectCube='main',
+            engine='sqlite',
+            servername='',
+            port='',
+            username='',
+            password='')
+
         client.post(
             'api/cubes/add_DB_cube',
             data=json.dumps(db_credentials),
@@ -103,8 +107,8 @@ def test_add_db_cube(client):
             content_type='application/json')
 
         added_cube_result = client.get('api/cubes').get_json()
-        assert 'olapy_web_test' in added_cube_result
-        facts_details = client.get('api/cubes/olapy_web_test/facts').get_json()
+        assert 'main' in added_cube_result
+        facts_details = client.get('api/cubes/main/facts').get_json()
         excpected_facts_details = {
             "measures": ["amount", "count"],
             "table_name": "facts"
@@ -112,7 +116,7 @@ def test_add_db_cube(client):
         assert facts_details == excpected_facts_details
 
         dimensions_details = client.get(
-            'api/cubes/olapy_web_test/dimensions').get_json()
+            'api/cubes/main/dimensions').get_json()
         excpected_dimensions_details = ["product", "time", "geography"]
 
         assert sorted(dimensions_details) == sorted(excpected_dimensions_details)
