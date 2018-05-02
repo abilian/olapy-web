@@ -10,7 +10,7 @@ from distutils.dir_util import copy_tree
 from os.path import expanduser, isdir
 
 import os
-from urlparse import urlunparse
+from six.moves.urllib.parse import urlunparse
 
 from flask import Blueprint, jsonify
 from flask_login import current_user
