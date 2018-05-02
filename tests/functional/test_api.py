@@ -25,7 +25,7 @@ def test_add_csv_cube(client):
 
         client.post('api/cubes/add', data={'files': files})
         request_data = {'customCube': False, 'cubeName': 'test'}
-        client.post('api/cubes/confirm_cube', data=json.dumps(request_data))
+        client.post('api/cubes/confirm_cube', json=request_data)
         client.post('api/cubes/clean_tmp_dir')
         added_cube_result = client.get('api/cubes').get_json()
         assert 'test' in added_cube_result
@@ -51,7 +51,7 @@ def test_add_custom_csv_cube(client):
             'dbConfig': ''
         }
         columns = client.post(
-            'api/cubes/get_table_columns', data=json.dumps(request_data)).get_json()
+            'api/cubes/get_table_columns', json=request_data).get_json()
 
         assert columns == [
             "units_ordered", "units_shipped", "warehouse_sales",
@@ -73,11 +73,11 @@ def test_add_custom_csv_cube(client):
         }
 
         client.post(
-            'api/cubes/construct_custom_cube', data=json.dumps(request_data))
+            'api/cubes/construct_custom_cube', json=request_data)
 
         request_data = {'cubeName': 'custom_test', 'customCube': True}
 
-        client.post('api/cubes/confirm_cube', data=json.dumps(request_data))
+        client.post('api/cubes/confirm_cube', json=request_data)
         client.post('api/cubes/clean_tmp_dir')
         added_cube_result = client.get('api/cubes').get_json()
         assert 'custom_test' in added_cube_result
