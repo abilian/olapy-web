@@ -99,11 +99,11 @@ def test_add_db_cube(client):
 
         client.post(
             'api/cubes/add_DB_cube',
-            data=json.dumps(db_credentials),
+            json=db_credentials,
             content_type='application/json')
         client.post(
             'api/cubes/confirm_db_cube',
-            data=json.dumps(db_credentials),
+            json=db_credentials,
             content_type='application/json')
 
         added_cube_result = client.get('api/cubes').get_json()
@@ -139,7 +139,7 @@ def test_add_dashboard(client):
             chartData=chart_data)
         response = client.post(
             'api/dashboard/save',
-            data=json.dumps(dashboard_config),
+            json=dashboard_config,
             content_type='application/json')
         response_state = response.get_json()
         assert response_state['success']
