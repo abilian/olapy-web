@@ -152,9 +152,9 @@ def add_cube():
 @api('/cubes/confirm_cube', methods=['POST'])
 def confirm_cube():
     if request.data:
-        request_data = json.loads(request.data)
-        custom_cube = request_data['customCube']
-        cube_name = request_data['cubeName']
+        request_data = request.json
+        custom_cube = request_data.get('customCube')
+        cube_name = request_data.get('cubeName')
         if custom_cube:
             temp_folder = cube_name
         else:
@@ -209,7 +209,7 @@ def get_columns_from_db(db_cube_config):
 
 @api('/cubes/get_table_columns', methods=['POST'])
 def get_table_columns():
-    db_cube_config = json.loads(request.data)
+    db_cube_config = request.json
     if db_cube_config:
         if db_cube_config['dbConfig']:
             return jsonify(get_columns_from_db(db_cube_config))
@@ -247,7 +247,7 @@ def get_tables_columns_from_files(db_cube_config):
 def get_tables_and_columns():
     if request.data:
         # db_cube_config = json.loads(request.data.decode('utf-8'))
-        db_cube_config = json.loads(request.data)
+        db_cube_config = request.json
         if db_cube_config['dbConfig']:
             return jsonify(get_tables_columns_from_db(db_cube_config))
         else:
@@ -395,7 +395,7 @@ def construct_custom_db_cube(data_request):
 @api('/cubes/construct_custom_cube', methods=['POST'])
 def construct_custom_cube():
     if request.data:
-        data_request = json.loads(request.data)
+        data_request = request.json
         if data_request['dbConfig']:
             star_schema_table = construct_custom_db_cube(data_request)
         else:
@@ -429,7 +429,7 @@ def generate_sqla_uri(db_credentials):
 @api('/cubes/connectDB', methods=['POST'])
 def connectDB():
     if request.data:
-        sqla_uri = generate_sqla_uri(json.loads(request.data))
+        sqla_uri = generate_sqla_uri(request.json)
         sqla_engine = create_engine(sqla_uri)
         executor = MdxEngine(source_type="db", sqla_engine=sqla_engine)
         return jsonify(executor.get_cubes_names())
