@@ -11,23 +11,11 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images2/favicon.png">
     <title>Ela - Bootstrap Admin Dashboard Template</title>
-
-    <link href="{{ url_for('static',filename='css2/lib/chartist/chartist.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='css2/lib/owl.carousel.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='css2/lib/owl.theme.default.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='css2/lib/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='css2/helper.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='css2/style.css') }}" rel="stylesheet">
-
-
-{#    <link href="css2/lib/chartist/chartist.min.css" rel="stylesheet">#}
-{#	<link href="css2/lib/owl.carousel.min.css" rel="stylesheet" />#}
-{#    <link href="css2/lib/owl.theme.default.min.css" rel="stylesheet" />#}
-{#    <!-- Bootstrap Core CSS -->#}
-{#    <link href="css2/lib/bootstrap/bootstrap.min.css" rel="stylesheet">#}
-{#    <!-- Custom CSS -->#}
-{#    <link href="css2/helper.css" rel="stylesheet">#}
-{#    <link href="css2/style.css" rel="stylesheet">#}
+    <!-- Bootstrap Core CSS -->
+    <link href="css2/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css2/helper.css" rel="stylesheet">
+    <link href="css2/style.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js2 IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js2 doesn't work if you view the page via file:** -->
     <!--[if lt IE 9]>
@@ -51,13 +39,10 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="index.html">
                         <!-- Logo icon -->
-
-                        <b><img src="{{ url_for('static',filename='images2/logo.png') }}" alt="homepage" class="dark-logo" /></b>
-{#                        <b><img src="images2/logo.png" alt="homepage" class="dark-logo" /></b>#}
+                        <b><img src="images2/logo.png" alt="homepage" class="dark-logo" /></b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
-                        <span><img src="{{ url_for('static',filename='images2/logo-text.png') }}" alt="homepage" class="dark-logo" /></span>
-{#                        <span><img src="images2/logo-text.png" alt="homepage" class="dark-logo" /></span>#}
+                        <span><img src="images2/logo-text.png" alt="homepage" class="dark-logo" /></span>
                     </a>
                 </div>
                 <!-- End Logo -->
@@ -196,32 +181,28 @@
                                         <div class="message-center">
                                             <!-- Message -->
                                             <a href="#">
-                                                <div class="user-img"> <img src="{{ url_for('static',filename='images2/users/5.jpg') }}" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>
-{#                                                <div class="user-img"> <img src="images2/users/5.jpg" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>#}
+                                                <div class="user-img"> <img src="images2/users/5.jpg" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>
                                                 <div class="mail-contnet">
                                                     <h5>Michael Qin</h5> <span class="mail-desc">Just see the my admin!</span> <span class="time">9:30 AM</span>
                                                 </div>
                                             </a>
                                             <!-- Message -->
                                             <a href="#">
-                                                  <div class="user-img"> <img src="{{ url_for('static',filename='images2/users/2.jpg') }}" alt="user" class="img-circle"> <span class="profile-status busy pull-right"></span> </div>
-{#                                                <div class="user-img"> <img src="images2/users/2.jpg" alt="user" class="img-circle"> <span class="profile-status busy pull-right"></span> </div>#}
+                                                <div class="user-img"> <img src="images2/users/2.jpg" alt="user" class="img-circle"> <span class="profile-status busy pull-right"></span> </div>
                                                 <div class="mail-contnet">
                                                     <h5>John Doe</h5> <span class="mail-desc">I've sung a song! See you at</span> <span class="time">9:10 AM</span>
                                                 </div>
                                             </a>
                                             <!-- Message -->
                                             <a href="#">
-                                                <div class="user-img"> <img src="{{ url_for('static',filename='images2/users/3.jpg') }}" alt="user" class="img-circle"> <span class="profile-status away pull-right"></span> </div>
-{#                                                <div class="user-img"> <img src="images2/users/3.jpg" alt="user" class="img-circle"> <span class="profile-status away pull-right"></span> </div>#}
+                                                <div class="user-img"> <img src="images2/users/3.jpg" alt="user" class="img-circle"> <span class="profile-status away pull-right"></span> </div>
                                                 <div class="mail-contnet">
                                                     <h5>Mr. John</h5> <span class="mail-desc">I am a singer!</span> <span class="time">9:08 AM</span>
                                                 </div>
                                             </a>
                                             <!-- Message -->
                                             <a href="#">
-                                                <div class="user-img"> <img src="{{ url_for('static',filename='images2/users/4.jpg') }}" alt="user" class="img-circle"> <span class="profile-status offline pull-right"></span> </div>
-{#                                                <div class="user-img"> <img src="images2/users/4.jpg" alt="user" class="img-circle"> <span class="profile-status offline pull-right"></span> </div>#}
+                                                <div class="user-img"> <img src="images2/users/4.jpg" alt="user" class="img-circle"> <span class="profile-status offline pull-right"></span> </div>
                                                 <div class="mail-contnet">
                                                     <h5>Michael Qin</h5> <span class="mail-desc">Just see the my admin!</span> <span class="time">9:02 AM</span>
                                                 </div>
@@ -237,7 +218,7 @@
                         <!-- End Messages -->
                         <!-- Profile -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ url_for('static',filename='images2/users/5.jpg') }}" alt="user" class="profile-pic" /></a>
+                            <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="images2/users/5.jpg" alt="user" class="profile-pic" /></a>
                             <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                                 <ul class="dropdown-user">
                                     <li><a href="#"><i class="ti-user"></i> Profile</a></li>
@@ -401,68 +382,18 @@
             <div class="container-fluid">
                 <!-- Start Page Content -->
                 <div class="row">
-                    <div class="col-md-3">
-                        <div class="card bg-primary p-20">
-                            <div class="media widget-ten">
-                                <div class="media-left meida media-middle">
-                                    <span><i class="ti-bag f-s-40"></i></span>
-                                </div>
-                                <div class="media-body media-text-right">
-                                    <h2 class="color-white">278</h2>
-                                    <p class="m-b-0">New Posts</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card bg-pink p-20">
-                            <div class="media widget-ten">
-                                <div class="media-left meida media-middle">
-                                    <span><i class="ti-comment f-s-40"></i></span>
-                                </div>
-                                <div class="media-body media-text-right">
-                                    <h2 class="color-white">278</h2>
-                                    <p class="m-b-0">New Comment</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card bg-success p-20">
-                            <div class="media widget-ten">
-                                <div class="media-left meida media-middle">
-                                    <span><i class="ti-vector f-s-40"></i></span>
-                                </div>
-                                <div class="media-body media-text-right">
-                                    <h2 class="color-white">$27647</h2>
-                                    <p class="m-b-0">Bounce Rate</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card bg-danger p-20">
-                            <div class="media widget-ten">
-                                <div class="media-left meida media-middle">
-                                    <span><i class="ti-location-pin f-s-40"></i></span>
-                                </div>
-                                <div class="media-body media-text-right">
-                                    <h2 class="color-white">278</h2>
-                                    <p class="m-b-0">Total Visitor</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-title">
-                                <h4>Sales</h4>
+                                <h4>Basic map</h4>
+                                <div class="card-title-right-icon">
+                                    <ul>
+
+                                    </ul>
+                                </div>
                             </div>
-                            <div class="sales-chart">
-                                <div class="ct-bar-chart" style="height:350px"></div>
+                            <div class="gmap_unix">
+                                <div class="map" id="basic-map"></div>
                             </div>
                         </div>
                         <!-- /# card -->
@@ -471,305 +402,139 @@
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-title">
-                                <h4>Visitor in Device</h4>
-                            </div>
-                            <div class="card-body">
-								<div class="table-responsive">
-									<table class="table table-hover ">
-										<thead>
-											<tr>
-												<th>Device</th>
-												<th>Visits</th>
-												<th>Avg. time</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>Unknown</td>
-												<td>2,456</td>
-												<td>00:02:36</td>
-											</tr>
-											<tr>
-												<td>Apple iPad</td>
-												<td>1,006</td>
-												<td>00:03:41</td>
-											</tr>
-											<tr>
-												<td>Apple iPhone</td>
-												<td>68</td>
-												<td>00:04:10</td>
-											</tr>
-											<tr>
-												<td>HTC Desire</td>
-												<td>38</td>
-												<td>00:01:40</td>
-											</tr>
-											<tr>
-												<td>Samsung</td>
-												<td>20</td>
-												<td>00:04:54</td>
-											</tr>
-											<tr>
-												<td>Apple iPad</td>
-												<td>1,006</td>
-												<td>00:03:41</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-                        </div>
-                    </div>
-				</div>
-				<div class="row">
-                    <div class="col-lg-6">
-                        <div class="card nestable-cart">
-                            <div class="card-title">
-                                <h4>World Map</h4>
+                                <h4>Fusion Tables layers</h4>
+                                <div class="card-title-right-icon">
+                                    <ul>
 
+                                    </ul>
+                                </div>
                             </div>
-                            <div class="datamap">
-                                <div id="world-datamap"></div>
-                            </div>
-                        </div>
-                    </div>
-					<div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-block">
-                                <h4 class="card-title">Visitor</h4>
-                                <div class="ct-svg-chart" style="height:420px"></div>
+                            <div class="gmap_unix">
+                                <div id="map-2" class="map"></div>
                             </div>
                         </div>
+                        <!-- /# card -->
                     </div>
                     <!-- /# column -->
                 </div>
                 <!-- /# row -->
 
                 <div class="row">
-
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="card">
                             <div class="card-title">
-                                <h4>Project</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="current-progress">
-                                    <div class="progress-content">
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <div class="progress-text">Website</div>
-                                            </div>
-                                            <div class="col-lg-8">
-                                                <div class="current-progressbar">
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-bar-primary w-40" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
-                                                            40%
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="progress-content">
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <div class="progress-text">Android</div>
-                                            </div>
-                                            <div class="col-lg-8">
-                                                <div class="current-progressbar">
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-bar-primary w-60" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
-                                                            60%
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="progress-content">
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <div class="progress-text">Ios</div>
-                                            </div>
-                                            <div class="col-lg-8">
-                                                <div class="current-progressbar">
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-bar-primary w-70" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
-                                                            70%
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="progress-content">
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <div class="progress-text">Mobile</div>
-                                            </div>
-                                            <div class="col-lg-8">
-                                                <div class="current-progressbar">
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-bar-primary w-90" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                                                            90%
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="progress-content">
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <div class="progress-text">Android</div>
-                                            </div>
-                                            <div class="col-lg-8">
-                                                <div class="current-progressbar">
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-bar-primary w-60" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
-                                                            60%
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="progress-content">
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <div class="progress-text">Ios</div>
-                                            </div>
-                                            <div class="col-lg-8">
-                                                <div class="current-progressbar">
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-bar-primary w-70" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
-                                                            70%
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="progress-content">
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <div class="progress-text">Mobile</div>
-                                            </div>
-                                            <div class="col-lg-8">
-                                                <div class="current-progressbar">
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-bar-primary w-90" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                                                            90%
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <h4>Geometry overlays</h4>
+                                <div class="card-title-right-icon">
+                                    <ul>
+
+                                    </ul>
                                 </div>
                             </div>
+                            <div class="gmap_unix">
+                                <div class="map" id="map-3"></div>
+                            </div>
                         </div>
+                        <!-- /# card -->
                     </div>
                     <!-- /# column -->
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="card">
                             <div class="card-title">
-                                <h4>Messages</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="recent-meaasge">
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <a href="#"><img alt="..." src="{{ url_for('static',filename='images2/avatar/1.jpg') }}" class="media-object"></a>
-{#                                            <a href="#"><img alt="..." src="images2/avatar/1.jpg" class="media-object"></a>#}
-                                        </div>
-                                        <div class="media-body">
-                                            <h4 class="media-heading">john doe</h4>
-                                            <div class="meaasge-date">15 minutes Ago</div>
-                                            <p class="f-s-12">We are happy about your service </p>
-                                        </div>
-                                    </div>
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <a href="#"><img alt="..." src="{{ url_for('static',filename='images2/avatar/2.jpg') }}" class="media-object"></a>
-{#                                            <a href="#"><img alt="..." src="images2/avatar/2.jpg" class="media-object"></a>#}
-                                        </div>
-                                        <div class="media-body">
-                                            <h4 class="media-heading">Mr. John</h4>
-                                            <div class="meaasge-date">40 minutes ago</div>
-                                            <p class="f-s-12">Quick service and good serve </p>
-                                        </div>
-                                    </div>
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <a href="#"><img alt="..." src="{{ url_for('static',filename='images2/avatar/3.jpg') }}" class="media-object"></a>
-{#                                            <a href="#"><img alt="..." src="images2/avatar/3.jpg" class="media-object"></a>#}
-                                        </div>
-                                        <div class="media-body">
-                                            <h4 class="media-heading">Mr. Michael</h4>
-                                            <div class="meaasge-date">1 minutes ago</div>
-                                            <p class="f-s-12">We like your birthday cake </p>
-                                        </div>
-                                    </div>
-                                    <div class="media no-border">
-                                        <div class="media-left">
-                                            <a href="#"><img alt="..." src="{{ url_for('static',filename='images2/avatar/2.jpg') }}" class="media-object"></a>
-{#                                            <a href="#"><img alt="..." src="images2/avatar/2.jpg" class="media-object"></a>#}
-                                        </div>
-                                        <div class="media-body">
-                                            <h4 class="media-heading">Mr. John</h4>
-                                            <div class="meaasge-date">40 minutes ago</div>
-                                            <p class="f-s-12">Quick service and good serve </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="card">
-                            <div class="card-title">
-                                <h4>Todo</h4>
-                            </div>
-                            <div class="todo-list">
-                                <div class="tdl-holder">
-                                    <div class="tdl-content">
-                                        <ul>
-                                            <li class="color-primary">
-                                                <label>
-                                                <input type="checkbox"><i class="bg-primary"></i><span>Post three to six times on Twitter.</span>
-                                                <a href='#' class="ti-close"></a>
-                                            </label>
-                                            </li>
-                                            <li class="color-success">
-                                                <label>
-                                                <input type="checkbox" checked><i class="bg-success"></i><span>Post one to two times on Facebook.</span>
-                                                <a href='#' class="ti-close"></a>
-                                            </label>
-                                            </li>
-                                            <li class="color-warning">
-                                                <label>
-                                                <input type="checkbox" checked><i class="bg-warning"></i><span>Follow back those who follow you</span>
-                                                <a href='#' class="ti-close"></a>
-                                            </label>
-                                            </li>
-                                            <li class="color-danger">
-                                                <label>
-                                                <input type="checkbox" checked><i class="bg-danger"></i><span>Connect with one new person</span>
-                                                <a href='#' class="ti-close"></a>
-                                            </label>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <input type="text" class="tdl-new form-control" placeholder="Type here">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                <h4>Elevation locations</h4>
+                                <div class="card-title-right-icon">
+                                    <ul>
 
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="gmap_unix">
+                                <div id="map-4" class="map"></div>
+                            </div>
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
                 </div>
+                <!-- /# row -->
 
 
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>Geolocation</h4>
+                                <div class="card-title-right-icon">
+                                    <ul>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="gmap_unix">
+                                <div class="map" id="map-5"></div>
+                            </div>
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
+
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>KML layers</h4>
+                                <div class="card-title-right-icon">
+                                    <ul>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="gmap_unix">
+                                <div id="map-6" class="map"></div>
+                            </div>
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
+                </div>
+                <!-- /# row -->
+
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>Layers</h4>
+                                <div class="card-title-right-icon">
+                                    <ul>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="gmap_unix">
+                                <div class="map" id="map-7"></div>
+                            </div>
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>Map events</h4>
+                                <div class="card-title-right-icon">
+                                    <ul>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="gmap_unix">
+                                <div class="map" id="map-8"></div>
+                            </div>
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
+                </div>
+                <!-- /# row -->
                 <!-- End PAge Content -->
             </div>
             <!-- End Container fluid  -->
@@ -781,54 +546,23 @@
     </div>
     <!-- End Wrapper -->
     <!-- All Jquery -->
-    <script src="{{ url_for('static',filename='js2/lib/jquery/jquery.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='js2/lib/bootstrap/js/popper.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='js2/lib/bootstrap/js/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='js2/jquery.slimscroll.js') }}"></script>
-    <script src="{{ url_for('static',filename='js2/sidebarmenu.js') }}"></script>
-    <script src="{{ url_for('static',filename='js2/lib/sticky-kit-master/dist/sticky-kit.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='js2/lib/datamap/d3.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='js2/lib/datamap/topojson.js') }}"></script>
-    <script src="{{ url_for('static',filename='js2/lib/datamap/datamaps.world.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='js2/lib/datamap/datamap-init.js') }}"></script>
-    <script src="{{ url_for('static',filename='js2/lib/weather/jquery.simpleWeather.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='js2/lib/weather/weather-init.js') }}"></script>
-    <script src="{{ url_for('static',filename='js2/lib/owl-carousel/owl.carousel.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='js2/lib/owl-carousel/owl.carousel-init.js') }}"></script>
-    <script src="{{ url_for('static',filename='js2/lib/chartist/chartist.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='js2/lib/chartist/chartist-plugin-tooltip.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='js2/lib/chartist/chartist-init.js') }}"></script>
-    <script src="{{ url_for('static',filename='js2/custom.min.js') }}"></script>
-
-
-{#    <script src="js2/lib/jquery/jquery.min.js"></script>#}
+    <script src="js2/lib/jquery/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
-{#    <script src="js2/lib/bootstrap/js/popper.min.js"></script>#}
-{#    <script src="js2/lib/bootstrap/js/bootstrap.min.js"></script>#}
+    <script src="js2/lib/bootstrap/js/popper.min.js"></script>
+    <script src="js2/lib/bootstrap/js/bootstrap.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
-{#    <script src="js2/jquery.slimscroll.js"></script>#}
+    <script src="js2/jquery.slimscroll.js"></script>
     <!--Menu sidebar -->
-{#    <script src="js2/sidebarmenu.js"></script>#}
+    <script src="js2/sidebarmenu.js"></script>
     <!--stickey kit -->
-{#    <script src="js2/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>#}
+    <script src="js2/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
 
 
-{#    <script src="js2/lib/datamap/d3.min.js"></script>#}
-{#    <script src="js2/lib/datamap/topojson.js"></script>#}
-{#    <script src="js2/lib/datamap/datamaps.world.min.js"></script>#}
-{#    <script src="js2/lib/datamap/datamap-init.js"></script>#}
-
-{#    <script src="js2/lib/weather/jquery.simpleWeather.min.js"></script>#}
-{#    <script src="js2/lib/weather/weather-init.js"></script>#}
-{#    <script src="js2/lib/owl-carousel/owl.carousel.min.js"></script>#}
-{#    <script src="js2/lib/owl-carousel/owl.carousel-init.js"></script>#}
-
-
-{#    <script src="js2/lib/chartist/chartist.min.js"></script>#}
-{#    <script src="js2/lib/chartist/chartist-plugin-tooltip.min.js"></script>#}
-{#    <script src="js2/lib/chartist/chartist-init.js"></script>#}
-{#    <!--Custom JavaScript -->#}
-{#    <script src="js2/custom.min.js"></script>#}
+    <script src="js2/lib/gmap/gmapApi.js"></script>
+    <script src="js2/lib/gmap/gmaps.js"></script>
+    <script src="js2/lib/gmap/gmap.init.js"></script>
+    <!--Custom JavaScript -->
+    <script src="js2/custom.min.js"></script>
 
 </body>
 
