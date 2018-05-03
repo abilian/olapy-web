@@ -58,24 +58,21 @@
 
         </draggable>
 
-        <div id="dockContainer">
+        <div id="dock-container">
 
             <draggable
                     :list="chartTypes"
                     :move="onMove"
-                    id="dockWrapper"
+                    id="dock"
                     :options="{group:{ name:'charts',  pull:'clone' }}">
 
-
-                <ul class="osx-dock">
-
+                <ul>
                     <li v-for="chart_type in chartTypes">
                         <span>{{chart_type}}</span>
-                        <img class="toolbox-icons" :src="'/static/icons/' + chart_type + 'chart.png'">
+                        <a href="#"><img class="toolbox-icons" :src="'/static/icons/' + chart_type + 'chart.png'"></a>
                     </li>
 
                 </ul>
-
 
                 <!--<div v-for="chart_type in chartTypes">-->
                 <!--<img class="toolbox-icons" :src="'/static/icons/' + chart_type + 'chart.png'">-->
@@ -267,160 +264,56 @@ export default {
 }
 
 /* START MAc style dock*/
-div.cap {
-  display: block;
-  height: 100px;
-  width: 40px;
-  background: url(http://fivera.net/wp-content/uploads/2013/08/dock-background-fivera-net.png)
-    bottom left no-repeat;
-}
-
-div.cap.left {
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-}
-
-div.cap.right {
-  background-position: right bottom;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-}
-
-ul.osx-dock {
-  display: inline-block;
-  height: 130px;
-  padding: 0 40px 0 0;
-  background: url(http://fivera.net/wp-content/uploads/2013/08/dock-background-fivera-net.png)
-    no-repeat right bottom;
-  overflow: hidden;
-  margin: 0 0 0 40px;
-}
-
-ul.osx-dock li {
-  display: block;
-  position: relative;
-  float: left;
-  width: 50px;
-  height: 50px;
-  margin: 60px 0 4px 0;
-
-  -webkit-transition: 0.15s linear;
-  -moz-transition: 0.15s linear;
-  -o-transition: 0.15s linear;
-  -ms-transition: 0.15s linear;
-  transition: 0.15s linear;
-
-  -webkit-transition-property: -webkit-transform margin;
-  -moz-transition-property: -moz-transform margin;
-  -o-transition-property: -o-transform margin;
-  -ms-transition-property: -ms-transform margin;
-  transition-property: transform margin;
+#dock-container {
+  position: fixed;
+  bottom: 0;
   text-align: center;
+  right: 20%;
+  left: 20%;
+  width: 60%;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px 10px 0 0;
 }
 
-ul.osx-dock li a {
-  display: block;
-  height: 50px;
-  padding: 0 1px;
-
-  -webkit-transition: 0.15s linear;
-  -moz-transition: 0.15s linear;
-  -o-transition: 0.15s linear;
-  -ms-transition: 0.15s linear;
-  transition: 0.15s linear;
-
-  -webkit-transition-property: -webkit-transform margin;
-  -moz-transition-property: -moz-transform margin;
-  -o-transition-property: -o-transform margin;
-  -ms-transition-property: -ms-transform margin;
-  transition-property: transform margin;
-  margin: 0;
-  -webkit-box-reflect: below 2px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.45, transparent), to(rgba(255, 255, 255, 0.25)));
+#dock-container li {
+  list-style-type: none;
+  display: inline-block;
+  position: relative;
 }
 
-ul.osx-dock li a img {
-  width: 48px;
+#dock-container li img {
+  width: 64px;
+  height: 64px;
+  -webkit-box-reflect: below 2px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.7, transparent), to(rgba(255, 255, 255, 0.5)));
+  -webkit-transition: all 0.3s;
+  -webkit-transform-origin: 50% 100%;
 }
 
-ul.osx-dock li:hover {
-  margin-left: 9px;
-  margin-right: 9px;
-  z-index: 200;
+#dock-container li:hover img {
+  -webkit-transform: scale(2);
+  margin: 0 2em;
 }
 
-ul.osx-dock li:hover a {
-  -webkit-transform-origin: center bottom;
-  -moz-transform-origin: center bottom;
-  -o-transform-origin: center bottom;
-  -ms-transform-origin: center bottom;
-  transform-origin: center bottom;
-
+#dock-container li:hover + li img,
+#dock-container li.prev img {
   -webkit-transform: scale(1.5);
-  -moz-transform: scale(1.5);
-  -o-transform: scale(1.5);
-  -ms-transform: scale(1.5);
-  transform: scale(1.5);
+  margin: 0 1.5em;
 }
 
-ul.osx-dock li.nearby {
-  margin-left: 6px;
-  margin-right: 6px;
-  z-index: 100;
-}
-
-ul.osx-dock li.nearby a {
-  -webkit-transform-origin: center bottom;
-  -moz-transform-origin: center bottom;
-  -o-transform-origin: center bottom;
-  -ms-transform-origin: center bottom;
-  transform-origin: center bottom;
-
-  -webkit-transform: scale(1.25);
-  -moz-transform: scale(1.25);
-  -o-transform: scale(1.25);
-  -ms-transform: scale(1.25);
-  transform: scale(1.25);
-}
-
-ul.osx-dock li span {
-  background: rgba(0, 0, 0, 0.75);
-  position: absolute;
-  bottom: 80px;
-  margin: 0 auto;
+#dock-container li span {
   display: none;
-  width: auto;
-  font-size: 11px;
-  font-weight: bold;
-  padding: 3px 6px;
-  border-radius: 6px;
+  position: absolute;
+  bottom: 140px;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: 4px 0;
+  border-radius: 12px;
+}
+
+#dock-container li:hover span {
+  display: block;
   color: #fff;
 }
-
-ul.osx-dock li:hover span {
-  display: block;
-}
-
-div#dockContainer {
-  position: fixed;
-  bottom: 65px;
-  height: 120px;
-  padding: 50px 0 0;
-  text-align: center;
-  border-radius: 6px;
-  width: 100%;
-  line-height: 1;
-  z-index: 100;
-}
-
-div#dockWrapper {
-  width: auto;
-  display: inline-block;
-  position: relative;
-  border-bottom: solid 2px rgba(255, 255, 255, 0.35);
-  line-height: 0;
-}
-
 /*END MAc style dock*/
 </style>
