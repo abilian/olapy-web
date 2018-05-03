@@ -51,7 +51,7 @@ lint-js:
 # Running web server
 #
 run:
-	FLASK_APP=manage.py  flask run
+	python manage.py
 
 
 clean:
