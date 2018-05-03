@@ -1,3 +1,6 @@
+from __future__ import absolute_import, division, print_function, \
+    unicode_literals
+
 import os
 import tempfile
 
@@ -9,9 +12,7 @@ from src.app import create_app
 from src.extensions import db as _db
 from src.models import User
 
-# input db from which we will get our tables
-# TODO: sqlite not working fine in web, so this this temp until we fix this
-DEMO_DATABASE = "postgresql://postgres:root@localhost/olapy_web_test"
+DEMO_DATABASE = sqlalchemy.create_engine(os.environ.get('SQLALCHEMY_DATABASE_URI', 'sqlite://'))
 OLAPY_DATA_TEMP = os.path.join(tempfile.mkdtemp(), 'OLAPY_DATA_TEMP')
 
 
@@ -24,10 +25,9 @@ def app():
         'WTF_CSRF_ENABLED': False,
         'OLAPY_DATA': OLAPY_DATA_TEMP
     }
-    engine = sqlalchemy.create_engine(DEMO_DATABASE)
-    create_insert(engine)
+    create_insert(DEMO_DATABASE)
     yield create_app(settings)
-    drop_tables(engine)
+    drop_tables(DEMO_DATABASE)
 
 
 @fixture(scope='module')

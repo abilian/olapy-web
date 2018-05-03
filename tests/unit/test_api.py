@@ -1,8 +1,10 @@
+from __future__ import absolute_import, division, print_function, \
+    unicode_literals
+
 import json
 from os import listdir
 
 from os.path import isfile, join
-
 from tests.utils import chart_data
 
 TEST_CUBE = 'tests/demo_csv_cubes/sales'
@@ -34,15 +36,15 @@ def test_add_db_cube(client):
 
         #  in the web , ypu don't put a string connection, instead each connexion param separately
         db_credentials = dict(
-            selectCube='olapy_web_test',
-            engine='postgres',
-            servername='localhost',
-            port='5432',
-            username='postgres',
-            password='root')
+            selectCube='main',
+            engine='sqlite',
+            servername='',
+            port='',
+            username='',
+            password='')
         response = client.post(
             'api/cubes/add_DB_cube',
-            data=json.dumps(db_credentials),
+            json=db_credentials,
             content_type='application/json').data
         cube = json.loads(response)
         assert sorted(cube['dimensions']) == sorted(
@@ -61,6 +63,6 @@ def test_add_dashboard(client):
             chartData=chart_data)
         response = client.post(
             'api/dashboard/save',
-            data=json.dumps(dashboard_config),
+            json=dashboard_config,
             content_type='application/json')
         assert response.get_json()['success']

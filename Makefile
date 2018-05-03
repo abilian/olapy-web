@@ -27,7 +27,7 @@ pip:
 	pip install -e .
 	@echo ""
 js:
-	cd src/front && yarn
+	cd front && yarn
 
 develop: pip js
 
@@ -45,7 +45,7 @@ lint-python:
 	-pylint -E --rcfile .pylint.rc $(SRC)
 
 lint-js:
-	cd src/front && make lint
+	cd front && make lint
 
 #
 # Running web server
@@ -81,7 +81,7 @@ format-py:
 	isort -rc $(SRC) *.py
 
 format-js:
-	cd src/front && make format
+	cd front && make format
 
 update-deps:
 	pip-compile -U > /dev/null
@@ -99,8 +99,8 @@ release:
 	cd /tmp/olapy-web ; python setup.py sdist upload
 
 build:
-	cd src/front && yarn build
-	python src/manage.py
+	cd front && yarn build
+	python manage.py
 
 doc:
 	cd docs && make html
