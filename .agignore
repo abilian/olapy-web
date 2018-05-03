@@ -1,0 +1,16 @@
+.*.sql
+*.sql
+*sql
+*.min.js
+*.lock
+yarn.lock
+front/node_modules/
+front/dist/build.js
+front/coverage/
+front/public/app.js
+front/static/
+
+package-lock.json
+*.log
+
+docs/_build/
