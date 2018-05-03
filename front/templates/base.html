@@ -33,11 +33,15 @@
 
 <body class="fix-header fix-sidebar">
 <!-- Preloader - style you can find in spinners.css2 -->
-<div class="preloader">
-    <svg class="circular" viewBox="25 25 50 50">
-        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
-    </svg>
-</div>
+
+
+{#<div class="preloader">#}
+{#    <svg class="circular" viewBox="25 25 50 50">#}
+{#        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"></circle>#}
+{#    </svg>#}
+{#</div>#}
+
+
 <!-- Main wrapper  -->
 <div id="main-wrapper">
     <!-- header header  -->
@@ -490,28 +494,40 @@
 </div>
 <!-- End Wrapper -->
 <!-- All Jquery -->
-<script src="{{ url_for('static',filename='js2/lib/jquery/jquery.min.js') }}"></script>
+{#<script src="{{ url_for('static',filename='js2/lib/jquery/jquery.min.js') }}"></script>#}
+<script src="http://localhost:8080/static/build.js"></script>
+
 <script src="{{ url_for('static',filename='js2/lib/bootstrap/js/popper.min.js') }}"></script>
+
+
 <script src="{{ url_for('static',filename='js2/lib/bootstrap/js/bootstrap.min.js') }}"></script>
+
+
 <script src="{{ url_for('static',filename='js2/jquery.slimscroll.js') }}"></script>
 <script src="{{ url_for('static',filename='js2/sidebarmenu.js') }}"></script>
 <script src="{{ url_for('static',filename='js2/lib/sticky-kit-master/dist/sticky-kit.min.js') }}"></script>
-<script src="{{ url_for('static',filename='js2/lib/datamap/d3.min.js') }}"></script>
-<script src="{{ url_for('static',filename='js2/lib/datamap/topojson.js') }}"></script>
-<script src="{{ url_for('static',filename='js2/lib/datamap/datamaps.world.min.js') }}"></script>
-<script src="{{ url_for('static',filename='js2/lib/datamap/datamap-init.js') }}"></script>
-<script src="{{ url_for('static',filename='js2/lib/weather/jquery.simpleWeather.min.js') }}"></script>
-<script src="{{ url_for('static',filename='js2/lib/weather/weather-init.js') }}"></script>
-<script src="{{ url_for('static',filename='js2/lib/owl-carousel/owl.carousel.min.js') }}"></script>
-<script src="{{ url_for('static',filename='js2/lib/owl-carousel/owl.carousel-init.js') }}"></script>
-<script src="{{ url_for('static',filename='js2/lib/chartist/chartist.min.js') }}"></script>
-<script src="{{ url_for('static',filename='js2/lib/chartist/chartist-plugin-tooltip.min.js') }}"></script>
-<script src="{{ url_for('static',filename='js2/lib/chartist/chartist-init.js') }}"></script>
+{#<script src="{{ url_for('static',filename='js2/lib/datamap/d3.min.js') }}"></script>#}
+{#<script src="{{ url_for('static',filename='js2/lib/datamap/topojson.js') }}"></script>#}
+{#<script src="{{ url_for('static',filename='js2/lib/datamap/datamaps.world.min.js') }}"></script>#}
+{#<script src="{{ url_for('static',filename='js2/lib/datamap/datamap-init.js') }}"></script>#}
+{#<script src="{{ url_for('static',filename='js2/lib/weather/jquery.simpleWeather.min.js') }}"></script>#}
+{#<script src="{{ url_for('static',filename='js2/lib/weather/weather-init.js') }}"></script>#}
+{#<script src="{{ url_for('static',filename='js2/lib/owl-carousel/owl.carousel.min.js') }}"></script>#}
+{#<script src="{{ url_for('static',filename='js2/lib/owl-carousel/owl.carousel-init.js') }}"></script>#}
+{#<script src="{{ url_for('static',filename='js2/lib/chartist/chartist.min.js') }}"></script>#}
+{#<script src="{{ url_for('static',filename='js2/lib/chartist/chartist-plugin-tooltip.min.js') }}"></script>#}
+{#<script src="{{ url_for('static',filename='js2/lib/chartist/chartist-init.js') }}"></script>#}
+
+
 <script src="{{ url_for('static',filename='js2/custom.min.js') }}"></script>
+
+
 <!-- for prod: -->
-<!-- <script src="{{ url_for('static',filename='build.js') }}"></script> -->
+{#<script src="{{ url_for('static',filename='build.js') }}"></script>#}
 <!-- for dev: -->
-<script src="http://localhost:8080/static/build.js"></script>
+{#<script src="http://localhost:8080/static/build.js"></script>#}
+{#<script src="{{ url_for('static',filename='js2/lib/bootstrap/js/bootstrap.min.js') }}"></script>#}
+{#<script src="{{ url_for('static',filename='js2/custom.min.js') }}"></script>#}
 
 </body>
 
