@@ -1,11 +1,23 @@
 <template>
   <div>
 
+
+    <ul id="example-1">
+      aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+      <li v-for="item in items">
+        {{ item.message }}
+        << item.message >>
+      </li>
+    </ul>
+
     <div v-if="reportingInterface !== 'dashboardMaker'">
+      {% block  page_header %}
       <input type="button" value="new dashboard" @click="reportingInterface = 'dashboardMaker'"/>
       <!--<select-cube-dashboard v-if="reportingInterface === 'newDashboard'"-->
       <!--@selectedCube="selectedCube = $event" @interface="reportingInterface = $event"/>-->
       <!--<hr>-->
+
+      {% endblock %}
       <user-dashboards
         @selectedDashboard="selectedDashboard = $event"
        @reportingInterface="reportingInterface = $event"/>
@@ -28,9 +40,14 @@ import userDashboards from "./userDashboards";
 import dashboardMarker from "./dashboardMaker";
 
 export default {
+  delimiters: ["<<", ">>"],
   data: function() {
     return {
       reportingInterface: "main",
+      items: [
+          {message: 'Foo'},
+          {message: 'Bar'}
+      ]
     };
   },
   components: {

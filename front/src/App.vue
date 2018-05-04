@@ -17,7 +17,7 @@ import SchemaOptions from "./cubes/base-schema-options";
 import SchemaProps from "./cubes/the-schema-props";
 
 export default {
-  delimiters: ["[[", "]]"],
+  // delimiters: ["[[", "]]"],
   components: {
     appCubes: Cubes,
     appSchemaOptions: SchemaOptions,
