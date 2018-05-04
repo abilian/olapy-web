@@ -16,4 +16,4 @@ class LoginForm(FlaskForm):
         'Password',
         validators=[DataRequired(message="Please enter the Password")])
     remember_me = BooleanField('Remember Me ')
-    submit = SubmitField('Log In')
+    submit = SubmitField('')
