@@ -63,7 +63,7 @@ def get_cubes():
 def _load_cube(cube_name):
     config = get_config(cube_name)
     source_type = get_cube_source_type(cube_name)
-    if 'sqlite://' in config['db_config'] and cube_name == 'main':
+    if config['db_config'] == 'sqlite://' and cube_name == 'main':
         # not instantiating new engine , use test demo db, not passing serialized engine with post
         sqla_engine = DEMO_DATABASE
     elif config['db_config']:
