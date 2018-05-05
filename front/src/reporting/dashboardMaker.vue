@@ -1,14 +1,20 @@
 <template>
     <div>
-        <!--<form @submit="saveDashboard" action="#" method="post">-->
-        <label>
-            Dashboard name:
-            <input type="text" v-model="dashboardName" required>
-        </label>
+        <div class="row page-titles">
+            <div class="col-md-5 align-self-center">
+            </div>
+            <div class="col-md-7 align-self-center">
+                <ol class="breadcrumb">
+                    <label>
+                        <input type="text" v-model="dashboardName" class="form-control input-rounded"
+                               placeholder="Dashboard Name">
+                    </label>
 
-        <input style="float: right;" type="submit" value="save" @click="saveDashboard">
-        <input style="float: right;" type="button" :value=" 'enable modification :' + allowModification"
-               @click="allowModification = !allowModification">
+                    <button type="button" class="btn btn-success m-b-10 m-l-5" @click="saveDashboard">Save</button>
+                </ol>
+            </div>
+        </div>
+
         <chart-props
                 :currentChartDiv="currentChartDiv"
                 :chartType="draggedChart"
@@ -47,11 +53,10 @@
                            :i="item.i"
                            @resize="resize">
 
-                    <button type="button"
-                            class="btn btn-danger btn-lg"
-                            style="margin-right: 0; float: right"
-                            @click="removeItem(item.i)">
-                        <span class="glyphicon glyphicon-remove"></span></button>
+                    <button type="button" class="close" aria-label="Close" @click="removeItem(item.i)">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
                 </grid-item>
 
             </grid-layout>
@@ -74,14 +79,9 @@
 
                 </ul>
 
-                <!--<div v-for="chart_type in chartTypes">-->
-                <!--<img class="toolbox-icons" :src="'/static/icons/' + chart_type + 'chart.png'">-->
-                <!--</div>-->
-
             </draggable>
         </div>
 
-        <!--</form>-->
     </div>
 
 </template>
@@ -97,6 +97,7 @@ let GridItem = VueGridLayout.GridItem;
 
 export default {
   props: {
+    reportingInterface: String,
     selectedDashboard: Object,
   },
   data: function() {
@@ -215,14 +216,20 @@ export default {
 }
 
 .dashboard {
-  border-style: dotted;
-  height: 50px;
+  /*border-style: dotted;*/
+  height: 50%;
   width: 100%;
 }
 
 .vue-grid-item:not(.vue-grid-placeholder) {
-  background: #ccc;
-  border: 1px solid black;
+  /*background: #9dcc31;*/
+  /*border: 1px solid black;*/
+  background: #ffffff none repeat scroll 0 0;
+  margin: 15px 0;
+  padding: 20px;
+  border: 0 solid #e7e7e7;
+  border-radius: 5px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
 }
 
 .vue-grid-item.resizing {
@@ -315,5 +322,6 @@ export default {
   display: block;
   color: #fff;
 }
+
 /*END MAc style dock*/
 </style>

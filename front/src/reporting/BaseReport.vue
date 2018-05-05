@@ -1,35 +1,27 @@
 <template>
-  <div>
+    <div>
+        <div class="row page-titles" v-if="reportingInterface === 'main'">
+            <div class="col-md-5 align-self-center">
+                <!--<h3 class="text-primary">Dashboard</h3>-->
+                <button type="button" class="btn btn-primary btn-flat btn-addon m-b-10 m-l-5"
+                        @click="reportingInterface = 'dashboardMaker'"><i class="ti-plus"></i>New Dashboard
+                </button>
+            </div>
+        </div>
 
+        <!-- End Bread crumb -->
+        <!-- Container fluid  -->
 
-    <ul id="example-1">
-      aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-      <li v-for="item in items">
-        {{ item.message }}
-        << item.message >>
-      </li>
-    </ul>
+        <div class="container-fluid">
 
-    <div v-if="reportingInterface !== 'dashboardMaker'">
-      {% block  page_header %}
-      <input type="button" value="new dashboard" @click="reportingInterface = 'dashboardMaker'"/>
-      <!--<select-cube-dashboard v-if="reportingInterface === 'newDashboard'"-->
-      <!--@selectedCube="selectedCube = $event" @interface="reportingInterface = $event"/>-->
-      <!--<hr>-->
+            <dashboard-marker
+                    v-if="reportingInterface === 'dashboardMaker'"
+                    :selectedDashboard="selectedDashboard"
+                    @interface="reportingInterface = $event"/>
 
-      {% endblock %}
-      <user-dashboards
-        @selectedDashboard="selectedDashboard = $event"
-       @reportingInterface="reportingInterface = $event"/>
+        </div>
 
     </div>
-
-    <dashboard-marker
-      v-if="reportingInterface === 'dashboardMaker'"
-      :selectedDashboard="selectedDashboard"
-      @interface="reportingInterface = $event"/>
-
-  </div>
 
 </template>
 
@@ -44,10 +36,6 @@ export default {
   data: function() {
     return {
       reportingInterface: "main",
-      items: [
-          {message: 'Foo'},
-          {message: 'Bar'}
-      ]
     };
   },
   components: {
