@@ -1,14 +1,19 @@
 <template>
-  <div>
-    my dashboard :
-    <div style="float: bottom" v-for="dashboard in userDashboards">
-      <input type="button" :value="dashboard" @click="selectDashboard(dashboard)">
-      <button class="btn btn-primary btn-xs" data-title="Edit"><span
-        class="glyphicon glyphicon-pencil"></span></button>
-      <button class="btn btn-danger btn-xs" data-title="Delete"><span
-        class="glyphicon glyphicon-trash"></span></button>
-    </div>
-  </div>
+    <li id="dashboard-section">
+        <a class="has-arrow  " href="#" aria-expanded="false">
+            <i class="fa fa-tachometer"></i>
+            <span @click="$emit('reportingInterface', 'main')" class="hide-menu">Dashboards
+                    <span class="label label-rouded label-primary pull-right">{{userDashboards.length}}</span>
+                  </span>
+        </a>
+        <ul aria-expanded="false" class="collapse">
+            <li v-for="dashboard in userDashboards">
+                <button class="btn btn-default btn-outline btn-rounded m-b-10"
+                        @click="selectDashboard(dashboard)">{{dashboard}}
+                </button>
+            </li>
+        </ul>
+    </li>
 
 </template>
 
@@ -17,23 +22,14 @@ export default {
   data: function() {
     return {
       userDashboards: [],
-      // selectedDashboard : ""
     };
   },
   methods: {
     selectDashboard(dashboard) {
       this.$http.get("api/dashboard/" + dashboard).then(response => {
-        // this.selectedDashboard = response.json();
-
         this.$emit("selectedDashboard", response.body);
         this.$emit("reportingInterface", "dashboardMaker");
-        // return response.json();
       });
-      // .then(data => {
-      //   for (let key in data) {
-      //     this.userDashboards.push(data[key]);
-      //   }
-      // });
     },
   },
   created() {

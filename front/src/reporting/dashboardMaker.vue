@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="page-wrapper">
         <div class="row page-titles">
             <div class="col-md-5 align-self-center">
             </div>
@@ -136,6 +136,8 @@ export default {
           chartData: this.chartData,
         };
         this.$http.post("api/dashboard/save", data);
+        alert("Dashboard Added");
+        this.$emit("hideNewDashBtn", true);
       } else {
         alert("missing dashboardName");
       }

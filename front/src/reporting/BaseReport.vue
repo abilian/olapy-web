@@ -1,5 +1,7 @@
 <template>
     <div>
+
+
         <div class="row page-titles" v-if="reportingInterface === 'main'">
             <div class="col-md-5 align-self-center">
                 <!--<h3 class="text-primary">Dashboard</h3>-->
@@ -11,6 +13,7 @@
 
         <!-- End Bread crumb -->
         <!-- Container fluid  -->
+
 
         <div class="container-fluid">
 
@@ -32,7 +35,6 @@ import userDashboards from "./userDashboards";
 import dashboardMarker from "./dashboardMaker";
 
 export default {
-  delimiters: ["<<", ">>"],
   data: function() {
     return {
       reportingInterface: "main",
