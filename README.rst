@@ -75,7 +75,9 @@ or simply (on Unix-like systems)::
 Documentation
 ~~~~~~~~~~~~~
 
-To build the documentation, run::
+See the documentation: `http://olapy-web.readthedocs.io/en/latest/ <http://olapy-web.readthedocs.io/en/latest/>`_.
+
+To build it, run::
 
     make doc
 
