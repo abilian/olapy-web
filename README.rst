@@ -38,9 +38,9 @@ Run the demo
 Run:
 
 
-1. flask init to initialize the db and some demos
+1. ``olapy-web init`` to initialize the db and some demos
 
-2. flask run to run application, using the following credential to log in:
+2. ``make run`` to run application, using the following credential to log in:
 
   - **login**: admin
 
@@ -51,7 +51,7 @@ Run:
 Add data
 ~~~~~~~~
 
-You can add csv data files under `~/olapy-data/cubes/my-project/`.
+You can add csv data files under `instance/olapy-data/cubes/my-project/`.
 
 
 Developing

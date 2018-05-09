@@ -50,6 +50,9 @@ lint-js:
 #
 # Running web server
 #
+init:
+	olapy-web init
+
 run:
 	python manage.py
 
