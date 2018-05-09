@@ -111,7 +111,7 @@ def test_add_db_cube(client):
         facts_details = client.get('api/cubes/main/facts').get_json()
         excpected_facts_details = {
             "measures": ["amount", "count"],
-            "table_name": "facts"
+            "table_name": "Facts"
         }
         assert facts_details == excpected_facts_details
 

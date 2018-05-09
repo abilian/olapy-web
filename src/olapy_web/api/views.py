@@ -73,7 +73,7 @@ def _load_cube(cube_name):
     olapy_data_location = os.path.join(current_app.instance_path, 'olapy-data')
     executor = MdxEngine(source_type=source_type, sqla_engine=sqla_engine,
                          cube_config=config['cube_config'], olapy_data_location=olapy_data_location)
-    executor.load_cube(cube_name, fact_table_name='facts')
+    executor.load_cube(cube_name)
     return executor
 
 
@@ -111,7 +111,7 @@ def construct_cube(cube_name, sqla_engine=None, source_type='csv', olapy_data_lo
                          olapy_data_location=olapy_data_location, cubes_folder='')
     # try to construct automatically the cube
     try:
-        executor.load_cube(cube_name, fact_table_name='facts')
+        executor.load_cube(cube_name)
         return {
             'dimensions': executor.get_all_tables_names(ignore_fact=True),
             'facts': executor.facts,
