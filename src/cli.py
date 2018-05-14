@@ -2,7 +2,7 @@ from __future__ import absolute_import, division, print_function
 
 import os
 import click
-from .app import create_app, db
+from app.app import create_app, db
 from .models import User
 from sqlalchemy.exc import IntegrityError
 

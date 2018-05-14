@@ -23,7 +23,7 @@ To set up the application, run, ideally in a virtualenv::
 
     make develop
 
-    export FLASK_APP=manage.py
+    export FLASK_APP=src/cli.py
 
 (see `make pip`, `make js`, `make build` etc).
 
