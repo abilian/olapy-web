@@ -22,7 +22,6 @@ from werkzeug.utils import secure_filename
 import pandas as pd
 from flask import current_app
 
-from tests.conftest import DEMO_DATABASE
 from ...models import Cube, User, Dashboard, Chart
 from ...extensions import db
 
@@ -33,6 +32,8 @@ ALLOWED_EXTENSIONS = {'.csv'}
 TEMP_CUBE_NAME = 'TEMP_CUBE'
 OLAPY_TEMP_DIR = os.path.join(tempfile.mkdtemp(), 'TEMP')
 home = expanduser('~')
+
+
 # import sqlalchemy
 # DEMO_DATABASE = sqlalchemy.create_engine(os.environ.get('SQLALCHEMY_DATABASE_URI', 'sqlite://'))
 
@@ -65,6 +66,7 @@ def _load_cube(cube_name):
     config = get_config(cube_name)
     source_type = get_cube_source_type(cube_name)
     if 'sqlite://' in config['db_config'] and cube_name == 'main':
+        from tests.conftest import DEMO_DATABASE
         # not instantiating new engine , use test demo db, not passing serialized engine with post
         sqla_engine = DEMO_DATABASE
     elif config['db_config']:
@@ -441,6 +443,7 @@ def add_db_cube():
     request_data = request.get_json()
     if not request.json.get('servername') and not request.json.get('username') and request.json.get(
             'engine') == "sqlite":
+        from tests.conftest import DEMO_DATABASE
         sqla_engine = DEMO_DATABASE
     #     for test use demo database sqla engine not creating new one , and not passing the engine with the post
     else:
