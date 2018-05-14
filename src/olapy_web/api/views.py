@@ -20,9 +20,9 @@ from pathlib import Path
 from sqlalchemy import create_engine
 from werkzeug.utils import secure_filename
 import pandas as pd
-import sqlalchemy
 from flask import current_app
 
+from tests.conftest import DEMO_DATABASE
 from ...models import Cube, User, Dashboard, Chart
 from ...extensions import db
 
@@ -33,7 +33,8 @@ ALLOWED_EXTENSIONS = {'.csv'}
 TEMP_CUBE_NAME = 'TEMP_CUBE'
 OLAPY_TEMP_DIR = os.path.join(tempfile.mkdtemp(), 'TEMP')
 home = expanduser('~')
-DEMO_DATABASE = sqlalchemy.create_engine(os.environ.get('SQLALCHEMY_DATABASE_URI', 'sqlite://'))
+# import sqlalchemy
+# DEMO_DATABASE = sqlalchemy.create_engine(os.environ.get('SQLALCHEMY_DATABASE_URI', 'sqlite://'))
 
 
 def get_cube(cube_name):
