@@ -8,9 +8,15 @@
           <ul id="sidebarnav">
             <li class="nav-devider"></li>
             <li class="nav-label">Home</li>
-            <user-dashboards @selectedDashboard="selectedDashboard = $event"
-                             @reportingInterface="reportingInterface = $event"/>
-            <user-cubes @reportingInterface="reportingInterface = $event"></user-cubes>
+              <user-dashboards @selectedDashboard="selectedDashboard = $event"
+                               @reportingInterface="reportingInterface = $event"/>
+              <user-cubes @reportingInterface="reportingInterface = $event"></user-cubes>
+
+              <li>
+                  <a href="#" aria-expanded="false"><i class="fa fa-columns"></i>
+                      <span @click="reportingInterface = 'QBuilder'">Query Builder</span></a>
+              </li>
+
           </ul>
         </nav>
         <!-- End Sidebar navigation -->
@@ -36,6 +42,8 @@
 
       <schema-options v-if="reportingInterface==='addCube' "></schema-options>
 
+      <query-builder v-if="reportingInterface==='QBuilder' "></query-builder>
+
   </div>
 
 
@@ -46,6 +54,7 @@
 import Cubes from "./cubes/the-cubes-names.vue";
 import UserDashboards from "./reporting/userDashboards";
 import DashboardMaker from "./reporting/dashboardMaker";
+import QueryBuilder from "./reporting/queryBuilder";
 import SchemaOptions from "./cubes/base-schema-options";
 
 export default {
@@ -61,6 +70,7 @@ export default {
     schemaOptions: SchemaOptions,
     userDashboards: UserDashboards,
     dashboardMaker: DashboardMaker,
+    queryBuilder: QueryBuilder
   },
 };
 </script>
