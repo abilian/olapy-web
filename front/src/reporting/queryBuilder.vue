@@ -15,8 +15,7 @@
         <div class="panel panel-default">
             <div style="padding-left: 25px">
                 <div class="row" style="height: 750px">
-                    <div id="output" style="display: none;">{{DataFrameCsv}}
-</div>
+                    <div id="output" style="display: none;">{{DataFrameCsv}}</div>
                 </div>
             </div>
         </div>
@@ -28,21 +27,9 @@
 
 <script>
   export default {
-    data: function () {
-      return {
-        DataFrameCsv: null
-      }
-    },
-    created() {
-      this.$http
-        .get("api/query_builder")
-        .then(response => {
-          return response.json();
-        })
-        .then(data => {
-          this.DataFrameCsv = data;
-        });
-    },
+      props: {
+    DataFrameCsv: String
+  },
     mounted() {
       $(function () {
         if (window.location != window.parent.location)
@@ -61,7 +48,9 @@
             hiddenAttributes: [""]
           }
         ).show();
+
       });
+
 
 
     }
@@ -73,23 +62,23 @@
         font-family: Verdana;
     }
 
-    .node {
-        border: solid 1px white;
-        font: 10px sans-serif;
-        line-height: 12px;
-        overflow: hidden;
-        position: absolute;
-        text-indent: 2px;
-    }
+    /*.node {*/
+        /*border: solid 1px white;*/
+        /*font: 10px sans-serif;*/
+        /*line-height: 12px;*/
+        /*overflow: hidden;*/
+        /*position: absolute;*/
+        /*text-indent: 2px;*/
+    /*}*/
 
-    .c3-line, .c3-focused {
-        stroke-width: 3px !important;
-    }
+    /*.c3-line, .c3-focused {*/
+        /*stroke-width: 3px !important;*/
+    /*}*/
 
-    .c3-bar {
-        stroke: white !important;
-        stroke-width: 1;
-    }
+    /*.c3-bar {*/
+        /*stroke: white !important;*/
+        /*stroke-width: 1;*/
+    /*}*/
 
     .c3 text {
         font-size: 12px;
@@ -104,7 +93,7 @@
         stroke: grey;
     }
 
-    .c3-circle {
-        opacity: 1 !important;
-    }
+    /*.c3-circle {*/
+        /*opacity: 1 !important;*/
+    /*}*/
 </style>

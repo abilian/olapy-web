@@ -14,7 +14,7 @@
 
               <li>
                   <a href="#" aria-expanded="false"><i class="fa fa-columns"></i>
-                      <span @click="reportingInterface = 'QBuilder'">Query Builder</span></a>
+                      <span @click="runQueryBuilder()">Query Builder</span></a>
               </li>
 
           </ul>
@@ -42,7 +42,7 @@
 
       <schema-options v-if="reportingInterface==='addCube' "></schema-options>
 
-      <query-builder v-if="reportingInterface==='QBuilder' "></query-builder>
+      <query-builder :DataFrameCsv="DataFrameCsv" v-if="reportingInterface==='QBuilder' "></query-builder>
 
   </div>
 
@@ -63,7 +63,22 @@ export default {
       reportingInterface: "main",
       showNewDashBtn: true,
       selectedDashboard: "",
+      DataFrameCsv : null
     };
+  },
+  methods: {
+    runQueryBuilder() {
+      this.$http
+        .get("api/query_builder")
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          //when i put this in queryBuilder.vue it didn't work
+          this.DataFrameCsv = data;
+          this.reportingInterface = 'QBuilder';
+        });
+    }
   },
   components: {
     userCubes: Cubes,
