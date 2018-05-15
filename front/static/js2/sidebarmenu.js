@@ -121,7 +121,7 @@ File: js2
     setTransitionEndSupport();
 
     return Util;
-  }(jQuery);
+  }($);
 
   var MetisMenu = function ($) {
 
@@ -338,5 +338,5 @@ File: js2
       return MetisMenu._jQueryInterface;
     };
     return MetisMenu;
-  }(jQuery);
+  }($);
 });

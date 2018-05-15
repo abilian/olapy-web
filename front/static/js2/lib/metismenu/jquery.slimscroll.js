@@ -467,4 +467,4 @@
     slimscroll: $.fn.slimScroll
   });
 
-})(jQuery);
+})($);
