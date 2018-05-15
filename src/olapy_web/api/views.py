@@ -23,6 +23,7 @@ import pandas as pd
 import json
 from flask import current_app
 
+from src.olapy_web.tools.cube_constructor import ConfigParser
 from tests.conftest import DEMO_DATABASE
 from ...models import Cube, User, Dashboard, Chart
 from ...extensions import db
@@ -524,3 +525,16 @@ def get_dashboard(dashboard_name):
         'charts_layout': dashboard.chart.charts_layout,
         'charts_data': dashboard.chart.charts_data
     })
+
+
+@api('/query_builder')
+def query_builder():
+    olapy_data_location = os.path.join(current_app.instance_path, 'olapy-data')
+    web_config_file_path = os.path.join(olapy_data_location, 'cubes', 'web_cube_config.yml')
+    config = ConfigParser(web_config_file_path)
+    cube_config_file = config.construct_cubes()  # one cube right now
+    executor = MdxEngine(cube_config=cube_config_file,
+                         olapy_data_location=olapy_data_location)
+    executor.load_cube(cube_config_file['name'])
+    # todo test to_json
+    return jsonify(executor.star_schema_dataframe.to_csv(encoding="utf-8"))
