@@ -63,7 +63,7 @@ export default {
       reportingInterface: "main",
       showNewDashBtn: true,
       selectedDashboard: "",
-      DataFrameCsv : null
+      DataFrameCsv: null,
     };
   },
   methods: {
@@ -76,16 +76,16 @@ export default {
         .then(data => {
           //when i put this in queryBuilder.vue it didn't work
           this.DataFrameCsv = data;
-          this.reportingInterface = 'QBuilder';
+          this.reportingInterface = "QBuilder";
         });
-    }
+    },
   },
   components: {
     userCubes: Cubes,
     schemaOptions: SchemaOptions,
     userDashboards: UserDashboards,
     dashboardMaker: DashboardMaker,
-    queryBuilder: QueryBuilder
+    queryBuilder: QueryBuilder,
   },
 };
 </script>
