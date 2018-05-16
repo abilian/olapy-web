@@ -1,7 +1,7 @@
 <template>
 
     <div class="page-wrapper">
-        <div class="row page-titles">
+        <div id="pivotOptions" class="row page-titles">
             <div class="col-md-5 align-self-center">
             </div>
             <div class="col-md-7 align-self-center">
@@ -32,10 +32,14 @@ export default {
   },
   mounted() {
     $(function() {
+
       if (window.location != window.parent.location)
         $("<a>", { target: "_blank", href: "" })
           .text("[Full Screen]")
-          .prependTo($("body"));
+       //   add this when using vue-router
+       .prependTo($("#pivotOptions"));
+          // .prependTo($("body"));
+
 
       jQuery("#output")
         .pivotUI(jQuery.csv.toArrays($("#output").text()), {
