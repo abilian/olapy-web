@@ -14,7 +14,7 @@
 
         <div class="panel panel-default">
             <div style="padding-left: 25px">
-                <div class="row" style="height: 750px">
+                <div class="row" style="margin-right: 25px">
                     <div id="output" style="overflow: auto; display: none;">{{DataFrameCsv}}</div>
                 </div>
             </div>
@@ -31,15 +31,26 @@ export default {
     DataFrameCsv: String,
   },
   mounted() {
-    $(function() {
+    // RENDER PLOTLY CHARTS
+    // $(function(){
+    //
+    //     var renderers = $.extend(jQuery.pivotUtilities.renderers,
+    //         jQuery.pivotUtilities.plotly_renderers);
+    //
+    //         jQuery("#output").pivotUI(jQuery.csv.toArrays($("#output").text()), {
+    //             renderers: renderers,
+    //             hiddenAttributes: [""],
+    //         })
+    //           .show();
+    //  });
 
+    $(function() {
       if (window.location != window.parent.location)
         $("<a>", { target: "_blank", href: "" })
           .text("[Full Screen]")
-       //   add this when using vue-router
-       .prependTo($("#pivotOptions"));
-          // .prependTo($("body"));
-
+          //   add this when using vue-router
+          .prependTo($("#pivotOptions"));
+      // .prependTo($("body"));
 
       jQuery("#output")
         .pivotUI(jQuery.csv.toArrays($("#output").text()), {
