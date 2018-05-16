@@ -13,16 +13,16 @@
 
     <title>
         {% block title %}
-            Ela - Bootstrap Admin Dashboard Template
+            Olapy Web
         {% endblock %}
     </title>
 
-    <link href="{{ url_for('static',filename='css2/lib/chartist/chartist.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='css2/lib/owl.carousel.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='css2/lib/owl.theme.default.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='css2/lib/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='css2/helper.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='css2/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/lib/chartist/chartist.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/lib/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/lib/owl.theme.default.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/lib/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/helper.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js2 IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js2 doesn't work if you view the page via file:** -->
     <!--[if lt IE 9]>
@@ -71,12 +71,14 @@
                 <a class="navbar-brand" href="index.html">
                     <!-- Logo icon -->
 
-                    <b><img src="{{ url_for('static',filename='images2/logo.png') }}" alt="homepage" class="dark-logo"/></b>
+                    <b><img src="{{ url_for('static',filename='images/logo.png') }}" alt="homepage" class="dark-logo"/></b>
                     {#                        <b><img src="images2/logo.png" alt="homepage" class="dark-logo" /></b>#}
                     <!--End Logo icon -->
                     <!-- Logo text -->
-                    <span><img src="{{ url_for('static',filename='images2/logo-text.png') }}" alt="homepage"
-                               class="dark-logo"/></span>
+                    <span>
+                        <img src="{{ url_for('static',filename='images/logo-text.png') }}" alt="homepage"
+                               class="dark-logo"/>
+                    </span>
                     {#                        <span><img src="images2/logo-text.png" alt="homepage" class="dark-logo" /></span>#}
                 </a>
             </div>
@@ -251,7 +253,7 @@
                                         <!-- Message -->
                                         <a href="#">
                                             <div class="user-img"><img
-                                                    src="{{ url_for('static',filename='images2/users/5.jpg') }}"
+                                                    src="{{ url_for('static',filename='images/users/5.jpg') }}"
                                                     alt="user" class="img-circle"> <span
                                                     class="profile-status online pull-right"></span></div>
                                             {#                                                <div class="user-img"> <img src="images2/users/5.jpg" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>#}
@@ -263,7 +265,7 @@
                                         <!-- Message -->
                                         <a href="#">
                                             <div class="user-img"><img
-                                                    src="{{ url_for('static',filename='images2/users/2.jpg') }}"
+                                                    src="{{ url_for('static',filename='images/users/2.jpg') }}"
                                                     alt="user" class="img-circle"> <span
                                                     class="profile-status busy pull-right"></span></div>
                                             {#                                                <div class="user-img"> <img src="images2/users/2.jpg" alt="user" class="img-circle"> <span class="profile-status busy pull-right"></span> </div>#}
@@ -276,7 +278,7 @@
                                         <!-- Message -->
                                         <a href="#">
                                             <div class="user-img"><img
-                                                    src="{{ url_for('static',filename='images2/users/3.jpg') }}"
+                                                    src="{{ url_for('static',filename='images/users/3.jpg') }}"
                                                     alt="user" class="img-circle"> <span
                                                     class="profile-status away pull-right"></span></div>
                                             {#                                                <div class="user-img"> <img src="images2/users/3.jpg" alt="user" class="img-circle"> <span class="profile-status away pull-right"></span> </div>#}
@@ -288,7 +290,7 @@
                                         <!-- Message -->
                                         <a href="#">
                                             <div class="user-img"><img
-                                                    src="{{ url_for('static',filename='images2/users/4.jpg') }}"
+                                                    src="{{ url_for('static',filename='images/users/4.jpg') }}"
                                                     alt="user" class="img-circle"> <span
                                                     class="profile-status offline pull-right"></span></div>
                                             {#                                                <div class="user-img"> <img src="images2/users/4.jpg" alt="user" class="img-circle"> <span class="profile-status offline pull-right"></span> </div>#}
@@ -311,7 +313,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false"><img
-                                src="{{ url_for('static',filename='images2/users/5.jpg') }}" alt="user"
+                                src="{{ url_for('static',filename='images/users/5.jpg') }}" alt="user"
                                 class="profile-pic"/></a>
                         <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                             <ul class="dropdown-user">
@@ -409,15 +411,15 @@
 
 <script src="http://localhost:8080/static/build.js"></script>
 
-<script src="{{ url_for('static',filename='js2/lib/bootstrap/js/popper.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/lib/bootstrap/js/popper.min.js') }}"></script>
 
 
-<script src="{{ url_for('static',filename='js2/lib/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/lib/bootstrap/js/bootstrap.min.js') }}"></script>
 
 
-<script src="{{ url_for('static',filename='js2/jquery.slimscroll.js') }}"></script>
-<script src="{{ url_for('static',filename='js2/sidebarmenu.js') }}"></script>
-<script src="{{ url_for('static',filename='js2/lib/sticky-kit-master/dist/sticky-kit.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/jquery.slimscroll.js') }}"></script>
+<script src="{{ url_for('static',filename='js/sidebarmenu.js') }}"></script>
+<script src="{{ url_for('static',filename='js/lib/sticky-kit-master/dist/sticky-kit.min.js') }}"></script>
 {#<script src="{{ url_for('static',filename='js2/lib/datamap/d3.min.js') }}"></script>#}
 {#<script src="{{ url_for('static',filename='js2/lib/datamap/topojson.js') }}"></script>#}
 {#<script src="{{ url_for('static',filename='js2/lib/datamap/datamaps.world.min.js') }}"></script>#}
@@ -431,7 +433,7 @@
 {#<script src="{{ url_for('static',filename='js2/lib/chartist/chartist-init.js') }}"></script>#}
 
 
-<script src="{{ url_for('static',filename='js2/custom.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/custom.min.js') }}"></script>
 
 
 <!-- for prod: -->
