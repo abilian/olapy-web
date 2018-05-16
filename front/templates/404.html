@@ -1,60 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-    <title>Page Not Found</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images2/favicon.png">
+    <title>Ela - Bootstrap Admin Dashboard Template</title>
 
-        * {
-            line-height: 1.2;
-            margin: 0;
-        }
+    <link href="{{ url_for('static',filename='css/lib/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/helper.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet">
 
-        html {
-            color: #888;
-            display: table;
-            font-family: sans-serif;
-            height: 100%;
-            text-align: center;
-            width: 100%;
-        }
 
-        body {
-            display: table-cell;
-            vertical-align: middle;
-            margin: 2em auto;
-        }
-
-        h1 {
-            color: #555;
-            font-size: 2em;
-            font-weight: 400;
-        }
-
-        p {
-            margin: 0 auto;
-            width: 280px;
-        }
-
-        @media only screen and (max-width: 280px) {
-
-            body, p {
-                width: 95%;
-            }
-
-            h1 {
-                font-size: 1.5em;
-                margin: 0 0 0.3em;
-            }
-
-        }
-
-    </style>
+    <!-- HTML5 Shim and Respond.js2 IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js2 doesn't work if you view the page via file:** -->
+    <!--[if lt IE 9]>
+    <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js2"></script>
+    <script src="https:**oss.maxcdn.com/libs/respond.js2/1.4.2/respond.min.js2"></script>
+<![endif]-->
 </head>
-<body>
-    <h1>Page Not Found</h1>
-    <p>Sorry, but the page you were trying to view does not exist.</p>
+
+<body class="fix-header fix-sidebar">
+    <!-- Preloader - style you can find in spinners.css2 -->
+{#    <div class="preloader">#}
+{#        <svg class="circular" viewBox="25 25 50 50">#}
+{#			<circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>#}
+{#    </div>#}
+    <!-- Main wrapper  -->
+    <div class="error-page" id="wrapper">
+        <div class="error-box">
+            <div class="error-body text-center">
+                <h1>400</h1>
+                <h3 class="text-uppercase">Page not found </h3>
+                <p class="text-muted m-t-30 m-b-30">Please try after some time</p>
+                <a class="btn btn-info btn-rounded waves-effect waves-light m-b-40" href="index.html">Back to home</a> </div>
+{#            <footer class="footer text-center">&copy; 2018 Zebramin.</footer>#}
+        </div>
+    </div>
+
+
+<script src="http://localhost:8080/static/build.js"></script>
+<script src="{{ url_for('static',filename='js/jquery.slimscroll.js') }}"></script>
+<script src="{{ url_for('static',filename='js/sidebarmenu.js') }}"></script>
+<script src="{{ url_for('static',filename='js/lib/sticky-kit-master/dist/sticky-kit.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/custom.min.js') }}"></script>
+
+
+
 </body>
+
 </html>
-<!-- IE needs 512+ bytes: http://blogs.msdn.com/b/ieinternals/archive/2010/08/19/http-error-pages-in-internet-explorer.aspx -->

@@ -1,23 +1,30 @@
 <template>
-  <div>
+    <div>
 
-    <div v-if="reportingInterface !== 'dashboardMaker'">
-      <input type="button" value="new dashboard" @click="reportingInterface = 'dashboardMaker'"/>
-      <!--<select-cube-dashboard v-if="reportingInterface === 'newDashboard'"-->
-      <!--@selectedCube="selectedCube = $event" @interface="reportingInterface = $event"/>-->
-      <!--<hr>-->
-      <user-dashboards
-        @selectedDashboard="selectedDashboard = $event"
-       @reportingInterface="reportingInterface = $event"/>
+
+        <div class="row page-titles" v-if="reportingInterface === 'main'">
+            <div class="col-md-5 align-self-center">
+                <!--<h3 class="text-primary">Dashboard</h3>-->
+                <button type="button" class="btn btn-primary btn-flat btn-addon m-b-10 m-l-5"
+                        @click="reportingInterface = 'dashboardMaker'"><i class="ti-plus"></i>New Dashboard
+                </button>
+            </div>
+        </div>
+
+        <!-- End Bread crumb -->
+        <!-- Container fluid  -->
+
+
+        <div class="container-fluid">
+
+            <dashboard-marker
+                    v-if="reportingInterface === 'dashboardMaker'"
+                    :selectedDashboard="selectedDashboard"
+                    @interface="reportingInterface = $event"/>
+
+        </div>
 
     </div>
-
-    <dashboard-marker
-      v-if="reportingInterface === 'dashboardMaker'"
-      :selectedDashboard="selectedDashboard"
-      @interface="reportingInterface = $event"/>
-
-  </div>
 
 </template>
 

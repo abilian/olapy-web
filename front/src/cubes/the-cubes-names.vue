@@ -1,10 +1,18 @@
 <template>
-  <div class="schema_box">
-    <div class="schema_box_container" v-for="(cube, index) in cubesNames">
-      <input type="button" :value="cube" :key="index" @click="changeCurrentCube(cube)"><br>
-    </div>
+    <li>
+      <a class="has-arrow  " href="#" aria-expanded="false">
+        <i class="fa fa-table"></i>
+        <span @click="$emit('reportingInterface', 'addCube')" class="hide-menu">Cubes
+            <span class="label label-rouded label-danger pull-right">{{cubesNames.length}}</span>
+        </span>
+      </a>
+      <ul aria-expanded="false" class="collapse"  v-for="(cube, index) in cubesNames">
+        <li><button class="btn btn-default btn-outline btn-rounded m-b-10" :key="index">{{cube}}</button></li>
 
-  </div>
+
+      </ul>
+    </li>
+
 </template>
 
 <script>

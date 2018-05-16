@@ -1,77 +1,88 @@
 <template>
-  <div>
-    <!--<form @submit="saveDashboard" action="#" method="post">-->
-    <label>
-      Dashboard name:
-      <input type="text" v-model="dashboardName" required>
-    </label>
+    <div class="page-wrapper">
+        <div class="row page-titles">
+            <div class="col-md-5 align-self-center">
+            </div>
+            <div class="col-md-7 align-self-center">
+                <ol class="breadcrumb">
+                    <label>
+                        <input type="text" v-model="dashboardName" class="form-control input-rounded"
+                               placeholder="Dashboard Name">
+                    </label>
 
-    <input style="float: right;" type="submit" value="save" @click="saveDashboard">
-    <input style="float: right;" type="button" :value=" 'enable modification :' + allowModification"
-           @click="allowModification = !allowModification">
-    <chart-props
-      :currentChartDiv="currentChartDiv"
-      :chartType="draggedChart"
-      v-if="showChartProps === true"
-      @chartData="chartData.push($event)"
-      @selectedCube="selectedCube =$event"
-      @showChartProps="showChartProps = $event"/>
+                    <button type="button" class="btn btn-success m-b-10 m-l-5" @click="saveDashboard">Save</button>
+                </ol>
+            </div>
+        </div>
+
+        <chart-props
+                :currentChartDiv="currentChartDiv"
+                :chartType="draggedChart"
+                v-if="showChartProps === true"
+                @chartData="chartData.push($event)"
+                @selectedCube="selectedCube =$event"
+                @showChartProps="showChartProps = $event"/>
 
 
-    <draggable
-      id="divDash"
-      v-model="usedCharts"
-      class="dashboard"
-      :options="{group:'charts', sort: false}">
+        <draggable
+                id="divDash"
+                v-model="usedCharts"
+                class="dashboard"
+                :options="{group:'charts', sort: false}">
 
-      <div v-for="(element, index) in usedCharts" :id="element.type + (index)">{{element.type + (index)}}</div>
+            <div v-for="(element, index) in usedCharts" :id="element.type + (index)">{{element.type + (index)}}</div>
 
-        <grid-layout
-          :layout="layout"
-          :col-num="12"
-          :row-height="30"
-          :is-draggable="true"
-          :is-resizable="true"
-          :is-mirrored="false"
-          :vertical-compact="true"
-          :margin="[10, 10]"
-          :use-css-transforms="true">
+            <grid-layout
+                    :layout="layout"
+                    :col-num="12"
+                    :row-height="30"
+                    :is-draggable="true"
+                    :is-resizable="true"
+                    :is-mirrored="false"
+                    :vertical-compact="true"
+                    :margin="[10, 10]"
+                    :use-css-transforms="true">
 
-          <grid-item v-for="(item, index) in layout"
-                     v-show="index < layout.length - 1"
-                     :key="index"
-                     :x="item.x"
-                     :y="item.y"
-                     :w="item.w"
-                     :h="item.h"
-                     :i="item.i"
-                     @resize="resize">
+                <grid-item v-for="(item, index) in layout"
+                           v-show="index < layout.length - 1"
+                           :key="index"
+                           :x="item.x"
+                           :y="item.y"
+                           :w="item.w"
+                           :h="item.h"
+                           :i="item.i"
+                           @resize="resize">
 
-            <button type="button"
-                    class="btn btn-danger btn-lg"
-                    style="margin-right: 0; float: right"
-                    @click="removeItem(item.i)">
-              <span class="glyphicon glyphicon-remove"></span></button>
-          </grid-item>
+                    <button type="button" class="close" aria-label="Close" @click="removeItem(item.i)">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
 
-      </grid-layout>
+                </grid-item>
 
-    </draggable>
+            </grid-layout>
 
-    <draggable
-      :list="chartTypes"
-      class="dash-toolbox"
-      :move="onMove"
-      :options="{group:{ name:'charts',  pull:'clone' }}">
+        </draggable>
 
-      <div v-for="chart_type in chartTypes">
-        <img class="toolbox-icons" :src="'/static/icons/' + chart_type + 'chart.png'">
-      </div>
+        <div id="dock-container">
 
-    </draggable>
+            <ul>
+                <draggable
+                        :list="chartTypes"
+                        :move="onMove"
+                        id="dock"
+                        :options="{group:{ name:'charts',  pull:'clone' }}">
 
-    <!--</form>-->
-  </div>
+                    <li v-for="chart_type in chartTypes">
+                        <span>{{chart_type}}</span>
+                        <a href="#"><img class="toolbox-icons" :src="'/static/icons/' + chart_type + 'chart.png'"></a>
+                    </li>
+
+                </draggable>
+            </ul>
+
+        </div>
+
+    </div>
 
 </template>
 
@@ -86,7 +97,8 @@ let GridItem = VueGridLayout.GridItem;
 
 export default {
   props: {
-    selectedDashboard: Object,
+    reportingInterface: String,
+    selectedDashboard: String,
   },
   data: function() {
     return {
@@ -124,6 +136,8 @@ export default {
           chartData: this.chartData,
         };
         this.$http.post("api/dashboard/save", data);
+        alert("Dashboard Added");
+        this.$emit("hideNewDashBtn", true);
       } else {
         alert("missing dashboardName");
       }
@@ -204,14 +218,20 @@ export default {
 }
 
 .dashboard {
-  border-style: dotted;
-  height: 50px;
+  /*border-style: dotted;*/
+  height: 50%;
   width: 100%;
 }
 
 .vue-grid-item:not(.vue-grid-placeholder) {
-  background: #ccc;
-  border: 1px solid black;
+  /*background: #9dcc31;*/
+  /*border: 1px solid black;*/
+  background: #ffffff none repeat scroll 0 0;
+  margin: 15px 0;
+  padding: 20px;
+  border: 0 solid #e7e7e7;
+  border-radius: 5px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
 }
 
 .vue-grid-item.resizing {
@@ -251,4 +271,59 @@ export default {
 .btn-lg {
   padding: 10px 13px;
 }
+
+/* START MAc style dock*/
+#dock-container {
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+  right: 20%;
+  left: 20%;
+  width: 60%;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px 10px 0 0;
+}
+
+#dock-container li {
+  list-style-type: none;
+  display: inline-block;
+  position: relative;
+}
+
+#dock-container li img {
+  width: 64px;
+  height: 64px;
+  -webkit-box-reflect: below 2px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.7, transparent), to(rgba(255, 255, 255, 0.5)));
+  -webkit-transition: all 0.3s;
+  -webkit-transform-origin: 50% 100%;
+}
+
+#dock-container li:hover img {
+  -webkit-transform: scale(2);
+  margin: 0 2em;
+}
+
+#dock-container li:hover + li img,
+#dock-container li.prev img {
+  -webkit-transform: scale(1.5);
+  margin: 0 1.5em;
+}
+
+#dock-container li span {
+  display: none;
+  position: absolute;
+  bottom: 140px;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: 4px 0;
+  border-radius: 12px;
+}
+
+#dock-container li:hover span {
+  display: block;
+  color: #fff;
+}
+
+/*END MAc style dock*/
 </style>

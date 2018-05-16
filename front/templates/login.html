@@ -1,66 +1,96 @@
 {% from "form_macro.html" import render_field %}
 
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-
-    <title>olapy</title>
-
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images2/favicon.png">
+    <title>Ela - Bootstrap Admin Dashboard Template</title>
     <!-- Bootstrap Core CSS -->
-    <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet">
-
-
+    <link href="{{ url_for('static',filename='css/lib/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+    {#    <link href="css2/lib/bootstrap/bootstrap.min.css" rel="stylesheet">#}
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static',filename='css/helper.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet">
+    {#    <link href="css2/helper.css" rel="stylesheet">#}
+    {#    <link href="css2/style.css" rel="stylesheet">#}
+    <!-- HTML5 Shim and Respond.js2 IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js2 doesn't work if you view the page via file:** -->
+    <!--[if lt IE 9]>
+    <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js2"></script>
+    <script src="https:**oss.maxcdn.com/libs/respond.js2/1.4.2/respond.min.js2"></script>
+<![endif]-->
 </head>
 
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="login-panel panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Please Sign In</h3>
-                    </div>
-                    <div class="panel-body">
-                        <form action="" method="post">
-                        {{ form.hidden_tag() }}
-                            <fieldset>
+<body class="fix-header fix-sidebar">
+<!-- Preloader - style you can find in spinners.css2 -->
+<div class="preloader">
+    <svg class="circular" viewBox="25 25 50 50">
+        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+    </svg>
+</div>
+<!-- Main wrapper  -->
+<div id="main-wrapper">
+
+    <div class="unix-login">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-4">
+                    <div class="login-content card">
+                        <div class="login-form">
+                            <h4>Login</h4>
+                            <form action="" method="post">
+                                {{ form.hidden_tag() }}
                                 <div class="form-group">
-                                    {{ render_field(form.username, size=50,class="form-control") }}
-{#                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>#}
+                                    <label>Username</label>
+                                    {{ render_field(form.username, size=50,class="form-control",placeholder="Email") }}
+                                    {#                                        <input type="email" class="form-control" placeholder="Email">#}
                                 </div>
                                 <div class="form-group">
-                                    {{ render_field(form.password, size=50,class="form-control") }}
-{#                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">#}
+                                    <label>Password</label>
+                                    {{ render_field(form.password, size=50,class="form-control",placeholder="Password") }}
+                                    {#                                        <input type="password" class="form-control" placeholder="Password">#}
                                 </div>
                                 <div class="checkbox">
                                     <label>
+                                        {#        										<input type="checkbox"> #}
                                         {{ render_field(form.remember_me) }}
-{#                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me#}
                                     </label>
+                                    <label class="pull-right">
+                                        <a href="#">Forgotten Password?</a>
+                                    </label>
+
                                 </div>
-                                <!-- Change this to a button or input when using this as a form -->
-
-                                {{ render_field(form.submit,class="btn btn-lg btn-success btn-block") }}
-{#                                <a href="index.html" class="btn btn-lg btn-success btn-block">Login</a>#}
-                            </fieldset>
-                            {% with messages = get_flashed_messages() %}
-                                {% if messages %}
-                                    <ul>
-                                    {% for message in messages %}
-                                       <li style="color: red;"> {{ message }} </li>
-                                    {% endfor %}
-                                    </ul>
-                                {% endif %}
-
-                            {% endwith %}
-                        </form>
+                                {{ render_field(form.submit,class="btn btn-primary btn-flat m-b-30 m-t-30",value="Sign in") }}
+                                {#                                    <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>#}
+                                <div class="register-link m-t-15 text-center">
+                                    <p>Don't have account ? <a href="#"> Sign Up Here</a></p>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-
+</div>
+<!-- End Wrapper -->
+<!-- All Jquery -->
+<script src="{{ url_for('static',filename='js/lib/jquery/jquery.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/lib/bootstrap/js/popper.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/lib/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/jquery.slimscroll.js') }}"></script>
+<script src="{{ url_for('static',filename='js/sidebarmenu.js') }}"></script>
+<script src="{{ url_for('static',filename='js/lib/sticky-kit-master/dist/sticky-kit.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/custom.min.js') }}"></script>
 </body>
 
 </html>

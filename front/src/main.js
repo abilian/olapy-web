@@ -8,7 +8,11 @@ Vue.use(VueResource);
 Vue.http.options.root = "http://127.0.0.1:5000/";
 
 window.$ = require("jquery");
-window.$ = $.extend(require("jquery-ui"));
+// window.jQuery = window.$;
+// window.$ = $.extend(require("pivottable"));
+// window.$ = $.extend(require("jquery-csv"));
+// window.$ = $.extend(require("jquery-ui"));
+// window.$ = $.extend(require("jquery-csv"));
 
 export const eventBus = new Vue({
   methods: {
@@ -20,18 +24,23 @@ export const eventBus = new Vue({
 
 Vue.config.devtools = true;
 
-if (document.getElementById("designer")) {
-  new Vue({
-    el: "#designer",
-    delimiters: ["[[", "]]"],
-    render: h => h(App),
-  });
-}
+// if (document.getElementById("designer")) {
+//   new Vue({
+//     el: "#designer",
+//     render: h => h(App),
+//   });
+// }
+//
+// if (document.getElementById("reporting")) {
+//   new Vue({
+//     el: "#reporting",
+//     render: h => h(Reporting),
+//   });
+// }
 
-if (document.getElementById("reporting")) {
+if (document.getElementById("app")) {
   new Vue({
-    el: "#reporting",
-    delimiters: ["[[", "]]"],
-    render: h => h(Reporting),
+    el: "#app",
+    render: h => h(App),
   });
 }

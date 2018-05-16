@@ -1,6 +1,6 @@
 def create_insert(con):
     statement = """
-    CREATE TABLE IF NOT EXISTS facts (
+    CREATE TABLE IF NOT EXISTS Facts (
         day text,
         city text,
         licence text,
@@ -10,7 +10,7 @@ def create_insert(con):
     con.execute(statement)
 
     statement = """
-    INSERT INTO facts (day, city, licence, amount, count) VALUES
+    INSERT INTO Facts (day, city, licence, amount, count) VALUES
     ('May 12,2010','Madrid','Personal',1,84),
     ('May 13,2010','Barcelona','Personal',2,841),
     ('May 14,2010','Paris','Personal',4,2),
@@ -93,6 +93,6 @@ def create_insert(con):
 
 
 def drop_tables(con):
-    for table_name in ('facts', 'geography', 'product', 'time'):
+    for table_name in ('Facts', 'geography', 'product', 'time'):
         statement = "DROP TABLE {};".format(table_name)
         con.execute(statement)

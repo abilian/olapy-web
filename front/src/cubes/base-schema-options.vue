@@ -1,13 +1,21 @@
 <template>
+  <div>
 
-  <div class="schema_options">
-    <button id="show-modal" @click="showModal = true">Add Cube</button>
+    <div class="page-wrapper">
+      <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+          <button id="show-modal" @click="showModal = true" type="button"
+                  class="btn btn-primary btn-flat btn-addon m-b-10 m-l-5">
+            <i class="ti-plus"></i>Add Cube
+          </button>
+        </div>
+      </div>
+    </div>
 
     <add-cube
       v-if="showModal && modalToShow === 'first'"
       @newCubeName="newCubeName = $event"
       @close="showModal = $event"/>
-    <!--@close="showModal = false"-->
 
     <config-uploaded-tables
       v-if="showModal && modalToShow === 'second'"
@@ -134,12 +142,4 @@ export default {
 </script>
 
 <style scoped>
-.schema_options {
-  position: relative;
-  float: left;
-  top: 20px;
-  left: 2%;
-  width: 180px;
-  border: 1px solid #98a6ad;
-}
 </style>

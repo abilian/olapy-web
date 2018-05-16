@@ -34,10 +34,6 @@ OLAPY_TEMP_DIR = os.path.join(tempfile.mkdtemp(), 'TEMP')
 home = expanduser('~')
 
 
-# import sqlalchemy
-# DEMO_DATABASE = sqlalchemy.create_engine(os.environ.get('SQLALCHEMY_DATABASE_URI', 'sqlite://'))
-
-
 def get_cube(cube_name):
     return User.query.filter(User.id == current_user.id).first().cubes.filter(
         Cube.name == cube_name).first()
@@ -65,7 +61,7 @@ def get_cubes():
 def _load_cube(cube_name):
     config = get_config(cube_name)
     source_type = get_cube_source_type(cube_name)
-    if 'sqlite://' in config['db_config'] and cube_name == 'main':
+    if config['db_config'] == 'sqlite://' and cube_name == 'main':
         from tests.conftest import DEMO_DATABASE
         # not instantiating new engine , use test demo db, not passing serialized engine with post
         sqla_engine = DEMO_DATABASE
@@ -76,7 +72,7 @@ def _load_cube(cube_name):
     olapy_data_location = os.path.join(current_app.instance_path, 'olapy-data')
     executor = MdxEngine(source_type=source_type, sqla_engine=sqla_engine,
                          cube_config=config['cube_config'], olapy_data_location=olapy_data_location)
-    executor.load_cube(cube_name, fact_table_name='facts')
+    executor.load_cube(cube_name)
     return executor
 
 
@@ -114,7 +110,7 @@ def construct_cube(cube_name, sqla_engine=None, source_type='csv', olapy_data_lo
                          olapy_data_location=olapy_data_location, cubes_folder='')
     # try to construct automatically the cube
     try:
-        executor.load_cube(cube_name, fact_table_name='facts')
+        executor.load_cube(cube_name)
         return {
             'dimensions': executor.get_all_tables_names(ignore_fact=True),
             'facts': executor.facts,
@@ -528,3 +524,16 @@ def get_dashboard(dashboard_name):
         'charts_layout': dashboard.chart.charts_layout,
         'charts_data': dashboard.chart.charts_data
     })
+
+
+@api('/query_builder')
+def query_builder():
+    olapy_data_location = os.path.join(current_app.instance_path, 'olapy-data')
+    web_config_file_path = os.path.join(olapy_data_location, 'cubes', 'web_cube_config.yml')
+    config = ConfigParser(web_config_file_path)
+    cube_config_file = config.construct_cubes()  # one cube right now
+    executor = MdxEngine(cube_config=cube_config_file,
+                         olapy_data_location=olapy_data_location)
+    executor.load_cube(cube_config_file['name'])
+    # todo test to_json
+    return jsonify(executor.star_schema_dataframe.to_csv(encoding="utf-8"))
