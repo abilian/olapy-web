@@ -13,6 +13,7 @@
 
 
         <div class="panel panel-default">
+
             <div style="padding-left: 25px">
                 <div class="row" style="margin-right: 25px">
                     <div id="output" style="overflow: auto; display: none;">{{DataFrameCsv}}</div>
@@ -69,42 +70,5 @@ export default {
 </script>
 
 <style scoped>
-body {
-  font-family: Verdana;
-}
 
-/*.node {*/
-/*border: solid 1px white;*/
-/*font: 10px sans-serif;*/
-/*line-height: 12px;*/
-/*overflow: hidden;*/
-/*position: absolute;*/
-/*text-indent: 2px;*/
-/*}*/
-
-/*.c3-line, .c3-focused {*/
-/*stroke-width: 3px !important;*/
-/*}*/
-
-/*.c3-bar {*/
-/*stroke: white !important;*/
-/*stroke-width: 1;*/
-/*}*/
-
-.c3 text {
-  font-size: 12px;
-  color: grey;
-}
-
-.tick line {
-  stroke: white;
-}
-
-.c3-axis path {
-  stroke: grey;
-}
-
-/*.c3-circle {*/
-/*opacity: 1 !important;*/
-/*}*/
 </style>

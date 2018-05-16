@@ -12,9 +12,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="images2/favicon.png">
 
     <title>
-        {% block title %}
-            Olapy Web
-        {% endblock %}
+        Olapy Web
     </title>
 
     <link href="{{ url_for('static',filename='css/lib/chartist/chartist.min.css') }}" rel="stylesheet">
@@ -36,12 +34,16 @@
    <!-- external libs from cdnjs FOR PIVOTTABLE.JS -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="{{ url_for('static',filename='js/jquery.nice-select.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.9/jquery.csv.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.20.0/pivot.min.css">
+{#    <link href="{{ url_for('static',filename='css/bootstrap-select.css') }}" rel="stylesheet">#}
+{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">#}
+    <link href="{{ url_for('static',filename='css/pivot.css') }}" rel="stylesheet">
+{#    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.20.0/pivot.min.css">#}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.20.0/pivot.min.js"></script>
 
     <!--UNCOMMENT IF YOU WANT TO USE PLOTLY CHARTS-->
