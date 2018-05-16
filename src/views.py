@@ -52,7 +52,7 @@ def login():
             # next to hold the the page that the user tries to visite
 
             next_url = request.args.get('next') or url_for(
-                '/', user=current_user)
+                'main.index', user=current_user)
             return redirect(next_url)
 
         flash('incorrect username or password')
