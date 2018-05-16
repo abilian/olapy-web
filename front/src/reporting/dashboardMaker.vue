@@ -65,21 +65,21 @@
 
         <div id="dock-container">
 
-            <draggable
-                    :list="chartTypes"
-                    :move="onMove"
-                    id="dock"
-                    :options="{group:{ name:'charts',  pull:'clone' }}">
+            <ul>
+                <draggable
+                        :list="chartTypes"
+                        :move="onMove"
+                        id="dock"
+                        :options="{group:{ name:'charts',  pull:'clone' }}">
 
-                <ul>
                     <li v-for="chart_type in chartTypes">
                         <span>{{chart_type}}</span>
                         <a href="#"><img class="toolbox-icons" :src="'/static/icons/' + chart_type + 'chart.png'"></a>
                     </li>
 
-                </ul>
+                </draggable>
+            </ul>
 
-            </draggable>
         </div>
 
     </div>
@@ -98,7 +98,7 @@ let GridItem = VueGridLayout.GridItem;
 export default {
   props: {
     reportingInterface: String,
-    selectedDashboard: Object,
+    selectedDashboard: String,
   },
   data: function() {
     return {
