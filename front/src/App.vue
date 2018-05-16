@@ -25,19 +25,18 @@
 
     </div>
 
-      <div class="page-wrapper" v-if="showNewDashBtn && reportingInterface==='main'">
+      <div class="page-wrapper" v-if="reportingInterface==='main'">
           <div class="row page-titles">
               <div class="col-md-5 align-self-center">
                   <button type="button" class="btn btn-primary btn-flat btn-addon m-b-10 m-l-5"
-                          @click="showNewDashBtn=false"><i class="ti-plus"></i>New Dashboard
+                          @click="reportingInterface='dashboardMaker'"><i class="ti-plus"></i>New Dashboard
                   </button>
               </div>
           </div>
       </div>
 
-      <dashboard-maker v-if="!showNewDashBtn || reportingInterface==='dashboardMaker' "
-                       :selectedDashboard="selectedDashboard"
-                       @hideNewDashBtn="showNewDashBtn = $event"/>
+      <dashboard-maker v-if="reportingInterface==='dashboardMaker' "
+                       :selectedDashboard="selectedDashboard"/>
 
 
       <schema-options v-if="reportingInterface==='addCube' "></schema-options>
@@ -61,7 +60,6 @@ export default {
   data: function() {
     return {
       reportingInterface: "main",
-      showNewDashBtn: true,
       selectedDashboard: "",
       DataFrameCsv: null,
     };
