@@ -12,9 +12,13 @@
                                @reportingInterface="reportingInterface = $event"/>
               <user-cubes @reportingInterface="reportingInterface = $event"></user-cubes>
 
+
               <li>
                   <a href="#" aria-expanded="false"><i class="fa fa-columns"></i>
-                      <span @click="runQueryBuilder()">Query Builder</span></a>
+                      <span @click="runQueryBuilder()" class="hide-menu">Query Builder</span>
+                  </a>
+                  <ul aria-expanded="false" class="collapse">
+                  </ul>
               </li>
 
           </ul>
