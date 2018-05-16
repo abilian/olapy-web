@@ -34,7 +34,7 @@ def load_user(userid):
 @login_required
 def index():
     # type: () -> Response
-    return render_template('base.html',user=current_user)
+    return render_template('base.html', user=current_user)
 
 
 @route('/login', methods=['GET', 'POST'])
