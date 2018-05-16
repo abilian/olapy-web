@@ -45,7 +45,9 @@
 
       <schema-options v-if="reportingInterface==='addCube' "></schema-options>
 
-      <query-builder :DataFrameCsv="DataFrameCsv" v-if="reportingInterface==='QBuilder' "></query-builder>
+      <keep-alive>
+          <query-builder :DataFrameCsv="DataFrameCsv" v-if="reportingInterface==='QBuilder' "></query-builder>
+      </keep-alive>
 
   </div>
 
