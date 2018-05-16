@@ -15,7 +15,7 @@
         <div class="panel panel-default">
             <div style="padding-left: 25px">
                 <div class="row" style="height: 750px">
-                    <div id="output" style="display: none;">{{DataFrameCsv}}</div>
+                    <div id="output" style="overflow: auto; display: none;">{{DataFrameCsv}}</div>
                 </div>
             </div>
         </div>
