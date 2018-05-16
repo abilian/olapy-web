@@ -31,6 +31,7 @@ def load_user(userid):
 
 @route('/index')
 @route('/')
+@login_required
 def index():
     # type: () -> Response
     return render_template('base.html',user=current_user)
