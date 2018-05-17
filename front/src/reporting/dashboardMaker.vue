@@ -7,7 +7,7 @@
                 <ol class="breadcrumb">
                     <label>
                         <input type="text" v-model="dashboardName" class="form-control input-rounded"
-                               placeholder="Dashboard Name">
+                               placeholder="Dashboard Title">
                     </label>
 
                     <button type="button" class="btn btn-success m-b-10 m-l-5" @click="saveDashboard">Save</button>
@@ -136,10 +136,19 @@ export default {
           chartData: this.chartData,
         };
         this.$http.post("api/dashboard/save", data);
-        alert("Dashboard Added");
-        this.$emit("hideNewDashBtn", true);
+
+        this.$notify({
+          group: "user",
+          title: "Successfully Added",
+          type: "success",
+        });
+        this.$emit("reportingInterface", "main");
       } else {
-        alert("missing dashboardName");
+        this.$notify({
+          group: "user",
+          title: "Missing dashboard title",
+          type: "error",
+        });
       }
     },
   },

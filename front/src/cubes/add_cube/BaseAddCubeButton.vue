@@ -74,7 +74,12 @@ export default {
       if (this.status === "failed") {
         eventModalBus.modalToShow("first");
       } else if (this.source === "CSV" && this.newCubeName === "") {
-        alert("Please specify a Cube name ");
+        // this.$notify({
+        //   group: "user",
+        //   title: "Missing Cube name",
+        //   type: "error",
+        // });
+          alert("Missing Cube name");
       } else if (this.status === "toConfig") {
         eventModalBus.modalToShow("toConfig");
       } else if (this.status === "success") {

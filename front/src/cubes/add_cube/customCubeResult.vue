@@ -73,7 +73,11 @@ export default {
         this.resultCube = x.data;
       })
       .catch(err => {
-        alert("unable to construct cube, check your tables relations");
+        this.$notify({
+          group: "user",
+          title: "unable to construct cube, check your tables relations",
+          type: "error",
+        });
         eventModalBus.modalToShow("makeRelations");
       });
   },

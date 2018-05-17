@@ -39,7 +39,8 @@
           </div>
       </div>
 
-      <dashboard-maker v-if="reportingInterface==='dashboardMaker' "
+      <dashboard-maker v-if="reportingInterface==='dashboardMaker'"
+                       @reportingInterface="reportingInterface = $event"
                        :selectedDashboard="selectedDashboard"/>
 
 
@@ -48,6 +49,8 @@
       <keep-alive>
           <query-builder :DataFrameCsv="DataFrameCsv" v-if="reportingInterface==='QBuilder' "></query-builder>
       </keep-alive>
+
+      <notifications group="user" position="top right"/>
 
   </div>
 

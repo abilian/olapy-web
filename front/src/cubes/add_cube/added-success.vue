@@ -1,28 +1,28 @@
 <template>
-  <transition name="modal">
-    <div class="modal-mask">
-      <div class="modal-wrapper">
-        <div class="modal-container">
+  <!--<transition name="modal">-->
+    <!--<div class="modal-mask">-->
+      <!--<div class="modal-wrapper">-->
+        <!--<div class="modal-container">-->
 
-          <div class="modal-body">
-            <slot name="body">
-              Cube Added successfully
-            </slot>
-          </div>
+          <!--<div class="modal-body">-->
+            <!--<slot name="body">-->
+              <!--Cube Added successfully-->
+            <!--</slot>-->
+          <!--</div>-->
 
-          <div class="modal-footer">
-            <slot name="footer">
-              <!--<button class="modal-default-button" @click="$emit('uploadStatus', 'second')">-->
-              <!--<button class="modal-default-button" @click="checkUpload()">-->
-              <button class="modal-default-button" @click="goBack()">
-                Next
-              </button>
-            </slot>
-          </div>
-        </div>
-      </div>
-    </div>
-  </transition>
+          <!--<div class="modal-footer">-->
+            <!--<slot name="footer">-->
+              <!--&lt;!&ndash;<button class="modal-default-button" @click="$emit('uploadStatus', 'second')">&ndash;&gt;-->
+              <!--&lt;!&ndash;<button class="modal-default-button" @click="checkUpload()">&ndash;&gt;-->
+              <!--<button class="modal-default-button" @click="goBack()">-->
+                <!--Next-->
+              <!--</button>-->
+            <!--</slot>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</transition>-->
 
 </template>
 
@@ -30,11 +30,15 @@
 import { eventModalBus } from "../base-schema-options.vue";
 
 export default {
-  methods: {
-    goBack() {
+  created() {
+      this.$notify({
+        group: "user",
+        title: "Successfully Added",
+        type: "success",
+      });
       this.$emit("close", false);
       eventModalBus.modalToShow("first");
-    },
+
   },
 };
 </script>
