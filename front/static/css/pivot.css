@@ -61,7 +61,7 @@ tbody tr td{
 }
 
 .pvtAxisContainer, .pvtVals {
-    border: 1px solid gray;
+    border: 1px solid #e1e1e1;
     background: #F1F1FF;
     padding: 5px;
     min-width: 20px;
