@@ -142,6 +142,7 @@ export default {
           title: "Successfully Added",
           type: "success",
         });
+        this.$emit("refreshDashboards", true);
         this.$emit("reportingInterface", "main");
       } else {
         this.$notify({

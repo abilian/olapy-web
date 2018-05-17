@@ -19,6 +19,9 @@
 
 <script>
 export default {
+  props: {
+    refreshDashboards: Boolean,
+  },
   data: function() {
     return {
       userDashboards: [],
@@ -31,18 +34,32 @@ export default {
         this.$emit("reportingInterface", "dashboardMaker");
       });
     },
+    getAllDashboards() {
+      let Dashboards = [];
+      this.$http
+        .get("api/dashboard/all")
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          for (let key in data) {
+            Dashboards.push(data[key]);
+          }
+        });
+      this.userDashboards = Dashboards;
+    },
   },
-  created() {
-    this.$http
-      .get("api/dashboard/all")
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        for (let key in data) {
-          this.userDashboards.push(data[key]);
-        }
-      });
+
+  watch: {
+    refreshDashboards: function(val) {
+      if (val === true) {
+        this.getAllDashboards();
+        this.$emit("refreshDashboards", false);
+      }
+    },
+  },
+  mounted() {
+    this.getAllDashboards();
   },
 };
 </script>

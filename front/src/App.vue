@@ -8,8 +8,13 @@
           <ul id="sidebarnav">
             <li class="nav-devider"></li>
             <li class="nav-label">Home</li>
+              <!--refreshDashboards used to refresh user-dashboards: every time i add dashboard from \
+              dash-maker component, i want to refresh user-dashboards component (maybe another solution is better -->
               <user-dashboards @selectedDashboard="selectedDashboard = $event"
-                               @reportingInterface="reportingInterface = $event"/>
+                               @reportingInterface="reportingInterface = $event"
+                               @refreshDashboards="refreshDashboards = $event"
+                               :refreshDashboards="refreshDashboards"
+              />
               <user-cubes @reportingInterface="reportingInterface = $event"></user-cubes>
 
 
@@ -40,6 +45,7 @@
       </div>
 
       <dashboard-maker v-if="reportingInterface==='dashboardMaker'"
+                       @refreshDashboards="refreshDashboards = $event"
                        @reportingInterface="reportingInterface = $event"
                        :selectedDashboard="selectedDashboard"/>
 
@@ -50,7 +56,7 @@
           <query-builder :DataFrameCsv="DataFrameCsv" v-if="reportingInterface==='QBuilder' "></query-builder>
       </keep-alive>
 
-      <notifications group="user" position="top right"/>
+      <notifications group="user" position="top center"/>
 
   </div>
 
@@ -71,6 +77,7 @@ export default {
       reportingInterface: "main",
       selectedDashboard: "",
       DataFrameCsv: null,
+      refreshDashboards: false,
     };
   },
   methods: {

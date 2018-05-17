@@ -31,14 +31,13 @@ import { eventModalBus } from "../base-schema-options.vue";
 
 export default {
   created() {
-      this.$notify({
-        group: "user",
-        title: "Successfully Added",
-        type: "success",
-      });
-      this.$emit("close", false);
-      eventModalBus.modalToShow("first");
-
+    this.$notify({
+      group: "user",
+      title: "Successfully Added",
+      type: "success",
+    });
+    this.$emit("close", false);
+    eventModalBus.modalToShow("first");
   },
 };
 </script>
