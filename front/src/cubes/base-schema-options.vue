@@ -71,7 +71,7 @@
         <added-success
                 v-if="showModal && modalToShow === 'success'"
                 @close="showModal = $event"
-                @refreshCubes="refreshCubes = $event"/>
+                />
 
     </div>
 
@@ -136,6 +136,7 @@ export default {
       this.modalToShow = "first";
       this.cube = "";
       this.dbConfig = "";
+      this.$emit("refreshCubes", true);
       this.$http.post("api/cubes/clean_tmp_dir");
     },
   },
