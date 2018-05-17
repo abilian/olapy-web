@@ -16,8 +16,6 @@
 </template>
 
 <script>
-import { eventBus } from "../main.js";
-
 export default {
   data: function() {
     return {
@@ -36,9 +34,6 @@ export default {
             this.cubesNames.push(data[key]);
           }
         });
-    },
-    changeCurrentCube(cube) {
-      eventBus.queriedCube(cube);
     },
   },
   created() {

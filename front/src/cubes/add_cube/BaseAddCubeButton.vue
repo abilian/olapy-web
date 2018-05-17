@@ -79,7 +79,7 @@ export default {
         //   title: "Missing Cube name",
         //   type: "error",
         // });
-          alert("Missing Cube name");
+        alert("Missing Cube name");
       } else if (this.status === "toConfig") {
         eventModalBus.modalToShow("toConfig");
       } else if (this.status === "success") {
