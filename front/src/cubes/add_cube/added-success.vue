@@ -36,6 +36,7 @@ export default {
       title: "Successfully Added",
       type: "success",
     });
+    this.$emit("refreshCubes", true);
     this.$emit("close", false);
     eventModalBus.modalToShow("first");
   },

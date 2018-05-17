@@ -17,6 +17,9 @@
 
 <script>
 export default {
+  props: {
+    refreshCubes: Boolean,
+  },
   data: function() {
     return {
       cubesNames: [],
@@ -24,6 +27,7 @@ export default {
   },
   methods: {
     getCubes: function() {
+      let cubes = [];
       this.$http
         .get("api/cubes")
         .then(response => {
@@ -31,9 +35,18 @@ export default {
         })
         .then(data => {
           for (let key in data) {
-            this.cubesNames.push(data[key]);
+            cubes.push(data[key]);
           }
         });
+      this.cubesNames = cubes;
+    },
+  },
+  watch: {
+    refreshCubes: function(val) {
+      if (val === true) {
+        this.getCubes();
+        this.$emit("refreshCubes", false);
+      }
     },
   },
   created() {
