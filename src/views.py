@@ -46,8 +46,7 @@ def login():
             login_user(user, form.remember_me.data)
             # next to hold the the page that the user tries to visite
 
-            next_url = request.args.get('next') or url_for(
-                'main.index', user=current_user)
+            next_url = request.args.get('next') or url_for('main.index')
             return redirect(next_url)
 
         flash('incorrect username or password')
