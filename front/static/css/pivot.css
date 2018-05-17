@@ -1,36 +1,16 @@
-/*@import "nice-select.css";*/
-
 .pvtUi {
-    color: #2a3f5f;
-    font-family: Verdana;
-    border-collapse: collapse;
-}
-
-.pvtUi select {
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -ms-user-select: none;
-}
-
-.pvtUi td.pvtOutput {
-    vertical-align: top;
+    color: #333;
 }
 
 table.pvtTable {
     font-size: 8pt;
     text-align: left;
-    border-collapse: collapse;
-    margin-top: 3px;
-    margin-left: 3px;
-    font-family: Verdana;
+    /*border-collapse: collapse;*/
 }
 
-table.pvtTable thead tr th,
-table.pvtTable tbody tr th {
-    background-color: #ebf0f8;
-    border: 1px solid #c8d4e3;
+table.pvtTable thead tr th, table.pvtTable tbody tr th {
+    background-color: #e6EEEE;
+    border: 1px solid #CDCDCD;
     font-size: 8pt;
     padding: 5px;
 }
@@ -44,114 +24,56 @@ table.pvtTable .pvtTotalLabel {
 }
 
 table.pvtTable tbody tr td {
-    color: #2a3f5f;
+    color: #3D3D3D;
     padding: 5px;
-    background-color: #fff;
-    border: 1px solid #c8d4e3;
+    background-color: #FFF;
+    border: 1px solid #CDCDCD;
     vertical-align: top;
     text-align: right;
 }
 
-.pvtTotal,
-.pvtGrandTotal {
+tbody tr td:last-child {
+    text-align: left;
+}
+
+.pvtTotal, .pvtGrandTotal {
     font-weight: bold;
-}
-
-.pvtRowOrder,
-.pvtColOrder {
-    cursor: pointer;
-    width: 15px;
-    margin-left: 5px;
-    display: inline-block;
-    user-select: none;
-    text-decoration: none !important;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -ms-user-select: none;
-}
-
-.pvtAxisContainer,
-.pvtVals {
-    border: 1px solid #a2b1c6;
-    background: #f2f5fa;
-    padding: 5px;
-    min-width: 20px;
-    min-height: 20px;
-}
-
-.pvtRenderers {
-    padding-left: 5px;
-    user-select: none;
-}
-
-.pvtDropdown {
-    display: inline-block;
-    position: relative;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -ms-user-select: none;
-    margin: 3px;
-}
-
-.pvtDropdownIcon {
-    float: right;
-    color: #a2b1c6;
-}
-
-.pvtDropdownCurrent {
-    text-align: left;
-    border: 1px solid #a2b1c6;
-    border-radius: 4px;
-    display: inline-block;
-    position: relative;
-    width: 210px;
-    box-sizing: border-box;
-    background: white;
-}
-
-.pvtDropdownCurrentOpen {
-    border-radius: 4px 4px 0 0;
-}
-
-.pvtDropdownMenu {
-    background: white;
-    position: absolute;
-    width: 100%;
-    margin-top: -1px;
-    border-radius: 0 0 4px 4px;
-    border: 1px solid #a2b1c6;
-    border-top: 1px solid #dfe8f3;
-    box-sizing: border-box;
-}
-
-.pvtDropdownValue {
-    padding: 2px 5px;
-    font-size: 12px;
-    text-align: left;
-}
-
-.pvtDropdownActiveValue {
-    background: #ebf0f8;
 }
 
 .pvtVals {
     text-align: center;
     white-space: nowrap;
-    vertical-align: top;
-    padding-bottom: 12px;
 }
 
-.pvtRows {
-    height: 35px;
+.pvtRowOrder, .pvtColOrder {
+    cursor: pointer;
+    width: 15px;
+    margin-left: 5px;
+    display: inline-block;
+}
+
+.pvtAggregator {
+    margin-bottom: 5px;
+}
+
+.pvtAxisContainer, .pvtVals {
+    border: 1px solid gray;
+    background: #F1F1FF;
+    padding: 5px;
+    min-width: 20px;
+    min-height: 20px;
+
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -ms-user-select: none;
 }
 
 .pvtAxisContainer li {
     padding: 8px 6px;
     list-style-type: none;
     cursor: move;
-
 }
 
 .pvtAxisContainer li.pvtPlaceholder {
@@ -159,37 +81,27 @@ table.pvtTable tbody tr td {
     padding: 3px 15px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    border: 1px dashed #a2b1c6;
-
-}
-
-.pvtAxisContainer li.pvtPlaceholder span.pvtAttr {
-    display: none;
+    border: 1px dashed #aaa;
 }
 
 .pvtAxisContainer li span.pvtAttr {
     -webkit-text-size-adjust: 100%;
-    background: #f3f6fa;
-    border: 1px solid #c8d4e3;
+    background: #F3F3F3;
+    border: 1px solid #DEDEDE;
     padding: 2px 5px;
     white-space: nowrap;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -ms-user-select: none;
 }
 
 .pvtTriangle {
     cursor: pointer;
-    color: #506784;
+    color: grey;
 }
 
 .pvtHorizList li {
-    display: inline-block;
+    display: inline;
 }
 
 .pvtVertList {
@@ -197,79 +109,16 @@ table.pvtTable tbody tr td {
 }
 
 .pvtFilteredAttribute {
-    font-style: italic;
-}
-
-.sortable-chosen .pvtFilterBox {
-    display: none !important;
-}
-
-.pvtCloseX {
-    position: absolute;
-    right: 5px;
-    top: 5px;
-    font-size: 18px;
-    cursor: pointer;
-    text-decoration: none !important;
-}
-
-.pvtDragHandle {
-    position: absolute;
-    left: 5px;
-    top: 5px;
-    font-size: 18px;
-    cursor: move;
-    color: #a2b1c6;
-}
-
-.pvtButton {
-    color: #506784;
-    border-radius: 5px;
-    padding: 3px 6px;
-    background: #f2f5fa;
-    border: 1px solid;
-    border-color: #c8d4e3;
-    font-size: 14px;
-    margin: 3px;
-    transition: 0.34s all cubic-bezier(0.19, 1, 0.22, 1);
-    text-decoration: none !important;
-}
-
-.pvtButton:hover {
-    background: #e2e8f0;
-    border-color: #a2b1c6;
-}
-
-.pvtButton:active {
-    background: #d1dae6;
-}
-
-.pvtFilterBox input {
-    border: 1px solid #c8d4e3;
-    border-radius: 5px;
-    color: #506784;
-    padding: 0 3px;
-    font-size: 14px;
-}
-
-.pvtFilterBox input:focus {
-    border-color: #119dff;
-    outline: none;
+    font-style: italic
 }
 
 .pvtFilterBox {
     z-index: 100;
     width: 300px;
-    border: 1px solid #506784;
+    border: 1px solid gray;
     background-color: #fff;
     position: absolute;
     text-align: center;
-    user-select: none;
-    min-height: 100px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -ms-user-select: none;
 }
 
 .pvtFilterBox h4 {
@@ -280,14 +129,23 @@ table.pvtTable tbody tr td {
     margin: 10px auto;
 }
 
-.pvtFilterBox button {
-    color: #2a3f5f;
+.pvtFilterBox label {
+    font-weight: normal;
+}
+
+.pvtFilterBox input[type='checkbox'] {
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .pvtFilterBox input[type='text'] {
     width: 230px;
-    color: #2a3f5f;
-    margin-bottom: 5px;
+}
+
+.pvtFilterBox .count {
+    color: gray;
+    font-weight: normal;
+    margin-left: 3px;
 }
 
 .pvtCheckContainer {
@@ -296,50 +154,47 @@ table.pvtTable tbody tr td {
     white-space: nowrap;
     overflow-y: scroll;
     width: 100%;
-    max-height: 30vh;
-    border-top: 1px solid #dfe8f3;
+    max-height: 250px;
+    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
 }
 
 .pvtCheckContainer p {
-    margin: 0;
-    margin-bottom: 1px;
-    padding: 3px;
-    cursor: default;
-}
-
-.pvtCheckContainer p.selected {
-    background: #ebf0f8;
-}
-
-.pvtOnly {
-    display: none;
-    width: 35px;
-    float: left;
-    font-size: 12px;
-    padding-left: 5px;
-    cursor: pointer;
-}
-
-.pvtOnlySpacer {
-    display: block;
-    width: 35px;
-    float: left;
-}
-
-.pvtCheckContainer p:hover .pvtOnly {
-    display: block;
-}
-
-.pvtCheckContainer p:hover .pvtOnlySpacer {
-    display: none;
+    margin: 5px;
 }
 
 .pvtRendererArea {
-    padding: 5px;
+    padding: 51px;
 }
 
-/*.pvtAggregator{*/
-    /*font-size: 32px;*/
-  /*!*.selectpicker;*!*/
+/*-----------------FOR SELECT-------------------------------*/
 
-/*}*/
+
+.pvtRenderer {
+    background-color: #ffffff80;
+    height: 29px;
+    overflow: hidden;
+    /*width: 240px;*/
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+
+}
+
+.pvtAggregator {
+    background-color: #ffffff80;
+    height: 29px;
+    overflow: hidden;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.pvtAttrDropdown {
+    background-color: #ffffff80;
+    height: 29px;
+    overflow: hidden;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
