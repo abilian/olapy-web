@@ -55,7 +55,7 @@ import { eventModalBus } from "../base-schema-options";
 
 export default {
   props: {
-    cube: String,
+    cube: Object,
     cubeName: String,
     dbConfig: String,
   },
