@@ -5,7 +5,7 @@
 table.pvtTable {
     font-size: 8pt;
     text-align: left;
-    /*border-collapse: collapse;*/
+    border-collapse: collapse;
 }
 
 table.pvtTable thead tr th, table.pvtTable tbody tr th {
@@ -34,6 +34,10 @@ table.pvtTable tbody tr td {
 
 tbody tr td:last-child {
     text-align: left;
+}
+
+tbody tr td{
+    color: #0f232de6;
 }
 
 .pvtTotal, .pvtGrandTotal {
@@ -86,13 +90,13 @@ tbody tr td:last-child {
 
 .pvtAxisContainer li span.pvtAttr {
     -webkit-text-size-adjust: 100%;
-    background: #F3F3F3;
-    border: 1px solid #DEDEDE;
+    background: #FBFBFB;
+    /*border: 1px solid #DEDEDE;*/
     padding: 2px 5px;
     white-space: nowrap;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-    border-radius: 5px;
+    border-radius: 20px;
 }
 
 .pvtTriangle {
@@ -164,7 +168,7 @@ tbody tr td:last-child {
 }
 
 .pvtRendererArea {
-    padding: 51px;
+    /*padding: 51px;*/
 }
 
 /*-----------------FOR SELECT-------------------------------*/
