@@ -1,0 +1,7 @@
+id;store_type;store_name;store_number;store_street_address;store_city;store_state;store_postal_code;store_country;store_manager;store_phone;store_fax;first_opened_date;last_remodel_date;store_sqft;grocery_sqft;frozen_sqft;meat_sqft;coffee_bar;video_store;salad_bar;prepared_food;florist
+0;HeadQuarters;HQ;0;1 Alameda Way;Alameda;CA;55555;USA;;;;;;0;0;0;0;0;0;0;0;0
+1;Supermarket;Store 1;1;2853 Bailey Rd;Acapulco;Guerrero;55555;Mexico;Jones;262-555-5124;262-555-5121;1982-01-09 00:00:00;1990-12-05 00:00:00;23593;17475;3671;2447;0;0;0;0;0
+2;Small Grocery;Store 2;2;5203 Catanzaro Way;Bellingham;WA;55555;USA;Smith;605-555-8203;605-555-8201;1970-04-02 00:00:00;1973-06-04 00:00:00;28206;22271;3561;2374;1;0;0;0;0
+3;Supermarket;Store 3;3;1501 Ramsey Circle;Bremerton;WA;55555;USA;Davis;509-555-1596;509-555-1591;1959-06-14 00:00:00;1967-11-19 00:00:00;39696;24390;9184;6122;0;0;1;1;0
+4;Gourmet Supermarket;Store 4;4;433 St George Dr;Camacho;Zacatecas;55555;Mexico;Johnson;304-555-1474;304-555-1471;1994-09-27 00:00:00;1995-12-01 00:00:00;23759;16844;4149;2766;1;0;1;1;1
+5;Small Grocery;Store 5;5;1250 Coggins Drive;Guadalajara;Jalisco;55555;Mexico;Green;801-555-4324;801-555-4321;1978-09-18 00:00:00;1991-06-29 00:00:00;24597;15012;5751;3834;1;0;0;0;0

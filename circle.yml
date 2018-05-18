@@ -8,4 +8,6 @@ dependencies:
 
 test:
   override:
-    - tox
+    # TODO: work with Python 3.6 too...
+    - tox -e py27
+

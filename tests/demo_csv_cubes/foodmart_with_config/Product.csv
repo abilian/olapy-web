@@ -1,0 +1,6 @@
+id;brand_name;product_name;SKU;SRP;gross_weight;net_weight;recyclable_package;low_fat;units_per_case;cases_per_pallet;shelf_width;shelf_height;shelf_depth
+1;Washington;Washington Berry Juice;554270458;2.85;8.39;6.39;0;0;30;14;16.9;12.6;7.4
+2;Washington;Washington Mango Drink;2027221987;0.74;7.42;4.42;0;1;18;8;13.4;3.71;22.6
+3;Washington;Washington Strawberry Drink;-1701770219;0.83;13.1;11.1;1;1;17;13;14.4;11.0;7.77
+4;Washington;Washington Cream Soda;-12353693;3.64;10.6;9.6;1;0;26;10;22.9;18.9;7.93
+5;Washington;Washington Diet Soda;-338154481;2.19;6.66;4.65;1;0;7;10;20.7;21.9;19.2

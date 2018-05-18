@@ -21,9 +21,11 @@ Installation
 
 To set up the application, run, ideally in a virtualenv::
 
-    pip install -r requirements.txt
+    make develop
 
-    export FLASK_APP=manage.py
+    export FLASK_APP=src/cli.py
+
+(see `make pip`, `make js`, `make build` etc).
 
 Usage
 -----
@@ -36,13 +38,20 @@ Run the demo
 Run:
 
 
-1. flask initdb to initialize the db and some demos
+1. ``olapy-web init`` to initialize the db and some demos
 
-2. flask run to run application, using the following credential to log in:
+2. ``make run`` to run application, using the following credential to log in:
 
   - **login**: admin
 
   - **password**: admin
+
+3. visit `127.0.0.1:5000` (and not localhost, for cross-origins concerns)
+
+Add data
+~~~~~~~~
+
+You can add csv data files under `instance/olapy-data/cubes/my-project/`.
 
 
 Developing
@@ -62,6 +71,17 @@ To run tests, run::
 or simply (on Unix-like systems)::
 
     make test
+
+Documentation
+~~~~~~~~~~~~~
+
+See the documentation: `http://olapy-web.readthedocs.io/en/latest/ <http://olapy-web.readthedocs.io/en/latest/>`_.
+
+To build it, run::
+
+    make doc
+
+and open ``docs/_build/html/index.html``.
 
 
 Credits
