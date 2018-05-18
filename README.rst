@@ -23,7 +23,7 @@ To set up the application, run, ideally in a virtualenv::
 
     make develop
 
-    export FLASK_APP=src/cli.py
+    export FLASK_APP=manage.py
 
 (see `make pip`, `make js`, `make build` etc).
 
@@ -38,7 +38,7 @@ Run the demo
 Run:
 
 
-1. ``olapy-web init`` to initialize the db and some demos
+1. ``olapy-web init`` or ``flask init`` to initialize the db and some demos
 
 2. ``make run`` to run application, using the following credential to log in:
 
