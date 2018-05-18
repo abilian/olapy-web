@@ -34,9 +34,9 @@ nbformat==4.4.0           # via plotly
 numpy==1.14.3             # via pandas
 olapy==0.6.2
 packaging==16.8           # via bonobo
-pandas==0.22.0            # via olapy
+pandas==0.23.0            # via olapy
 pathlib==1.0.1
-pbr==4.0.2                # via stevedore
+pbr==4.0.3                # via stevedore
 plotly==2.6.0
 psutil==5.4.5             # via bonobo
 psycopg2-binary==2.7.4
