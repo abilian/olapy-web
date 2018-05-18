@@ -1,13 +1,15 @@
 <template>
-    <li>
+    <li id="cubes-names">
       <a class="has-arrow  " href="#" aria-expanded="false">
         <i class="fa fa-table"></i>
         <span @click="$emit('reportingInterface', 'addCube')" class="hide-menu">Cubes
             <span class="label label-rouded label-danger pull-right">{{cubesNames.length}}</span>
         </span>
       </a>
-      <ul aria-expanded="false" class="collapse"  v-for="(cube, index) in cubesNames">
-        <li><button class="btn btn-default btn-outline btn-rounded m-b-10" :key="index">{{cube}}</button></li>
+      <ul aria-expanded="false" class="collapse">
+        <li  v-for="cube in cubesNames">
+            <button class="btn btn-default btn-outline btn-rounded m-b-10">{{cube}}</button>
+        </li>
 
 
       </ul>
