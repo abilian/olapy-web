@@ -57,7 +57,7 @@
 <script>
 import uploadFiles from "./upload-files";
 import connectDb from "./connect-db";
-import { eventModalBus } from "../base-schema-options.vue";
+import { eventModalBus } from "../base-add-cube.vue";
 
 export default {
   data: function() {

@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { eventModalBus } from "../base-schema-options.vue";
+import { eventModalBus } from "../base-add-cube.vue";
 
 export default {
   data: function() {

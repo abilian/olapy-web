@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { eventModalBus } from "../base-schema-options";
+import { eventModalBus } from "../base-add-cube";
 
 export default {
   props: {

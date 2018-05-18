@@ -75,7 +75,7 @@ import Cubes from "./cubes/the-cubes-names.vue";
 import UserDashboards from "./reporting/userDashboards";
 import DashboardMaker from "./reporting/dashboardMaker";
 import QueryBuilder from "./reporting/queryBuilder";
-import SchemaOptions from "./cubes/base-schema-options";
+import SchemaOptions from "./cubes/base-add-cube";
 
 export default {
   data: function() {
