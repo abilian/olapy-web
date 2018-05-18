@@ -121,7 +121,7 @@ export default {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
-    overflow: auto;
+  overflow: auto;
 }
 
 .modal-header h3 {
@@ -131,7 +131,7 @@ export default {
 
 .modal-body {
   margin: 20px 0;
-    overflow: auto;
+  overflow: auto;
 }
 
 .modal-default-button {
@@ -160,5 +160,4 @@ export default {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
-
 </style>

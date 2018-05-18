@@ -116,8 +116,7 @@ export default {
 </script>
 
 <style scoped>
-
-    .available-databases {
-        margin-left: 10px
-    }
+.available-databases {
+  margin-left: 10px;
+}
 </style>

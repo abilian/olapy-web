@@ -108,9 +108,7 @@ export default {
 </script>
 
 <style scoped>
-
-  .modal-container {
+.modal-container {
   width: 50%;
 }
-
 </style>
