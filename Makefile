@@ -1,7 +1,7 @@
 .PHONY: test unit full-test clean setup stage deploy
 
 
-SRC=olapy_web
+SRC=src
 PKG=$(SRC)
 
 default: test lint
@@ -19,18 +19,22 @@ test-with-coverage:
 #
 # setup
 #
-develop:
+pip:
 	@echo "--> Installing / updating python dependencies for development"
 	pip install -q pip-tools
 	pip-sync requirements.txt
 	pip install -q -r requirements.txt -r dev-requirements.txt
 	pip install -e .
 	@echo ""
+js:
+	cd front && yarn
+
+develop: pip js
 
 #
 # Linting
 #
-lint: lint-python
+lint: lint-python lint-js
 
 lint-python:
 	@echo "--> Linting Python files"
@@ -40,11 +44,17 @@ lint-python:
 	@echo "Running pylint, some errors reported might be false positives"
 	-pylint -E --rcfile .pylint.rc $(SRC)
 
+lint-js:
+	cd front && make lint
+
 #
 # Running web server
 #
+init:
+	olapy-web init
+
 run:
-	flask run
+	python manage.py
 
 
 clean:
@@ -66,10 +76,15 @@ clean:
 tidy: clean
 	rm -rf .tox
 
-format:
+format: format-py format-js
+
+format-py:
 	isort -rc $(SRC) *.py
 	yapf --style google -r -i $(SRC) *.py
 	isort -rc $(SRC) *.py
+
+format-js:
+	cd front && make format
 
 update-deps:
 	pip-compile -U > /dev/null
@@ -86,3 +101,9 @@ release:
 	cd /tmp/olapy-web ; python setup.py sdist
 	cd /tmp/olapy-web ; python setup.py sdist upload
 
+build:
+	cd front && yarn build
+	python manage.py
+
+doc:
+	cd docs && make html
