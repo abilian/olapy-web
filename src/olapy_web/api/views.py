@@ -415,7 +415,7 @@ def generate_sqla_uri(db_credentials):
     if not user and not server and db_credentials['selectCube'] == 'main':
         selected_cube = '//'
     else:
-        selected_cube = db_credentials['selectCube']
+        selected_cube = db_credentials.get('selectCube', '')
     if password:
         password = ':' + password
     if port:
@@ -423,6 +423,7 @@ def generate_sqla_uri(db_credentials):
     if server:
         server = '@' + server
     netloc = user + password + server + port
+    print(urlunparse((engine, netloc, selected_cube, "", "", "")))
     return urlunparse((engine, netloc, selected_cube, "", "", ""))
 
 
