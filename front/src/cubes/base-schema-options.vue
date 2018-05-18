@@ -109,6 +109,7 @@ export default {
       modalToShow: "first",
       cube: "",
       dbConfig: "",
+        SavedColumns: null
     };
   },
   components: {

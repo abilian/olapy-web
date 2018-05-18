@@ -29,7 +29,7 @@
         <td>
           <div v-if="establishedConnection.toUpperCase() === 'SUCCESS'">
             Available databases :
-            <div id="available-databases" v-for="(database, index) in loadedDatabases">
+            <div class="available-databases" v-for="(database, index) in loadedDatabases">
               <label>
                 <input type="radio" :key="index" :id="database" :value="database" v-model="selectedDatabase"
                        @change="getCubeInfos($event)">
@@ -38,7 +38,7 @@
               </label>
             </div>
           </div>
-          <span v-if="selectedDatabase !== ''">selected : {{selectedDatabase}}</span>
+          <!--<span v-if="selectedDatabase !== ''">selected : {{selectedDatabase}}</span>-->
         </td>
       </tr>
     </table>
@@ -116,4 +116,8 @@ export default {
 </script>
 
 <style scoped>
+
+    .available-databases {
+        margin-left: 10px
+    }
 </style>

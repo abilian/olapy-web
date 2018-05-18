@@ -68,9 +68,9 @@ import { eventModalBus } from "../base-schema-options.vue";
 
 export default {
   props: {
-    cube: String,
+    cube: Object,
     cubeName: String,
-    SavedColumns: String,
+    SavedColumns: Object,
     dbConfig: String,
   },
   data: function() {

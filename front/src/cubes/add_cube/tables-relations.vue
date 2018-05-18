@@ -66,8 +66,8 @@ import { eventModalBus } from "../base-schema-options.vue";
 export default {
   props: {
     factsTable: String,
-    chosenTables: String,
-    chosenMeasures: String,
+    chosenTables: Array,
+    chosenMeasures: Array,
     dbConfig: String,
   },
   data: function() {

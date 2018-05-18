@@ -35,9 +35,9 @@ export default {
   props: {
     cubeName: String,
     factsTable: String,
-    tablesAndColumnsResult: String,
-    chosenMeasures: String,
-    SavedColumns: String,
+    tablesAndColumnsResult: Object,
+    chosenMeasures: Array,
+    SavedColumns: Array,
     dbConfig: String,
   },
   data: function() {

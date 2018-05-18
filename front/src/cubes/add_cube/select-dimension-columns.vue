@@ -41,7 +41,7 @@ import { eventModalBus } from "../base-schema-options.vue";
 
 export default {
   props: {
-    selectTableColumns: String,
+    selectTableColumns: Object,
   },
   data: function() {
     return {
