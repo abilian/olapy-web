@@ -5,53 +5,52 @@
         <div class="modal-container">
 
           <div class="modal-header">
-            {{chartType}}
-            <label>
-              Chart Title
-              <input type="text" v-model="chartTitle">
-            </label>
+              <input class="form-control" placeholder="Chart Title" type="text" v-model="chartTitle">
           </div>
 
           <div class="modal-body">
             <slot name="body">
-              <label>
-                <select v-model="selectedCube">
-                  <option disabled value="">Choose</option>
+                <select class="form-control" v-model="selectedCube">
+                  <option disabled value="">Cube</option>
                     <option v-for="cube in userCubes">
                       {{ cube }}
                     </option>
                 </select>
-              </label>
-              <hr>
-              <label>
-                <select v-model="selectedColumn" v-show="allColumns.length > 0">
-                  <option disabled value="">Choose</option>
+
+              <div v-show="allColumns.length > 0">
+                <hr>
+                <select class="form-control" v-model="selectedColumn">
+                  <option disabled value="">Dimension</option>
                   <option v-for="dimension in allColumns">
                     {{ dimension }}
                   </option>
                 </select>
-              </label>
-              <hr>
-              <label>
-                <select v-model="selectedMeasures" v-show="selectedCube !== ''">
-                  <option disabled value="">Choose</option>
+              </div>
+
+              <div v-show="selectedCube !== ''">
+                <hr>
+                <select class="form-control" v-model="selectedMeasures">
+                  <option disabled value="">Measure</option>
                   <option v-for="measure in allMeasures">
                     {{ measure }}
                   </option>
                 </select>
-              </label>
+              </div>
+
             </slot>
           </div>
 
           <div class="modal-footer">
             <slot name="footer">
               <!--<button class="modal-default-button" @click="$emit('SelectInputStatus', 'second')">-->
-              <button class="modal-default-button" @click="validateChartProps()">
+              <button class="btn btn-default pull-left" @click="$emit('showChartProps', false)">
+                Cancel
+              </button>
+
+              <button class="btn btn-primary" @click="validateChartProps()">
                 Finish
               </button>
-              <button class="modal-default-button" @click="$emit('showChartProps', false)">
-                close
-              </button>
+
             </slot>
           </div>
         </div>
@@ -199,10 +198,11 @@ export default {
 .modal-wrapper {
   display: table-cell;
   vertical-align: middle;
+  overflow: auto;
 }
 
 .modal-container {
-  width: 70%;
+  width: 25%;
   height: 50%;
   margin: 0px auto;
   padding: 20px 30px;

@@ -5,25 +5,23 @@
         <div class="modal-container">
 
           <div class="modal-header">
-            <label v-if="source === 'CSV'">
-              Cube Name :
 
-              <input type="text" v-model="newCubeName">
-            </label>
-
-            <label style="margin-left: 70px">
-              Source :
-              <select v-model="source">
-                <option disabled value="">Choisissez</option>
+              <select class="form-control" v-model="source">
+                <option disabled value="">DataSource</option>
                 <option>CSV</option>
                 <option>DataBase</option>
               </select>
-            </label>
 
           </div>
 
+
+
           <div class="modal-body">
             <slot name="body">
+
+              <div v-if="source === 'CSV'">
+                <input class="form-control" placeholder="Cube Name" type="text" v-model="newCubeName">
+              </div>
 
               <upload-csv-files
                 :newCubeName="newCubeName"
@@ -41,11 +39,11 @@
           <div class="modal-footer">
             <slot name="footer">
               <!--<button class="modal-default-button" @click="$emit('SelectInputStatus', 'second')">-->
-              <button class="modal-default-button" @click="checkUpload();  $emit('newCubeName', newCubeName)">
-                Next
-              </button>
-              <button class="modal-default-button" @click="$emit('close', false)">
+              <button class="btn btn-default" @click="$emit('close', false)">
                 close
+              </button>
+              <button class="btn btn-primary" @click="checkUpload();  $emit('newCubeName', newCubeName)">
+                Next
               </button>
             </slot>
           </div>
@@ -110,10 +108,11 @@ export default {
 .modal-wrapper {
   display: table-cell;
   vertical-align: middle;
+  overflow: auto;
 }
 
 .modal-container {
-  width: 70%;
+  width: 40%;
   height: 50%;
   margin: 0px auto;
   padding: 20px 30px;
@@ -122,6 +121,7 @@ export default {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
+    overflow: auto;
 }
 
 .modal-header h3 {
@@ -131,6 +131,7 @@ export default {
 
 .modal-body {
   margin: 20px 0;
+    overflow: auto;
 }
 
 .modal-default-button {

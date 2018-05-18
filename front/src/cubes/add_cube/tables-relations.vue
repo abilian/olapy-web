@@ -3,6 +3,7 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
+
           <div class="modal-body">
             <slot name="body">
               <table class="table" style="width: 100%">
@@ -12,8 +13,8 @@
                   <th>{{factsTable}}</th>
                 </tr>
                 <tr>
-                  <td>
-                  </td>
+                  <!--<td>-->
+                  <!--</td>-->
                 </tr>
                 <tr v-for="(table, index) in tablesAndColumns" v-if="index !== factsTable">
                   <td>
@@ -44,11 +45,11 @@
           </div>
           <div class="modal-footer">
             <slot name="footer">
-              <button class="modal-default-button" @click="confirmRelations()">
-                Next
-              </button>
-              <button class="modal-default-button" @click="$emit('close', false)">
+              <button class="btn btn-btn" @click="$emit('close', false)">
                 close
+              </button>
+              <button class="btn btn-primary" @click="confirmRelations()">
+                Next
               </button>
             </slot>
           </div>
@@ -107,4 +108,9 @@ export default {
 </script>
 
 <style scoped>
+
+  .modal-container {
+  width: 44%;
+}
+
 </style>

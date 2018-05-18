@@ -6,47 +6,53 @@
 
           <div class="modal-body">
             <slot name="body">
-              <label v-if="dbConfig === ''">
-                Cube Name:
-                <input type="text" :value="cubeName">
-              </label>
-              <label>
-                Facts :
-                <select v-model="factsTable">
-                  <option v-for="(item, index) in cube.dimensions" :key="index" :value="item">{{ item }}
-                  </option>
-                </select>
-              </label>
-              <span>Measures : {{ measures.join(', ') }}</span><br>
-              <div v-for="(column, index) in tableColumnsNoId" style="float: left">
-                <label :for="column">
+              <!--<label v-if="dbConfig === ''">-->
+                <!--Cube Name:-->
+                <!--<input placeholder="Cube name" type="text" :value="cubeName">-->
+              <!--</label>-->
+              <input class="form-control" v-if="dbConfig === ''" placeholder="Cube name" type="text" :value="cubeName">
+            <br>
+              <select class="form-control" v-model="factsTable">
+                <option disabled value="">Facts Table</option>
+                <option v-for="(item, index) in cube.dimensions" :key="index" :value="item">{{ item }}
+                </option>
+              </select>
+              <br>
+              <div>
+
+
+                <span>Measures :</span><br>
+                <!--<span>Measures : {{ measures.join(', ') }}</span><br>-->
+                <!--<div v-for="(column, index) in tableColumnsNoId" style="float: left">-->
+                <label v-for="(column, index) in tableColumnsNoId" style="float: left" :for="column">
                   {{column}} <input type="checkbox" :id="column" :key="index" :value="column"
                                     v-model="measures">
                 </label>
+                <!--</div>-->
               </div>
-              <br>
-              <hr>
-              <div v-for="(table, index) in tables">
-                <label>
-                  <select v-model="table.name" :key="index" @change="updateTableColumns(table.name, index)">
-                    <option v-for="(item, index) in cube.dimensions" :key="index" :value="item">{{ item }}
-                    </option>
-                  </select>
-                </label>
-                <button type="button" @click="removeSection(index)">Remove</button>
-                <button type="button" @click="editColumns()">Select Columns</button>
-              </div>
-              <button type="button" @click="addComponent()">Select New Table</button>
+
+                <select title="Dimensions" v-for="(table, index) in tables" class="form-control" v-model="table.name" :key="index"
+                        @change="updateTableColumns(table.name, index)">
+                  <option disabled value="">Dimensions</option>
+                  <option v-for="(item, index) in cube.dimensions" :key="index" :value="item">{{ item }}
+                  </option>
+                </select>
+              <i class="fa fa-times" aria-hidden="true" @click="removeSection(index)"></i>
+              <i class="far fa-edit" @click="editColumns()"></i>
+              <!--<button type="button" @click="editColumns()">Select Columns</button>-->
+
+              <i class="fas fa-plus" @click="addComponent()"></i>
+              <!--<button type="button" @click="addComponent()">Select New Table</button>-->
             </slot>
           </div>
 
           <div class="modal-footer">
             <slot name="footer">
-              <button class="modal-default-button" @click="doRelations()">
-                Next
-              </button>
-              <button class="modal-default-button" @click="$emit('close', false)">
+              <button class="btn btn-default" @click="$emit('close', false)">
                 close
+              </button>
+              <button class="btn btn-primary" @click="doRelations()">
+                Next
               </button>
             </slot>
           </div>

@@ -6,28 +6,17 @@
 
           <div class="modal-body">
             <slot name="body">
-              <label>
-                Facts table :
-                <input type="text" :value="this.cube.facts">
-              </label>
 
-              <hr>
+
+              Facts table :
+              <span class="badge badge-light">{{cube.facts}}</span>
+
+              <br>
               Measures :
-              <div v-for="(measure, index) in this.cube.measures">
-
-                <label>
-                  <input type="text" :key="index" :value="measure">
-                </label>
-              </div>
-
-              <hr>
+              <span v-for="measure in cube.measures" class="badge badge-light">{{measure}}</span>
+              <br>
               Dimensions :
-              <div v-for="(dimension, index) in this.cube.dimensions">
-
-                <label>
-                  <input type="text" :key="index" :value="dimension">
-                </label>
-              </div>
+              <span v-for="dimension in this.cube.dimensions" class="badge badge-light">{{dimension}}</span>
             </slot>
           </div>
 
@@ -35,11 +24,11 @@
             <slot name="footer">
               <!--<button class="modal-default-button" @click="$emit('uploadStatus', 'second')">-->
               <!--<button class="modal-default-button" @click="checkUpload()">-->
-              <button class="modal-default-button" @click="confirmCube()">
-                Next
-              </button>
-              <button class="modal-default-button" @click="$emit('close', false)">
+              <button class="btn btn-btn" @click="$emit('close', false)">
                 close
+              </button>
+              <button class="btn btn-primary" @click="confirmCube()">
+                Next
               </button>
             </slot>
           </div>

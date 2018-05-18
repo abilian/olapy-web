@@ -4,46 +4,23 @@
     <table style="width:100%">
       <tr>
         <td>
-          <label>
-            engine :
-            <select v-model="engine" id="db-engine">
-              <option disabled value="">Choisissez</option>
+            <select class="form-control" v-model="engine" id="db-engine">
+              <option disabled value="">Engine</option>
               <option>Postgres</option>
               <option>Mysql</option>
               <option>Oracle</option>
               <option>SQL Server</option>
             </select>
-          </label>
-          <br>
 
-          <label>
-            Server Name :
-            <input type="text" v-model="servername"  id="servername" name="servername">
-          </label>
-          <br>
+            <input class="form-control" placeholder="Server Name" type="text" v-model="servername"  id="servername" name="servername">
 
-          <label>
-            Port :
-            <input type="text" v-model="port" name="port" id="port">
-          </label>
-          <br>
+            <input class="form-control" placeholder="Port" type="text" v-model="port" name="port" id="port">
 
-          <label>
-            User Name :
-            <input type="text" v-model="username" name="username" id="username">
-          </label>
-          <br>
+            <input class="form-control" placeholder="User Name" type="text" v-model="username" name="username" id="username">
 
-          <label>
-            Password :
-            <input type="text" v-model="password" name="password" id="password">
-          </label>
-          <br>
+            <input class="form-control" placeholder="Password" type="text" v-model="password" name="password" id="password">
 
-          <label>
-            Connect :
-            <input type="button" value="Connect" id="show-databases-btn" @click="connectDB()">
-          </label>
+          <input class="btn-info" type="button" value="Connect" id="show-databases-btn" @click="connectDB()">
 
           <div v-if="establishedConnection !== ''">
             Connection : {{establishedConnection}}

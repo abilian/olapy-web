@@ -84,6 +84,7 @@ export default {
 .modal-wrapper {
   display: table-cell;
   vertical-align: middle;
+  overflow: auto;
 }
 
 .modal-container {

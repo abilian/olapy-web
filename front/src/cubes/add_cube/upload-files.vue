@@ -2,7 +2,7 @@
   <div class="container">
     <!--UPLOAD-->
     <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving">
-      <h1>Upload csv files</h1>
+      <!--<h1>Upload csv files</h1>-->
       <div class="dropbox">
         <input type="file" multiple :name="uploadFieldName" :disabled="isSaving"
                @change="filesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length"
@@ -132,7 +132,7 @@ export default {
   outline-offset: -10px;
   background: lightcyan;
   color: dimgray;
-  padding: 10px 10px;
+  /*padding: 10px 10px;*/
   min-height: 200px; /* minimum height */
   position: relative;
   cursor: pointer;
@@ -158,5 +158,6 @@ export default {
 
 .container {
   width: 100%;
+  margin-top: 7px;
 }
 </style>

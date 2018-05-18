@@ -3,39 +3,30 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
+          <div class="modal-header">
+            Select columns to use in <u>good order</u> <b>(including the id column)</b>
+          </div>
 
           <div class="modal-body">
-            <slot name="body">
-              Select columns to use in <u>good order</u> <b>(including the id column)</b>
-              <div v-for="(columns, columns_index) in selectTableColumns">
-                <div v-for="(column, column_index) in columns" style="float: left">
-                  <label :for="column">
-                    <input v-model="selectedColumns['columns']" :key="columns_index + column_index" type="checkbox" :value="column">
-                    {{column}}
-                  </label>
-                </div>
-              </div>
+            <slot name="body" v-for="columns in selectTableColumns">
+              <label v-for="column in columns">
+                {{column}}
+                <input v-model="selectedColumns['columns']" type="checkbox"
+                       :value="column">
+              </label>
+
             </slot>
           </div>
+
           <div class="modal-footer">
             <slot name="footer">
-              <div>
-                Selected :
-                <ol>
-                  <li v-for="column in selectedColumns['columns']">
-                    {{ column }}
-                  </li>
-                </ol>
-              </div>
-
-              <button class="modal-default-button" @click="saveChoseCol()">
+              <button class="btn btn-btn" @click="closeChoseCol()">
+                Close
+              </button>
+              <button class="btn btn-primary" @click="saveChoseCol()">
                 Save
               </button>
 
-
-              <button class="modal-default-button" @click="closeChoseCol()">
-                Close
-              </button>
             </slot>
           </div>
         </div>

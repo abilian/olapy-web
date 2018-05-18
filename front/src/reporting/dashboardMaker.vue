@@ -30,7 +30,7 @@
                 class="dashboard"
                 :options="{group:'charts', sort: false}">
 
-            <div v-for="(element, index) in usedCharts" :id="element.type + (index)">{{element.type + (index)}}</div>
+            <div v-for="(element, index) in usedCharts" :id="element.type + (index)"></div>
 
             <grid-layout
                     :layout="layout"
