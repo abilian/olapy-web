@@ -78,17 +78,18 @@ export default {
       //       .text("[Full Screen]")
       //       //   add this when using vue-router
       //       .prependTo($("#pivotOptions"));
-        // .prependTo($("body"));
-        jQuery("#output")
-          .pivotUI(jQuery.csv.toArrays(this.df), {
-            renderers: $.extend(
-              jQuery.pivotUtilities.renderers,
-              jQuery.pivotUtilities.c3_renderers,
-              jQuery.pivotUtilities.d3_renderers,
-              jQuery.pivotUtilities.export_renderers
-            ),
-            hiddenAttributes: [""],
-          }).show();
+      // .prependTo($("body"));
+      jQuery("#output")
+        .pivotUI(jQuery.csv.toArrays(this.df), {
+          renderers: $.extend(
+            jQuery.pivotUtilities.renderers,
+            jQuery.pivotUtilities.c3_renderers,
+            jQuery.pivotUtilities.d3_renderers,
+            jQuery.pivotUtilities.export_renderers
+          ),
+          hiddenAttributes: [""],
+        })
+        .show();
     },
   },
   watch: {
@@ -100,17 +101,15 @@ export default {
         })
         .then(data => {
           this.df = data;
-          this.render_pivottable()
+          this.render_pivottable();
         });
-
     },
   },
 };
 </script>
 
 <style scoped>
-
-    #cube_selector {
-        width: 30%
-    }
+#cube_selector {
+  width: 15%;
+}
 </style>
