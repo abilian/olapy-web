@@ -23,7 +23,7 @@
 
                         <li>
                             <a href="#" aria-expanded="false"><i class="fa fa-columns"></i>
-                                <span @click="runQueryBuilder()" class="hide-menu">Query Builder</span>
+                                <span @click="reportingInterface='QBuilder'" class="hide-menu">Query Builder</span>
                             </a>
                             <ul aria-expanded="false" class="collapse">
                             </ul>
