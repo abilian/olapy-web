@@ -72,16 +72,15 @@ export default {
       //           .show();
       //  });
 
-      $(function() {
-        if (window.location != window.parent.location)
-          $("<a>", { target: "_blank", href: "" })
-            .text("[Full Screen]")
-            //   add this when using vue-router
-            .prependTo($("#pivotOptions"));
+      // $(function() {
+      //   if (window.location != window.parent.location)
+      //     $("<a>", { target: "_blank", href: "" })
+      //       .text("[Full Screen]")
+      //       //   add this when using vue-router
+      //       .prependTo($("#pivotOptions"));
         // .prependTo($("body"));
-
         jQuery("#output")
-          .pivotUI(jQuery.csv.toArrays($("#output").text()), {
+          .pivotUI(jQuery.csv.toArrays(this.df), {
             renderers: $.extend(
               jQuery.pivotUtilities.renderers,
               jQuery.pivotUtilities.c3_renderers,
@@ -89,9 +88,7 @@ export default {
               jQuery.pivotUtilities.export_renderers
             ),
             hiddenAttributes: [""],
-          })
-          .show();
-      });
+          }).show();
     },
   },
   watch: {
@@ -103,11 +100,10 @@ export default {
         })
         .then(data => {
           this.df = data;
+          this.render_pivottable()
         });
+
     },
-  },
-  mounted() {
-    this.render_pivottable();
   },
 };
 </script>
