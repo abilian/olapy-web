@@ -23,7 +23,7 @@
 
                         <li>
                             <a href="#" aria-expanded="false"><i class="fa fa-columns"></i>
-                                <span @click="runQueryBuilder()" class="hide-menu">Query Builder</span>
+                                <span @click="reportingInterface='QBuilder'" class="hide-menu">Query Builder</span>
                             </a>
                             <ul aria-expanded="false" class="collapse">
                             </ul>
@@ -86,20 +86,6 @@ export default {
       refreshDashboards: false,
       refreshCubes: false,
     };
-  },
-  methods: {
-    runQueryBuilder() {
-      this.$http
-        .get("api/query_builder")
-        .then(response => {
-          return response.json();
-        })
-        .then(data => {
-          //when i put this in queryBuilder.vue it didn't work
-          this.DataFrameCsv = data;
-          this.reportingInterface = "QBuilder";
-        });
-    },
   },
   components: {
     userCubes: Cubes,
