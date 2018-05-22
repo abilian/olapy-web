@@ -22,7 +22,6 @@ from werkzeug.utils import secure_filename
 import pandas as pd
 from flask import current_app
 
-from src.olapy_web.tools.cube_constructor import ConfigParser
 from ...models import Cube, User, Dashboard, Chart
 from ...extensions import db
 
