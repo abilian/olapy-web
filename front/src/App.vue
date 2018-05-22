@@ -87,20 +87,6 @@ export default {
       refreshCubes: false,
     };
   },
-  methods: {
-    runQueryBuilder() {
-      this.$http
-        .get("api/query_builder")
-        .then(response => {
-          return response.json();
-        })
-        .then(data => {
-          //when i put this in queryBuilder.vue it didn't work
-          this.DataFrameCsv = data;
-          this.reportingInterface = "QBuilder";
-        });
-    },
-  },
   components: {
     userCubes: Cubes,
     schemaOptions: SchemaOptions,

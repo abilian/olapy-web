@@ -2,7 +2,7 @@
 
     <div class="page-wrapper">
         <div id="pivotOptions" class="row page-titles">
-            <select class="form-control" v-model="selectedCube">
+            <select id="cube_selector" class="form-control" v-model="selectedCube">
                   <option disabled value="">Cube</option>
                     <option v-for="cube in userCubes">
                       {{ cube }}
@@ -109,4 +109,8 @@ export default {
 </script>
 
 <style scoped>
+
+    #cube_selector {
+        width: 30%
+    }
 </style>
