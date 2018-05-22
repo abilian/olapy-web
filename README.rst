@@ -38,7 +38,7 @@ Run the demo
 Run:
 
 
-1. ``olapy-web init`` or ``flask init`` to initialize the db and some demos
+1. ``flask init`` to initialize the db and some demos
 
 2. ``make run`` to run application, using the following credential to log in:
 
