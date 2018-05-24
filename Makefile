@@ -54,6 +54,7 @@ init:
 	olapy-web init
 
 run:
+	cd front && yarn build
 	python manage.py
 
 
@@ -100,10 +101,6 @@ release:
 	git clone . /tmp/olapy-web
 	cd /tmp/olapy-web ; python setup.py sdist
 	cd /tmp/olapy-web ; python setup.py sdist upload
-
-build:
-	cd front && yarn build
-	python manage.py
 
 doc:
 	cd docs && make html

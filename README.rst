@@ -37,10 +37,11 @@ Run the demo
 
 Run:
 
+1. export FLASK_APP=manage.py
 
-1. ``flask init`` to initialize the db and some demos
+2. ``flask init`` to initialize the db and some demos
 
-2. ``make run`` to run application, using the following credential to log in:
+3. ``make run`` to run application, using the following credential to log in:
 
   - **login**: admin
 
