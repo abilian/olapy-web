@@ -98,7 +98,7 @@ let GridItem = VueGridLayout.GridItem;
 export default {
   props: {
     reportingInterface: String,
-    selectedDashboard: String,
+    selectedDashboard: Object,
   },
   data: function() {
     return {
