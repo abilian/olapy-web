@@ -62,7 +62,7 @@ tbody tr td{
 
 .pvtAxisContainer, .pvtVals {
     border: 1px solid #e1e1e1;
-    background: #F1F1FF;
+    background: #FAFAFA;;
     padding: 5px;
     min-width: 20px;
     min-height: 20px;
@@ -90,7 +90,7 @@ tbody tr td{
 
 .pvtAxisContainer li span.pvtAttr {
     -webkit-text-size-adjust: 100%;
-    background: #FBFBFB;
+    background: #F0F5F5;
     /*border: 1px solid #DEDEDE;*/
     padding: 2px 5px;
     white-space: nowrap;
