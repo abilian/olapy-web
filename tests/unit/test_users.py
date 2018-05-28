@@ -1,4 +1,4 @@
-from src.models import User
+from olapy_web.models import User
 
 
 def test_user_creation(session):

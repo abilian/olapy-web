@@ -1,13 +1,12 @@
 from __future__ import absolute_import, division, print_function, \
     unicode_literals
 
-import json
 import os
 from os import listdir
 
 from os.path import isfile, join
 
-from src.olapy_web.api.views import get_cube_source_type, get_config
+from olapy_web.api.views import get_cube_source_type, get_config
 from tests.utils import chart_data
 
 CUBE_PATH = 'tests/demo_csv_cubes/sales'

@@ -3,7 +3,7 @@ from __future__ import absolute_import, division, print_function
 import imp
 import sys
 
-from src.cli import app
+from olapy_web.cli import app
 
 if __name__ == '__main__':
     try:

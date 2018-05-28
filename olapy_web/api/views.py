@@ -22,8 +22,8 @@ from werkzeug.utils import secure_filename
 import pandas as pd
 from flask import current_app
 
-from ...models import Cube, User, Dashboard, Chart
-from ...extensions import db
+from olapy_web.models import Cube, User, Dashboard, Chart
+from olapy_web.extensions import db
 
 API = Blueprint('api', __name__, template_folder='templates')
 api = API.route

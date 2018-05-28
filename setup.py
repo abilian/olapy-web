@@ -72,7 +72,7 @@ setup(
         "Programming Language :: Python :: 2.7",
         # "Topic :: Business intelligence",
     ],
-    entry_points={'console_scripts': ['olapy-web = src.cli:cli']},
+    entry_points={'console_scripts': ['olapy-web = olapy_web.cli:cli']},
     # cmdclass={
     #     'build_static': BuildStatic,
     #     'develop': DevelopWithBuildStatic,
