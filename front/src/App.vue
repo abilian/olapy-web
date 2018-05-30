@@ -64,7 +64,9 @@
         </schema-options>
 
         <keep-alive>
-            <query-builder :DataFrameCsv="DataFrameCsv" v-if="reportingInterface==='QBuilder' "></query-builder>
+            <query-builder @refreshPivotTables="refreshPivotTables = $event"
+                           :DataFrameCsv="DataFrameCsv"
+                           v-if="reportingInterface==='QBuilder' "></query-builder>
         </keep-alive>
 
         <notifications group="user" position="top center"/>

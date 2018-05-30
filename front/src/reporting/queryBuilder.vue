@@ -130,7 +130,7 @@ export default {
           title: "Successfully Added",
           type: "success",
         });
-        // this.$emit("refreshPivottables", true);
+        this.$emit("refreshPivotTables", true);
         this.$emit("reportingInterface", "main");
       } else {
         this.$notify({
