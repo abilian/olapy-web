@@ -21,13 +21,18 @@
                         </user-cubes>
 
 
-                        <li>
-                            <a href="#" aria-expanded="false"><i class="fa fa-columns"></i>
-                                <span @click="reportingInterface='QBuilder'" class="hide-menu">Query Builder</span>
-                            </a>
-                            <ul aria-expanded="false" class="collapse">
-                            </ul>
-                        </li>
+                        <user-pivot-tables @selectedPivotTable="selectedPivotTable = $event"
+                                         @reportingInterface="reportingInterface = $event"
+                                         @refreshPivotTables="refreshPivotTables = $event"
+                                         :refreshPivotTables="refreshPivotTables"
+                        />
+                        <!--<li>-->
+                            <!--<a href="#" aria-expanded="false"><i class="fa fa-columns"></i>-->
+                                <!--<span @click="reportingInterface='QBuilder'" class="hide-menu">Query Builder</span>-->
+                            <!--</a>-->
+                            <!--<ul aria-expanded="false" class="collapse">-->
+                            <!--</ul>-->
+                        <!--</li>-->
 
                     </ul>
                 </nav>
@@ -76,6 +81,7 @@ import UserDashboards from "./reporting/userDashboards";
 import DashboardMaker from "./reporting/dashboardMaker";
 import QueryBuilder from "./reporting/queryBuilder";
 import SchemaOptions from "./cubes/base-add-cube";
+import UserPivotTables from "./reporting/userPivotTables";
 
 export default {
   data: function() {
@@ -84,10 +90,12 @@ export default {
       selectedDashboard: "",
       DataFrameCsv: null,
       refreshDashboards: false,
+      refreshPivotTables: false,
       refreshCubes: false,
     };
   },
   components: {
+    UserPivotTables,
     userCubes: Cubes,
     schemaOptions: SchemaOptions,
     userDashboards: UserDashboards,

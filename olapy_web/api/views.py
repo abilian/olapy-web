@@ -551,3 +551,20 @@ def save_pivottable():
         db.session.add(pivottable)
     db.session.commit()
     return jsonify({'success': True}), 200
+
+
+@api('/pivottable/<pivottable_name>')
+def get_pivottable(pivottable_name):
+    pivottable = User.query.filter(User.id == current_user.id).first().pivottables.filter(
+        Pivottable.name == pivottable_name).first()
+    return jsonify({
+        'name': pivottable.name,
+        'columns': pivottable.columns,
+        'rows': pivottable.rows
+    })
+
+
+@api('/pivottable/all')
+def all_pivottables():
+    all_pivottables = User.query.filter(User.id == current_user.id).first().pivottables
+    return jsonify([pivottable.name for pivottable in all_pivottables])
