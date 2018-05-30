@@ -45,6 +45,7 @@
 export default {
   props: {
     DataFrameCsv: String,
+      selectedPivotTable: Object
   },
   data: function() {
     return {
@@ -54,19 +55,21 @@ export default {
       df: this.DataFrameCsv,
     };
   },
-  created() {
-    this.$http
+  methods: {
+      getUserCubes(){
+          let userCubes = [];
+              this.$http
       .get("api/cubes")
       .then(response => {
         return response.json();
       })
       .then(data => {
         for (let key in data) {
-          this.userCubes.push(data[key]);
+          userCubes.push(data[key]);
         }
       });
-  },
-  methods: {
+              return userCubes
+      },
     render_pivottable() {
       // RENDER PLOTLY CHARTS
       // $(function(){
@@ -88,7 +91,6 @@ export default {
       //       //   add this when using vue-router
       //       .prependTo($("#pivotOptions"));
       // .prependTo($("body"));
-
       jQuery("#output")
         .pivotUI(jQuery.csv.toArrays(this.df), {
           renderers: $.extend(
@@ -98,6 +100,8 @@ export default {
             jQuery.pivotUtilities.export_renderers
           ),
           hiddenAttributes: [""],
+            columns: this.selectedPivotTable.columns,
+            rows: this.selectedPivotTable.rows
           // vals: ["montant"],
           // aggregatorName: "Sum",
           // rendererName: "Heatmap",
@@ -127,11 +131,10 @@ export default {
 
         this.$notify({
           group: "user",
-          title: "Successfully Added",
+          title: "Successfully Saved",
           type: "success",
         });
         this.$emit("refreshPivotTables", true);
-        this.$emit("reportingInterface", "main");
       } else {
         this.$notify({
           group: "user",
@@ -153,6 +156,13 @@ export default {
           this.render_pivottable();
         });
     },
+  },
+      created() {
+    this.userCubes = this.getUserCubes();
+    if (this.selectedPivotTable){
+        this.selectedCube = 'sales'
+    }
+
   },
 };
 </script>

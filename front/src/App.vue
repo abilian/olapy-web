@@ -62,12 +62,12 @@
                         @refreshCubes="refreshCubes = $event">
 
         </schema-options>
-
-        <keep-alive>
+        <!--<keep-alive>-->
             <query-builder @refreshPivotTables="refreshPivotTables = $event"
+                           :selectedPivotTable="selectedPivotTable"
                            :DataFrameCsv="DataFrameCsv"
                            v-if="reportingInterface==='QBuilder' "></query-builder>
-        </keep-alive>
+        <!--</keep-alive>-->
 
         <notifications group="user" position="top center"/>
 
@@ -89,7 +89,8 @@ export default {
   data: function() {
     return {
       reportingInterface: "main",
-      selectedDashboard: "",
+      selectedDashboard: null,
+        selectedPivotTable: null,
       DataFrameCsv: null,
       refreshDashboards: false,
       refreshPivotTables: false,
