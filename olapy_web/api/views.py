@@ -532,6 +532,7 @@ def star_schema_df_query_builder(cube):
     executor = _load_cube(cube)
     return jsonify(executor.star_schema_dataframe.to_csv(encoding="utf-8"))
 
+
 @api('/pivottable/save', methods=['POST'])
 def save_pivottable():
     request_data = request.get_json()
@@ -544,9 +545,9 @@ def save_pivottable():
     else:
         pivottable = Pivottable(user_id=current_user.id,
                                 name=request_data['pivottableName'],
-                                rows= request_data['pvtRows'],
+                                rows=request_data['pvtRows'],
                                 columns=request_data['pvtCols']
-                              )
+                                )
         db.session.add(pivottable)
     db.session.commit()
     return jsonify({'success': True}), 200

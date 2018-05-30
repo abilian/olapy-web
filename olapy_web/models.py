@@ -75,6 +75,7 @@ class Dashboard(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     chart = db.relationship("Chart", uselist=False, backref="dashboard")
 
+
 class Pivottable(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)

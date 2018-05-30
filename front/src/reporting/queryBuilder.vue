@@ -48,10 +48,10 @@ export default {
   },
   data: function() {
     return {
-      pivottableName : null,
+      pivottableName: null,
       selectedCube: "",
       userCubes: [],
-      df: this.DataFrameCsv
+      df: this.DataFrameCsv,
     };
   },
   created() {
@@ -101,29 +101,28 @@ export default {
           // vals: ["montant"],
           // aggregatorName: "Sum",
           // rendererName: "Heatmap",
-
         })
         .show();
     },
-      getPivottableContent(){
-          let pvtDivs = {
-              'pvtRows': null,
-              'pvtCols': null
-          };
-          for (let pvtDiv in pvtDivs) {
-              let divContent = [];
-              let div = document.getElementsByClassName(pvtDiv);
-              for (let i = 0; i < div[0].children.length; i++) {
-              divContent.push(div[0].children[i].children[0].firstChild.data);
-          }
-          pvtDivs[pvtDiv] = divContent;
-          }
-          return pvtDivs
-      },
-      savePivottable(){
-                if (this.pivottableName) {
+    getPivottableContent() {
+      let pvtDivs = {
+        pvtRows: null,
+        pvtCols: null,
+      };
+      for (let pvtDiv in pvtDivs) {
+        let divContent = [];
+        let div = document.getElementsByClassName(pvtDiv);
+        for (let i = 0; i < div[0].children.length; i++) {
+          divContent.push(div[0].children[i].children[0].firstChild.data);
+        }
+        pvtDivs[pvtDiv] = divContent;
+      }
+      return pvtDivs;
+    },
+    savePivottable() {
+      if (this.pivottableName) {
         let pivottableContent = this.getPivottableContent();
-        pivottableContent['pivottableName'] = this.pivottableName;
+        pivottableContent["pivottableName"] = this.pivottableName;
         this.$http.post("api/pivottable/save", pivottableContent);
 
         this.$notify({
@@ -140,8 +139,7 @@ export default {
           type: "error",
         });
       }
-
-      }
+    },
   },
   watch: {
     selectedCube: function(cube) {
