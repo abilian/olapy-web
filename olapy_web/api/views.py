@@ -22,7 +22,7 @@ from werkzeug.utils import secure_filename
 import pandas as pd
 from flask import current_app
 
-from olapy_web.models import Cube, User, Dashboard, Chart
+from olapy_web.models import Cube, User, Dashboard, Chart, Pivottable
 from olapy_web.extensions import db
 
 API = Blueprint('api', __name__, template_folder='templates')
@@ -531,3 +531,22 @@ def get_dashboard(dashboard_name):
 def star_schema_df_query_builder(cube):
     executor = _load_cube(cube)
     return jsonify(executor.star_schema_dataframe.to_csv(encoding="utf-8"))
+
+@api('/pivottable/save', methods=['POST'])
+def save_pivottable():
+    request_data = request.get_json()
+    user_pivottable = User.query.filter(User.id == current_user.id).first().pivottables.filter(
+        Pivottable.name == request_data['pivottableName']).first()
+    if user_pivottable:
+        user_pivottable.name = request_data['pivottableName']
+        user_pivottable.rows = request_data['pvtRows']
+        user_pivottable.columns = request_data['pvtCols']
+    else:
+        pivottable = Pivottable(user_id=current_user.id,
+                                name=request_data['pivottableName'],
+                                rows= request_data['pvtRows'],
+                                columns=request_data['pvtCols']
+                              )
+        db.session.add(pivottable)
+    db.session.commit()
+    return jsonify({'success': True}), 200

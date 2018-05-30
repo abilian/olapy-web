@@ -21,6 +21,7 @@ class User(db.Model, UserMixin):
     cubes = db.relationship('Cube', secondary=cubes, lazy='dynamic',
                             backref=db.backref('users', lazy=True))
     dashboards = db.relationship('Dashboard', backref='user', lazy='dynamic')
+    pivottables = db.relationship('Pivottable', backref='user', lazy='dynamic')
 
     @property
     def password(self):
@@ -73,6 +74,13 @@ class Dashboard(db.Model):
     name = db.Column(db.String(120), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     chart = db.relationship("Chart", uselist=False, backref="dashboard")
+
+class Pivottable(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    rows = db.Column(db.String(120), nullable=True)
+    columns = db.Column(db.String(120), nullable=True)
 
 
 class Chart(db.Model):

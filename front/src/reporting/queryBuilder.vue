@@ -2,19 +2,27 @@
 
     <div class="page-wrapper">
         <div id="pivotOptions" class="row page-titles">
-            <select id="cube_selector" class="form-control" v-model="selectedCube">
-                  <option disabled value="">Cube</option>
+
+            <div class="col-md-5 align-self-center">
+                <select id="cube_selector" class="form-control" v-model="selectedCube">
+                    <option disabled value="">Cube</option>
                     <option v-for="cube in userCubes">
-                      {{ cube }}
+                        {{ cube }}
                     </option>
                 </select>
-            <div class="col-md-5 align-self-center">
-
             </div>
-            <div class="col-md-7 align-self-center">
+            <div v-if="selectedCube" class="col-md-7 align-self-center">
                 <ol class="breadcrumb">
+                    <label>
+                        <input type="text" v-model="pivottableName" class="form-control input-rounded"
+                               placeholder="Pivottable Title">
+                    </label>
+
+                    <button type="button" class="btn btn-success m-b-10 m-l-5" @click="savePivottable">Save</button>
                 </ol>
             </div>
+
+
 
         </div>
 
@@ -40,9 +48,10 @@ export default {
   },
   data: function() {
     return {
+      pivottableName : null,
       selectedCube: "",
       userCubes: [],
-      df: this.DataFrameCsv,
+      df: this.DataFrameCsv
     };
   },
   created() {
@@ -79,6 +88,7 @@ export default {
       //       //   add this when using vue-router
       //       .prependTo($("#pivotOptions"));
       // .prependTo($("body"));
+
       jQuery("#output")
         .pivotUI(jQuery.csv.toArrays(this.df), {
           renderers: $.extend(
@@ -88,9 +98,50 @@ export default {
             jQuery.pivotUtilities.export_renderers
           ),
           hiddenAttributes: [""],
+          // vals: ["montant"],
+          // aggregatorName: "Sum",
+          // rendererName: "Heatmap",
+
         })
         .show();
     },
+      getPivottableContent(){
+          let pvtDivs = {
+              'pvtRows': null,
+              'pvtCols': null
+          };
+          for (let pvtDiv in pvtDivs) {
+              let divContent = [];
+              let div = document.getElementsByClassName(pvtDiv);
+              for (let i = 0; i < div[0].children.length; i++) {
+              divContent.push(div[0].children[i].children[0].firstChild.data);
+          }
+          pvtDivs[pvtDiv] = divContent;
+          }
+          return pvtDivs
+      },
+      savePivottable(){
+                if (this.pivottableName) {
+        let pivottableContent = this.getPivottableContent();
+        pivottableContent['pivottableName'] = this.pivottableName;
+        this.$http.post("api/pivottable/save", pivottableContent);
+
+        this.$notify({
+          group: "user",
+          title: "Successfully Added",
+          type: "success",
+        });
+        // this.$emit("refreshPivottables", true);
+        this.$emit("reportingInterface", "main");
+      } else {
+        this.$notify({
+          group: "user",
+          title: "Missing pivottable title",
+          type: "error",
+        });
+      }
+
+      }
   },
   watch: {
     selectedCube: function(cube) {
@@ -110,6 +161,6 @@ export default {
 
 <style scoped>
 #cube_selector {
-  width: 15%;
+  width: 42%;
 }
 </style>
