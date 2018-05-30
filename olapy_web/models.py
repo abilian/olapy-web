@@ -76,14 +76,6 @@ class Dashboard(db.Model):
     chart = db.relationship("Chart", uselist=False, backref="dashboard")
 
 
-class Pivottable(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    rows = db.Column(db.String(120), nullable=True)
-    columns = db.Column(db.String(120), nullable=True)
-
-
 class Chart(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     _used_charts = db.Column(db.String(120), nullable=True)
@@ -114,6 +106,33 @@ class Chart(db.Model):
     @charts_data.setter
     def charts_data(self, value):
         self._charts_data = json.dumps(value)
+
+    def __repr__(self):
+        return str(self.__dict__)
+
+
+class Pivottable(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    _rows = db.Column(db.String(120), nullable=True)
+    _columns = db.Column(db.String(120), nullable=True)
+
+    @property
+    def rows(self):
+        return self._rows.split(',')
+
+    @rows.setter
+    def rows(self, value):
+        self._rows = ','.join(value)
+
+    @property
+    def columns(self):
+        return self._columns.split(',')
+
+    @columns.setter
+    def columns(self, value):
+        self._columns = ','.join(value)
 
     def __repr__(self):
         return str(self.__dict__)
