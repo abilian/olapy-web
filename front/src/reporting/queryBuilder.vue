@@ -105,6 +105,7 @@ export default {
       //       //   add this when using vue-router
       //       .prependTo($("#pivotOptions"));
       // .prependTo($("body"));
+
       jQuery("#output")
         .pivotUI(jQuery.csv.toArrays(this.df), {
           renderers: $.extend(
@@ -114,7 +115,7 @@ export default {
             jQuery.pivotUtilities.export_renderers
           ),
           hiddenAttributes: [""],
-          columns: this.columns,
+          cols: this.columns,
           rows: this.rows,
           // vals: ["montant"],
           // aggregatorName: "Sum",
@@ -172,8 +173,8 @@ export default {
         });
     },
     selectedPivotTable: function(pivotTable) {
+    this.pivottableName = pivotTable.name;
       this.selectedCube = pivotTable.cube_name;
-      this.pivottableName = pivotTable.name;
     },
   },
   created() {
