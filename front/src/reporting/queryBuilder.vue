@@ -173,8 +173,13 @@ export default {
         });
     },
     selectedPivotTable: function(pivotTable) {
-    this.pivottableName = pivotTable.name;
-      this.selectedCube = pivotTable.cube_name;
+      if (pivotTable.cube_name && pivotTable.name) {
+        this.pivottableName = pivotTable.name;
+        this.selectedCube = pivotTable.cube_name;
+      } else {
+        this.df = "";
+        this.render_pivottable();
+      }
     },
   },
   created() {

@@ -2,7 +2,7 @@
     <li>
         <a class="has-arrow  " href="#" aria-expanded="false">
             <i class="fa fa-tachometer"></i>
-            <span @click="$emit('reportingInterface', 'QBuilder')" class="hide-menu">Query Builder
+            <span @click="selectPivotTable()" class="hide-menu">Query Builder
                     <span class="label label-rouded label-success pull-right">{{userPivotTables.length}}</span>
                   </span>
         </a>
@@ -28,10 +28,21 @@ export default {
   },
   methods: {
     selectPivotTable(userPivotTable) {
-      this.$http.get("api/pivottable/" + userPivotTable).then(response => {
-        this.$emit("selectedPivotTable", response.body);
+      if (userPivotTable) {
+        this.$http.get("api/pivottable/" + userPivotTable).then(response => {
+          this.$emit("selectedPivotTable", response.body);
+          this.$emit("reportingInterface", "QBuilder");
+        });
+      } else {
+        let emptyPVT = {
+          name: "",
+          cube_name: "",
+          columns: [],
+          rows: [],
+        };
+        this.$emit("selectedPivotTable", emptyPVT);
         this.$emit("reportingInterface", "QBuilder");
-      });
+      }
     },
     getAllPivotTables() {
       let pivotTables = [];
