@@ -538,6 +538,7 @@ def save_pivottable():
     request_data = request.get_json()
     user_pivottable = User.query.filter(User.id == current_user.id).first().pivottables.filter(
         Pivottable.name == request_data['pivottableName']).first()
+    selected_cube = Cube.query.filter(User.id == current_user.id, Cube.name == request_data['cubeName']).first()
     if user_pivottable:
         user_pivottable.name = request_data['pivottableName']
         user_pivottable.rows = request_data['pvtRows']
@@ -546,7 +547,8 @@ def save_pivottable():
         pivottable = Pivottable(user_id=current_user.id,
                                 name=request_data['pivottableName'],
                                 rows=request_data['pvtRows'],
-                                columns=request_data['pvtCols']
+                                columns=request_data['pvtCols'],
+                                cube=selected_cube
                                 )
         db.session.add(pivottable)
     db.session.commit()
@@ -560,7 +562,8 @@ def get_pivottable(pivottable_name):
     return jsonify({
         'name': pivottable.name,
         'columns': pivottable.columns,
-        'rows': pivottable.rows
+        'rows': pivottable.rows,
+        'cube_name': pivottable.cube.name
     })
 
 

@@ -90,7 +90,7 @@ export default {
     return {
       reportingInterface: "main",
       selectedDashboard: null,
-        selectedPivotTable: null,
+      selectedPivotTable: null,
       DataFrameCsv: null,
       refreshDashboards: false,
       refreshPivotTables: false,

@@ -48,6 +48,7 @@ class Cube(db.Model):
     source = db.Column(db.String(50))
     _config = db.Column(db.String(200))
     _db_config = db.Column(db.String(100))
+    pivottables = db.relationship('Pivottable', backref='cube', lazy='dynamic')
 
     @property
     def config(self):
@@ -115,6 +116,7 @@ class Pivottable(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    cube_id = db.Column(db.Integer, db.ForeignKey('cube.id'), nullable=False)
     _rows = db.Column(db.String(120), nullable=True)
     _columns = db.Column(db.String(120), nullable=True)
 

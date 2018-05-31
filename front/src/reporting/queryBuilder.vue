@@ -2,7 +2,6 @@
 
     <div class="page-wrapper">
         <div id="pivotOptions" class="row page-titles">
-
             <div class="col-md-5 align-self-center">
                 <select id="cube_selector" class="form-control" v-model="selectedCube">
                     <option disabled value="">Cube</option>
@@ -21,7 +20,6 @@
                     <button type="button" class="btn btn-success m-b-10 m-l-5" @click="savePivottable">Save</button>
                 </ol>
             </div>
-
 
 
         </div>
@@ -45,7 +43,7 @@
 export default {
   props: {
     DataFrameCsv: String,
-      selectedPivotTable: Object
+    selectedPivotTable: Object,
   },
   data: function() {
     return {
@@ -55,21 +53,37 @@ export default {
       df: this.DataFrameCsv,
     };
   },
+  computed: {
+    rows() {
+      if (this.selectedPivotTable) {
+        return this.selectedPivotTable.rows;
+      } else {
+        return [];
+      }
+    },
+    columns() {
+      if (this.selectedPivotTable) {
+        return this.selectedPivotTable.columns;
+      } else {
+        return [];
+      }
+    },
+  },
   methods: {
-      getUserCubes(){
-          let userCubes = [];
-              this.$http
-      .get("api/cubes")
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        for (let key in data) {
-          userCubes.push(data[key]);
-        }
-      });
-              return userCubes
-      },
+    getUserCubes() {
+      let userCubes = [];
+      this.$http
+        .get("api/cubes")
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          for (let key in data) {
+            userCubes.push(data[key]);
+          }
+        });
+      return userCubes;
+    },
     render_pivottable() {
       // RENDER PLOTLY CHARTS
       // $(function(){
@@ -100,8 +114,8 @@ export default {
             jQuery.pivotUtilities.export_renderers
           ),
           hiddenAttributes: [""],
-            columns: this.selectedPivotTable.columns,
-            rows: this.selectedPivotTable.rows
+          columns: this.columns,
+          rows: this.rows,
           // vals: ["montant"],
           // aggregatorName: "Sum",
           // rendererName: "Heatmap",
@@ -127,6 +141,7 @@ export default {
       if (this.pivottableName) {
         let pivottableContent = this.getPivottableContent();
         pivottableContent["pivottableName"] = this.pivottableName;
+        pivottableContent["cubeName"] = this.selectedCube;
         this.$http.post("api/pivottable/save", pivottableContent);
 
         this.$notify({
@@ -156,13 +171,18 @@ export default {
           this.render_pivottable();
         });
     },
+    selectedPivotTable: function(pivotTable) {
+      this.selectedCube = pivotTable.cube_name;
+      this.pivottableName = pivotTable.name;
+    },
   },
-      created() {
+  created() {
     this.userCubes = this.getUserCubes();
-    if (this.selectedPivotTable){
-        this.selectedCube = 'sales'
-    }
 
+    if (this.selectedPivotTable) {
+      this.selectedCube = this.selectedPivotTable.cube_name;
+      this.pivottableName = this.selectedPivotTable.name;
+    }
   },
 };
 </script>
