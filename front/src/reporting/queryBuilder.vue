@@ -29,7 +29,7 @@
 
             <div style="padding-left: 25px">
                 <div class="row" style="margin-right: 25px">
-                    <div id="output" style="overflow: auto; display: none;">{{df}}</div>
+                    <div id="output" style="overflow: auto; display: none;">{{DataFrameCsv}}</div>
                 </div>
             </div>
         </div>
@@ -42,7 +42,6 @@
 <script>
 export default {
   props: {
-    DataFrameCsv: String,
     selectedPivotTable: Object,
   },
   data: function() {
@@ -50,7 +49,7 @@ export default {
       pivottableName: null,
       selectedCube: "",
       userCubes: [],
-      df: this.DataFrameCsv,
+      DataFrameCsv: null,
     };
   },
   computed: {
@@ -107,7 +106,7 @@ export default {
       // .prependTo($("body"));
 
       jQuery("#output")
-        .pivotUI(jQuery.csv.toArrays(this.df), {
+        .pivotUI(jQuery.csv.toArrays(this.DataFrameCsv), {
           renderers: $.extend(
             jQuery.pivotUtilities.renderers,
             jQuery.pivotUtilities.c3_renderers,
@@ -161,24 +160,26 @@ export default {
     },
   },
   watch: {
-    selectedCube: function(cube) {
+    selectedCube(cube) {
       this.$http
         .get("api/query_builder/" + cube)
         .then(response => {
           return response.json();
         })
         .then(data => {
-          this.df = data;
+          this.DataFrameCsv = data;
           this.render_pivottable();
         });
     },
-    selectedPivotTable: function(pivotTable) {
+    selectedPivotTable(pivotTable) {
       if (pivotTable.cube_name && pivotTable.name) {
-        this.pivottableName = pivotTable.name;
         this.selectedCube = pivotTable.cube_name;
+        this.pivottableName = pivotTable.name;
+
       } else {
-        this.df = "";
-        this.render_pivottable();
+          $("#output").empty();
+          this.selectedCube = "";
+          this.pivottableName = "";
       }
     },
   },

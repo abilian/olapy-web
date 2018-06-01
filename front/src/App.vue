@@ -65,7 +65,6 @@
         <!--<keep-alive>-->
             <query-builder @refreshPivotTables="refreshPivotTables = $event"
                            :selectedPivotTable="selectedPivotTable"
-                           :DataFrameCsv="DataFrameCsv"
                            v-if="reportingInterface==='QBuilder' "></query-builder>
         <!--</keep-alive>-->
 
@@ -91,7 +90,6 @@ export default {
       reportingInterface: "main",
       selectedDashboard: null,
       selectedPivotTable: null,
-      DataFrameCsv: null,
       refreshDashboards: false,
       refreshPivotTables: false,
       refreshCubes: false,
