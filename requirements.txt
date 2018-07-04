@@ -4,7 +4,7 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
-alembic==0.9.9            # via flask-migrate
+alembic==0.9.10           # via flask-migrate
 appdirs==1.4.3            # via fs
 attrs==18.1.0             # via olapy
 awesome-slugify==1.6.5    # via olapy
@@ -20,14 +20,14 @@ flask-migrate==2.2.1
 flask-sqlalchemy==2.3.2
 flask-wtf==0.14.2
 flask==1.0.2
-fs==2.0.23                # via bonobo
+fs==2.0.24                # via bonobo
 idna==2.7                 # via requests
 ipython-genutils==0.2.0   # via nbformat, traitlets
 itsdangerous==0.24        # via flask
 jinja2==2.10              # via flask
 jsonschema==2.6.0         # via nbformat
 jupyter-core==4.4.0       # via nbformat
-lxml==4.2.2               # via olapy
+lxml==4.2.3               # via olapy
 mako==1.0.7               # via alembic
 markupsafe==1.0           # via jinja2, mako
 nbformat==4.4.0           # via plotly
@@ -44,7 +44,7 @@ pyparsing==2.2.0          # via packaging
 python-dateutil==2.7.3    # via alembic, pandas
 python-dotenv==0.8.2      # via olapy
 python-editor==1.0.3      # via alembic
-pytz==2018.4              # via fs, pandas, plotly, spyne
+pytz==2018.5              # via fs, pandas, plotly, spyne
 pyyaml==3.12              # via olapy
 regex==2018.6.21          # via awesome-slugify, olapy
 requests==2.19.1          # via bonobo, plotly
