@@ -47,7 +47,7 @@ Run:
 
   - **password**: admin
 
-3. visit `127.0.0.1:5000` (and not localhost, for cross-origins concerns)
+3. visit `127.0.0.1:5000` (and not localhost, for cross-origins concerns) ideally with google chrome.
 
 Add data
 ~~~~~~~~
