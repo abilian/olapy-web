@@ -1,6 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+// const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   entry: './src/main.js',
@@ -11,7 +11,7 @@ module.exports = {
     filename: 'build.js'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.vue$/,
         loader: "vue-loader",
