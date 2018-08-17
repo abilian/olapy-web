@@ -24,61 +24,61 @@
 </template>
 
 <script>
-    export default {
-        props: {
-            refreshPivotTables: Boolean,
-        },
-        data: function () {
-            return {
-                userPivotTables: [],
-            };
-        },
-        methods: {
-            selectPivotTable(userPivotTable) {
-                if (userPivotTable) {
-                    this.$http.get("api/pivottable/" + userPivotTable).then(response => {
-                        this.$emit("selectedPivotTable", response.body);
-                        this.$emit("reportingInterface", "QBuilder");
-                    });
-                } else {
-                    let emptyPVT = {
-                        name: "",
-                        cube_name: "",
-                        columns: [],
-                        rows: [],
-                    };
-                    this.$emit("selectedPivotTable", emptyPVT);
-                    this.$emit("reportingInterface", "QBuilder");
-                }
-            },
-            getAllPivotTables() {
-                let pivotTables = [];
-                this.$http
-                    .get("api/pivottable/all")
-                    .then(response => {
-                        return response.json();
-                    })
-                    .then(data => {
-                        for (let key in data) {
-                            pivotTables.push(data[key]);
-                        }
-                    });
-                this.userPivotTables = pivotTables;
-            },
-        },
-
-        watch: {
-            refreshPivotTables: function (val) {
-                if (val === true) {
-                    this.getAllPivotTables();
-                    this.$emit("refreshPivotTables", false);
-                }
-            },
-        },
-        mounted() {
-            this.getAllPivotTables();
-        },
+export default {
+  props: {
+    refreshPivotTables: Boolean,
+  },
+  data: function() {
+    return {
+      userPivotTables: [],
     };
+  },
+  methods: {
+    selectPivotTable(userPivotTable) {
+      if (userPivotTable) {
+        this.$http.get("api/pivottable/" + userPivotTable).then(response => {
+          this.$emit("selectedPivotTable", response.body);
+          this.$emit("reportingInterface", "QBuilder");
+        });
+      } else {
+        let emptyPVT = {
+          name: "",
+          cube_name: "",
+          columns: [],
+          rows: [],
+        };
+        this.$emit("selectedPivotTable", emptyPVT);
+        this.$emit("reportingInterface", "QBuilder");
+      }
+    },
+    getAllPivotTables() {
+      let pivotTables = [];
+      this.$http
+        .get("api/pivottable/all")
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          for (let key in data) {
+            pivotTables.push(data[key]);
+          }
+        });
+      this.userPivotTables = pivotTables;
+    },
+  },
+
+  watch: {
+    refreshPivotTables: function(val) {
+      if (val === true) {
+        this.getAllPivotTables();
+        this.$emit("refreshPivotTables", false);
+      }
+    },
+  },
+  mounted() {
+    this.getAllPivotTables();
+  },
+};
 </script>
 
 <style scoped>

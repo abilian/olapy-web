@@ -175,11 +175,10 @@ export default {
       if (pivotTable.cube_name && pivotTable.name) {
         this.selectedCube = pivotTable.cube_name;
         this.pivottableName = pivotTable.name;
-
       } else {
-          $("#output").empty();
-          this.selectedCube = "";
-          this.pivottableName = "";
+        $("#output").empty();
+        this.selectedCube = "";
+        this.pivottableName = "";
       }
     },
   },

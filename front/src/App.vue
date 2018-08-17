@@ -77,68 +77,63 @@
 
 
 <script>
-    import Cubes from "./cubes/the-cubes-names.vue";
-    import UserDashboards from "./reporting/userDashboards";
-    import DashboardMaker from "./reporting/dashboardMaker";
-    import QueryBuilder from "./reporting/queryBuilder";
-    import SchemaOptions from "./cubes/base-add-cube";
-    import UserPivotTables from "./reporting/userPivotTables";
+import Cubes from "./cubes/the-cubes-names.vue";
+import UserDashboards from "./reporting/userDashboards";
+import DashboardMaker from "./reporting/dashboardMaker";
+import QueryBuilder from "./reporting/queryBuilder";
+import SchemaOptions from "./cubes/base-add-cube";
+import UserPivotTables from "./reporting/userPivotTables";
 
-    export default {
-        data: function () {
-            return {
-                reportingInterface: "main",
-                selectedDashboard: null,
-                selectedPivotTable: null,
-                refreshDashboards: false,
-                refreshPivotTables: false,
-                refreshCubes: false,
-            };
-        },
-        components: {
-            UserPivotTables,
-            userCubes: Cubes,
-            schemaOptions: SchemaOptions,
-            userDashboards: UserDashboards,
-            dashboardMaker: DashboardMaker,
-            queryBuilder: QueryBuilder,
-        },
+export default {
+  data: function() {
+    return {
+      reportingInterface: "main",
+      selectedDashboard: null,
+      selectedPivotTable: null,
+      refreshDashboards: false,
+      refreshPivotTables: false,
+      refreshCubes: false,
     };
+  },
+  components: {
+    UserPivotTables,
+    userCubes: Cubes,
+    schemaOptions: SchemaOptions,
+    userDashboards: UserDashboards,
+    dashboardMaker: DashboardMaker,
+    queryBuilder: QueryBuilder,
+  },
+};
 </script>
 
 <style>
+/*used in user-dashboards, user-cubes and user-pivot-tables  */
+.has-arrow {
+  margin-left: 79%;
+  width: 15%;
+  height: 33px;
+}
 
-    /*used in user-dashboards, user-cubes and user-pivot-tables  */
-    .has-arrow {
+/*used in user-dashboards, user-cubes and user-pivot-tables  */
+.nav-btn {
+  width: 65%;
+  float: left;
+  margin-left: 5%;
+  margin-top: 2%;
+}
 
-        margin-left: 79%;
-        width: 15%;
-        height: 33px;
+/*used in user-dashboards, user-cubes and user-pivot-tables  */
+.white-btn {
+  background-color: #fff0;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  color: #47657b;
+}
 
-    }
-
-    /*used in user-dashboards, user-cubes and user-pivot-tables  */
-    .nav-btn {
-        width: 65%;
-        float: left;
-        margin-left: 5%;
-        margin-top: 2%;
-    }
-
-    /*used in user-dashboards, user-cubes and user-pivot-tables  */
-    .white-btn {
-
-        background-color: #fff0;
-        background-repeat: no-repeat;
-        border: none;
-        cursor: pointer;
-        overflow: hidden;
-        outline: none;
-        color: #47657b;
-    }
-
-    .white-btn span {
-        margin-left: 5px;
-    }
-
+.white-btn span {
+  margin-left: 5px;
+}
 </style>
