@@ -13,8 +13,8 @@
                         <user-dashboards @selectedDashboard="selectedDashboard = $event"
                                          @reportingInterface="reportingInterface = $event"
                                          @refreshDashboards="refreshDashboards = $event"
-                                         :refreshDashboards="refreshDashboards"
-                        />
+                                         :refreshDashboards="refreshDashboards"/>
+
                         <user-cubes @reportingInterface="reportingInterface = $event"
                                     @refreshCubes="refreshCubes = $event"
                                     :refreshCubes="refreshCubes">
@@ -22,16 +22,16 @@
 
 
                         <user-pivot-tables @selectedPivotTable="selectedPivotTable = $event"
-                                         @reportingInterface="reportingInterface = $event"
-                                         @refreshPivotTables="refreshPivotTables = $event"
-                                         :refreshPivotTables="refreshPivotTables"
+                                           @reportingInterface="reportingInterface = $event"
+                                           @refreshPivotTables="refreshPivotTables = $event"
+                                           :refreshPivotTables="refreshPivotTables"
                         />
                         <!--<li>-->
-                            <!--<a href="#" aria-expanded="false"><i class="fa fa-columns"></i>-->
-                                <!--<span @click="reportingInterface='QBuilder'" class="hide-menu">Query Builder</span>-->
-                            <!--</a>-->
-                            <!--<ul aria-expanded="false" class="collapse">-->
-                            <!--</ul>-->
+                        <!--<a href="#" aria-expanded="false"><i class="fa fa-columns"></i>-->
+                        <!--<span @click="reportingInterface='QBuilder'" class="hide-menu">Query Builder</span>-->
+                        <!--</a>-->
+                        <!--<ul aria-expanded="false" class="collapse">-->
+                        <!--</ul>-->
                         <!--</li>-->
 
                     </ul>
@@ -63,9 +63,9 @@
 
         </schema-options>
         <!--<keep-alive>-->
-            <query-builder @refreshPivotTables="refreshPivotTables = $event"
-                           :selectedPivotTable="selectedPivotTable"
-                           v-if="reportingInterface==='QBuilder' "></query-builder>
+        <query-builder @refreshPivotTables="refreshPivotTables = $event"
+                       :selectedPivotTable="selectedPivotTable"
+                       v-if="reportingInterface==='QBuilder' "></query-builder>
         <!--</keep-alive>-->
 
         <notifications group="user" position="top center"/>
@@ -77,34 +77,68 @@
 
 
 <script>
-import Cubes from "./cubes/the-cubes-names.vue";
-import UserDashboards from "./reporting/userDashboards";
-import DashboardMaker from "./reporting/dashboardMaker";
-import QueryBuilder from "./reporting/queryBuilder";
-import SchemaOptions from "./cubes/base-add-cube";
-import UserPivotTables from "./reporting/userPivotTables";
+    import Cubes from "./cubes/the-cubes-names.vue";
+    import UserDashboards from "./reporting/userDashboards";
+    import DashboardMaker from "./reporting/dashboardMaker";
+    import QueryBuilder from "./reporting/queryBuilder";
+    import SchemaOptions from "./cubes/base-add-cube";
+    import UserPivotTables from "./reporting/userPivotTables";
 
-export default {
-  data: function() {
-    return {
-      reportingInterface: "main",
-      selectedDashboard: null,
-      selectedPivotTable: null,
-      refreshDashboards: false,
-      refreshPivotTables: false,
-      refreshCubes: false,
+    export default {
+        data: function () {
+            return {
+                reportingInterface: "main",
+                selectedDashboard: null,
+                selectedPivotTable: null,
+                refreshDashboards: false,
+                refreshPivotTables: false,
+                refreshCubes: false,
+            };
+        },
+        components: {
+            UserPivotTables,
+            userCubes: Cubes,
+            schemaOptions: SchemaOptions,
+            userDashboards: UserDashboards,
+            dashboardMaker: DashboardMaker,
+            queryBuilder: QueryBuilder,
+        },
     };
-  },
-  components: {
-    UserPivotTables,
-    userCubes: Cubes,
-    schemaOptions: SchemaOptions,
-    userDashboards: UserDashboards,
-    dashboardMaker: DashboardMaker,
-    queryBuilder: QueryBuilder,
-  },
-};
 </script>
 
 <style>
+
+    /*used in user-dashboards, user-cubes and user-pivot-tables  */
+    .has-arrow {
+
+        margin-left: 79%;
+        width: 15%;
+        height: 33px;
+
+    }
+
+    /*used in user-dashboards, user-cubes and user-pivot-tables  */
+    .nav-btn {
+        width: 65%;
+        float: left;
+        margin-left: 5%;
+        margin-top: 2%;
+    }
+
+    /*used in user-dashboards, user-cubes and user-pivot-tables  */
+    .white-btn {
+
+        background-color: #fff0;
+        background-repeat: no-repeat;
+        border: none;
+        cursor: pointer;
+        overflow: hidden;
+        outline: none;
+        color: #47657b;
+    }
+
+    .white-btn span {
+        margin-left: 5px;
+    }
+
 </style>
