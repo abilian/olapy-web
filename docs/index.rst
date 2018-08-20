@@ -8,7 +8,15 @@ Welcome to Olapy-web's documentation!
 
 Olapy-web is the web client that can be integrated with `Olapy <https://pypi.python.org/pypi/olapy>`_
 
-.. image:: img/pivottable.gif
+
+.. image:: img/dash.gif
+   :width: 46%
+   :align: left
+
+.. image:: img/pvt.gif
+   :width: 46%
+   :align: right
+
 
 
 .. toctree::
@@ -17,7 +25,6 @@ Olapy-web is the web client that can be integrated with `Olapy <https://pypi.pyt
 
    installation
    quick_start
-   web_config_file
    api
 
 
