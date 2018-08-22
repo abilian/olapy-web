@@ -6,6 +6,15 @@ About
 
 Olapy-web is a visual, web-based tool for exploring and analyzing OLAP databases served by the `OlaPy <https://github.com/abilian/olapy>`_.
 
+.. image:: docs/img/dash.gif
+   :width: 46%
+   :align: left
+
+.. image:: docs/img/pvt.gif
+   :width: 46%
+   :align: right
+
+
 Status
 ~~~~~~
 
