@@ -4,51 +4,51 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
-alembic==1.0.0            # via flask-migrate
+alembic==1.0.1            # via flask-migrate
 appdirs==1.4.3            # via fs
 attrs==18.2.0             # via olapy
 awesome-slugify==1.6.5    # via olapy
 bonobo-sqlalchemy==0.5.1  # via olapy
 bonobo==0.5.2             # via bonobo-sqlalchemy, olapy
-certifi==2018.8.24        # via requests
+certifi==2018.10.15       # via requests
 chardet==3.0.4            # via requests
 click==7.0                # via flask, olapy
-colorama==0.3.9           # via bonobo
+colorama==0.4.0           # via bonobo
 flask-login==0.4.1
-flask-migrate==2.2.1
+flask-migrate==2.3.0
 flask-sqlalchemy==2.3.2
 flask-wtf==0.14.2
 flask==1.0.2
-fs==2.1.0                 # via bonobo
+fs==2.1.1                 # via bonobo
 idna==2.7                 # via requests
-itsdangerous==0.24        # via flask
+itsdangerous==1.1.0       # via flask
 jinja2==2.10              # via flask
 lxml==4.2.5               # via olapy
 mako==1.0.7               # via alembic
 markupsafe==1.0           # via jinja2, mako
-numpy==1.15.2             # via pandas
+numpy==1.15.3             # via pandas
 olapy==0.6.2
 packaging==16.8           # via bonobo
 pandas==0.23.4            # via olapy
 pathlib==1.0.1
-pbr==4.2.0                # via stevedore
+pbr==5.1.0                # via stevedore
 psutil==5.4.7             # via bonobo
 psycopg2-binary==2.7.5
 pyparsing==2.2.2          # via packaging
-python-dateutil==2.7.3    # via alembic, pandas
+python-dateutil==2.7.5    # via alembic, pandas
 python-dotenv==0.9.1      # via olapy
 python-editor==1.0.3      # via alembic
-pytz==2018.5              # via fs, pandas, spyne
+pytz==2018.7              # via fs, pandas, spyne
 pyyaml==3.13              # via olapy
 regex==2018.8.29          # via awesome-slugify, olapy
-requests==2.19.1          # via bonobo
+requests==2.20.0          # via bonobo
 six==1.11.0               # via fs, packaging, python-dateutil, stevedore
 spyne==2.12.14            # via olapy
 sqlalchemy==1.1.18
-stevedore==1.29.0         # via bonobo
+stevedore==1.30.0         # via bonobo
 typing==3.6.6
 unidecode==0.4.21         # via awesome-slugify
-urllib3==1.23             # via requests
+urllib3==1.24             # via requests
 werkzeug==0.14.1          # via flask, olapy
 wtforms==2.2.1
 xmlwitch==0.3             # via olapy
