@@ -1,6 +1,6 @@
-#olapy
--e git+https://github.com/abilian/olapy.git#egg=olapy
-
+olapy
+#-e git+https://github.com/abilian/olapy.git#egg=olapy
+#pip -e @ https://github.com/abilian/olapy-web/archive/master.zip
 # Web
 flask
 Flask-Login
