@@ -23,17 +23,8 @@
                 @selectedCube="selectedCube =$event"
                 @showChartProps="showChartProps = $event"/>
 
-        <!--&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
-        <!--{{usedCharts}}-->
-        <!--<div id="pie0">-->
-
-        <!--</div>-->
-
         <div v-for="(element, index) in usedCharts" :id="element.type + (index)">
 
-            ----{{element}}*******
-            {{index}}//////////
-            {{element.type}}+++++++++++++
             <grid-layout
                     :layout="layout"
                     :col-num="12"
@@ -44,7 +35,6 @@
                     :vertical-compact="true"
                     :margin="[10, 10]"
                     :use-css-transforms="true">
-                aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
                 <grid-item v-for="(item, index) in layout"
                            v-show="index < layout.length - 1"
                            :key="index"
@@ -57,7 +47,6 @@
                     <button type="button" class="close" aria-label="Close" @click="removeItem(item.i)">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
                 </grid-item>
 
             </grid-layout>
@@ -127,9 +116,9 @@
         },
         methods: {
             addChart(chart) {
-                this.usedCharts.push(chart.added.element);
+                // this.usedCharts.push(chart.added.element);
                 let chartDiv = this.draggedChart + (this.usedCharts.length - 1); // - 1
-                this.layout[this.usedCharts.length - 2].i = chartDiv; //list.length - 2
+                this.layout[this.usedCharts.length - 1].i = chartDiv; //list.length - 2
                 this.layout.push({x: 0, y: 0, w: 6, h: 8, i: ""}); //prepare next div //todo calculation
                 //create div dynamically
                 let gridItems = document.getElementsByClassName("vue-grid-item");
@@ -189,29 +178,15 @@
             // usedCharts: function (list, oldList) {
             //     if (list.length > oldList.length && this.allowModification) {
             //         // watch when add only/ not when remove
-            //         console.log(list);
-            //         console.log(oldList);
             //         let chartDiv = this.draggedChart + (list.length - 1);
-            //         console.log(chartDiv);
             //         this.layout[list.length - 1].i = chartDiv;
-            //         console.log(this.layout);
             //         this.layout.push({x: 0, y: 0, w: 6, h: 8, i: ""}); //prepare next div //todo calculation
             //         //create div dynamically
-            //         console.log(this.layout);
-            //
             //         let gridItems = document.getElementsByClassName("vue-grid-item");
-            //         console.log(gridItems);
-            //         console.log(gridItems.length);
-            //         // console.log(gridItems.length - 2);
-            //         console.log(gridItems[0]);
-            //         console.log(gridItems[1]);
             //         let divDash = gridItems[gridItems.length - 2]; // gridItems.length   -2 because last element is the vue-grid-placeholder
-            //         console.log('111111111111111111111111111111');
-            //         console.log(divDash);
             //         let innerDiv = document.createElement("div");
             //         innerDiv.id = chartDiv;
             //         this.currentChartDiv = chartDiv;
-            //         console.log(innerDiv);
             //         divDash.appendChild(innerDiv);
             //         this.showChartProps = true;
             //     }
