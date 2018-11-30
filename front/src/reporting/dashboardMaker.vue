@@ -43,9 +43,10 @@
                        :h="item.h"
                        :i="item.i"
                        @resize="resize">
-                <button type="button" class="close" aria-label="Close" @click="removeItem(item.i)">
+                <button type="button" class="close" aria-label="Close" @click="removeItem(index - 1)">
                     <span aria-hidden="true">&times;</span>
                 </button>
+
             </grid-item>
 
         </grid-layout>
@@ -124,9 +125,8 @@
                 this.showChartProps = true;
             },
             removeItem(index) {
-                let i = this.layout.map(item => item.i).indexOf(index);
-                this.usedCharts.splice(i, 1);
-                this.layout.splice(i, 1);
+                this.usedCharts.splice(index, 1);
+                this.layout.splice(index, 1);
             },
             onMove({relatedContext, draggedContext}) {
                 this.draggedChart = draggedContext.element;
@@ -168,8 +168,10 @@
             chartProps: ChartProps,
         },
         watch: {
-            usedCharts: function () {
-                this.layout.push({x: 0, y: 0, w: 6, h: 8, i: ""});
+            usedCharts: function (newElements, oldElements) {
+                if (newElements.length > oldElements.length) { //if add chart not removing one
+                    this.layout.push({x: 0, y: 0, w: 6, h: 8, i: ""});
+                }
             },
         },
         created() {
