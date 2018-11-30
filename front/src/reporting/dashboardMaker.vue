@@ -169,7 +169,7 @@
         },
         watch: {
             usedCharts: function (newElements, oldElements) {
-                if (newElements.length > oldElements.length) { //if add chart not removing one
+                if (newElements.length > oldElements.length && this.draggedChart) { //if add chart not removing one
                     this.layout.push({x: 0, y: 0, w: 6, h: 8, i: ""});
                 }
             },
