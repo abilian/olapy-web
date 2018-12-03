@@ -15,6 +15,7 @@
             </div>
         </div>
 
+
         <chart-props
                 :currentChartDiv="currentChartDiv"
                 :chartType="draggedChart"
@@ -42,22 +43,21 @@
                 :use-css-transforms="true">
 
             <grid-item v-for="(item, index) in layout"
-
-                       :key="index"
+                       :key="item.i"
                        :x="item.x"
                        :y="item.y"
                        :w="item.w"
                        :h="item.h"
                        :i="item.i"
                        @resize="resize">
-                <button type="button" class="close" aria-label="Close" @click="removeItem(index - 1)">
+
+                <button type="button" class="close" aria-label="Close" @click="removeItem(index)">
                     <span aria-hidden="true">&times;</span>
                 </button>
 
             </grid-item>
 
         </grid-layout>
-
 
         <div id="dock-container">
 
@@ -129,8 +129,8 @@
                 this.showChartProps = true;
             },
             removeItem(index) {
-                this.usedCharts.splice(index, 1);
-                this.layout.splice(index, 1);
+                this.layout.splice(parseInt(index), 1);
+                this.usedCharts.splice(parseInt(index), 1);
             },
             onMove({relatedContext, draggedContext}) {
                 this.draggedChart = draggedContext.element;
@@ -173,7 +173,7 @@
         },
         watch: {
             usedCharts: function (newElements, oldElements) {
-                if (newElements.length > oldElements.length) { //if add chart not removing one
+                if (newElements.length > oldElements.length && this.draggedChart) { //if add chart not removing one
                     if (this.chart_x_position >= (this.chart_weight * 2)) {
                         this.chart_x_position = 0;
                         this.chart_y_position += this.chart_height;
