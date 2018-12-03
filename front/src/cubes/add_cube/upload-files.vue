@@ -1,42 +1,48 @@
 <template>
   <div class="container">
-    <!--UPLOAD-->
+    <!-- UPLOAD -->
     <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving">
-      <!--<h1>Upload csv files</h1>-->
+      <!-- <h1>Upload csv files</h1> -->
       <div class="dropbox">
-        <input type="file" multiple :name="uploadFieldName" :disabled="isSaving"
-               @change="filesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length"
-               accept="text/csv" class="input-file">
+        <input
+          type="file"
+          multiple
+          :name="uploadFieldName"
+          :disabled="isSaving"
+          @change="
+            filesChange($event.target.name, $event.target.files);
+            fileCount = $event.target.files.length;
+          "
+          accept="text/csv"
+          class="input-file"
+        />
         <p v-if="isInitial">
-          Drag your file(s) here to begin<br> or click to browse
+          Drag your file(s) here to begin<br />
+          or click to browse
         </p>
-        <p v-if="isSaving">
-          Uploading {{ fileCount }} files...
-        </p>
+        <p v-if="isSaving">Uploading {{ fileCount }} files...</p>
       </div>
     </form>
-    <!--SUCCESS-->
+    <!-- SUCCESS -->
     <div v-if="isSuccess">
       <h2>Uploaded {{ uploadedFiles.length }} file(s) successfully.</h2>
-      <p>
-        <a href="javascript:void(0)" @click="reset()">Upload again</a>
-      </p>
+      <p><a href="javascript:void(0)" @click="reset();">Upload again</a></p>
       <ul class="list-unstyled">
-        <li v-for="(item, index) in uploadedFiles">
-          {{ index }} - {{ item }}
-        </li>
-        <!--<li v-for="item in uploadedFiles">-->
-        <!--<img :src="item.url" class="img-responsive img-thumbnail" :alt="item.originalName">-->
-        <!--&lt;!&ndash;<img :src="item.url" class="img-responsive img-thumbnail" :alt="item.originalName">&ndash;&gt;-->
-        <!--</li>-->
+        <li v-for="(item, index) in uploadedFiles">{{ index }} - {{ item }}</li>
+        <!-- <li v-for="item in uploadedFiles"> -->
+        <!--
+          <img :src="item.url" class="img-responsive img-thumbnail" :alt="item.originalName">
+        -->
+        <!--
+          &lt;!&ndash;<img :src="item.url" class="img-responsive img-thumbnail" :alt="item.originalName">&ndash;&gt;
+        -->
+        <!-- </li> -->
       </ul>
     </div>
-    <!--FAILED-->
+    <!-- FAILED -->
     <div v-if="isFailed">
       <h2>Uploaded failed.</h2>
-      <p>
-        <a href="javascript:void(0)" @click="reset()">Try again</a>
-      </p>
+      <p><a href="javascript:void(0)" @click="reset();">Try again</a></p>
       <pre>{{ uploadError }}</pre>
     </div>
   </div>

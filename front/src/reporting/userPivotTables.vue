@@ -1,26 +1,29 @@
 <template>
-    <li>
+  <li>
+    <div class="nav-btn">
+      <button class="white-btn" @click="selectPivotTable();">
+        <i class="fa fa-tachometer"></i> <span>Query Builder</span>
+      </button>
+    </div>
 
-        <div class="nav-btn">
-            <button class="white-btn" @click="selectPivotTable()">
-                <i class="fa fa-tachometer"></i>
-                <span>Query Builder</span>
-            </button>
-        </div>
-
-        <a class="has-arrow  " href="#" aria-expanded="false">
-            <span class="hide-menu">
-                <span class="label label-rouded label-success pull-right">{{userPivotTables.length}}</span>
-            </span>
-        </a>
-        <ul aria-expanded="false" class="collapse">
-            <li v-for="userPivotTable in userPivotTables">
-                <button class="btn btn-default btn-outline btn-rounded m-b-10"
-                        @click="selectPivotTable(userPivotTable)">{{userPivotTable}}
-                </button>
-            </li>
-        </ul>
-    </li>
+    <a class="has-arrow  " href="#" aria-expanded="false">
+      <span class="hide-menu">
+        <span class="label label-rouded label-success pull-right">{{
+          userPivotTables.length
+        }}</span>
+      </span>
+    </a>
+    <ul aria-expanded="false" class="collapse">
+      <li v-for="userPivotTable in userPivotTables">
+        <button
+          class="btn btn-default btn-outline btn-rounded m-b-10"
+          @click="selectPivotTable(userPivotTable);"
+        >
+          {{ userPivotTable }}
+        </button>
+      </li>
+    </ul>
+  </li>
 </template>
 
 <script>
@@ -81,5 +84,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

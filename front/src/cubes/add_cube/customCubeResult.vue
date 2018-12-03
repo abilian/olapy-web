@@ -5,18 +5,15 @@
         <div class="modal-container">
           <div class="modal-body">
             <slot name="body">
-              <div class="table-responsive" v-html="resultCube">
-              </div>
+              <div class="table-responsive" v-html="resultCube"></div>
             </slot>
           </div>
           <div class="modal-footer">
             <slot name="footer">
-              <button class="btn btn-default" @click="$emit('close', false)">
+              <button class="btn btn-default" @click="$emit('close', false);">
                 close
               </button>
-              <button
-                class="btn btn-success"
-                @click="confirmCustomCube()">
+              <button class="btn btn-success" @click="confirmCustomCube();">
                 Next
               </button>
             </slot>
@@ -25,7 +22,6 @@
       </div>
     </div>
   </transition>
-
 </template>
 
 <script>

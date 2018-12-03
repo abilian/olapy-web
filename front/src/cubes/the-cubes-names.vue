@@ -1,27 +1,29 @@
 <template>
-    <li id="cubes-names">
+  <li id="cubes-names">
+    <div class="nav-btn">
+      <button
+        class="white-btn"
+        @click="$emit('reportingInterface', 'addCube');"
+      >
+        <i class="fa fa-table"></i> <span>Cubes</span>
+      </button>
+    </div>
 
-        <div class="nav-btn">
-            <button class="white-btn" @click="$emit('reportingInterface', 'addCube')">
-                <i class="fa fa-table"></i>
-                <span>Cubes</span>
-            </button>
-        </div>
-
-        <a class="has-arrow  " href="#" aria-expanded="false">
-            <span class="hide-menu">
-            <span class="label label-rouded label-danger pull-right">{{cubesNames.length}}</span>
-        </span>
-        </a>
-        <ul aria-expanded="false" class="collapse">
-            <li v-for="cube in cubesNames">
-                <button class="btn btn-default btn-outline btn-rounded m-b-10">{{cube}}</button>
-            </li>
-
-
-        </ul>
-    </li>
-
+    <a class="has-arrow  " href="#" aria-expanded="false">
+      <span class="hide-menu">
+        <span class="label label-rouded label-danger pull-right">{{
+          cubesNames.length
+        }}</span>
+      </span>
+    </a>
+    <ul aria-expanded="false" class="collapse">
+      <li v-for="cube in cubesNames">
+        <button class="btn btn-default btn-outline btn-rounded m-b-10">
+          {{ cube }}
+        </button>
+      </li>
+    </ul>
+  </li>
 </template>
 
 <script>

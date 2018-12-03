@@ -3,46 +3,53 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
-
           <div class="modal-header">
-
-              <select class="form-control" v-model="source">
-                <option disabled value="">DataSource</option>
-                <option>CSV</option>
-                <option>DataBase</option>
-              </select>
-
+            <select class="form-control" v-model="source">
+              <option disabled value="">DataSource</option>
+              <option>CSV</option>
+              <option>DataBase</option>
+            </select>
           </div>
-
-
 
           <div class="modal-body">
             <slot name="body">
-
               <div v-if="source === 'CSV'">
-                <input class="form-control" placeholder="Cube Name" type="text" v-model="newCubeName">
+                <input
+                  class="form-control"
+                  placeholder="Cube Name"
+                  type="text"
+                  v-model="newCubeName"
+                />
               </div>
 
               <upload-csv-files
                 :newCubeName="newCubeName"
                 v-show="source === 'CSV'"
-                @SelectInputStatus="status = $event"/>
+                @SelectInputStatus="status = $event;"
+              />
 
               <connect-db
                 v-show="source === 'DataBase'"
-                @SelectInputStatus="status = $event"/>
-
-
+                @SelectInputStatus="status = $event;"
+              />
             </slot>
           </div>
 
           <div class="modal-footer">
             <slot name="footer">
-              <!--<button class="modal-default-button" @click="$emit('SelectInputStatus', 'second')">-->
-              <button class="btn btn-default" @click="$emit('close', false)">
+              <!--
+                <button class="modal-default-button" @click="$emit('SelectInputStatus', 'second')">
+              -->
+              <button class="btn btn-default" @click="$emit('close', false);">
                 close
               </button>
-              <button class="btn btn-primary" @click="checkUpload();  $emit('newCubeName', newCubeName)">
+              <button
+                class="btn btn-primary"
+                @click="
+                  checkUpload();
+                  $emit('newCubeName', newCubeName);
+                "
+              >
                 Next
               </button>
             </slot>
@@ -51,7 +58,6 @@
       </div>
     </div>
   </transition>
-
 </template>
 
 <script>

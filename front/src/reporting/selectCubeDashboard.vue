@@ -3,18 +3,14 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
-
-          <div class="modal-header">
-          </div>
+          <div class="modal-header"></div>
 
           <div class="modal-body">
             <slot name="body">
               <label>
                 <select v-model="selectedCube">
                   <option disabled value="">Choose</option>
-                    <option v-for="cube in userCubes">
-                      {{ cube }}
-                    </option>
+                  <option v-for="cube in userCubes"> {{ cube }} </option>
                 </select>
               </label>
             </slot>
@@ -22,11 +18,19 @@
 
           <div class="modal-footer">
             <slot name="footer">
-              <!--<button class="modal-default-button" @click="$emit('SelectInputStatus', 'second')">-->
-              <button class="modal-default-button" @click="validateCubeSelection()">
+              <!--
+                <button class="modal-default-button" @click="$emit('SelectInputStatus', 'second')">
+              -->
+              <button
+                class="modal-default-button"
+                @click="validateCubeSelection();"
+              >
                 Next
               </button>
-              <button class="modal-default-button" @click="$emit('interface', 'main')">
+              <button
+                class="modal-default-button"
+                @click="$emit('interface', 'main');"
+              >
                 close
               </button>
             </slot>

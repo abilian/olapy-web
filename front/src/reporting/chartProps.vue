@@ -3,22 +3,24 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
-
           <div class="modal-header">
-              <input class="form-control" placeholder="Chart Title" type="text" v-model="chartTitle">
+            <input
+              class="form-control"
+              placeholder="Chart Title"
+              type="text"
+              v-model="chartTitle"
+            />
           </div>
 
           <div class="modal-body">
             <slot name="body">
-                <select class="form-control" v-model="selectedCube">
-                  <option disabled value="">Cube</option>
-                    <option v-for="cube in userCubes">
-                      {{ cube }}
-                    </option>
-                </select>
+              <select class="form-control" v-model="selectedCube">
+                <option disabled value="">Cube</option>
+                <option v-for="cube in userCubes"> {{ cube }} </option>
+              </select>
 
               <div v-show="allColumns.length > 0">
-                <hr>
+                <hr />
                 <select class="form-control" v-model="selectedColumn">
                   <option disabled value="">Dimension</option>
                   <option v-for="dimension in allColumns">
@@ -28,7 +30,7 @@
               </div>
 
               <div v-show="selectedCube !== ''">
-                <hr>
+                <hr />
                 <select class="form-control" v-model="selectedMeasures">
                   <option disabled value="">Measure</option>
                   <option v-for="measure in allMeasures">
@@ -36,21 +38,24 @@
                   </option>
                 </select>
               </div>
-
             </slot>
           </div>
 
           <div class="modal-footer">
             <slot name="footer">
-              <!--<button class="modal-default-button" @click="$emit('SelectInputStatus', 'second')">-->
-              <button class="btn btn-default pull-left" @click="$emit('showChartProps', false)">
+              <!--
+                <button class="modal-default-button" @click="$emit('SelectInputStatus', 'second')">
+              -->
+              <button
+                class="btn btn-default pull-left"
+                @click="$emit('showChartProps', false);"
+              >
                 Cancel
               </button>
 
-              <button class="btn btn-primary" @click="validateChartProps()">
+              <button class="btn btn-primary" @click="validateChartProps();">
                 Finish
               </button>
-
             </slot>
           </div>
         </div>

@@ -1,21 +1,26 @@
 <template>
-  <!--<div class="schema_props">-->
+  <!-- <div class="schema_props"> -->
   <div>
     <h3>facts and measures</h3>
     <div v-if="facts.table_name">
-      <label> Facts table name :
-        <input type="text" :name="facts.table_name" :value="facts.table_name">
+      <label>
+        Facts table name :
+        <input type="text" :name="facts.table_name" :value="facts.table_name" />
       </label>
-      <hr>
-      <span>Measures :</span> <br>
+      <hr />
+      <span>Measures :</span> <br />
       <div v-for="(measure, index) in facts.measures">
-
         <label>
-          <input type="text" :key="index" :name="measure" :value="measure">
+          <input type="text" :key="index" :name="measure" :value="measure" />
         </label>
       </div>
       <label>
-        <input style="margin: 50px 50px" type="Button" class="btn button-list" value="Update">
+        <input
+          style="margin: 50px 50px"
+          type="Button"
+          class="btn button-list"
+          value="Update"
+        />
       </label>
     </div>
   </div>
@@ -57,5 +62,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -4,36 +4,37 @@
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="modal-header">
-            Select columns to use in <u>good order</u> <b>(including the id column)</b>
+            Select columns to use in <u>good order</u>
+            <b>(including the id column)</b>
           </div>
 
           <div class="modal-body">
             <slot name="body" v-for="columns in selectTableColumns">
               <label v-for="column in columns">
-                {{column}}
-                <input v-model="selectedColumns['columns']" type="checkbox"
-                       :value="column">
+                {{ column }}
+                <input
+                  v-model="selectedColumns['columns']"
+                  type="checkbox"
+                  :value="column"
+                />
               </label>
-
             </slot>
           </div>
 
           <div class="modal-footer">
             <slot name="footer">
-              <button class="btn btn-btn" @click="closeChoseCol()">
+              <button class="btn btn-btn" @click="closeChoseCol();">
                 Close
               </button>
-              <button class="btn btn-primary" @click="saveChoseCol()">
+              <button class="btn btn-primary" @click="saveChoseCol();">
                 Save
               </button>
-
             </slot>
           </div>
         </div>
       </div>
     </div>
   </transition>
-
 </template>
 
 <script>
@@ -67,5 +68,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

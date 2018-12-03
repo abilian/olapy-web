@@ -3,29 +3,35 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
-
           <div class="modal-body">
             <slot name="body">
               <table class="table" style="width: 100%">
                 <tr>
-                  <th> Dimensions :</th>
+                  <th>Dimensions :</th>
                   <th></th>
-                  <th>{{factsTable}}</th>
+                  <th>{{ factsTable }}</th>
                 </tr>
                 <tr>
-                  <!--<td>-->
-                  <!--</td>-->
+                  <!-- <td> -->
+                  <!-- </td> -->
                 </tr>
-                <tr v-for="(table, index) in tablesAndColumns" v-if="index !== factsTable">
+                <tr
+                  v-for="(table, index) in tablesAndColumns"
+                  v-if="index !== factsTable"
+                >
                   <td>
-                    <label>
-                      {{index}} :
-                    </label>
+                    <label> {{ index }} : </label>
                   </td>
                   <td>
                     <label>
-                      <select class="form-control" v-model="tablesAndColumnsResult[index]['DimCol']">
-                        <option v-for="item in tablesAndColumns[index]" :value="item">{{ item }}
+                      <select
+                        class="form-control"
+                        v-model="tablesAndColumnsResult[index]['DimCol']"
+                      >
+                        <option
+                          v-for="item in tablesAndColumns[index]"
+                          :value="item"
+                          >{{ item }}
                         </option>
                       </select>
                     </label>
@@ -33,8 +39,16 @@
                   </td>
                   <td>
                     <label>
-                      <select class="form-control" style="float: left;" v-model="tablesAndColumnsResult[index]['FactsCol']">
-                        <option v-for="(item, index) in tablesAndColumns[factsTable]" :key="index" :value="item">{{ item }}
+                      <select
+                        class="form-control"
+                        style="float: left;"
+                        v-model="tablesAndColumnsResult[index]['FactsCol']"
+                      >
+                        <option
+                          v-for="(item, index) in tablesAndColumns[factsTable]"
+                          :key="index"
+                          :value="item"
+                          >{{ item }}
                         </option>
                       </select>
                     </label>
@@ -45,10 +59,10 @@
           </div>
           <div class="modal-footer">
             <slot name="footer">
-              <button class="btn btn-btn" @click="$emit('close', false)">
+              <button class="btn btn-btn" @click="$emit('close', false);">
                 close
               </button>
-              <button class="btn btn-primary" @click="confirmRelations()">
+              <button class="btn btn-primary" @click="confirmRelations();">
                 Next
               </button>
             </slot>
@@ -57,7 +71,6 @@
       </div>
     </div>
   </transition>
-
 </template>
 
 <script>

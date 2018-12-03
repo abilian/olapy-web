@@ -1,10 +1,7 @@
 <template>
   <div class="cube_details">
-    <label>
-      Cube Name :
-      <input type="text" :value="currentCube">
-    </label>
-    <!--<button @click="updateCubeName()"> update cube</button>-->
+    <label> Cube Name : <input type="text" :value="currentCube" /> </label>
+    <!-- <button @click="updateCubeName()"> update cube</button> -->
   </div>
 </template>
 
@@ -25,5 +22,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

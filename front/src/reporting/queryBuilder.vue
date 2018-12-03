@@ -1,42 +1,44 @@
 <template>
+  <div class="page-wrapper">
+    <div id="pivotOptions" class="row page-titles">
+      <div class="col-md-5 align-self-center">
+        <select id="cube_selector" class="form-control" v-model="selectedCube">
+          <option disabled value="">Cube</option>
+          <option v-for="cube in userCubes"> {{ cube }} </option>
+        </select>
+      </div>
+      <div v-if="selectedCube" class="col-md-7 align-self-center">
+        <ol class="breadcrumb">
+          <label>
+            <input
+              type="text"
+              v-model="pivottableName"
+              class="form-control input-rounded"
+              placeholder="Pivottable Title"
+            />
+          </label>
 
-    <div class="page-wrapper">
-        <div id="pivotOptions" class="row page-titles">
-            <div class="col-md-5 align-self-center">
-                <select id="cube_selector" class="form-control" v-model="selectedCube">
-                    <option disabled value="">Cube</option>
-                    <option v-for="cube in userCubes">
-                        {{ cube }}
-                    </option>
-                </select>
-            </div>
-            <div v-if="selectedCube" class="col-md-7 align-self-center">
-                <ol class="breadcrumb">
-                    <label>
-                        <input type="text" v-model="pivottableName" class="form-control input-rounded"
-                               placeholder="Pivottable Title">
-                    </label>
-
-                    <button type="button" class="btn btn-success m-b-10 m-l-5" @click="savePivottable">Save</button>
-                </ol>
-            </div>
-
-
-        </div>
-
-
-        <div class="panel panel-default">
-
-            <div style="padding-left: 25px">
-                <div class="row" style="margin-right: 25px">
-                    <div id="output" style="overflow: auto; display: none;">{{DataFrameCsv}}</div>
-                </div>
-            </div>
-        </div>
-
+          <button
+            type="button"
+            class="btn btn-success m-b-10 m-l-5"
+            @click="savePivottable"
+          >
+            Save
+          </button>
+        </ol>
+      </div>
     </div>
 
-
+    <div class="panel panel-default">
+      <div style="padding-left: 25px">
+        <div class="row" style="margin-right: 25px">
+          <div id="output" style="overflow: auto; display: none;">
+            {{ DataFrameCsv }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>

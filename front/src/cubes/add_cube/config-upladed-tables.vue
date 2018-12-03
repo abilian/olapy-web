@@ -3,31 +3,40 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
-
           <div class="modal-body">
             <slot name="body">
-
-
               Facts table :
-              <span class="badge badge-light">{{cube.facts}}</span>
+              <span class="badge badge-light">{{ cube.facts }}</span>
 
-              <br>
+              <br />
               Measures :
-              <span v-for="measure in cube.measures" class="badge badge-light">{{measure}}</span>
-              <br>
+              <span
+                v-for="measure in cube.measures"
+                class="badge badge-light"
+                >{{ measure }}</span
+              >
+              <br />
               Dimensions :
-              <span v-for="dimension in this.cube.dimensions" class="badge badge-light">{{dimension}}</span>
+              <span
+                v-for="dimension in this.cube.dimensions"
+                class="badge badge-light"
+                >{{ dimension }}</span
+              >
             </slot>
           </div>
 
           <div class="modal-footer">
             <slot name="footer">
-              <!--<button class="modal-default-button" @click="$emit('uploadStatus', 'second')">-->
-              <!--<button class="modal-default-button" @click="checkUpload()">-->
-              <button class="btn btn-btn" @click="$emit('close', false)">
+              <!--
+                <button class="modal-default-button" @click="$emit('uploadStatus', 'second')">
+              -->
+              <!--
+                <button class="modal-default-button" @click="checkUpload()">
+              -->
+              <button class="btn btn-btn" @click="$emit('close', false);">
                 close
               </button>
-              <button class="btn btn-primary" @click="confirmCube()">
+              <button class="btn btn-primary" @click="confirmCube();">
                 Next
               </button>
             </slot>
@@ -36,7 +45,6 @@
       </div>
     </div>
   </transition>
-
 </template>
 
 <script>
@@ -72,5 +80,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

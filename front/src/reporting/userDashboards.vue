@@ -1,30 +1,28 @@
 <template>
-
-
-    <li id="dashboard-section">
-
-        <div class="nav-btn">
-            <button class="white-btn" @click="$emit('reportingInterface', 'main')">
-                <i class="fa fa-tachometer"></i>
-                <span>Dashboards</span>
-            </button>
-        </div>
-        <a class="has-arrow  " href="#" aria-expanded="false">
-                <span class="hide-menu">
-                    <span class="label label-rouded label-primary pull-right">{{userDashboards.length}}</span>
-                </span>
-
-        </a>
-        <ul aria-expanded="false" class="collapse">
-            <li v-for="dashboard in userDashboards">
-                <button class="btn btn-default btn-outline btn-rounded m-b-10"
-                        @click="selectDashboard(dashboard)">{{dashboard}}
-                </button>
-            </li>
-        </ul>
-    </li>
-
-
+  <li id="dashboard-section">
+    <div class="nav-btn">
+      <button class="white-btn" @click="$emit('reportingInterface', 'main');">
+        <i class="fa fa-tachometer"></i> <span>Dashboards</span>
+      </button>
+    </div>
+    <a class="has-arrow  " href="#" aria-expanded="false">
+      <span class="hide-menu">
+        <span class="label label-rouded label-primary pull-right">{{
+          userDashboards.length
+        }}</span>
+      </span>
+    </a>
+    <ul aria-expanded="false" class="collapse">
+      <li v-for="dashboard in userDashboards">
+        <button
+          class="btn btn-default btn-outline btn-rounded m-b-10"
+          @click="selectDashboard(dashboard);"
+        >
+          {{ dashboard }}
+        </button>
+      </li>
+    </ul>
+  </li>
 </template>
 
 <script>
@@ -74,5 +72,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
