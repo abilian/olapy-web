@@ -23,6 +23,13 @@
                 @selectedCube="selectedCube =$event"
                 @showChartProps="showChartProps = $event"/>
 
+        <draggable @change="addChart"
+                   id="divDash"
+                   v-model="usedCharts"
+                   class="dashboard"
+                   :options="{group:'charts', sort: false}">
+        </draggable>
+
         <grid-layout
                 :layout="layout"
                 :col-num="12"
@@ -50,14 +57,6 @@
             </grid-item>
 
         </grid-layout>
-
-
-        <draggable @change="addChart"
-                   id="divDash"
-                   v-model="usedCharts"
-                   class="dashboard"
-                   :options="{group:'charts', sort: false}">
-        </draggable>
 
 
         <div id="dock-container">
@@ -242,8 +241,10 @@
     }
 
     .dashboard {
-        /*border-style: dotted;*/
-        height: 300px;
+        position: absolute;
+        top: 135px;
+        border-style: dotted;
+        height: 100%;
         width: 100%;
     }
 
