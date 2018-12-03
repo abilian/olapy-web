@@ -110,6 +110,11 @@
                 chartTypes: ["bar", "scatter", "pie"],
                 draggedChart: "",
                 chartData: [],
+                chart_x_position: 0,
+                chart_y_position: 0,
+                chart_weight: 6,
+                chart_height: 8
+
             };
         },
         methods: {
@@ -169,8 +174,20 @@
         },
         watch: {
             usedCharts: function (newElements, oldElements) {
-                if (newElements.length > oldElements.length && this.draggedChart) { //if add chart not removing one
-                    this.layout.push({x: 0, y: 0, w: 6, h: 8, i: ""});
+                if (newElements.length > oldElements.length) { //if add chart not removing one
+                    if (this.chart_x_position >= (this.chart_weight * 2)) {
+                        this.chart_x_position = 0;
+                        this.chart_y_position += this.chart_height;
+                    }
+                    this.layout.push({
+                        x: this.chart_x_position,
+                        y: this.chart_y_position,
+                        w: this.chart_weight,
+                        h: this.chart_height,
+                        i: ""
+                    });
+                    this.chart_x_position += this.chart_weight;
+
                 }
             },
         },
