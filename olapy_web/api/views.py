@@ -283,8 +283,7 @@ def _gen_facts(data_request):
         columns_names.append(
             data_request['tablesAndColumnsResult'][table]['FactsCol'])
         refs.append(
-            table.replace('.csv', '') + '.' +
-            data_request['tablesAndColumnsResult'][table]['DimCol'])
+            table.replace('.csv', '') + '.' + data_request['tablesAndColumnsResult'][table]['DimCol'])
 
     keys = dict(
         (column, refs[index]) for (index, column) in enumerate(columns_names))
