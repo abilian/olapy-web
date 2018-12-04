@@ -14,7 +14,6 @@ from setuptools.command.sdist import sdist
 _install_requires = parse_requirements(open("requirements.in"))
 install_requires = [str(req) for req in _install_requires]
 
-
 ROOT = realpath(join(dirname(__file__)))
 
 

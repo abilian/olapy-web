@@ -1,16 +1,20 @@
 from __future__ import absolute_import, division, print_function, \
     unicode_literals
 
+import json
+
 from flask_login import UserMixin
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from .extensions import db
-import json
 
-cubes = db.Table('cubes',
-                 db.Column('cube_id', db.Integer, db.ForeignKey('cube.id'), primary_key=True),
-                 db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
-                 )
+cubes = db.Table(
+    'cubes',
+    db.Column(
+        'cube_id', db.Integer, db.ForeignKey('cube.id'), primary_key=True),
+    db.Column(
+        'user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
+)
 
 
 class User(db.Model, UserMixin):
@@ -18,8 +22,11 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(80), unique=True)
     email = db.Column(db.String(120), unique=True)
     password_hash = db.Column(db.String)
-    cubes = db.relationship('Cube', secondary=cubes, lazy='dynamic',
-                            backref=db.backref('users', lazy=True))
+    cubes = db.relationship(
+        'Cube',
+        secondary=cubes,
+        lazy='dynamic',
+        backref=db.backref('users', lazy=True))
     dashboards = db.relationship('Dashboard', backref='user', lazy='dynamic')
     pivottables = db.relationship('Pivottable', backref='user', lazy='dynamic')
 

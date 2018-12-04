@@ -1,10 +1,12 @@
 from __future__ import absolute_import, division, print_function
 
 import os
+
 import click
+from sqlalchemy.exc import IntegrityError
+
 from .app import create_app, db
 from .models import User
-from sqlalchemy.exc import IntegrityError
 
 app = create_app()
 

@@ -98,7 +98,7 @@
 </template>
 
 <script>
-import Plotly from 'plotly.js-dist';
+import Plotly from "plotly.js-dist";
 import draggable from "vuedraggable";
 import VueGridLayout from "vue-grid-layout";
 import ChartProps from "./chartProps";

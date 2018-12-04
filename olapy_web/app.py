@@ -2,14 +2,12 @@ from __future__ import absolute_import, division, print_function, \
     unicode_literals
 
 import os
+import sys
 from logging import DEBUG
 from os.path import isdir, join
-
-import sys
-
-import jinja2
 from typing import Any, Dict, Text
 
+import jinja2
 from flask import Flask, render_template
 
 from .extensions import db, login_manager, migrate
@@ -34,8 +32,9 @@ def create_app(config=default_config):
     if not isdir(olapy_data_dir):
         os.makedirs(olapy_data_dir)
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = config.get('SQLALCHEMY_DATABASE_URI',
-                                                       'sqlite:///' + join(olapy_data_dir, 'olapy.db'))
+    app.config['SQLALCHEMY_DATABASE_URI'] = config.get(
+        'SQLALCHEMY_DATABASE_URI',
+        'sqlite:///' + join(olapy_data_dir, 'olapy.db'))
 
     app.config.update(config)
 
@@ -103,8 +102,10 @@ def configure_jinja_loader(app):
 
     my_loader = jinja2.ChoiceLoader([
         app.jinja_loader,
-        jinja2.FileSystemLoader([os.path.join(basedir, 'front/'),
-                                 os.path.join(basedir, 'front', 'templates/')]),
+        jinja2.FileSystemLoader([
+            os.path.join(basedir, 'front/'),
+            os.path.join(basedir, 'front', 'templates/')
+        ]),
     ])
 
     app.jinja_loader = my_loader
