@@ -26,12 +26,6 @@
             </div>
         </div>
 
-        chartData => {{chartData}}
-        <br>
-        {{chartData.length}}
-        <br>
-
-        laster : {{chartData[chartData.length - 1 ]}}
         <br>
         <chart-props
                 :currentChartDiv="currentChartDiv"
@@ -72,8 +66,7 @@
                     :i="item.i"
                     @resize="resize"
             >
-                {{index}}<br>
-                {{item}}
+
                 <button
                         type="button"
                         class="close"
@@ -111,7 +104,6 @@
 </template>
 
 <script>
-    // import Plotly from "plotly.js-dist";
     import Plotly from "plotly.js/dist/plotly-basic.min.js";
 
     import draggable from "vuedraggable";
@@ -147,7 +139,6 @@
             drawChart() {
                 let graph = this.chartData[this.chartData.length - 1];
                 Plotly.newPlot(this.currentChartDiv, graph.data, graph.layout).then(function () {
-                    alert('22222222222222222222222222222222222');
                     let graphDiv = document.getElementById(this.currentChartDiv);
                     graphDiv.style.width = "95%";
                     graphDiv.style.height = "95%";
@@ -157,17 +148,10 @@
             addChart() {
                 let chartDiv = this.draggedChart + (this.usedCharts.length - 1); // - 1
                 this.layout[this.usedCharts.length - 1].i = chartDiv; //list.length - 2
-                let gridItems = document.getElementsByClassName("vue-grid-item");
-                let divDash = gridItems[gridItems.length - 2]; // gridItems.length -2 because last element is the vue-grid-placeholder
-                let innerDiv = document.createElement("div");
-                innerDiv.id = chartDiv;
                 this.currentChartDiv = chartDiv;
-                divDash.appendChild(innerDiv);
                 this.showChartProps = true;
             },
             removeItem(index) {
-                // this.layout.splice(parseInt(index), 1);
-                // this.usedCharts.splice(parseInt(index), 1);
                 this.layout.splice(index, 1);
                 this.usedCharts.splice(index, 1);
             },
