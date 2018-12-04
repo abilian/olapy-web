@@ -52,7 +52,7 @@ Run application:
 
     make run 
     
-4. open your browser and go to [https://127.0.0.1:5000](https://127.0.0.1:5000) **(you should use google chrome)**
+4. open your browser and go to [https://127.0.0.1:5000](https://127.0.0.1:5000)
 
 
 **login: admin**

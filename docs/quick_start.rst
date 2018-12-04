@@ -12,7 +12,7 @@ then to run olapy-web just use::
     make run
 
 
-and use the url http://127.0.0.1:5000/ on the browser, ideally with `Google Chrome <https://www.google.com/chrome/>`_ .
+and use the url http://127.0.0.1:5000/ on the browser.
 
 -   **User name** : admin
 -   **Password** : admin
