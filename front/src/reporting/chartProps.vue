@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import Plotly from "plotly.js";
+import Plotly from 'plotly.js-dist';
 
 export default {
   props: {
