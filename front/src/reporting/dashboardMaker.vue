@@ -20,17 +20,26 @@
                     >
                         Save
                     </button>
+
+                    <button @click="drawChart()"> Draw</button>
                 </ol>
             </div>
         </div>
 
+        chartData => {{chartData}}
+        <br>
+        {{chartData.length}}
+        <br>
+
+        laster : {{chartData[chartData.length - 1 ]}}
+        <br>
         <chart-props
                 :currentChartDiv="currentChartDiv"
                 :chartType="draggedChart"
                 v-if="showChartProps === true"
-                @chartData="chartData.push($event);"
-                @selectedCube="selectedCube = $event;"
-                @showChartProps="showChartProps = $event;"
+                @chartData="chartData.push($event)"
+                @selectedCube="selectedCube = $event"
+                @showChartProps="showChartProps = $event"
         />
 
         <draggable
@@ -63,7 +72,8 @@
                     :i="item.i"
                     @resize="resize"
             >
-
+                {{index}}<br>
+                {{item}}
                 <button
                         type="button"
                         class="close"
@@ -72,6 +82,7 @@
                 >
                     <span aria-hidden="true">&times;</span>
                 </button>
+                <div :id="item.i"></div>
             </grid-item>
         </grid-layout>
 
@@ -95,6 +106,7 @@
                 </draggable>
             </ul>
         </div>
+
     </div>
 </template>
 
@@ -132,6 +144,16 @@
             };
         },
         methods: {
+            drawChart() {
+                let graph = this.chartData[this.chartData.length - 1];
+                Plotly.newPlot(this.currentChartDiv, graph.data, graph.layout).then(function () {
+                    alert('22222222222222222222222222222222222');
+                    let graphDiv = document.getElementById(this.currentChartDiv);
+                    graphDiv.style.width = "95%";
+                    graphDiv.style.height = "95%";
+                    return Plotly.Plots.resize(graphDiv);
+                });
+            },
             addChart() {
                 let chartDiv = this.draggedChart + (this.usedCharts.length - 1); // - 1
                 this.layout[this.usedCharts.length - 1].i = chartDiv; //list.length - 2
@@ -144,8 +166,10 @@
                 this.showChartProps = true;
             },
             removeItem(index) {
-                this.layout.splice(parseInt(index), 1);
-                this.usedCharts.splice(parseInt(index), 1);
+                // this.layout.splice(parseInt(index), 1);
+                // this.usedCharts.splice(parseInt(index), 1);
+                this.layout.splice(index, 1);
+                this.usedCharts.splice(index, 1);
             },
             onMove({relatedContext, draggedContext}) {
                 this.draggedChart = draggedContext.element;
