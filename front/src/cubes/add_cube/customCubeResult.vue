@@ -25,6 +25,7 @@
 </template>
 
 <script>
+const axios = require("axios");
 import { eventModalBus } from "../base-add-cube.vue";
 
 export default {
@@ -48,7 +49,7 @@ export default {
         cubeName: this.cubeName,
         customCube: true,
       };
-      this.$http.post("api/cubes/confirm_cube", data).then(response => {
+      axios.post("api/cubes/confirm_cube", data).then(response => {
         eventModalBus.modalToShow("success");
         return response.json();
       });
@@ -63,7 +64,7 @@ export default {
       measures: this.chosenMeasures,
       dbConfig: this.dbConfig,
     };
-    this.$http
+    axios
       .post("api/cubes/construct_custom_cube", data)
       .then(x => {
         this.resultCube = x.data;

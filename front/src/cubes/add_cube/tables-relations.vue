@@ -74,6 +74,7 @@
 </template>
 
 <script>
+const axios = require("axios");
 import { eventModalBus } from "../base-add-cube.vue";
 
 export default {
@@ -105,7 +106,7 @@ export default {
       dbConfig: this.dbConfig,
       allTables: allTables.join(","),
     };
-    this.$http.post("api/cubes/get_tables_and_columns", data).then(x => {
+    axios.post("api/cubes/get_tables_and_columns", data).then(x => {
       this.tablesAndColumns = x.data;
       for (let key in x.data) {
         if (key !== this.factsTable) {

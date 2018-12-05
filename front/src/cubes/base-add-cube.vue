@@ -81,6 +81,7 @@
 </template>
 
 <script>
+const axios = require("axios");
 import addCube from "./add_cube/BaseAddCubeButton.vue";
 import configUploadedTables from "./add_cube/config-upladed-tables.vue";
 import addedSuccess from "./add_cube/added-success.vue";
@@ -141,7 +142,7 @@ export default {
       this.cube = "";
       this.dbConfig = "";
       this.$emit("refreshCubes", true);
-      this.$http.post("api/cubes/clean_tmp_dir");
+      axios.post("api/cubes/clean_tmp_dir");
     },
   },
 };

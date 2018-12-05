@@ -49,6 +49,7 @@
 </template>
 
 <script>
+const axios = require("axios");
 import { eventModalBus } from "../base-add-cube.vue";
 
 const STATUS_INITIAL = 0,
@@ -92,7 +93,7 @@ export default {
     save(formData) {
       // upload data to the server
       this.currentStatus = STATUS_SAVING;
-      this.$http
+      axios
         .post("api/cubes/add", formData)
         .then(x => {
           this.uploadedFiles = [].concat(x.data.dimensions);

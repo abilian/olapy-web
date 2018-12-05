@@ -10,6 +10,7 @@
 </template>
 
 <script>
+const axios = require("axios");
 import { eventBus } from "../main.js";
 
 export default {
@@ -25,7 +26,7 @@ export default {
       //if errors or cube constrcution probs don't show dimensions
       this.dimensions = [];
       let url = "api/cubes/" + currentCube + "/dimensions";
-      this.$http
+      axios
         .get(url)
         .then(response => {
           return response.json();

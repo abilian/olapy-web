@@ -42,6 +42,7 @@
 </template>
 
 <script>
+const axios = require("axios");
 export default {
   props: {
     selectedPivotTable: Object,
@@ -73,7 +74,7 @@ export default {
   methods: {
     getUserCubes() {
       let userCubes = [];
-      this.$http
+      axios
         .get("api/cubes")
         .then(response => {
           return response.json();
@@ -144,7 +145,7 @@ export default {
         let pivottableContent = this.getPivottableContent();
         pivottableContent["pivottableName"] = this.pivottableName;
         pivottableContent["cubeName"] = this.selectedCube;
-        this.$http.post("api/pivottable/save", pivottableContent);
+        axios.post("api/pivottable/save", pivottableContent);
 
         this.$notify({
           group: "user",
@@ -163,7 +164,7 @@ export default {
   },
   watch: {
     selectedCube(cube) {
-      this.$http
+      axios
         .get("api/query_builder/" + cube)
         .then(response => {
           return response.json();

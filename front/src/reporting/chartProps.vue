@@ -65,6 +65,7 @@
 </template>
 
 <script>
+const axios = require("axios");
 import Plotly from "plotly.js/dist/plotly-basic.min.js";
 
 export default {
@@ -128,7 +129,7 @@ export default {
             " from " +
             data.selectedCube;
         }
-        this.$http
+        axios
           .post("api/cubes/chart_columns", data)
           .then(response => {
             return response.json();
@@ -151,7 +152,7 @@ export default {
   },
   watch: {
     selectedCube: function(selectedCube) {
-      this.$http
+      axios
         .get("api/cubes/" + selectedCube + "/columns")
         .then(response => {
           return response.json();
@@ -162,7 +163,7 @@ export default {
           }
         });
 
-      this.$http
+      axios
         .get("api/cubes/" + selectedCube + "/facts")
         .then(response => {
           return response.json();
@@ -173,7 +174,7 @@ export default {
     },
   },
   created() {
-    this.$http
+    axios
       .get("api/cubes")
       .then(response => {
         return response.json();

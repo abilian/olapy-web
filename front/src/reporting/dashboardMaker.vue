@@ -100,6 +100,7 @@
 </template>
 
 <script>
+const axios = require("axios");
 import Plotly from "plotly.js/dist/plotly-basic.min.js";
 
 import draggable from "vuedraggable";
@@ -157,7 +158,7 @@ export default {
           layout: this.layout,
           chartData: this.chartData,
         };
-        this.$http.post("api/dashboard/save", data);
+        axios.post("api/dashboard/save", data);
 
         this.$notify({
           group: "user",

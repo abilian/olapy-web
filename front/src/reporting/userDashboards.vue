@@ -26,6 +26,7 @@
 </template>
 
 <script>
+const axios = require("axios");
 export default {
   props: {
     refreshDashboards: Boolean,
@@ -37,14 +38,14 @@ export default {
   },
   methods: {
     selectDashboard(dashboard) {
-      this.$http.get("api/dashboard/" + dashboard).then(response => {
+      axios.get("api/dashboard/" + dashboard).then(response => {
         this.$emit("selectedDashboard", response.body);
         this.$emit("reportingInterface", "dashboardMaker");
       });
     },
     getAllDashboards() {
       let Dashboards = [];
-      this.$http
+      axios
         .get("api/dashboard/all")
         .then(response => {
           return response.json();

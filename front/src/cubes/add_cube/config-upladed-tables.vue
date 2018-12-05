@@ -48,6 +48,7 @@
 </template>
 
 <script>
+const axios = require("axios");
 import { eventModalBus } from "../base-add-cube";
 
 export default {
@@ -59,7 +60,7 @@ export default {
   methods: {
     confirmCube: function() {
       if (this.dbConfig !== "") {
-        this.$http
+        axios
           .post("api/cubes/confirm_db_cube", this.dbConfig)
           .then(response => {
             eventModalBus.modalToShow("success");
@@ -70,7 +71,7 @@ export default {
           cubeName: this.cubeName,
           customCube: false,
         };
-        this.$http.post("api/cubes/confirm_cube", data).then(response => {
+        axios.post("api/cubes/confirm_cube", data).then(response => {
           eventModalBus.modalToShow("success");
           return response.json();
         });

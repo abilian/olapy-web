@@ -91,6 +91,7 @@
 </template>
 
 <script>
+const axios = require("axios");
 import { eventModalBus } from "../base-add-cube.vue";
 
 export default {
@@ -108,7 +109,7 @@ export default {
   },
   methods: {
     connectDB() {
-      this.$http
+      axios
         .post("api/cubes/connectDB", {
           engine: this.engine,
           servername: this.servername,
@@ -135,7 +136,7 @@ export default {
         username: this.username,
         password: this.password,
       };
-      this.$http
+      axios
         .post("api/cubes/add_DB_cube", data)
         .then(x => {
           if (x.data.facts != null) {

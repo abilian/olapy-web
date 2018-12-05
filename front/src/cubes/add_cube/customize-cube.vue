@@ -102,6 +102,7 @@
 </template>
 
 <script>
+const axios = require("axios");
 import { eventModalBus } from "../base-add-cube.vue";
 
 export default {
@@ -153,7 +154,7 @@ export default {
         WithID: true,
         dbConfig: this.dbConfig,
       };
-      this.$http.post("api/cubes/get_table_columns", data).then(x => {
+      axios.post("api/cubes/get_table_columns", data).then(x => {
         let table_columns = {};
         table_columns[tableName] = x.data;
         this.tableColumns[index] = table_columns;
@@ -169,7 +170,7 @@ export default {
         WithID: false,
         dbConfig: this.dbConfig,
       };
-      this.$http.post("api/cubes/get_table_columns", data).then(x => {
+      axios.post("api/cubes/get_table_columns", data).then(x => {
         this.tableColumnsNoId = x.data;
       });
     },

@@ -42,6 +42,7 @@
 </template>
 
 <script>
+const axios = require("axios");
 export default {
   data: function() {
     return {
@@ -58,7 +59,7 @@ export default {
     },
   },
   created() {
-    this.$http
+    axios
       .get("api/cubes")
       .then(response => {
         return response.json();

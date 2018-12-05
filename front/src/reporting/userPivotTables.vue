@@ -27,6 +27,7 @@
 </template>
 
 <script>
+const axios = require("axios");
 export default {
   props: {
     refreshPivotTables: Boolean,
@@ -39,7 +40,7 @@ export default {
   methods: {
     selectPivotTable(userPivotTable) {
       if (userPivotTable) {
-        this.$http.get("api/pivottable/" + userPivotTable).then(response => {
+        axios.get("api/pivottable/" + userPivotTable).then(response => {
           this.$emit("selectedPivotTable", response.body);
           this.$emit("reportingInterface", "QBuilder");
         });
@@ -56,7 +57,7 @@ export default {
     },
     getAllPivotTables() {
       let pivotTables = [];
-      this.$http
+      axios
         .get("api/pivottable/all")
         .then(response => {
           return response.json();
