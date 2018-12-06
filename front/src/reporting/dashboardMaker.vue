@@ -213,15 +213,17 @@ export default {
   mounted: function() {
     if (this.selectedDashboard) {
       for (let chart_data in this.selectedDashboard["charts_data"]) {
-        Plotly.newPlot(
-          this.layout[chart_data].i,
-          this.selectedDashboard["charts_data"][chart_data].data,
-          this.selectedDashboard["charts_data"][chart_data].layout
-        );
-        let graphDiv = document.getElementById(this.layout[chart_data].i);
-        graphDiv.style.width = "95%";
-        graphDiv.style.height = "95%";
-        Plotly.Plots.resize(graphDiv);
+        if (this.layout[chart_data]) {
+          Plotly.newPlot(
+            this.layout[chart_data].i,
+            this.selectedDashboard["charts_data"][chart_data].data,
+            this.selectedDashboard["charts_data"][chart_data].layout
+          );
+          let graphDiv = document.getElementById(this.layout[chart_data].i);
+          graphDiv.style.width = "95%";
+          graphDiv.style.height = "95%";
+          Plotly.Plots.resize(graphDiv);
+        }
       }
     }
   },
