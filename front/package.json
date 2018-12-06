@@ -6,8 +6,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --hot",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --mode development  --inline --progress",
+    "build": "cross-env NODE_ENV=production webpack --mode production --progress --hide-modules",
     "lint": "eslint --ext .js,.vue src",
     "test": "jest",
     "test-with-coverage": "jest --coverage",
