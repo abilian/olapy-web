@@ -39,7 +39,7 @@ export default {
   methods: {
     selectDashboard(dashboard) {
       axios.get("api/dashboard/" + dashboard).then(response => {
-        this.$emit("selectedDashboard", response.body);
+        this.$emit("selectedDashboard", response.data);
         this.$emit("reportingInterface", "dashboardMaker");
       });
     },
