@@ -41,7 +41,7 @@ export default {
     selectPivotTable(userPivotTable) {
       if (userPivotTable) {
         axios.get("api/pivottable/" + userPivotTable).then(response => {
-          this.$emit("selectedPivotTable", response.body);
+          this.$emit("selectedPivotTable", response.data);
           this.$emit("reportingInterface", "QBuilder");
         });
       } else {
@@ -60,7 +60,7 @@ export default {
       axios
         .get("api/pivottable/all")
         .then(response => {
-        return response.data;
+          return response.data;
         })
         .then(data => {
           for (let key in data) {
