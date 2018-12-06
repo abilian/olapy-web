@@ -64,7 +64,7 @@ export default {
           .post("api/cubes/confirm_db_cube", this.dbConfig)
           .then(response => {
             eventModalBus.modalToShow("success");
-        return response.data;
+            return response.data;
           });
       } else {
         let data = {
@@ -73,7 +73,7 @@ export default {
         };
         axios.post("api/cubes/confirm_cube", data).then(response => {
           eventModalBus.modalToShow("success");
-        return response.data;
+          return response.data;
         });
       }
     },

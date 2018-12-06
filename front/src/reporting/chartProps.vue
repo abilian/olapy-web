@@ -132,7 +132,7 @@ export default {
         axios
           .post("api/cubes/chart_columns", data)
           .then(response => {
-        return response.data;
+            return response.data;
           })
           .then(data => {
             let graph = this.genGraph(this.chartType, data);
@@ -155,7 +155,7 @@ export default {
       axios
         .get("api/cubes/" + selectedCube + "/columns")
         .then(response => {
-        return response.data;
+          return response.data;
         })
         .then(data => {
           for (let key in data) {
@@ -166,7 +166,7 @@ export default {
       axios
         .get("api/cubes/" + selectedCube + "/facts")
         .then(response => {
-        return response.data;
+          return response.data;
         })
         .then(data => {
           this.allMeasures = data["measures"];
