@@ -48,7 +48,7 @@ export default {
       axios
         .get("api/dashboard/all")
         .then(response => {
-          return response.json();
+        return response.data;
         })
         .then(data => {
           for (let key in data) {

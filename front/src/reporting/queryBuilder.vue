@@ -77,7 +77,7 @@ export default {
       axios
         .get("api/cubes")
         .then(response => {
-          return response.json();
+        return response.data;
         })
         .then(data => {
           for (let key in data) {
@@ -167,7 +167,7 @@ export default {
       axios
         .get("api/query_builder/" + cube)
         .then(response => {
-          return response.json();
+        return response.data;
         })
         .then(data => {
           this.DataFrameCsv = data;

@@ -62,7 +62,7 @@ export default {
     axios
       .get("api/cubes")
       .then(response => {
-        return response.json();
+        return response.data;
       })
       .then(data => {
         for (let key in data) {

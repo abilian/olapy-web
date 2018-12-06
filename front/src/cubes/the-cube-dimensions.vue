@@ -29,7 +29,7 @@ export default {
       axios
         .get(url)
         .then(response => {
-          return response.json();
+        return response.data;
         })
         .then(data => {
           const resultArray = [];
