@@ -18,10 +18,12 @@
             class="btn btn-success m-b-10 m-l-5"
             @click="saveDashboard"
           >
-            Save
+            <span v-if="selectedDashboard"> Update </span>
+            <span v-else> Save </span>
           </button>
 
           <button
+            v-if="selectedDashboard"
             type="button"
             class="btn btn-danger m-b-10 m-l-5"
             @click="deleteDashboard"

@@ -23,10 +23,16 @@
             class="btn btn-success m-b-10 m-l-5"
             @click="savePivottable"
           >
-            Save
+            <span
+              v-if="selectedPivotTable.cube_name && selectedPivotTable.name"
+            >
+              Update
+            </span>
+            <span v-else> Save </span>
           </button>
 
           <button
+            v-if="selectedPivotTable.cube_name && selectedPivotTable.name"
             type="button"
             class="btn btn-danger m-b-10 m-l-5"
             @click="deletePivottable"
