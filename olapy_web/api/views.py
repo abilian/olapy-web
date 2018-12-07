@@ -283,7 +283,8 @@ def _gen_facts(data_request):
         columns_names.append(
             data_request['tablesAndColumnsResult'][table]['FactsCol'])
         refs.append(
-            table.replace('.csv', '') + '.' + data_request['tablesAndColumnsResult'][table]['DimCol'])
+            table.replace('.csv', '') + '.' +
+            data_request['tablesAndColumnsResult'][table]['DimCol'])
 
     keys = dict(
         (column, refs[index]) for (index, column) in enumerate(columns_names))
@@ -321,6 +322,18 @@ def _gen_dimensions(data_request):
         })
 
     return dimensions
+
+
+@api('/cubes/delete', methods=['POST'])
+def delete_cube():
+    request_data = request.get_json()
+    cube_to_delete = User.query.filter(User.id == current_user.id).first(
+    ).cubes.filter(Cube.name == request_data['cubeName']).first()
+
+    if cube_to_delete:
+        db.session.delete(cube_to_delete)
+        db.session.commit()
+        return jsonify({'success': True}), 200
 
 
 def save_cube_config_2_db(config, cube_name, source):
@@ -542,6 +555,18 @@ def save_dashboard():
     return jsonify({'success': True}), 200
 
 
+@api('/dashboard/delete', methods=['POST'])
+def delete_dashboard():
+    request_data = request.get_json()
+    user_dashboard = User.query.filter(
+        User.id == current_user.id).first().dashboards.filter(
+            Dashboard.name == request_data['dashboardName']).first()
+    if user_dashboard:
+        db.session.delete(user_dashboard)
+        db.session.commit()
+        return jsonify({'success': True}), 200
+
+
 @api('/dashboard/all')
 def all_dashboard():
     all_dashboards = User.query.filter(
@@ -590,6 +615,18 @@ def save_pivottable():
         db.session.add(pivottable)
     db.session.commit()
     return jsonify({'success': True}), 200
+
+
+@api('/pivottable/delete', methods=['POST'])
+def delete_pivottable():
+    request_data = request.get_json()
+    user_pivottable = User.query.filter(
+        User.id == current_user.id).first().pivottables.filter(
+            Pivottable.name == request_data['pivottableName']).first()
+    if user_pivottable:
+        db.session.delete(user_pivottable)
+        db.session.commit()
+        return jsonify({'success': True}), 200
 
 
 @api('/pivottable/<pivottable_name>')

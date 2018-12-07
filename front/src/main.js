@@ -4,7 +4,9 @@ import Vue from "vue";
 import App from "./App.vue";
 import Notifications from "vue-notification";
 // import Reporting from "./reporting/BaseReport.vue";
+import vDialogs from "v-dialogs";
 
+Vue.use(vDialogs);
 Vue.use(Notifications);
 
 window.$ = require("jquery");

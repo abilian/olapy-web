@@ -21,6 +21,12 @@
         <button class="btn btn-default btn-outline btn-rounded m-b-10">
           {{ cube }}
         </button>
+
+        <button
+          class="fa fa-window-close"
+          @click="deleteCube(cube);"
+          style="float: right; margin: 6%;"
+        ></button>
       </li>
     </ul>
   </li>
@@ -38,6 +44,29 @@ export default {
     };
   },
   methods: {
+    deleteCube(cubeName) {
+      var vue = this;
+      this.$vDialog.alert(
+        "Are you sure to delete " + cubeName + " ?",
+        function() {
+          let data = {
+            cubeName: cubeName,
+          };
+          axios.post("api/cubes/delete", data);
+
+          vue.$notify({
+            group: "user",
+            title: "Successfully Deleted",
+            type: "success",
+          });
+          vue.$emit("reportingInterface", "main");
+        },
+        {
+          messageType: "confirm",
+          language: "en",
+        }
+      );
+    },
     getCubes: function() {
       let cubes = [];
       axios

@@ -4,7 +4,7 @@
       <div class="col-md-5 align-self-center">
         <select id="cube_selector" class="form-control" v-model="selectedCube">
           <option disabled value="">Cube</option>
-          <option v-for="cube in userCubes"> {{ cube }} </option>
+          <option v-for="cube in userCubes"> {{ cube }}</option>
         </select>
       </div>
       <div v-if="selectedCube" class="col-md-7 align-self-center">
@@ -24,6 +24,14 @@
             @click="savePivottable"
           >
             Save
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-danger m-b-10 m-l-5"
+            @click="deletePivottable"
+          >
+            Delete
           </button>
         </ol>
       </div>
@@ -160,6 +168,38 @@ export default {
           type: "error",
         });
       }
+    },
+    deletePivottable() {
+      var vue = this;
+      this.$vDialog.alert(
+        "Are you sure to delete " + vue.pivottableName + " ?",
+        function() {
+          if (vue.pivottableName) {
+            let data = {
+              pivottableName: vue.pivottableName,
+            };
+            axios.post("api/pivottable/delete", data);
+
+            vue.$notify({
+              group: "user",
+              title: "Successfully Deleted",
+              type: "success",
+            });
+            vue.$emit("refreshPivotTables", true);
+            vue.$emit("reportingInterface", "main");
+          } else {
+            vue.$notify({
+              group: "user",
+              title: "Missing dashboard title",
+              type: "error",
+            });
+          }
+        },
+        {
+          messageType: "confirm",
+          language: "en",
+        }
+      );
     },
   },
   watch: {

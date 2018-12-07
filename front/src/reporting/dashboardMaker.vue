@@ -20,6 +20,14 @@
           >
             Save
           </button>
+
+          <button
+            type="button"
+            class="btn btn-danger m-b-10 m-l-5"
+            @click="deleteDashboard"
+          >
+            Delete
+          </button>
         </ol>
       </div>
     </div>
@@ -174,6 +182,38 @@ export default {
           type: "error",
         });
       }
+    },
+    deleteDashboard() {
+      var vue = this;
+      this.$vDialog.alert(
+        "Are you sure to delete " + vue.dashboardName + " ?",
+        function() {
+          if (vue.dashboardName) {
+            let data = {
+              dashboardName: vue.dashboardName,
+            };
+            axios.post("api/dashboard/delete", data);
+
+            vue.$notify({
+              group: "user",
+              title: "Successfully Deleted",
+              type: "success",
+            });
+            vue.$emit("refreshDashboards", true);
+            vue.$emit("reportingInterface", "main");
+          } else {
+            vue.$notify({
+              group: "user",
+              title: "Missing dashboard title",
+              type: "error",
+            });
+          }
+        },
+        {
+          messageType: "confirm",
+          language: "en",
+        }
+      );
     },
   },
   components: {
