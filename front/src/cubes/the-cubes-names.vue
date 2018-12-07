@@ -58,7 +58,7 @@ export default {
             title: "Successfully Deleted",
             type: "success",
           });
-          vue.$emit("reportingInterface", "main");
+              vue.$emit("refreshCubes", true);
         },
         {
           messageType: "confirm",
