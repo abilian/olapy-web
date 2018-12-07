@@ -23,9 +23,8 @@
         </button>
 
         <button
-          class="fa fa-window-close"
+          class="delete-cube fa fa-times-circle-o fa-lg"
           @click="deleteCube(cube);"
-          style="float: right; margin: 6%;"
         ></button>
       </li>
     </ul>
@@ -110,5 +109,14 @@ export default {
 .schema_box_container {
   margin-left: 4px;
   margin-top: 10px;
+}
+
+.delete-cube {
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  float: right;
+  margin: 6%;
 }
 </style>
