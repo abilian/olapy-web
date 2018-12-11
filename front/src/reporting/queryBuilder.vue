@@ -46,7 +46,7 @@
     <div class="panel panel-default">
       <div style="padding-left: 25px">
         <div class="row" style="margin-right: 25px">
-          <div id="output" style="overflow: auto; display: none;">
+          <div v-if="selectedCube" id="output" style="overflow: auto; display: none;">
             {{ DataFrameCsv }}
           </div>
         </div>
