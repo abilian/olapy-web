@@ -53,6 +53,7 @@ export default {
             title: "Successfully Deleted",
             type: "success",
           });
+          vue.$emit("removeUserCube", cubeName);
         },
         {
           messageType: "confirm",

@@ -195,6 +195,8 @@ export default {
               title: "Successfully Deleted",
               type: "success",
             });
+
+            vue.$emit("removePivotTableName", vue.pivottableName);
             vue.$emit("reportingInterface", "main");
           } else {
             vue.$notify({

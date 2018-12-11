@@ -19,6 +19,9 @@
             />
 
             <user-cubes
+              @removeUserCube="
+                userCubesNames.splice(userCubesNames.indexOf($event), 1);
+              "
               :userCubesNames="userCubesNames"
               @reportingInterface="reportingInterface = $event;"
             >
@@ -62,6 +65,9 @@
     </div>
 
     <dashboard-maker
+      @removeDashboard="
+        userDashboards.splice(userDashboards.indexOf($event), 1);
+      "
       @addDashboardName="userDashboards.push($event);"
       v-if="reportingInterface === 'dashboardMaker'"
       @reportingInterface="reportingInterface = $event;"
@@ -75,6 +81,9 @@
     </schema-options>
     <!-- <keep-alive> -->
     <query-builder
+      @removePivotTableName="
+        userPivotTables.splice(userPivotTables.indexOf($event), 1);
+      "
       @addPivotTableName="userPivotTables.push($event);"
       :selectedPivotTable="selectedPivotTable"
       v-if="reportingInterface === 'QBuilder'"

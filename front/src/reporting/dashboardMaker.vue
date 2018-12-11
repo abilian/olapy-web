@@ -201,6 +201,7 @@ export default {
               title: "Successfully Deleted",
               type: "success",
             });
+            vue.$emit("removeDashboard", vue.dashboardName);
             vue.$emit("reportingInterface", "main");
           } else {
             vue.$notify({
