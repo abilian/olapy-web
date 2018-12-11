@@ -210,15 +210,17 @@ export default {
   },
   watch: {
     selectedCube(cube) {
-      axios
-        .get("api/query_builder/" + cube)
-        .then(response => {
-          return response.data;
-        })
-        .then(data => {
-          this.DataFrameCsv = data;
-          this.render_pivottable();
-        });
+      if (cube) {
+        axios
+          .get("api/query_builder/" + cube)
+          .then(response => {
+            return response.data;
+          })
+          .then(data => {
+            this.DataFrameCsv = data;
+            this.render_pivottable();
+          });
+      }
     },
     selectedPivotTable(pivotTable) {
       if (pivotTable.cube_name && pivotTable.name) {
