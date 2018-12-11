@@ -8,15 +8,6 @@
           <ul id="sidebarnav">
             <li class="nav-devider"></li>
             <li class="nav-label">Home</li>
-            <!--
-              refreshDashboards used to refresh user-dashboards: every time i add dashboard from \
-              dash-maker component, i want to refresh user-dashboards component (maybe another solution is better
-            -->
-            <user-dashboards
-              :userDashboards="userDashboards"
-              @selectedDashboard="selectedDashboard = $event;"
-              @reportingInterface="reportingInterface = $event;"
-            />
 
             <user-cubes
               @removeUserCube="
@@ -26,6 +17,12 @@
               @reportingInterface="reportingInterface = $event;"
             >
             </user-cubes>
+
+            <user-dashboards
+              :userDashboards="userDashboards"
+              @selectedDashboard="selectedDashboard = $event;"
+              @reportingInterface="reportingInterface = $event;"
+            />
 
             <user-pivot-tables
               :userPivotTables="userPivotTables"
