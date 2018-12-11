@@ -13,24 +13,21 @@
               dash-maker component, i want to refresh user-dashboards component (maybe another solution is better
             -->
             <user-dashboards
+              :userDashboards="userDashboards"
               @selectedDashboard="selectedDashboard = $event;"
               @reportingInterface="reportingInterface = $event;"
-              @refreshDashboards="refreshDashboards = $event;"
-              :refreshDashboards="refreshDashboards"
             />
 
             <user-cubes
+              :userCubesNames="userCubesNames"
               @reportingInterface="reportingInterface = $event;"
-              @refreshCubes="refreshCubes = $event;"
-              :refreshCubes="refreshCubes"
             >
             </user-cubes>
 
             <user-pivot-tables
+              :userPivotTables="userPivotTables"
               @selectedPivotTable="selectedPivotTable = $event;"
               @reportingInterface="reportingInterface = $event;"
-              @refreshPivotTables="refreshPivotTables = $event;"
-              :refreshPivotTables="refreshPivotTables"
             />
             <!-- <li> -->
             <!--
@@ -65,20 +62,20 @@
     </div>
 
     <dashboard-maker
+      @addDashboardName="userDashboards.push($event);"
       v-if="reportingInterface === 'dashboardMaker'"
-      @refreshDashboards="refreshDashboards = $event;"
       @reportingInterface="reportingInterface = $event;"
       :selectedDashboard="selectedDashboard"
     />
 
     <schema-options
+      @addCubeName="userCubesNames.push($event);"
       v-if="reportingInterface === 'addCube'"
-      @refreshCubes="refreshCubes = $event;"
     >
     </schema-options>
     <!-- <keep-alive> -->
     <query-builder
-      @refreshPivotTables="refreshPivotTables = $event;"
+      @addPivotTableName="userPivotTables.push($event);"
       :selectedPivotTable="selectedPivotTable"
       v-if="reportingInterface === 'QBuilder'"
     ></query-builder>
@@ -89,6 +86,7 @@
 </template>
 
 <script>
+const axios = require("axios");
 import Cubes from "./cubes/the-cubes-names.vue";
 import UserDashboards from "./reporting/userDashboards";
 import DashboardMaker from "./reporting/dashboardMaker";
@@ -102,10 +100,54 @@ export default {
       reportingInterface: "main",
       selectedDashboard: null,
       selectedPivotTable: null,
-      refreshDashboards: false,
-      refreshPivotTables: false,
-      refreshCubes: false,
+      userPivotTables: [],
+      userDashboards: [],
+      userCubesNames: [],
     };
+  },
+  methods: {
+    getAllPivotTables() {
+      let pivotTables = [];
+      axios
+        .get("api/pivottable/all")
+        .then(response => {
+          return response.data;
+        })
+        .then(data => {
+          for (let key in data) {
+            pivotTables.push(data[key]);
+          }
+        });
+      this.userPivotTables = pivotTables;
+    },
+    getAllDashboards() {
+      let Dashboards = [];
+      axios
+        .get("api/dashboard/all")
+        .then(response => {
+          return response.data;
+        })
+        .then(data => {
+          for (let key in data) {
+            Dashboards.push(data[key]);
+          }
+        });
+      this.userDashboards = Dashboards;
+    },
+    getCubes: function() {
+      let cubes = [];
+      axios
+        .get("api/cubes")
+        .then(response => {
+          return response.data;
+        })
+        .then(data => {
+          for (let key in data) {
+            cubes.push(data[key]);
+          }
+        });
+      this.userCubesNames = cubes;
+    },
   },
   components: {
     UserPivotTables,
@@ -114,6 +156,11 @@ export default {
     userDashboards: UserDashboards,
     dashboardMaker: DashboardMaker,
     queryBuilder: QueryBuilder,
+  },
+  mounted() {
+    this.getAllPivotTables();
+    this.getAllDashboards();
+    this.getCubes();
   },
 };
 </script>

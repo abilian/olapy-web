@@ -46,7 +46,11 @@
     <div class="panel panel-default">
       <div style="padding-left: 25px">
         <div class="row" style="margin-right: 25px">
-          <div v-if="selectedCube" id="output" style="overflow: auto; display: none;">
+          <div
+            v-if="selectedCube"
+            id="output"
+            style="overflow: auto; display: none;"
+          >
             {{ DataFrameCsv }}
           </div>
         </div>
@@ -166,7 +170,7 @@ export default {
           title: "Successfully Saved",
           type: "success",
         });
-        this.$emit("refreshPivotTables", true);
+        this.$emit("addPivotTableName", this.pivottableName);
       } else {
         this.$notify({
           group: "user",
@@ -191,7 +195,6 @@ export default {
               title: "Successfully Deleted",
               type: "success",
             });
-            vue.$emit("refreshPivotTables", true);
             vue.$emit("reportingInterface", "main");
           } else {
             vue.$notify({

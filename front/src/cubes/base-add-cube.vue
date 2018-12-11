@@ -75,7 +75,10 @@
 
     <added-success
       v-if="showModal && modalToShow === 'success'"
-      @close="showModal = $event;"
+      @close="
+        showModal = $event;
+        $emit('addCubeName', newCubeName);
+      "
     />
   </div>
 </template>
@@ -141,7 +144,6 @@ export default {
       this.modalToShow = "first";
       this.cube = "";
       this.dbConfig = "";
-      this.$emit("refreshCubes", true);
       axios.post("api/cubes/clean_tmp_dir");
     },
   },

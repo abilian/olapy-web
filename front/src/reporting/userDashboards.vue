@@ -29,12 +29,7 @@
 const axios = require("axios");
 export default {
   props: {
-    refreshDashboards: Boolean,
-  },
-  data: function() {
-    return {
-      userDashboards: [],
-    };
+    userDashboards: Array,
   },
   methods: {
     selectDashboard(dashboard) {
@@ -44,32 +39,6 @@ export default {
         this.$emit("reportingInterface", "dashboardMaker");
       });
     },
-    getAllDashboards() {
-      let Dashboards = [];
-      axios
-        .get("api/dashboard/all")
-        .then(response => {
-          return response.data;
-        })
-        .then(data => {
-          for (let key in data) {
-            Dashboards.push(data[key]);
-          }
-        });
-      this.userDashboards = Dashboards;
-    },
-  },
-
-  watch: {
-    refreshDashboards: function(val) {
-      if (val === true) {
-        this.getAllDashboards();
-        this.$emit("refreshDashboards", false);
-      }
-    },
-  },
-  mounted() {
-    this.getAllDashboards();
   },
 };
 </script>

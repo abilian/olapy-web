@@ -175,7 +175,7 @@ export default {
           title: "Successfully Added",
           type: "success",
         });
-        this.$emit("refreshDashboards", true);
+        this.$emit("addDashboardName", this.dashboardName);
         this.$emit("reportingInterface", "main");
       } else {
         this.$notify({
@@ -201,7 +201,6 @@ export default {
               title: "Successfully Deleted",
               type: "success",
             });
-            vue.$emit("refreshDashboards", true);
             vue.$emit("reportingInterface", "main");
           } else {
             vue.$notify({

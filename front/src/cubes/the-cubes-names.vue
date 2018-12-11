@@ -12,12 +12,12 @@
     <a class="has-arrow  " href="#" aria-expanded="false">
       <span class="hide-menu">
         <span class="label label-rouded label-danger pull-right">{{
-          cubesNames.length
+          userCubesNames.length
         }}</span>
       </span>
     </a>
     <ul aria-expanded="false" class="collapse">
-      <li v-for="cube in cubesNames">
+      <li v-for="cube in userCubesNames">
         <button class="btn btn-default btn-outline btn-rounded m-b-10">
           {{ cube }}
         </button>
@@ -35,12 +35,7 @@
 const axios = require("axios");
 export default {
   props: {
-    refreshCubes: Boolean,
-  },
-  data: function() {
-    return {
-      cubesNames: [],
-    };
+    userCubesNames: Array,
   },
   methods: {
     deleteCube(cubeName) {
@@ -58,7 +53,6 @@ export default {
             title: "Successfully Deleted",
             type: "success",
           });
-          vue.$emit("refreshCubes", true);
         },
         {
           messageType: "confirm",
@@ -66,31 +60,6 @@ export default {
         }
       );
     },
-    getCubes: function() {
-      let cubes = [];
-      axios
-        .get("api/cubes")
-        .then(response => {
-          return response.data;
-        })
-        .then(data => {
-          for (let key in data) {
-            cubes.push(data[key]);
-          }
-        });
-      this.cubesNames = cubes;
-    },
-  },
-  watch: {
-    refreshCubes: function(val) {
-      if (val === true) {
-        this.getCubes();
-        this.$emit("refreshCubes", false);
-      }
-    },
-  },
-  created() {
-    this.getCubes();
   },
 };
 </script>

@@ -36,10 +36,9 @@ export default {
   created() {
     this.$notify({
       group: "user",
-      title: "Successfully Added",
+      title: this.cubeName + "Successfully Added",
       type: "success",
     });
-    this.$emit("refreshCubes", true);
     this.$emit("close", false);
     eventModalBus.modalToShow("first");
   },

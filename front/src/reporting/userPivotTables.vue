@@ -30,12 +30,7 @@
 const axios = require("axios");
 export default {
   props: {
-    refreshPivotTables: Boolean,
-  },
-  data: function() {
-    return {
-      userPivotTables: [],
-    };
+    userPivotTables: Array,
   },
   methods: {
     selectPivotTable(userPivotTable) {
@@ -56,32 +51,6 @@ export default {
         this.$emit("reportingInterface", "QBuilder");
       }
     },
-    getAllPivotTables() {
-      let pivotTables = [];
-      axios
-        .get("api/pivottable/all")
-        .then(response => {
-          return response.data;
-        })
-        .then(data => {
-          for (let key in data) {
-            pivotTables.push(data[key]);
-          }
-        });
-      this.userPivotTables = pivotTables;
-    },
-  },
-
-  watch: {
-    refreshPivotTables: function(val) {
-      if (val === true) {
-        this.getAllPivotTables();
-        this.$emit("refreshPivotTables", false);
-      }
-    },
-  },
-  mounted() {
-    this.getAllPivotTables();
   },
 };
 </script>
