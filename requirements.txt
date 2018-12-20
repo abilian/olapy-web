@@ -4,10 +4,9 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
--e git+https://github.com/abilian/olapy.git#egg=olapy
 alembic==1.0.5            # via flask-migrate
-attrs==18.2.0
-click==7.0                # via flask
+attrs==18.2.0             # via olapy
+click==7.0                # via flask, olapy
 flask-login==0.4.1
 flask-migrate==2.3.1
 flask-sqlalchemy==2.3.2
@@ -15,22 +14,23 @@ flask-wtf==0.14.2
 flask==1.0.2
 itsdangerous==1.1.0       # via flask
 jinja2==2.10              # via flask
-lxml==4.2.5
+lxml==4.2.5               # via olapy
 mako==1.0.7               # via alembic
 markupsafe==1.1.0         # via jinja2, mako
 numpy==1.15.4             # via pandas
-pandas==0.23.4
+olapy==0.7.0
+pandas==0.23.4            # via olapy
 pathlib==1.0.1
 psycopg2-binary==2.7.6.1
 python-dateutil==2.7.5    # via alembic, pandas
 python-editor==1.0.3      # via alembic
 pytz==2018.7              # via pandas, spyne
-pyyaml==3.13
-regex==2018.11.22
+pyyaml==3.13              # via olapy
+regex==2018.11.22         # via olapy
 six==1.12.0               # via python-dateutil
-spyne==2.13.2a0
+spyne==2.13.2a0           # via olapy
 sqlalchemy==1.1.18
 typing==3.6.6
 werkzeug==0.14.1          # via flask
 wtforms==2.2.1
-xmlwitch==0.3
+xmlwitch==0.3             # via olapy
