@@ -14,6 +14,7 @@ WTForms
 # Misc
 typing
 pathlib
+pyyaml>=4.2b1
 
 #DB_Tools
 psycopg2-binary
