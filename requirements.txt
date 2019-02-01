@@ -17,13 +17,13 @@ jinja2==2.10              # via flask
 lxml==4.3.0               # via olapy
 mako==1.0.7               # via alembic
 markupsafe==1.1.0         # via jinja2, mako
-numpy==1.16.0             # via pandas
+numpy==1.16.1             # via pandas
 olapy==0.7.0
 pandas==0.24.0            # via olapy
 pathlib==1.0.1
 psycopg2-binary==2.7.7
 python-dateutil==2.7.5    # via alembic, pandas
-python-editor==1.0.3      # via alembic
+python-editor==1.0.4      # via alembic
 pytz==2018.9              # via pandas, spyne
 pyyaml==4.2b4
 regex==2019.1.24          # via olapy
