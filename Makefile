@@ -80,8 +80,7 @@ tidy: clean
 format: format-py format-js
 
 format-py:
-	isort -rc $(SRC) *.py
-	yapf --style google -r -i $(SRC) *.py
+	black $(SRC) *.py
 	isort -rc $(SRC) *.py
 
 format-js:
