@@ -175,7 +175,8 @@ def confirm_cube():
                                           'olapy-data', 'cubes', cube_name)
             copy_tree(new_temp_dir, olapy_data_dir)
             shutil.rmtree(new_temp_dir)
-            # custom -> config with config file , no need to return response, instead wait to use the cube conf
+            # custom -> config with config file, no need to return response,
+            # instead wait to use the cube conf
         return jsonify({'success': True}), 200
 
 
@@ -280,8 +281,11 @@ def _gen_facts(data_request):
     columns_names = []
     refs = []
     for table in data_request['tablesAndColumnsResult']:
-        columns_names.append(data_request['tablesAndColumnsResult'][table]['FactsCol'])
-        refs.append(table.replace('.csv', '') + '.' + data_request['tablesAndColumnsResult'][table]['DimCol'])
+        columns_names.append(
+            data_request['tablesAndColumnsResult'][table]['FactsCol'])
+        refs.append(
+            table.replace('.csv', '') + '.' +
+            data_request['tablesAndColumnsResult'][table]['DimCol'])
 
     keys = dict(
         (column, refs[index]) for (index, column) in enumerate(columns_names))
@@ -478,7 +482,8 @@ def add_db_cube():
             'username') and request.json.get('engine') == "sqlite":
         from tests.conftest import DEMO_DATABASE
         sqla_engine = DEMO_DATABASE
-    #     for test use demo database sqla engine not creating new one , and not passing the engine with the post
+    #     for test use demo database sqla engine not creating new one,
+    # and not passing the engine with the post
     else:
         sqla_uri = generate_sqla_uri(request.json)
         sqla_engine = create_engine(sqla_uri)
