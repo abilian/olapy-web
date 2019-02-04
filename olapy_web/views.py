@@ -13,7 +13,7 @@ from .extensions import login_manager
 from .forms import LoginForm
 from .models import User
 
-blueprint = Blueprint('main', __name__, template_folder='templates')
+blueprint = Blueprint("main", __name__, template_folder="templates")
 route = blueprint.route
 
 
@@ -25,15 +25,15 @@ def load_user(userid):
     return User.query.get(int(userid))
 
 
-@route('/index')
-@route('/')
+@route("/index")
+@route("/")
 @login_required
 def index():
     # type: () -> Response
-    return render_template('base.html', user=current_user)
+    return render_template("base.html", user=current_user)
 
 
-@route('/login', methods=['GET', 'POST'])
+@route("/login", methods=["GET", "POST"])
 def login():
     # type: () -> Union[Response, text_type]
     """Login user.
@@ -47,18 +47,18 @@ def login():
             login_user(user, form.remember_me.data)
             # next to hold the the page that the user tries to visite
 
-            next_url = request.args.get('next') or url_for('main.index')
+            next_url = request.args.get("next") or url_for("main.index")
             return redirect(next_url)
 
-        flash('incorrect username or password')
+        flash("incorrect username or password")
 
-    return render_template('login.html', form=form, user=current_user)
+    return render_template("login.html", form=form, user=current_user)
 
 
-@route('/logout')
+@route("/logout")
 def logout():
     # type: () -> Response
     """Logout user.
     """
     logout_user()
-    return redirect(url_for('.login'))
+    return redirect(url_for(".login"))

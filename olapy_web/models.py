@@ -9,11 +9,9 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from .extensions import db
 
 cubes = db.Table(
-    'cubes',
-    db.Column(
-        'cube_id', db.Integer, db.ForeignKey('cube.id'), primary_key=True),
-    db.Column(
-        'user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
+    "cubes",
+    db.Column("cube_id", db.Integer, db.ForeignKey("cube.id"), primary_key=True),
+    db.Column("user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True),
 )
 
 
@@ -23,16 +21,14 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True)
     password_hash = db.Column(db.String)
     cubes = db.relationship(
-        'Cube',
-        secondary=cubes,
-        lazy='dynamic',
-        backref=db.backref('users', lazy=True))
-    dashboards = db.relationship('Dashboard', backref='user', lazy='dynamic')
-    pivottables = db.relationship('Pivottable', backref='user', lazy='dynamic')
+        "Cube", secondary=cubes, lazy="dynamic", backref=db.backref("users", lazy=True)
+    )
+    dashboards = db.relationship("Dashboard", backref="user", lazy="dynamic")
+    pivottables = db.relationship("Pivottable", backref="user", lazy="dynamic")
 
     @property
     def password(self):
-        raise AttributeError('password: write-only field')
+        raise AttributeError("password: write-only field")
 
     @password.setter
     def password(self, password):
@@ -55,7 +51,7 @@ class Cube(db.Model):
     source = db.Column(db.String(50))
     _config = db.Column(db.String(200))
     _db_config = db.Column(db.String(100))
-    pivottables = db.relationship('Pivottable', backref='cube', lazy='dynamic')
+    pivottables = db.relationship("Pivottable", backref="cube", lazy="dynamic")
 
     @property
     def config(self):
@@ -80,7 +76,7 @@ class Cube(db.Model):
 class Dashboard(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     chart = db.relationship("Chart", uselist=False, backref="dashboard")
 
 
@@ -89,7 +85,7 @@ class Chart(db.Model):
     _used_charts = db.Column(db.String(120), nullable=True)
     _charts_layout = db.Column(db.String(200), nullable=False)
     _charts_data = db.Column(db.String(500), nullable=False)
-    dashboard_id = db.Column(db.Integer, db.ForeignKey('dashboard.id'))
+    dashboard_id = db.Column(db.Integer, db.ForeignKey("dashboard.id"))
 
     @property
     def used_charts(self):
@@ -122,26 +118,26 @@ class Chart(db.Model):
 class Pivottable(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    cube_id = db.Column(db.Integer, db.ForeignKey('cube.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    cube_id = db.Column(db.Integer, db.ForeignKey("cube.id"), nullable=False)
     _rows = db.Column(db.String(120), nullable=True)
     _columns = db.Column(db.String(120), nullable=True)
 
     @property
     def rows(self):
-        return self._rows.split(',')
+        return self._rows.split(",")
 
     @rows.setter
     def rows(self, value):
-        self._rows = ','.join(value)
+        self._rows = ",".join(value)
 
     @property
     def columns(self):
-        return self._columns.split(',')
+        return self._columns.split(",")
 
     @columns.setter
     def columns(self, value):
-        self._columns = ','.join(value)
+        self._columns = ",".join(value)
 
     def __repr__(self):
         return str(self.__dict__)

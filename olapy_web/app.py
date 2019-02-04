@@ -12,7 +12,7 @@ from flask import Flask, render_template
 
 from .extensions import db, login_manager, migrate
 
-ALLOWED_EXTENSIONS = {'csv'}
+ALLOWED_EXTENSIONS = {"csv"}
 
 
 def create_app(new_config=None):
@@ -23,21 +23,22 @@ def create_app(new_config=None):
         config = {
             # SQLALCHEMY_DATABASE_URI need flask instance_path
             "DEBUG": True,
-            'SQLALCHEMY_TRACK_MODIFICATIONS': False
+            "SQLALCHEMY_TRACK_MODIFICATIONS": False,
         }
     # app = Flask(__name__, static_folder='../front/dist/static', template_folder='../front/dist')
-    app = Flask(__name__, static_folder='../front/static', template_folder='../front/dist')
+    app = Flask(
+        __name__, static_folder="../front/static", template_folder="../front/dist"
+    )
     # olapy_web.config['SECRET_KEY'] = os.environ['SECRET_KEY']
     install_secret_key(app)
 
-    olapy_data_dir = config.get('OLAPY_DATA',
-                                join(app.instance_path, 'olapy-data'))
+    olapy_data_dir = config.get("OLAPY_DATA", join(app.instance_path, "olapy-data"))
     if not isdir(olapy_data_dir):
         os.makedirs(olapy_data_dir)
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = config.get(
-        'SQLALCHEMY_DATABASE_URI',
-        'sqlite:///' + join(olapy_data_dir, 'olapy.db'))
+    app.config["SQLALCHEMY_DATABASE_URI"] = config.get(
+        "SQLALCHEMY_DATABASE_URI", "sqlite:///" + join(olapy_data_dir, "olapy.db")
+    )
 
     app.config.update(config)
 
@@ -75,7 +76,7 @@ def configure_error_handlers(app):
 
         :param e: exception
         """
-        return render_template('404.html'), 400
+        return render_template("404.html"), 400
 
     @app.errorhandler(500)
     def server_error(e):
@@ -84,17 +85,19 @@ def configure_error_handlers(app):
 
         :param e: exception
         """
-        return render_template('500.html'), 500
+        return render_template("500.html"), 500
 
 
 def configure_blueprints(app):
     # type: (Flask) -> None
 
     from .views import blueprint
+
     app.register_blueprint(blueprint)
 
     from olapy_web.api.views import API
-    app.register_blueprint(API, url_prefix='/api/')
+
+    app.register_blueprint(API, url_prefix="/api/")
 
 
 def configure_jinja_loader(app):
@@ -103,18 +106,22 @@ def configure_jinja_loader(app):
     appdir = os.path.abspath(os.path.dirname(__file__))
     basedir = os.path.dirname(appdir)
 
-    my_loader = jinja2.ChoiceLoader([
-        app.jinja_loader,
-        jinja2.FileSystemLoader([
-            os.path.join(basedir, 'front/'),
-            os.path.join(basedir, 'front', 'public/')
-        ]),
-    ])
+    my_loader = jinja2.ChoiceLoader(
+        [
+            app.jinja_loader,
+            jinja2.FileSystemLoader(
+                [
+                    os.path.join(basedir, "front/"),
+                    os.path.join(basedir, "front", "public/"),
+                ]
+            ),
+        ]
+    )
 
     app.jinja_loader = my_loader
 
 
-def install_secret_key(app, filename='secret_key'):
+def install_secret_key(app, filename="secret_key"):
     """Configure the SECRET_KEY from a file
     in the instance directory.
 
@@ -123,15 +130,15 @@ def install_secret_key(app, filename='secret_key'):
     then exit.
 
     """
-    if 'SECRET_KEY' in os.environ:
-        app.config['SECRET_KEY'] = os.environ["SECRET_KEY"]
+    if "SECRET_KEY" in os.environ:
+        app.config["SECRET_KEY"] = os.environ["SECRET_KEY"]
     else:
         filename = os.path.join(app.instance_path, filename)
         try:
-            app.config['SECRET_KEY'] = open(filename, 'rb').read()
+            app.config["SECRET_KEY"] = open(filename, "rb").read()
         except IOError:
-            print('Error: No secret key. Create it with:')
+            print("Error: No secret key. Create it with:")
             if not os.path.isdir(os.path.dirname(filename)):
-                print('mkdir -p', os.path.dirname(filename))
-            print('head -c 24 /dev/urandom >', filename)
+                print("mkdir -p", os.path.dirname(filename))
+            print("head -c 24 /dev/urandom >", filename)
             sys.exit(1)
