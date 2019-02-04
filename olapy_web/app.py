@@ -14,16 +14,19 @@ from .extensions import db, login_manager, migrate
 
 ALLOWED_EXTENSIONS = {'csv'}
 
-default_config = {
-    # SQLALCHEMY_DATABASE_URI need flask instance_path
-    "DEBUG": True,
-    'SQLALCHEMY_TRACK_MODIFICATIONS': False
-}
 
-
-def create_app(config=default_config):
+def create_app(new_config=None):
     # type: (Dict[Text, Any]) -> Flask
-    app = Flask(__name__, static_folder='../front/static')
+    if new_config:
+        config = new_config
+    else:
+        config = {
+            # SQLALCHEMY_DATABASE_URI need flask instance_path
+            "DEBUG": True,
+            'SQLALCHEMY_TRACK_MODIFICATIONS': False
+        }
+    # app = Flask(__name__, static_folder='../front/dist/static', template_folder='../front/dist')
+    app = Flask(__name__, static_folder='../front/static', template_folder='../front/dist')
     # olapy_web.config['SECRET_KEY'] = os.environ['SECRET_KEY']
     install_secret_key(app)
 
@@ -104,7 +107,7 @@ def configure_jinja_loader(app):
         app.jinja_loader,
         jinja2.FileSystemLoader([
             os.path.join(basedir, 'front/'),
-            os.path.join(basedir, 'front', 'templates/')
+            os.path.join(basedir, 'front', 'public/')
         ]),
     ])
 
