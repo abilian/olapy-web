@@ -1,16 +1,26 @@
 # Tools / dev / testing
-PrettyTable
+
+# Linting
 flake8
 flake8-tidy-imports
-gprof2dot
-isort
 mccabe
-pip-tools
-py-cpuinfo
 pylint
+
+# Testing
 pytest
 pytest-cov
+tox
+
+# Doc
 sphinx
 sphinx_rtd_theme
-tox
+
+# Formatting
+isort
 yapf==0.20.0
+
+# Other
+PrettyTable
+gprof2dot
+pip-tools
+py-cpuinfo
