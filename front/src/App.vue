@@ -93,12 +93,12 @@
 
 <script>
 const axios = require("axios");
-import Cubes from "./cubes/the-cubes-names.vue";
-import UserDashboards from "./reporting/userDashboards";
-import DashboardMaker from "./reporting/dashboardMaker";
-import QueryBuilder from "./reporting/queryBuilder";
-import SchemaOptions from "./cubes/base-add-cube";
-import UserPivotTables from "./reporting/userPivotTables";
+import Cubes from "./components/cubes/the-cubes-names.vue";
+import UserDashboards from "./components/reporting/userDashboards";
+import DashboardMaker from "./components/reporting/dashboardMaker";
+import QueryBuilder from "./components/reporting/queryBuilder";
+import SchemaOptions from "./components/cubes/base-add-cube";
+import UserPivotTables from "./components/reporting/userPivotTables";
 
 export default {
   data: function() {

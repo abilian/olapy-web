@@ -1,9 +1,8 @@
-/* eslint-disable no-new */
-
 import Vue from "vue";
 import App from "./App.vue";
+import router from "./router";
+
 import Notifications from "vue-notification";
-// import Reporting from "./reporting/BaseReport.vue";
 import vDialogs from "v-dialogs";
 
 Vue.use(vDialogs);
@@ -21,23 +20,9 @@ export const eventBus = new Vue({
 
 Vue.config.devtools = true;
 
-// if (document.getElementById("designer")) {
-//   new Vue({
-//     el: "#designer",
-//     render: h => h(App),
-//   });
-// }
-//
-// if (document.getElementById("reporting")) {
-//   new Vue({
-//     el: "#reporting",
-//     render: h => h(Reporting),
-//   });
-// }
+Vue.config.productionTip = false;
 
-if (document.getElementById("app")) {
-  new Vue({
-    el: "#app",
-    render: h => h(App),
-  });
-}
+new Vue({
+  router,
+  render: h => h(App)
+}).$mount("#app");
