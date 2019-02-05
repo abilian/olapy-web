@@ -2,57 +2,59 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static',filename='images/favicon.png') }}">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- Favicon icon -->
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static',filename='images/favicon.png') }}">
 
-    <title>
-        Olapy Web
-    </title>
+  <title>
+    Olapy Web
+  </title>
 
-    <link href="{{ url_for('static',filename='css/lib/owl.carousel.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='css/lib/owl.theme.default.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='css/lib/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='css/helper.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js2 IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js2 doesn't work if you view the page via file:** -->
-    <!--[if lt IE 9]>
-    <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js2"></script>
-    <script src="https:**oss.maxcdn.com/libs/respond.js2/1.4.2/respond.min.js2"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link href="{{ url_for('static',filename='css/lib/owl.carousel.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static',filename='css/lib/owl.theme.default.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static',filename='css/lib/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static',filename='css/helper.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet">
+  <!-- HTML5 Shim and Respond.js2 IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js2 doesn't work if you view the page via file:** -->
+  <!--[if lt IE 9]>
+  <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js2"></script>
+  <script src="https:**oss.maxcdn.com/libs/respond.js2/1.4.2/respond.min.js2"></script>
 
 
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css">
 
 
-   <!-- external libs from cdnjs FOR PIVOTTABLE.JS -->
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.9/jquery.csv.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js"></script>
+ <!-- external libs from cdnjs FOR PIVOTTABLE.JS -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.9/jquery.csv.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js"></script>
 
-{#    <link href="{{ url_for('static',filename='css/bootstrap-select.css') }}" rel="stylesheet">#}
-{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">#}
-    <link href="{{ url_for('static',filename='css/pivot.css') }}" rel="stylesheet">
-{#    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.20.0/pivot.min.css">#}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.20.0/pivot.min.js"></script>
+  {#    <link href="{{ url_for('static',filename='css/bootstrap-select.css') }}" rel="stylesheet">#}
+  {#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">#}
+  <link href="{{ url_for('static',filename='css/pivot.css') }}" rel="stylesheet">
+  {#    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.20.0/pivot.min.css">#}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.20.0/pivot.min.js"></script>
 
-    <!--UNCOMMENT IF YOU WANT TO USE PLOTLY CHARTS-->
-    <!--   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>-->
-    <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.20.0/plotly_renderers.min.js"></script>-->
+  <!--UNCOMMENT IF YOU WANT TO USE PLOTLY CHARTS-->
+  <!--   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>-->
+  <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.20.0/plotly_renderers.min.js"></script>-->
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.20.0/d3_renderers.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.20.0/c3_renderers.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.20.0/export_renderers.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.20.0/d3_renderers.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.20.0/c3_renderers.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.20.0/export_renderers.min.js"></script>
 
-<![endif]-->
+  <![endif]-->
 </head>
 
 <body class="fix-header fix-sidebar">
@@ -68,286 +70,286 @@
 
 <!-- Main wrapper  -->
 <div id="main-wrapper">
-    <!-- header header  -->
-    <div class="header">
-        <nav class="navbar top-navbar navbar-expand-md navbar-light">
-            <!-- Logo -->
-            <div class="navbar-header">
-                <a class="navbar-brand" href="{{ url_for('main.index')}}">
-                    <!-- Logo icon -->
+  <!-- header header  -->
+  <div class="header">
+    <nav class="navbar top-navbar navbar-expand-md navbar-light">
+      <!-- Logo -->
+      <div class="navbar-header">
+        <a class="navbar-brand" href="{{ url_for('main.index') }}">
+          <!-- Logo icon -->
 
-                    <b><img src="{{ url_for('static',filename='images/logo.png') }}" alt="homepage" class="dark-logo"/></b>
-                    {#                        <b><img src="images2/logo.png" alt="homepage" class="dark-logo" /></b>#}
-                    <!--End Logo icon -->
-                    <!-- Logo text -->
-                    <span>
+          <b><img src="{{ url_for('static',filename='images/logo.png') }}" alt="homepage" class="dark-logo"/></b>
+          {#                        <b><img src="images2/logo.png" alt="homepage" class="dark-logo" /></b>#}
+          <!--End Logo icon -->
+          <!-- Logo text -->
+          <span>
                         <img src="{{ url_for('static',filename='images/logo-text.png') }}" alt="homepage"
-                               class="dark-logo"/>
+                             class="dark-logo"/>
                     </span>
-                    {#                        <span><img src="images2/logo-text.png" alt="homepage" class="dark-logo" /></span>#}
-                </a>
+          {#                        <span><img src="images2/logo-text.png" alt="homepage" class="dark-logo" /></span>#}
+        </a>
+      </div>
+      <!-- End Logo -->
+      <div class="navbar-collapse">
+        <!-- toggle and nav items -->
+        <ul class="navbar-nav mr-auto mt-md-0">
+          <!-- This is  -->
+          <li class="nav-item"><a class="nav-link nav-toggler hidden-md-up text-muted  "
+                                  href="javascript:void(0)"><i class="mdi mdi-menu"></i></a></li>
+          <li class="nav-item m-l-10"><a class="nav-link sidebartoggler hidden-sm-down text-muted  "
+                                         href="javascript:void(0)"><i class="ti-menu"></i></a></li>
+          <!-- Messages -->
+          {#                    <li class="nav-item dropdown mega-dropdown"><a class="nav-link dropdown-toggle text-muted  "#}
+          {#                                                                   href="#" data-toggle="dropdown" aria-haspopup="true"#}
+          {#                                                                   aria-expanded="false"><i class="fa fa-th-large"></i></a>#}
+          {#                        <div class="dropdown-menu animated zoomIn">#}
+          {#                            <ul class="mega-dropdown-menu row">#}
+          {##}
+          {##}
+          {#                                <li class="col-lg-3  m-b-30">#}
+          {#                                    <h4 class="m-b-20">CONTACT US</h4>#}
+          {#                                    <!-- Contact -->#}
+          {#                                    <form>#}
+          {#                                        <div class="form-group">#}
+          {#                                            <input type="text" class="form-control" id="exampleInputname1"#}
+          {#                                                   placeholder="Enter Name"></div>#}
+          {#                                        <div class="form-group">#}
+          {#                                            <input type="email" class="form-control" placeholder="Enter email"></div>#}
+          {#                                        <div class="form-group">#}
+          {#                                            <textarea class="form-control" id="exampleTextarea" rows="3"#}
+          {#                                                      placeholder="Message"></textarea>#}
+          {#                                        </div>#}
+          {#                                        <button type="submit" class="btn btn-info">Submit</button>#}
+          {#                                    </form>#}
+          {#                                </li>#}
+          {#                                <li class="col-lg-3 col-xlg-3 m-b-30">#}
+          {#                                    <h4 class="m-b-20">List style</h4>#}
+          {#                                    <!-- List style -->#}
+          {#                                    <ul class="list-style-none">#}
+          {#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
+          {#                                            Is Another Link</a></li>#}
+          {#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
+          {#                                            Is Another Link</a></li>#}
+          {#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
+          {#                                            Is Another Link</a></li>#}
+          {#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
+          {#                                            Is Another Link</a></li>#}
+          {#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
+          {#                                            Is Another Link</a></li>#}
+          {#                                    </ul>#}
+          {#                                </li>#}
+          {#                                <li class="col-lg-3 col-xlg-3 m-b-30">#}
+          {#                                    <h4 class="m-b-20">List style</h4>#}
+          {#                                    <!-- List style -->#}
+          {#                                    <ul class="list-style-none">#}
+          {#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
+          {#                                            Is Another Link</a></li>#}
+          {#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
+          {#                                            Is Another Link</a></li>#}
+          {#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
+          {#                                            Is Another Link</a></li>#}
+          {#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
+          {#                                            Is Another Link</a></li>#}
+          {#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
+          {#                                            Is Another Link</a></li>#}
+          {#                                    </ul>#}
+          {#                                </li>#}
+          {#                                <li class="col-lg-3 col-xlg-3 m-b-30">#}
+          {#                                    <h4 class="m-b-20">List style</h4>#}
+          {#                                    <!-- List style -->#}
+          {#                                    <ul class="list-style-none">#}
+          {#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
+          {#                                            Is Another Link</a></li>#}
+          {#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
+          {#                                            Is Another Link</a></li>#}
+          {#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
+          {#                                            Is Another Link</a></li>#}
+          {#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
+          {#                                            Is Another Link</a></li>#}
+          {#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
+          {#                                            Is Another Link</a></li>#}
+          {#                                    </ul>#}
+          {#                                </li>#}
+          {#                            </ul>#}
+          {#                        </div>#}
+          {#                    </li>#}
+          <!-- End Messages -->
+        </ul>
+        <!-- User profile and search -->
+        <ul class="navbar-nav my-lg-0">
+
+          <!-- Search -->
+          <li class="nav-item hidden-sm-down search-box"><a class="nav-link hidden-sm-down text-muted  "
+                                                            href="javascript:void(0)"><i
+                  class="ti-search"></i></a>
+            <form class="app-search">
+              <input type="text" class="form-control" placeholder="Search here"> <a class="srh-btn"><i
+                    class="ti-close"></i></a></form>
+          </li>
+          <!-- Comment -->
+          {#                    <li class="nav-item dropdown">#}
+          {#                        <a class="nav-link dropdown-toggle text-muted text-muted  " href="#" data-toggle="dropdown"#}
+          {#                           aria-haspopup="true" aria-expanded="false"> <i class="fa fa-bell"></i>#}
+          {#                            <div class="notify"><span class="heartbit"></span> <span class="point"></span></div>#}
+          {#                        </a>#}
+          {#                        <div class="dropdown-menu dropdown-menu-right mailbox animated zoomIn">#}
+          {#                            <ul>#}
+          {#                                <li>#}
+          {#                                    <div class="drop-title">Notifications</div>#}
+          {#                                </li>#}
+          {#                                <li>#}
+          {#                                    <div class="message-center">#}
+          {#                                        <!-- Message -->#}
+          {#                                        <a href="#">#}
+          {#                                            <div class="btn btn-danger btn-circle m-r-10"><i class="fa fa-link"></i>#}
+          {#                                            </div>#}
+          {#                                            <div class="mail-contnet">#}
+          {#                                                <h5>This is title</h5> <span class="mail-desc">Just see the my new admin!</span>#}
+          {#                                                <span class="time">9:30 AM</span>#}
+          {#                                            </div>#}
+          {#                                        </a>#}
+          {#                                        <!-- Message -->#}
+          {#                                        <a href="#">#}
+          {#                                            <div class="btn btn-success btn-circle m-r-10"><i class="ti-calendar"></i>#}
+          {#                                            </div>#}
+          {#                                            <div class="mail-contnet">#}
+          {#                                                <h5>This is another title</h5> <span class="mail-desc">Just a reminder that you have event</span>#}
+          {#                                                <span class="time">9:10 AM</span>#}
+          {#                                            </div>#}
+          {#                                        </a>#}
+          {#                                        <!-- Message -->#}
+          {#                                        <a href="#">#}
+          {#                                            <div class="btn btn-info btn-circle m-r-10"><i class="ti-settings"></i>#}
+          {#                                            </div>#}
+          {#                                            <div class="mail-contnet">#}
+          {#                                                <h5>This is title</h5> <span class="mail-desc">You can customize this template as you want</span>#}
+          {#                                                <span class="time">9:08 AM</span>#}
+          {#                                            </div>#}
+          {#                                        </a>#}
+          {#                                        <!-- Message -->#}
+          {#                                        <a href="#">#}
+          {#                                            <div class="btn btn-primary btn-circle m-r-10"><i class="ti-user"></i></div>#}
+          {#                                            <div class="mail-contnet">#}
+          {#                                                <h5>This is another title</h5> <span class="mail-desc">Just see the my admin!</span>#}
+          {#                                                <span class="time">9:02 AM</span>#}
+          {#                                            </div>#}
+          {#                                        </a>#}
+          {#                                    </div>#}
+          {#                                </li>#}
+          {#                                <li>#}
+          {#                                    <a class="nav-link text-center" href="javascript:void(0);"> <strong>Check all#}
+          {#                                        notifications</strong> <i class="fa fa-angle-right"></i> </a>#}
+          {#                                </li>#}
+          {#                            </ul>#}
+          {#                        </div>#}
+          {#                    </li>#}
+          {#                    <!-- End Comment -->#}
+          {#                    <!-- Messages -->#}
+          {#                    <li class="nav-item dropdown">#}
+          {#                        <a class="nav-link dropdown-toggle text-muted  " href="#" id="2" data-toggle="dropdown"#}
+          {#                           aria-haspopup="true" aria-expanded="false"> <i class="fa fa-envelope"></i>#}
+          {#                            <div class="notify"><span class="heartbit"></span> <span class="point"></span></div>#}
+          {#                        </a>#}
+          {#                        <div class="dropdown-menu dropdown-menu-right mailbox animated zoomIn" aria-labelledby="2">#}
+          {#                            <ul>#}
+          {#                                <li>#}
+          {#                                    <div class="drop-title">You have 4 new messages</div>#}
+          {#                                </li>#}
+          {#                                <li>#}
+          {#                                    <div class="message-center">#}
+          {#                                        <!-- Message -->#}
+          {#                                        <a href="#">#}
+          {#                                            <div class="user-img"><img#}
+          {#                                                    src="{{ url_for('static',filename='images/users/5.jpg') }}"#}
+          {#                                                    alt="user" class="img-circle"> <span#}
+          {#                                                    class="profile-status online pull-right"></span></div>#}
+          {#                                                <div class="user-img"> <img src="images2/users/5.jpg" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>#}
+          {#                                            <div class="mail-contnet">#}
+          {#                                                <h5>Michael Qin</h5> <span#}
+          {#                                                    class="mail-desc">Just see the my admin!</span> <span class="time">9:30 AM</span>#}
+          {#                                            </div>#}
+          {#                                        </a>#}
+          {#                                        <!-- Message -->#}
+          {#                                        <a href="#">#}
+          {#                                            <div class="user-img"><img#}
+          {#                                                    src="{{ url_for('static',filename='images/users/2.jpg') }}"#}
+          {#                                                    alt="user" class="img-circle"> <span#}
+          {#                                                    class="profile-status busy pull-right"></span></div>#}
+          {#                                                <div class="user-img"> <img src="images2/users/2.jpg" alt="user" class="img-circle"> <span class="profile-status busy pull-right"></span> </div>#}
+          {#                                            <div class="mail-contnet">#}
+          {#                                                <h5>John Doe</h5> <span#}
+          {#                                                    class="mail-desc">I've sung a song! See you at</span> <span#}
+          {#                                                    class="time">9:10 AM</span>#}
+          {#                                            </div>#}
+          {#                                        </a>#}
+          {#                                        <!-- Message -->#}
+          {#                                        <a href="#">#}
+          {#                                            <div class="user-img"><img#}
+          {#                                                    src="{{ url_for('static',filename='images/users/3.jpg') }}"#}
+          {#                                                    alt="user" class="img-circle"> <span#}
+          {#                                                    class="profile-status away pull-right"></span></div>#}
+          {#                                                <div class="user-img"> <img src="images2/users/3.jpg" alt="user" class="img-circle"> <span class="profile-status away pull-right"></span> </div>#}
+          {#                                            <div class="mail-contnet">#}
+          {#                                                <h5>Mr. John</h5> <span class="mail-desc">I am a singer!</span> <span#}
+          {#                                                    class="time">9:08 AM</span>#}
+          {#                                            </div>#}
+          {#                                        </a>#}
+          {#                                        <!-- Message -->#}
+          {#                                        <a href="#">#}
+          {#                                            <div class="user-img"><img#}
+          {#                                                    src="{{ url_for('static',filename='images/users/4.jpg') }}"#}
+          {#                                                    alt="user" class="img-circle"> <span#}
+          {#                                                    class="profile-status offline pull-right"></span></div>#}
+          {#                                                <div class="user-img"> <img src="images2/users/4.jpg" alt="user" class="img-circle"> <span class="profile-status offline pull-right"></span> </div>#}
+          {#                                            <div class="mail-contnet">#}
+          {#                                                <h5>Michael Qin</h5> <span#}
+          {#                                                    class="mail-desc">Just see the my admin!</span> <span class="time">9:02 AM</span>#}
+          {#                                            </div>#}
+          {#                                        </a>#}
+          {#                                    </div>#}
+          {#                                </li>#}
+          {#                                <li>#}
+          {#                                    <a class="nav-link text-center" href="javascript:void(0);"> <strong>See all#}
+          {#                                        e-Mails</strong> <i class="fa fa-angle-right"></i> </a>#}
+          {#                                </li>#}
+          {#                            </ul>#}
+          {#                        </div>#}
+          {#                    </li>#}
+          <!-- End Messages -->
+          <!-- Profile -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false"><img
+                    src="{{ url_for('static',filename='images/user.png') }}" alt="user"
+                    class="profile-pic"/></a>
+            <div class="dropdown-menu dropdown-menu-right animated zoomIn">
+              <ul class="dropdown-user">
+                <li><a href="#"><i class="ti-user"></i> Profile</a></li>
+                <li><a href="#"><i class="ti-settings"></i> Setting</a></li>
+                <li><a href="{{ url_for('main.logout') }}"><i class="fa fa-power-off"></i> Logout</a></li>
+
+              </ul>
             </div>
-            <!-- End Logo -->
-            <div class="navbar-collapse">
-                <!-- toggle and nav items -->
-                <ul class="navbar-nav mr-auto mt-md-0">
-                    <!-- This is  -->
-                    <li class="nav-item"><a class="nav-link nav-toggler hidden-md-up text-muted  "
-                                            href="javascript:void(0)"><i class="mdi mdi-menu"></i></a></li>
-                    <li class="nav-item m-l-10"><a class="nav-link sidebartoggler hidden-sm-down text-muted  "
-                                                   href="javascript:void(0)"><i class="ti-menu"></i></a></li>
-                    <!-- Messages -->
-{#                    <li class="nav-item dropdown mega-dropdown"><a class="nav-link dropdown-toggle text-muted  "#}
-{#                                                                   href="#" data-toggle="dropdown" aria-haspopup="true"#}
-{#                                                                   aria-expanded="false"><i class="fa fa-th-large"></i></a>#}
-{#                        <div class="dropdown-menu animated zoomIn">#}
-{#                            <ul class="mega-dropdown-menu row">#}
-{##}
-{##}
-{#                                <li class="col-lg-3  m-b-30">#}
-{#                                    <h4 class="m-b-20">CONTACT US</h4>#}
-{#                                    <!-- Contact -->#}
-{#                                    <form>#}
-{#                                        <div class="form-group">#}
-{#                                            <input type="text" class="form-control" id="exampleInputname1"#}
-{#                                                   placeholder="Enter Name"></div>#}
-{#                                        <div class="form-group">#}
-{#                                            <input type="email" class="form-control" placeholder="Enter email"></div>#}
-{#                                        <div class="form-group">#}
-{#                                            <textarea class="form-control" id="exampleTextarea" rows="3"#}
-{#                                                      placeholder="Message"></textarea>#}
-{#                                        </div>#}
-{#                                        <button type="submit" class="btn btn-info">Submit</button>#}
-{#                                    </form>#}
-{#                                </li>#}
-{#                                <li class="col-lg-3 col-xlg-3 m-b-30">#}
-{#                                    <h4 class="m-b-20">List style</h4>#}
-{#                                    <!-- List style -->#}
-{#                                    <ul class="list-style-none">#}
-{#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
-{#                                            Is Another Link</a></li>#}
-{#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
-{#                                            Is Another Link</a></li>#}
-{#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
-{#                                            Is Another Link</a></li>#}
-{#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
-{#                                            Is Another Link</a></li>#}
-{#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
-{#                                            Is Another Link</a></li>#}
-{#                                    </ul>#}
-{#                                </li>#}
-{#                                <li class="col-lg-3 col-xlg-3 m-b-30">#}
-{#                                    <h4 class="m-b-20">List style</h4>#}
-{#                                    <!-- List style -->#}
-{#                                    <ul class="list-style-none">#}
-{#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
-{#                                            Is Another Link</a></li>#}
-{#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
-{#                                            Is Another Link</a></li>#}
-{#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
-{#                                            Is Another Link</a></li>#}
-{#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
-{#                                            Is Another Link</a></li>#}
-{#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
-{#                                            Is Another Link</a></li>#}
-{#                                    </ul>#}
-{#                                </li>#}
-{#                                <li class="col-lg-3 col-xlg-3 m-b-30">#}
-{#                                    <h4 class="m-b-20">List style</h4>#}
-{#                                    <!-- List style -->#}
-{#                                    <ul class="list-style-none">#}
-{#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
-{#                                            Is Another Link</a></li>#}
-{#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
-{#                                            Is Another Link</a></li>#}
-{#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
-{#                                            Is Another Link</a></li>#}
-{#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
-{#                                            Is Another Link</a></li>#}
-{#                                        <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This#}
-{#                                            Is Another Link</a></li>#}
-{#                                    </ul>#}
-{#                                </li>#}
-{#                            </ul>#}
-{#                        </div>#}
-{#                    </li>#}
-                    <!-- End Messages -->
-                </ul>
-                <!-- User profile and search -->
-                <ul class="navbar-nav my-lg-0">
-
-                    <!-- Search -->
-                    <li class="nav-item hidden-sm-down search-box"><a class="nav-link hidden-sm-down text-muted  "
-                                                                      href="javascript:void(0)"><i
-                            class="ti-search"></i></a>
-                        <form class="app-search">
-                            <input type="text" class="form-control" placeholder="Search here"> <a class="srh-btn"><i
-                                class="ti-close"></i></a></form>
-                    </li>
-                    <!-- Comment -->
-{#                    <li class="nav-item dropdown">#}
-{#                        <a class="nav-link dropdown-toggle text-muted text-muted  " href="#" data-toggle="dropdown"#}
-{#                           aria-haspopup="true" aria-expanded="false"> <i class="fa fa-bell"></i>#}
-{#                            <div class="notify"><span class="heartbit"></span> <span class="point"></span></div>#}
-{#                        </a>#}
-{#                        <div class="dropdown-menu dropdown-menu-right mailbox animated zoomIn">#}
-{#                            <ul>#}
-{#                                <li>#}
-{#                                    <div class="drop-title">Notifications</div>#}
-{#                                </li>#}
-{#                                <li>#}
-{#                                    <div class="message-center">#}
-{#                                        <!-- Message -->#}
-{#                                        <a href="#">#}
-{#                                            <div class="btn btn-danger btn-circle m-r-10"><i class="fa fa-link"></i>#}
-{#                                            </div>#}
-{#                                            <div class="mail-contnet">#}
-{#                                                <h5>This is title</h5> <span class="mail-desc">Just see the my new admin!</span>#}
-{#                                                <span class="time">9:30 AM</span>#}
-{#                                            </div>#}
-{#                                        </a>#}
-{#                                        <!-- Message -->#}
-{#                                        <a href="#">#}
-{#                                            <div class="btn btn-success btn-circle m-r-10"><i class="ti-calendar"></i>#}
-{#                                            </div>#}
-{#                                            <div class="mail-contnet">#}
-{#                                                <h5>This is another title</h5> <span class="mail-desc">Just a reminder that you have event</span>#}
-{#                                                <span class="time">9:10 AM</span>#}
-{#                                            </div>#}
-{#                                        </a>#}
-{#                                        <!-- Message -->#}
-{#                                        <a href="#">#}
-{#                                            <div class="btn btn-info btn-circle m-r-10"><i class="ti-settings"></i>#}
-{#                                            </div>#}
-{#                                            <div class="mail-contnet">#}
-{#                                                <h5>This is title</h5> <span class="mail-desc">You can customize this template as you want</span>#}
-{#                                                <span class="time">9:08 AM</span>#}
-{#                                            </div>#}
-{#                                        </a>#}
-{#                                        <!-- Message -->#}
-{#                                        <a href="#">#}
-{#                                            <div class="btn btn-primary btn-circle m-r-10"><i class="ti-user"></i></div>#}
-{#                                            <div class="mail-contnet">#}
-{#                                                <h5>This is another title</h5> <span class="mail-desc">Just see the my admin!</span>#}
-{#                                                <span class="time">9:02 AM</span>#}
-{#                                            </div>#}
-{#                                        </a>#}
-{#                                    </div>#}
-{#                                </li>#}
-{#                                <li>#}
-{#                                    <a class="nav-link text-center" href="javascript:void(0);"> <strong>Check all#}
-{#                                        notifications</strong> <i class="fa fa-angle-right"></i> </a>#}
-{#                                </li>#}
-{#                            </ul>#}
-{#                        </div>#}
-{#                    </li>#}
-{#                    <!-- End Comment -->#}
-{#                    <!-- Messages -->#}
-{#                    <li class="nav-item dropdown">#}
-{#                        <a class="nav-link dropdown-toggle text-muted  " href="#" id="2" data-toggle="dropdown"#}
-{#                           aria-haspopup="true" aria-expanded="false"> <i class="fa fa-envelope"></i>#}
-{#                            <div class="notify"><span class="heartbit"></span> <span class="point"></span></div>#}
-{#                        </a>#}
-{#                        <div class="dropdown-menu dropdown-menu-right mailbox animated zoomIn" aria-labelledby="2">#}
-{#                            <ul>#}
-{#                                <li>#}
-{#                                    <div class="drop-title">You have 4 new messages</div>#}
-{#                                </li>#}
-{#                                <li>#}
-{#                                    <div class="message-center">#}
-{#                                        <!-- Message -->#}
-{#                                        <a href="#">#}
-{#                                            <div class="user-img"><img#}
-{#                                                    src="{{ url_for('static',filename='images/users/5.jpg') }}"#}
-{#                                                    alt="user" class="img-circle"> <span#}
-{#                                                    class="profile-status online pull-right"></span></div>#}
-                                            {#                                                <div class="user-img"> <img src="images2/users/5.jpg" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>#}
-{#                                            <div class="mail-contnet">#}
-{#                                                <h5>Michael Qin</h5> <span#}
-{#                                                    class="mail-desc">Just see the my admin!</span> <span class="time">9:30 AM</span>#}
-{#                                            </div>#}
-{#                                        </a>#}
-{#                                        <!-- Message -->#}
-{#                                        <a href="#">#}
-{#                                            <div class="user-img"><img#}
-{#                                                    src="{{ url_for('static',filename='images/users/2.jpg') }}"#}
-{#                                                    alt="user" class="img-circle"> <span#}
-{#                                                    class="profile-status busy pull-right"></span></div>#}
-                                            {#                                                <div class="user-img"> <img src="images2/users/2.jpg" alt="user" class="img-circle"> <span class="profile-status busy pull-right"></span> </div>#}
-{#                                            <div class="mail-contnet">#}
-{#                                                <h5>John Doe</h5> <span#}
-{#                                                    class="mail-desc">I've sung a song! See you at</span> <span#}
-{#                                                    class="time">9:10 AM</span>#}
-{#                                            </div>#}
-{#                                        </a>#}
-{#                                        <!-- Message -->#}
-{#                                        <a href="#">#}
-{#                                            <div class="user-img"><img#}
-{#                                                    src="{{ url_for('static',filename='images/users/3.jpg') }}"#}
-{#                                                    alt="user" class="img-circle"> <span#}
-{#                                                    class="profile-status away pull-right"></span></div>#}
-                                            {#                                                <div class="user-img"> <img src="images2/users/3.jpg" alt="user" class="img-circle"> <span class="profile-status away pull-right"></span> </div>#}
-{#                                            <div class="mail-contnet">#}
-{#                                                <h5>Mr. John</h5> <span class="mail-desc">I am a singer!</span> <span#}
-{#                                                    class="time">9:08 AM</span>#}
-{#                                            </div>#}
-{#                                        </a>#}
-{#                                        <!-- Message -->#}
-{#                                        <a href="#">#}
-{#                                            <div class="user-img"><img#}
-{#                                                    src="{{ url_for('static',filename='images/users/4.jpg') }}"#}
-{#                                                    alt="user" class="img-circle"> <span#}
-{#                                                    class="profile-status offline pull-right"></span></div>#}
-                                            {#                                                <div class="user-img"> <img src="images2/users/4.jpg" alt="user" class="img-circle"> <span class="profile-status offline pull-right"></span> </div>#}
-{#                                            <div class="mail-contnet">#}
-{#                                                <h5>Michael Qin</h5> <span#}
-{#                                                    class="mail-desc">Just see the my admin!</span> <span class="time">9:02 AM</span>#}
-{#                                            </div>#}
-{#                                        </a>#}
-{#                                    </div>#}
-{#                                </li>#}
-{#                                <li>#}
-{#                                    <a class="nav-link text-center" href="javascript:void(0);"> <strong>See all#}
-{#                                        e-Mails</strong> <i class="fa fa-angle-right"></i> </a>#}
-{#                                </li>#}
-{#                            </ul>#}
-{#                        </div>#}
-{#                    </li>#}
-                    <!-- End Messages -->
-                    <!-- Profile -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false"><img
-                                src="{{ url_for('static',filename='images/user.png') }}" alt="user"
-                                class="profile-pic"/></a>
-                        <div class="dropdown-menu dropdown-menu-right animated zoomIn">
-                            <ul class="dropdown-user">
-                                <li><a href="#"><i class="ti-user"></i> Profile</a></li>
-                                <li><a href="#"><i class="ti-settings"></i> Setting</a></li>
-                                <li><a href="{{ url_for('main.logout') }}"><i class="fa fa-power-off"></i> Logout</a></li>
-
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
 
 
-    <div id="app">
-    </div>
+  <div id="app">
+  </div>
 
-    <!-- End Page wrapper  -->
+  <!-- End Page wrapper  -->
 </div>
 <!-- End Wrapper -->
 <!-- All Jquery -->
 
 <!-- for prod: -->
 {#keep prob by default, not dev #}
-{#<script src="{{ url_for('static',filename='build.js') }}"></script>#}
+<script src="{{ url_for('static',filename='build.js') }}"></script>
 <!-- for dev: -->
-<script src="http://localhost:8080/static/build.js"></script>
+{#<script src="http://localhost:8080/static/build.js"></script>#}
 
 <script src="{{ url_for('static',filename='js/lib/bootstrap/js/popper.min.js') }}"></script>
 <script src="{{ url_for('static',filename='js/lib/bootstrap/js/bootstrap.min.js') }}"></script>
@@ -355,8 +357,6 @@
 <script src="{{ url_for('static',filename='js/sidebarmenu.js') }}"></script>
 <script src="{{ url_for('static',filename='js/lib/sticky-kit-master/dist/sticky-kit.min.js') }}"></script>
 <script src="{{ url_for('static',filename='js/custom.min.js') }}"></script>
-
-
 
 
 </body>
