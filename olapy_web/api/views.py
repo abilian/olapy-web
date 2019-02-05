@@ -19,6 +19,7 @@ from olapy_web.extensions import db
 from olapy_web.models import Chart, Cube, Dashboard, Pivottable, User
 from six.moves.urllib.parse import urlunparse
 from sqlalchemy import create_engine
+from sqlalchemy.exc import ProgrammingError
 from werkzeug.utils import secure_filename
 
 from olapy.core.mdx.executor.execute import MdxEngine
@@ -124,7 +125,7 @@ def construct_cube(cube_name,
             'facts': executor.facts,
             'measures': executor.measures
         }
-    except:
+    except (FileNotFoundError, ProgrammingError):  # Facts does not exist
         return {
             'all_tables': executor.get_all_tables_names(ignore_fact=False),
         }
@@ -211,8 +212,7 @@ def get_columns_from_db(db_cube_config):
     sqla_engine = create_engine(sqla_uri)
     executor = MdxEngine(sqla_engine=sqla_engine, source_type='db')
     results = executor.sqla_engine.execution_options(
-        stream_results=True, ).execute('SELECT * FROM {}'.format(
-        db_cube_config['tableName']))
+        stream_results=True, ).execute('SELECT * FROM {}'.format(db_cube_config['tableName']))
     df = pd.DataFrame(iter(results), columns=results.keys())
     if db_cube_config['WithID']:
         result = [column for column in df.columns]
@@ -400,18 +400,18 @@ def construct_custom_files_cube(data_request):
         cube_config=cube_config['cube_config'],
         olapy_data_location=OLAPY_TEMP_DIR,
         cubes_folder='')
-    try:
-        executor.load_cube(data_request['cubeName'])
-        if executor.star_schema_dataframe.columns is not None:
-            save_cube_config_2_db(
-                cube_config, data_request['cubeName'], source='csv')
-            return executor.star_schema_dataframe.fillna('').head().to_html(
-                classes=['table-bordered table-striped'], index=False)
-    except:
-        os.rename(
-            os.path.join(OLAPY_TEMP_DIR, data_request['cubeName']),
-            os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME))
-        return None
+    # try:
+    executor.load_cube(data_request['cubeName'])
+    if executor.star_schema_dataframe.columns is not None:
+        save_cube_config_2_db(
+            cube_config, data_request['cubeName'], source='csv')
+        return executor.star_schema_dataframe.fillna('').head().to_html(
+            classes=['table-bordered table-striped'], index=False)
+    # except:
+    #     os.rename(
+    #         os.path.join(OLAPY_TEMP_DIR, data_request['cubeName']),
+    #         os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME))
+    #     return None
 
 
 def construct_custom_db_cube(data_request):
@@ -426,15 +426,15 @@ def construct_custom_db_cube(data_request):
         source_type=source_type,
         sqla_engine=sqla_engine,
         cube_config=config['cube_config'])
-    try:
-        executor.load_cube(data_request['dbConfig']['selectCube'])
-        if executor.star_schema_dataframe.columns is not None:
-            save_cube_config_2_db(
-                config, data_request['dbConfig']['selectCube'], source='db')
-            return executor.star_schema_dataframe.fillna('').head().to_html(
-                classes=['table-bordered table-striped'], index=False)
-    except:
-        return None
+    # try:
+    executor.load_cube(data_request['dbConfig']['selectCube'])
+    if executor.star_schema_dataframe.columns is not None:
+        save_cube_config_2_db(
+            config, data_request['dbConfig']['selectCube'], source='db')
+        return executor.star_schema_dataframe.fillna('').head().to_html(
+            classes=['table-bordered table-striped'], index=False)
+    # except:
+    #     return None
 
 
 @api('/cubes/construct_custom_cube', methods=['POST'])
