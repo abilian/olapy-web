@@ -347,9 +347,9 @@
 
 <!-- for prod: -->
 {#keep prob by default, not dev #}
-<script src="{{ url_for('static',filename='build.js') }}"></script>
+{#<script src="{{ url_for('static',filename='build.js') }}"></script>#}
 <!-- for dev: -->
-{#<script src="http://localhost:8080/static/build.js"></script>#}
+<script src="http://localhost:8080/static/build.js"></script>
 
 <script src="{{ url_for('static',filename='js/lib/bootstrap/js/popper.min.js') }}"></script>
 <script src="{{ url_for('static',filename='js/lib/bootstrap/js/bootstrap.min.js') }}"></script>

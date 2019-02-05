@@ -11,7 +11,7 @@
 
 <script>
 const axios = require("axios");
-import { eventBus } from "../main.js";
+import { eventBus } from "../../main.js";
 
 export default {
   name: "cube-dimensions",
