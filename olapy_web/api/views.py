@@ -322,17 +322,6 @@ def _gen_dimensions(data_request):
     return dimensions
 
 
-# @api('/pivottable/delete', methods=['POST'])
-# def delete_pivottable():
-#     request_data = request.get_json()
-#     user_pivottable = User.query.filter(
-#         User.id == current_user.id).first().pivottables.filter(
-#         Pivottable.name == request_data['pivottableName']).first()
-#     if user_pivottable:
-#         db.session.delete(user_pivottable)
-#         db.session.commit()
-#         return jsonify({'success': True}), 200
-
 @api('/pivottable/delete', methods=['POST'])
 @api('/cubes/delete', methods=['POST'])
 @api('/dashboard/delete', methods=['POST'])
@@ -346,28 +335,13 @@ def delete():
         obj = connected_user.dashboards.filter(Dashboard.name == request_data['dashboardName']).first()
     elif queried_obj.upper() == 'PIVOTTABLE':
         obj = connected_user.pivottables.filter(Pivottable.name == request_data['pivottableName']).first()
+    else:
+        obj = None
 
-    print(obj)
     if obj:
         db.session.delete(obj)
         db.session.commit()
         return jsonify({'success': True}), 200
-
-
-# @api('/cubes/delete', methods=['POST'])
-# def delete_cube():
-#     request_data = request.get_json()
-#     pprint(request.__dict__)
-#     print('--------------------------------------------------------')
-#     print(request_data)
-#     cube_to_delete = User.query.filter(
-#         User.id == current_user.id).first(
-#         ).cubes.filter(Cube.name == request_data['cubeName']).first()
-#
-#     if cube_to_delete:
-#         db.session.delete(cube_to_delete)
-#         db.session.commit()
-#         return jsonify({'success': True}), 200
 
 
 def save_cube_config_2_db(config, cube_name, source):
