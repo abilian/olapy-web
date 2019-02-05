@@ -130,7 +130,7 @@ def construct_cube(
             "facts": executor.facts,
             "measures": executor.measures,
         }
-    except (FileNotFoundError, ProgrammingError):  # Facts does not exist
+    except (IOError, ProgrammingError):  # Facts does not exist
         return {"all_tables": executor.get_all_tables_names(ignore_fact=False)}
 
 
