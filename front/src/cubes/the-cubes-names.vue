@@ -40,9 +40,9 @@ export default {
   methods: {
     deleteCube(cubeName) {
       var vue = this;
-      this.$vDialog.alert(
-        "Are you sure to delete " + cubeName + " ?",
-        function() {
+      // this.$vDialog.alert(
+      //   "Are you sure to delete " + cubeName + " ?",
+      //   function() {
           let data = {
             cubeName: cubeName,
           };
@@ -54,12 +54,12 @@ export default {
             type: "success",
           });
           vue.$emit("removeUserCube", cubeName);
-        },
-        {
-          messageType: "confirm",
-          language: "en",
-        }
-      );
+        // },
+        // {
+        //   messageType: "confirm",
+        //   language: "en",
+        // }
+      // );
     },
   },
 };

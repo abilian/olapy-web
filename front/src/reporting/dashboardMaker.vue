@@ -187,9 +187,9 @@ export default {
     },
     deleteDashboard() {
       var vue = this;
-      this.$vDialog.alert(
-        "Are you sure to delete " + vue.dashboardName + " ?",
-        function() {
+      // this.$vDialog.alert(
+      //   "Are you sure to delete " + vue.dashboardName + " ?",
+      //   function() {
           if (vue.dashboardName) {
             let data = {
               dashboardName: vue.dashboardName,
@@ -210,12 +210,12 @@ export default {
               type: "error",
             });
           }
-        },
-        {
-          messageType: "confirm",
-          language: "en",
-        }
-      );
+      //   },
+      //   {
+      //     messageType: "confirm",
+      //     language: "en",
+      //   }
+      // );
     },
   },
   components: {
