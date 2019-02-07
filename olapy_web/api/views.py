@@ -426,8 +426,8 @@ def construct_custom_files_cube(data_request):
         save_cube_config_2_db(cube_config, data_request["cubeName"], source="csv")
         return (
             executor.star_schema_dataframe.fillna("")
-                .head()
-                .to_html(classes=["table-bordered table-striped"], index=False)
+            .head()
+            .to_html(classes=["table-bordered table-striped"], index=False)
         )
     # except:
     #     os.rename(
@@ -456,8 +456,8 @@ def construct_custom_db_cube(data_request):
         )
         return (
             executor.star_schema_dataframe.fillna("")
-                .head()
-                .to_html(classes=["table-bordered table-striped"], index=False)
+            .head()
+            .to_html(classes=["table-bordered table-striped"], index=False)
         )
     # except:
     #     return None
@@ -554,8 +554,8 @@ def get_chart_columns_result():
     executor = _load_cube(request_data["selectedCube"])
     return (
         executor.star_schema_dataframe.groupby([request_data["selectedColumn"]])
-            .sum()[request_data["selectedMeasures"]]
-            .to_json()
+        .sum()[request_data["selectedMeasures"]]
+        .to_json()
     )
 
 
