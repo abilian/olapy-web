@@ -24,7 +24,7 @@
 
         <button
           class="delete-cube fa fa-times-circle-o fa-lg"
-          @click="deleteCube(cube);"
+          @click="deleteCube(cube)"
         ></button>
       </li>
     </ul>
@@ -35,7 +35,7 @@
 const axios = require("axios");
 export default {
   props: {
-    userCubesNames: Array,
+    userCubesNames: Array
   },
   methods: {
     deleteCube(cubeName) {
@@ -44,24 +44,24 @@ export default {
         "Are you sure to delete " + cubeName + " ?",
         function() {
           let data = {
-            cubeName: cubeName,
+            cubeName: cubeName
           };
           axios.post("api/cubes/delete", data);
 
           vue.$notify({
             group: "user",
             title: "Successfully Deleted",
-            type: "success",
+            type: "success"
           });
           vue.$emit("removeUserCube", cubeName);
         },
         {
           messageType: "confirm",
-          language: "en",
+          language: "en"
         }
       );
-    },
-  },
+    }
+  }
 };
 </script>
 
