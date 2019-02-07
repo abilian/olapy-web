@@ -125,15 +125,14 @@ export default {
       //       //   add this when using vue-router
       //       .prependTo($("#pivotOptions"));
       // .prependTo($("body"));
-
-      jQuery("#output")
-        .pivotUI(jQuery.csv.toArrays(this.DataFrameCsv), {
+      jQuery("#output").pivotUI(jQuery.csv.toArrays(this.DataFrameCsv), {
           renderers: $.extend(
             jQuery.pivotUtilities.renderers,
             jQuery.pivotUtilities.c3_renderers,
             jQuery.pivotUtilities.d3_renderers,
             jQuery.pivotUtilities.export_renderers
-          ),
+          )
+        ,
           hiddenAttributes: [""],
           cols: this.columns,
           rows: this.rows,
