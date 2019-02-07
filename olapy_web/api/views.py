@@ -12,7 +12,6 @@ from pathlib import Path
 
 import pandas as pd
 from flask import Blueprint, current_app, jsonify, request
-from flask_login import current_user
 from olapy_web.extensions import db
 from olapy_web.models import Chart, Cube, Dashboard, Pivottable, User
 from six.moves.urllib.parse import urlunparse
@@ -376,7 +375,7 @@ def save_cube_config_2_db(config, cube_name, source):
     else:
         # add new cube
         cube = Cube(
-            users=[current_user],
+            users=[user],
             name=cube_name,
             source=source,
             config=cube_config,
@@ -594,7 +593,7 @@ def save_dashboard():
             charts_data=request_data["chartData"],
         )
         dashboard = Dashboard(
-            name=request_data["dashboardName"], user_id=current_user.id, chart=chart
+            name=request_data["dashboardName"], user_id=user.id, chart=chart
         )
         db.session.add(dashboard)
     db.session.commit()
@@ -649,7 +648,7 @@ def save_pivottable():
         user_pivottable.columns = request_data["pvtCols"]
     else:
         pivottable = Pivottable(
-            user_id=current_user.id,
+            user_id=user.id,
             name=request_data["pivottableName"],
             rows=request_data["pvtRows"],
             columns=request_data["pvtCols"],
@@ -679,5 +678,5 @@ def get_pivottable(pivottable_name):
 def all_pivottables():
     # user = User.query.filter(User.id == current_user.id).first()
     user = User.query.first()
-    all_pivottables =user.pivottables
+    all_pivottables = user.pivottables
     return jsonify([pivottable.name for pivottable in all_pivottables])
