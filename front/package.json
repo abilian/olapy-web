@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "jquery": "^3.3.1",
     "plotly.js": "^1.44.2",
     "v-dialogs": "^2.0.2",
     "vue": "^2.5.22",

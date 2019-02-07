@@ -8,7 +8,7 @@ import vDialogs from "v-dialogs";
 Vue.use(vDialogs);
 Vue.use(Notifications);
 
-window.$ = require("jquery");
+// window.$ = require("jquery");
 
 export const eventBus = new Vue({
   methods: {
