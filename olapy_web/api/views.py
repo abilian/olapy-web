@@ -12,6 +12,8 @@ from pathlib import Path
 
 import pandas as pd
 from flask import Blueprint, current_app, jsonify, request
+from flask_login import current_user
+
 from olapy_web.extensions import db
 from olapy_web.models import Chart, Cube, Dashboard, Pivottable, User
 from six.moves.urllib.parse import urlunparse
@@ -29,10 +31,12 @@ TEMP_CUBE_NAME = "TEMP_CUBE"
 OLAPY_TEMP_DIR = os.path.join(tempfile.mkdtemp(), "TEMP")
 home = expanduser("~")
 
+# temporary until todo authentication with vue
+user = current_user
+# user = User.query.first()
+
 
 def get_cube(cube_name):
-    # user = User.query.filter(User.id == current_user.id).first()
-    user = User.query.first()
     return (
         user.cubes.filter(Cube.name == cube_name).first()
     )
@@ -57,8 +61,6 @@ def get_config(cube_name):
 
 @api("/cubes")
 def get_cubes():
-    # user = User.query.filter(User.id == current_user.id).first()
-    user = User.query.first()
     user_cubes = user.cubes.all()
     return jsonify([cube.name for cube in user_cubes])
 
@@ -337,8 +339,6 @@ def _gen_dimensions(data_request):
 @api("/dashboard/delete", methods=["POST"])
 def delete():
     request_data = request.get_json()
-    # user = User.query.filter(User.id == current_user.id).first()
-    user = User.query.first()
     queried_obj = request.environ.get("PATH_INFO").split("/")[-2]
     if queried_obj.upper() == "CUBES":
         obj = user.cubes.filter(Cube.name == request_data["cubeName"]).first()
@@ -360,8 +360,6 @@ def delete():
 
 
 def save_cube_config_2_db(config, cube_name, source):
-    # user = User.query.filter(User.id == current_user.id).first()
-    user = User.query.first()
     queried_cube = (user.cubes.filter(Cube.name == cube_name).first())
     # config can be None
     cube_config = config.get("cube_config") if config else None
@@ -574,8 +572,6 @@ def get_cube_columns(cube_name):
 @api("/dashboard/save", methods=["POST"])
 def save_dashboard():
     request_data = request.get_json()
-    # user = User.query.filter(User.id == current_user.id).first()
-    user = User.query.first()
     user_dashboard = (
         user.dashboards.filter(Dashboard.name == request_data["dashboardName"]).first()
     )
@@ -602,16 +598,12 @@ def save_dashboard():
 
 @api("/dashboard/all")
 def all_dashboard():
-    # user = User.query.filter(User.id == current_user.id).first()
-    user = User.query.first()
     all_dashboards = user.dashboards
     return jsonify([dashboard.name for dashboard in all_dashboards])
 
 
 @api("/dashboard/<dashboard_name>")
 def get_dashboard(dashboard_name):
-    # user = User.query.filter(User.id == current_user.id).first()
-    user = User.query.first()
     dashboard = (
         user.dashboards.filter(Dashboard.name == dashboard_name).first()
     )
@@ -634,8 +626,6 @@ def star_schema_df_query_builder(cube):
 @api("/pivottable/save", methods=["POST"])
 def save_pivottable():
     request_data = request.get_json()
-    # user = User.query.filter(User.id == current_user.id).first()
-    user = User.query.first()
     user_pivottable = (
         user.pivottables.filter(Pivottable.name == request_data["pivottableName"]).first()
     )
@@ -661,8 +651,6 @@ def save_pivottable():
 
 @api("/pivottable/<pivottable_name>")
 def get_pivottable(pivottable_name):
-    # user = User.query.filter(User.id == current_user.id).first()
-    user = User.query.first()
     pivottable = (user.pivottables.filter(Pivottable.name == pivottable_name).first())
     return jsonify(
         {
@@ -676,7 +664,5 @@ def get_pivottable(pivottable_name):
 
 @api("/pivottable/all")
 def all_pivottables():
-    # user = User.query.filter(User.id == current_user.id).first()
-    user = User.query.first()
     all_pivottables = user.pivottables
     return jsonify([pivottable.name for pivottable in all_pivottables])

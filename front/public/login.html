@@ -1,82 +1,94 @@
+{% from "form_macro.html" import render_field %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <!-- Favicon icon -->
-  <link rel="icon" type="image/png" sizes="16x16" href="static/images/favicon.png">
-  <title>Olapy Web</title>
-  <!-- Bootstrap Core CSS -->
-  <link href="static/css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
-  {#    <link href="css2/lib/bootstrap/bootstrap.min.css" rel="stylesheet">#}
-  <!-- Custom CSS -->
-  <link href="static/css/helper.css" rel="stylesheet">
-  <link href="static/css/style.css" rel="stylesheet">
-  {#    <link href="css2/helper.css" rel="stylesheet">#}
-  {#    <link href="css2/style.css" rel="stylesheet">#}
-  <!-- HTML5 Shim and Respond.js2 IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js2 doesn't work if you view the page via file:** -->
-  <!--[if lt IE 9]>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images2/favicon.png">
+    <title>Olapy Web</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ url_for('static',filename='css/lib/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+    {#    <link href="css2/lib/bootstrap/bootstrap.min.css" rel="stylesheet">#}
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static',filename='css/helper.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet">
+    {#    <link href="css2/helper.css" rel="stylesheet">#}
+    {#    <link href="css2/style.css" rel="stylesheet">#}
+    <!-- HTML5 Shim and Respond.js2 IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js2 doesn't work if you view the page via file:** -->
+    <!--[if lt IE 9]>
     <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js2"></script>
     <script src="https:**oss.maxcdn.com/libs/respond.js2/1.4.2/respond.min.js2"></script>
 <![endif]-->
 </head>
 
 <body class="fix-header fix-sidebar">
+<!-- Preloader - style you can find in spinners.css2 -->
+<div class="preloader">
+    <svg class="circular" viewBox="25 25 50 50">
+        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+    </svg>
+</div>
 <!-- Main wrapper  -->
 <div id="main-wrapper">
 
-  <div class="unix-login">
-    <div class="container-fluid">
-      <div class="row justify-content-center">
-        <div class="col-lg-4">
-          <div class="login-content card">
-            <div class="login-form">
-              <h4>Login</h4>
-              <form action="" method="post">
-                <div class="form-group">
+    <div class="unix-login">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-4">
+                    <div class="login-content card">
+                        <div class="login-form">
+                            <h4>Login</h4>
+                            <form action="" method="post">
+                                {{ form.hidden_tag() }}
+                                <div class="form-group">
+                                    {{ render_field(form.username, size=50,class="form-control",placeholder="Email") }}
+                                    {#                                        <input type="email" class="form-control" placeholder="Email">#}
+                                </div>
+                                <div class="form-group">
+                                    {{ render_field(form.password, size=50,class="form-control",placeholder="Password") }}
+                                    {#                                        <input type="password" class="form-control" placeholder="Password">#}
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        {#        										<input type="checkbox"> #}
+                                        {{ render_field(form.remember_me) }}
+                                    </label>
+                                    <label class="pull-right">
+                                        <a href="#">Forgotten Password?</a>
+                                    </label>
 
-                  <input type="email" class="form-control" placeholder="Email">
+                                </div>
+                                {{ render_field(form.submit,class="btn btn-primary btn-flat m-b-30 m-t-30",value="Sign in") }}
+                                {#                                    <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>#}
+                                <div class="register-link m-t-15 text-center">
+                                    <p>Don't have account ? <a href="#"> Sign Up Here</a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                  <input type="password" class="form-control" placeholder="Password">
-                </div>
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox">
-                  </label>
-                  <label class="pull-right">
-                    <a href="#">Forgotten Password?</a>
-                  </label>
-
-                </div>
-                <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>
-                <div class="register-link m-t-15 text-center">
-                  <p>Don't have account ? <a href="#"> Sign Up Here</a></p>
-                </div>
-              </form>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 
 </div>
 <!-- End Wrapper -->
 <!-- All Jquery -->
-<script src="static/js/lib/jquery/jquery.min.js"></script>
-<script src="static/js/lib/bootstrap/js/popper.min.js"></script>
-<script src="static/js/lib/bootstrap/js/bootstrap.min.js"></script>
-<script src="static/js/jquery.slimscroll.js"></script>
-<script src="static/js/sidebarmenu.js"></script>
-<script src="static/js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
-<script src="static/js/custom.min.js"></script>
+<script src="{{ url_for('static',filename='js/lib/jquery/jquery.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/lib/bootstrap/js/popper.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/lib/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/jquery.slimscroll.js') }}"></script>
+<script src="{{ url_for('static',filename='js/sidebarmenu.js') }}"></script>
+<script src="{{ url_for('static',filename='js/lib/sticky-kit-master/dist/sticky-kit.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/custom.min.js') }}"></script>
 </body>
 
 </html>

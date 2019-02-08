@@ -30,7 +30,7 @@ def load_user(userid):
 @login_required
 def index():
     # type: () -> Response
-    return render_template("base.html", user=current_user)
+    return render_template("index.html", user=current_user)
 
 
 @route("/login", methods=["GET", "POST"])
@@ -61,4 +61,4 @@ def logout():
     """Logout user.
     """
     logout_user()
-    return redirect(url_for(".login"))
+    return redirect(url_for("login"))

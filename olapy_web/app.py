@@ -24,10 +24,7 @@ def create_app(new_config=None):
             "DEBUG": True,
             "SQLALCHEMY_TRACK_MODIFICATIONS": False,
         }
-    # app = Flask(__name__, static_folder='../front/dist/static', template_folder='../front/dist')
-    app = Flask(
-        __name__, static_folder="../front/static", template_folder="../front/dist"
-    )
+    app = Flask(__name__, static_folder='../front/dist/static', template_folder='../front/dist')
     # olapy_web.config['SECRET_KEY'] = os.environ['SECRET_KEY']
     install_secret_key(app)
 
