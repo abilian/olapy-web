@@ -37,10 +37,9 @@ def get_current_user():
      # todo temporary until authentication with vue
     :return:
     """
-    # security prob
-    if current_user.is_authenticated:
-        return current_user
-    return User.query.first()
+    user = current_user  # use this in prod
+    # user = User.query.first()  # use this in dev
+    return user
 
 
 def get_cube(cube_name):
