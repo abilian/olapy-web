@@ -579,7 +579,9 @@ def get_cube_columns(cube_name):
 def save_dashboard():
     request_data = request.get_json()
     user_dashboard = (
-        get_current_user().dashboards.filter(Dashboard.name == request_data["dashboardName"]).first()
+        get_current_user().dashboards.filter(
+            Dashboard.name == request_data["dashboardName"]
+        ).first()
     )
     if user_dashboard:
         # update dashboard
@@ -633,7 +635,9 @@ def star_schema_df_query_builder(cube):
 def save_pivottable():
     request_data = request.get_json()
     user_pivottable = (
-        get_current_user().pivottables.filter(Pivottable.name == request_data["pivottableName"]).first()
+        get_current_user().pivottables.filter(
+            Pivottable.name == request_data["pivottableName"]
+        ).first()
     )
     selected_cube = Cube.query.filter(
         User.id == get_current_user().id, Cube.name == request_data["cubeName"]
