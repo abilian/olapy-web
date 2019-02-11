@@ -14,11 +14,11 @@ flask-wtf==0.14.2
 flask==1.0.2
 itsdangerous==1.1.0       # via flask
 jinja2==2.10              # via flask
-lxml==4.3.0               # via olapy
+lxml==4.3.1               # via olapy
 mako==1.0.7               # via alembic
 markupsafe==1.1.0         # via jinja2, mako
 numpy==1.16.1             # via pandas
-olapy==0.7.0
+olapy==0.7.5
 pandas==0.24.1            # via olapy
 pathlib==1.0.1
 psycopg2-binary==2.7.7
@@ -28,7 +28,7 @@ pytz==2018.9              # via pandas, spyne
 pyyaml==4.2b4
 regex==2019.2.7           # via olapy
 six==1.12.0               # via python-dateutil
-spyne==2.13.2a0           # via olapy
+spyne==2.13.3a0           # via olapy
 sqlalchemy==1.1.18
 typing==3.6.6
 werkzeug==0.14.1          # via flask
