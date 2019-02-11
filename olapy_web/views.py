@@ -4,10 +4,10 @@ from __future__ import absolute_import, division, print_function, \
 
 from typing import Any
 
-from flask import Blueprint, Response, flash, redirect, render_template, \
+from flask import Blueprint, flash, redirect, render_template, \
     request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
-from werkzeug.wrappers import Response as WerkzeugResponse
+from werkzeug.wrappers import Response
 
 from .extensions import login_manager
 from .forms import LoginForm
@@ -57,7 +57,7 @@ def login():
 
 @route("/logout")
 def logout():
-    # type: () -> WerkzeugResponse
+    # type: () -> Response
     """Logout user.
     """
     logout_user()
