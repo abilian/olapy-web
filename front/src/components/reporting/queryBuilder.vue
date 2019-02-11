@@ -87,7 +87,7 @@ export default {
       } else {
         return [];
       }
-    },
+    }
   },
   methods: {
     getUserCubes() {
@@ -125,7 +125,7 @@ export default {
       //       //   add this when using vue-router
       //       .prependTo($("#pivotOptions"));
       // .prependTo($("body"));
-      jQuery("#output").pivotUI(jQuery.csv.toArrays(this.DataFrameCsv), {
+      jQuery("#output").pivotUI(this.DataFrameCsv, {
           renderers: $.extend(
             jQuery.pivotUtilities.renderers,
             jQuery.pivotUtilities.c3_renderers,
