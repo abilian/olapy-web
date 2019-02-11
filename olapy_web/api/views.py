@@ -628,7 +628,12 @@ def get_dashboard(dashboard_name):
 @api("/query_builder/<cube>")
 def star_schema_df_query_builder(cube):
     executor = _load_cube(cube)
-    return jsonify([line.split(',') for line in executor.star_schema_dataframe.to_csv(encoding="utf-8").splitlines()])
+    csv_df = executor.star_schema_dataframe.to_csv(encoding="utf-8")
+    return jsonify(
+        [
+            line.split(',') for line in csv_df.splitlines()
+        ]
+    )
 
 
 @api("/pivottable/save", methods=["POST"])
