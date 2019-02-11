@@ -2,12 +2,12 @@
 from __future__ import absolute_import, division, print_function, \
     unicode_literals
 
-from typing import Any, Union
+from typing import Any
 
 from flask import Blueprint, Response, flash, redirect, render_template, \
     request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
-from six import text_type
+from werkzeug.wrappers import Response as WerkzeugResponse
 
 from .extensions import login_manager
 from .forms import LoginForm
@@ -35,7 +35,7 @@ def index():
 
 @route("/login", methods=["GET", "POST"])
 def login():
-    # type: () -> Union[Response, text_type]
+    # type: () -> Response
     """Login user.
     """
     form = LoginForm()
@@ -57,7 +57,7 @@ def login():
 
 @route("/logout")
 def logout():
-    # type: () -> Response
+    # type: () -> WerkzeugResponse
     """Logout user.
     """
     logout_user()
