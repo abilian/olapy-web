@@ -1,9 +1,9 @@
 <template>
   <div class="schema_props">
     <div class="cube_components">
-      <button @click="selectedComponent = 'app-cube';">Cube</button>
-      <button @click="selectedComponent = 'app-dimensions';">Dimensions</button>
-      <button @click="selectedComponent = 'app-facts';">Facts</button>
+      <button @click="selectedComponent = 'app-cube'">Cube</button>
+      <button @click="selectedComponent = 'app-dimensions'">Dimensions</button>
+      <button @click="selectedComponent = 'app-facts'">Facts</button>
       <keep-alive>
         <component :is="selectedComponent"> </component>
       </keep-alive>

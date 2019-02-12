@@ -33,10 +33,10 @@
               <!--
                 <button class="modal-default-button" @click="checkUpload()">
               -->
-              <button class="btn btn-btn" @click="$emit('close', false);">
+              <button class="btn btn-btn" @click="$emit('close', false)">
                 close
               </button>
-              <button class="btn btn-primary" @click="confirmCube();">
+              <button class="btn btn-primary" @click="confirmCube()">
                 Next
               </button>
             </slot>

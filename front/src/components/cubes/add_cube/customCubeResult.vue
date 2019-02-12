@@ -10,10 +10,10 @@
           </div>
           <div class="modal-footer">
             <slot name="footer">
-              <button class="btn btn-default" @click="$emit('close', false);">
+              <button class="btn btn-default" @click="$emit('close', false)">
                 close
               </button>
-              <button class="btn btn-success" @click="confirmCustomCube();">
+              <button class="btn btn-success" @click="confirmCustomCube()">
                 Next
               </button>
             </slot>

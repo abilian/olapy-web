@@ -59,10 +59,10 @@
           </div>
           <div class="modal-footer">
             <slot name="footer">
-              <button class="btn btn-btn" @click="$emit('close', false);">
+              <button class="btn btn-btn" @click="$emit('close', false)">
                 close
               </button>
-              <button class="btn btn-primary" @click="confirmRelations();">
+              <button class="btn btn-primary" @click="confirmRelations()">
                 Next
               </button>
             </slot>

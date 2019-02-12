@@ -23,13 +23,13 @@
               -->
               <button
                 class="modal-default-button"
-                @click="validateCubeSelection();"
+                @click="validateCubeSelection()"
               >
                 Next
               </button>
               <button
                 class="modal-default-button"
-                @click="$emit('interface', 'main');"
+                @click="$emit('interface', 'main')"
               >
                 close
               </button>

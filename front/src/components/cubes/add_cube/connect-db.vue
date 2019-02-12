@@ -52,7 +52,7 @@
             type="button"
             value="Connect"
             id="show-databases-btn"
-            @click="connectDB();"
+            @click="connectDB()"
           />
 
           <div v-if="establishedConnection !== ''">
@@ -73,7 +73,7 @@
                   :id="database"
                   :value="database"
                   v-model="selectedDatabase"
-                  @change="getCubeInfos($event);"
+                  @change="getCubeInfos($event)"
                 />
                 <label :for="database">{{ database }}</label> <br />
               </label>

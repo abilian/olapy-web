@@ -1,7 +1,7 @@
 <template>
   <li id="dashboard-section">
     <div class="nav-btn">
-      <button class="white-btn" @click="$emit('reportingInterface', 'main');">
+      <button class="white-btn" @click="$emit('reportingInterface', 'main')">
         <i class="fa fa-tachometer"></i> <span>Dashboards</span>
       </button>
     </div>
@@ -16,7 +16,7 @@
       <li v-for="dashboard in userDashboards">
         <button
           class="btn btn-default btn-outline btn-rounded m-b-10"
-          @click="selectDashboard(dashboard);"
+          @click="selectDashboard(dashboard)"
         >
           {{ dashboard }}
         </button>

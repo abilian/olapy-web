@@ -23,10 +23,10 @@
 
           <div class="modal-footer">
             <slot name="footer">
-              <button class="btn btn-btn" @click="closeChoseCol();">
+              <button class="btn btn-btn" @click="closeChoseCol()">
                 Close
               </button>
-              <button class="btn btn-primary" @click="saveChoseCol();">
+              <button class="btn btn-primary" @click="saveChoseCol()">
                 Save
               </button>
             </slot>

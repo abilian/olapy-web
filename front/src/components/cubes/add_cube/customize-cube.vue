@@ -58,7 +58,7 @@
                 class="form-control"
                 v-model="table.name"
                 :key="index"
-                @change="updateTableColumns(table.name, index);"
+                @change="updateTableColumns(table.name, index)"
               >
                 <option disabled value="">Dimensions</option>
                 <option
@@ -71,14 +71,14 @@
               <i
                 class="fa fa-times"
                 aria-hidden="true"
-                @click="removeSection(index);"
+                @click="removeSection(index)"
               ></i>
-              <i class="far fa-edit" @click="editColumns();"></i>
+              <i class="far fa-edit" @click="editColumns()"></i>
               <!--
                 <button type="button" @click="editColumns()">Select Columns</button>
               -->
 
-              <i class="fas fa-plus" @click="addComponent();"></i>
+              <i class="fas fa-plus" @click="addComponent()"></i>
               <!--
                 <button type="button" @click="addComponent()">Select New Table</button>
               -->
@@ -87,10 +87,10 @@
 
           <div class="modal-footer">
             <slot name="footer">
-              <button class="btn btn-default" @click="$emit('close', false);">
+              <button class="btn btn-default" @click="$emit('close', false)">
                 close
               </button>
-              <button class="btn btn-primary" @click="doRelations();">
+              <button class="btn btn-primary" @click="doRelations()">
                 Next
               </button>
             </slot>

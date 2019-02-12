@@ -1,7 +1,7 @@
 <template>
   <li>
     <div class="nav-btn">
-      <button class="white-btn" @click="selectPivotTable();">
+      <button class="white-btn" @click="selectPivotTable()">
         <i class="fa fa-tachometer"></i> <span>Query Builder</span>
       </button>
     </div>
@@ -17,7 +17,7 @@
       <li v-for="userPivotTable in userPivotTables">
         <button
           class="btn btn-default btn-outline btn-rounded m-b-10"
-          @click="selectPivotTable(userPivotTable);"
+          @click="selectPivotTable(userPivotTable)"
         >
           {{ userPivotTable }}
         </button>

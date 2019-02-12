@@ -11,23 +11,23 @@
 
             <user-cubes
               @removeUserCube="
-                userCubesNames.splice(userCubesNames.indexOf($event), 1);
+                userCubesNames.splice(userCubesNames.indexOf($event), 1)
               "
               :userCubesNames="userCubesNames"
-              @reportingInterface="reportingInterface = $event;"
+              @reportingInterface="reportingInterface = $event"
             >
             </user-cubes>
 
             <user-dashboards
               :userDashboards="userDashboards"
-              @selectedDashboard="selectedDashboard = $event;"
-              @reportingInterface="reportingInterface = $event;"
+              @selectedDashboard="selectedDashboard = $event"
+              @reportingInterface="reportingInterface = $event"
             />
 
             <user-pivot-tables
               :userPivotTables="userPivotTables"
-              @selectedPivotTable="selectedPivotTable = $event;"
-              @reportingInterface="reportingInterface = $event;"
+              @selectedPivotTable="selectedPivotTable = $event"
+              @reportingInterface="reportingInterface = $event"
             />
             <!-- <li> -->
             <!--
@@ -53,7 +53,7 @@
           <button
             type="button"
             class="btn btn-primary btn-flat btn-addon m-b-10 m-l-5"
-            @click="reportingInterface = 'dashboardMaker';"
+            @click="reportingInterface = 'dashboardMaker'"
           >
             <i class="ti-plus"></i>New Dashboard
           </button>
@@ -63,25 +63,25 @@
 
     <dashboard-maker
       @removeDashboard="
-        userDashboards.splice(userDashboards.indexOf($event), 1);
+        userDashboards.splice(userDashboards.indexOf($event), 1)
       "
-      @addDashboardName="userDashboards.push($event);"
+      @addDashboardName="userDashboards.push($event)"
       v-if="reportingInterface === 'dashboardMaker'"
-      @reportingInterface="reportingInterface = $event;"
+      @reportingInterface="reportingInterface = $event"
       :selectedDashboard="selectedDashboard"
     />
 
     <schema-options
-      @addCubeName="userCubesNames.push($event);"
+      @addCubeName="userCubesNames.push($event)"
       v-if="reportingInterface === 'addCube'"
     >
     </schema-options>
     <!-- <keep-alive> -->
     <query-builder
       @removePivotTableName="
-        userPivotTables.splice(userPivotTables.indexOf($event), 1);
+        userPivotTables.splice(userPivotTables.indexOf($event), 1)
       "
-      @addPivotTableName="userPivotTables.push($event);"
+      @addPivotTableName="userPivotTables.push($event)"
       :selectedPivotTable="selectedPivotTable"
       v-if="reportingInterface === 'QBuilder'"
     ></query-builder>

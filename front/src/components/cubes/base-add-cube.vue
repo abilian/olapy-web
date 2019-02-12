@@ -5,7 +5,7 @@
         <div class="col-md-5 align-self-center">
           <button
             id="show-modal"
-            @click="showModal = true;"
+            @click="showModal = true"
             type="button"
             class="btn btn-primary btn-flat btn-addon m-b-10 m-l-5"
           >
@@ -17,8 +17,8 @@
 
     <add-cube
       v-if="showModal && modalToShow === 'first'"
-      @newCubeName="newCubeName = $event;"
-      @close="showModal = $event;"
+      @newCubeName="newCubeName = $event"
+      @close="showModal = $event"
     />
 
     <config-uploaded-tables
@@ -26,7 +26,7 @@
       :dbConfig="dbConfig"
       :cubeName="newCubeName"
       :cube="cube"
-      @close="showModal = $event;"
+      @close="showModal = $event"
     />
 
     <keep-alive>
@@ -34,22 +34,22 @@
         v-if="showModal && modalToShow === 'toConfig'"
         :cubeName="newCubeName"
         :cube="cube"
-        @factsTable="factsTable = $event;"
-        @chosenTables="chosenTables = $event;"
-        @chosenMeasures="chosenMeasures = $event;"
-        @selectTableColumns="selectTableColumns = $event;"
+        @factsTable="factsTable = $event"
+        @chosenTables="chosenTables = $event"
+        @chosenMeasures="chosenMeasures = $event"
+        @selectTableColumns="selectTableColumns = $event"
         :SavedColumns="SavedColumns"
         :dbConfig="dbConfig"
-        @SavedColumns="SavedColumns = $event;"
-        @close="showModal = $event;"
+        @SavedColumns="SavedColumns = $event"
+        @close="showModal = $event"
       />
     </keep-alive>
 
     <select-dim-columns
       v-if="showModal && modalToShow === 'choseColumns'"
-      @SavedColumns="SavedColumns = $event;"
+      @SavedColumns="SavedColumns = $event"
       :selectTableColumns="selectTableColumns"
-      @close="showModal = $event;"
+      @close="showModal = $event"
     />
 
     <table-relations
@@ -58,8 +58,8 @@
       :chosenTables="chosenTables"
       :chosenMeasures="chosenMeasures"
       :dbConfig="dbConfig"
-      @tablesAndColumnsResult="tablesAndColumnsResult = $event;"
-      @close="showModal = $event;"
+      @tablesAndColumnsResult="tablesAndColumnsResult = $event"
+      @close="showModal = $event"
     />
 
     <custom-cube-result
@@ -70,7 +70,7 @@
       :tablesAndColumnsResult="tablesAndColumnsResult"
       :dbConfig="dbConfig"
       :SavedColumns="SavedColumns"
-      @close="showModal = $event;"
+      @close="showModal = $event"
     />
 
     <added-success

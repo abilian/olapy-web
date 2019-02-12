@@ -48,12 +48,12 @@
               -->
               <button
                 class="btn btn-default pull-left"
-                @click="$emit('showChartProps', false);"
+                @click="$emit('showChartProps', false)"
               >
                 Cancel
               </button>
 
-              <button class="btn btn-primary" @click="validateChartProps();">
+              <button class="btn btn-primary" @click="validateChartProps()">
                 Finish
               </button>
             </slot>

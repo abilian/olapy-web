@@ -39,9 +39,9 @@
       :currentChartDiv="currentChartDiv"
       :chartType="draggedChart"
       v-if="showChartProps === true"
-      @chartData="chartData.push($event);"
-      @selectedCube="selectedCube = $event;"
-      @showChartProps="showChartProps = $event;"
+      @chartData="chartData.push($event)"
+      @selectedCube="selectedCube = $event"
+      @showChartProps="showChartProps = $event"
     />
 
     <draggable
@@ -78,7 +78,7 @@
           type="button"
           class="close"
           aria-label="Close"
-          @click="removeItem(index);"
+          @click="removeItem(index)"
         >
           <span aria-hidden="true">&times;</span>
         </button>

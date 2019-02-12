@@ -25,12 +25,12 @@
               <upload-csv-files
                 :newCubeName="newCubeName"
                 v-show="source === 'CSV'"
-                @SelectInputStatus="status = $event;"
+                @SelectInputStatus="status = $event"
               />
 
               <connect-db
                 v-show="source === 'DataBase'"
-                @SelectInputStatus="status = $event;"
+                @SelectInputStatus="status = $event"
               />
             </slot>
           </div>
@@ -40,7 +40,7 @@
               <!--
                 <button class="modal-default-button" @click="$emit('SelectInputStatus', 'second')">
               -->
-              <button class="btn btn-default" @click="$emit('close', false);">
+              <button class="btn btn-default" @click="$emit('close', false)">
                 close
               </button>
               <button

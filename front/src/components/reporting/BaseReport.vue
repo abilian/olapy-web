@@ -6,7 +6,7 @@
         <button
           type="button"
           class="btn btn-primary btn-flat btn-addon m-b-10 m-l-5"
-          @click="reportingInterface = 'dashboardMaker';"
+          @click="reportingInterface = 'dashboardMaker'"
         >
           <i class="ti-plus"></i>New Dashboard
         </button>
@@ -20,7 +20,7 @@
       <dashboard-marker
         v-if="reportingInterface === 'dashboardMaker'"
         :selectedDashboard="selectedDashboard"
-        @interface="reportingInterface = $event;"
+        @interface="reportingInterface = $event"
       />
     </div>
   </div>
