@@ -67,6 +67,9 @@
   require('pivottable/dist/c3_renderers');
   require('pivottable/dist/d3_renderers');
   require('pivottable/dist/export_renderers');
+  // UNCOMMENT IF YOU WANT TO USE PLOTLY CHARTS
+  // require('pivottable/dist/plotly-latest.min.js');
+  // require('pivottable/dist/plotly_renderers.min.js');
 
   export default {
     props: {
@@ -261,7 +264,9 @@
   };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  @import '~pivottable/dist/pivot.css';
+  @import "~c3/c3.min.css";
   #cube_selector {
     width: 42%;
   }
