@@ -8,8 +8,6 @@ import vDialogs from "v-dialogs";
 Vue.use(vDialogs);
 Vue.use(Notifications);
 
-// window.$ = require("jquery");
-
 export const eventBus = new Vue({
   methods: {
     queriedCube(cubeName) {
