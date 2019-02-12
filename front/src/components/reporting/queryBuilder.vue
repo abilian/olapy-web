@@ -61,30 +61,12 @@
 
 <script>
   const axios = require("axios");
-  $ = require("jquery");
-  // require('jquery-ui-bundle');
-  // import jqueryui from 'jquery-ui-bundle';
-  // import pivottable from 'pivottable';
+  let $ = require("jquery");
   require('jquery-ui-bundle');
   require('pivottable');
-  // import 'd3';
-  // import 'c3';
-  // console.log($);
-  console.log($.pivotUtilities);
-  // console.log(jQuery.pivotUtilities);
   require('pivottable/dist/c3_renderers');
   require('pivottable/dist/d3_renderers');
   require('pivottable/dist/export_renderers');
-  // import 'pivottable/dist/c3_renderers';
-  // import 'pivottable/dist/c3_renderers';
-  // import d3_renderers from 'pivottable/dist/d3_renderers'
-  // import c3_renderers from 'pivottable/dist/c3_renderers'
-  // import export_renderers from 'pivottable/dist/export_renderers'
-
-
-  // require('c3_renderers');
-  // require('d3_renderers');
-  // require('export_renderers')
 
   export default {
     props: {
