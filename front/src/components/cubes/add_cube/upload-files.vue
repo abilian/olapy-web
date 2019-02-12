@@ -26,7 +26,7 @@
     <!-- SUCCESS -->
     <div v-if="isSuccess">
       <h2>Uploaded {{ uploadedFiles.length }} file(s) successfully.</h2>
-      <p><a href="javascript:void(0)" @click="reset();">Upload again</a></p>
+      <p><a href="javascript:void(0)" @click="reset()">Upload again</a></p>
       <ul class="list-unstyled">
         <li v-for="(item, index) in uploadedFiles">{{ index }} - {{ item }}</li>
         <!-- <li v-for="item in uploadedFiles"> -->
@@ -42,7 +42,7 @@
     <!-- FAILED -->
     <div v-if="isFailed">
       <h2>Uploaded failed.</h2>
-      <p><a href="javascript:void(0)" @click="reset();">Try again</a></p>
+      <p><a href="javascript:void(0)" @click="reset()">Try again</a></p>
       <pre>{{ uploadError }}</pre>
     </div>
   </div>

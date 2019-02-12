@@ -14,7 +14,7 @@
       </span>
     </a>
     <ul aria-expanded="false" class="collapse">
-      <li v-for="cube in userCubesNames">
+      <li v-for="(cube, index) in userCubesNames" :key="cube + index">
         <button class="btn btn-default btn-outline btn-rounded m-b-10">
           {{ cube }}
         </button>
@@ -32,7 +32,7 @@
 const axios = require("axios");
 export default {
   props: {
-    userCubesNames: Array,
+    userCubesNames: Array
   },
   methods: {
     deleteCube(cubeName) {
@@ -41,43 +41,28 @@ export default {
         "Are you sure to delete " + cubeName + " ?",
         function() {
           let data = {
-            cubeName: cubeName,
+            cubeName: cubeName
           };
           axios.post("api/cubes/delete", data);
 
           vue.$notify({
             group: "user",
             title: "Successfully Deleted",
-            type: "success",
+            type: "success"
           });
           vue.$emit("removeUserCube", cubeName);
         },
         {
           messageType: "confirm",
-          language: "en",
+          language: "en"
         }
       );
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style scoped>
-.schema_box {
-  position: relative;
-  float: left;
-  top: 30px;
-  left: 10px;
-  width: 195px;
-  height: 480px;
-  border: 1px solid #98a6ad;
-}
-
-.schema_box_container {
-  margin-left: 4px;
-  margin-top: 10px;
-}
-
 .delete-cube {
   background-color: Transparent;
   background-repeat: no-repeat;

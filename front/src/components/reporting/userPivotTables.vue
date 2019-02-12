@@ -30,7 +30,7 @@
 const axios = require("axios");
 export default {
   props: {
-    userPivotTables: Array,
+    userPivotTables: Array
   },
   methods: {
     selectPivotTable(userPivotTable) {
@@ -45,13 +45,13 @@ export default {
           name: "",
           cube_name: "",
           columns: [],
-          rows: [],
+          rows: []
         };
         this.$emit("selectedPivotTable", emptyPVT);
         this.$emit("reportingInterface", "QBuilder");
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

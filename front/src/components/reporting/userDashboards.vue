@@ -29,7 +29,7 @@
 const axios = require("axios");
 export default {
   props: {
-    userDashboards: Array,
+    userDashboards: Array
   },
   methods: {
     selectDashboard(dashboard) {
@@ -38,8 +38,8 @@ export default {
         this.$emit("selectedDashboard", response.data);
         this.$emit("reportingInterface", "dashboardMaker");
       });
-    },
-  },
+    }
+  }
 };
 </script>
 
