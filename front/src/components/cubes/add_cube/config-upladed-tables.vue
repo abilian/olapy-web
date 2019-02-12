@@ -11,14 +11,16 @@
               <br />
               Measures :
               <span
-                v-for="measure in cube.measures"
+                v-for="(measure, index) in cube.measures"
+                :key="measure + index"
                 class="badge badge-light"
                 >{{ measure }}</span
               >
               <br />
               Dimensions :
               <span
-                v-for="dimension in this.cube.dimensions"
+                v-for="(dimension, index) in this.cube.dimensions"
+                :key="dimension + index"
                 class="badge badge-light"
                 >{{ dimension }}</span
               >
@@ -55,7 +57,7 @@ export default {
   props: {
     cube: Object,
     cubeName: String,
-    dbConfig: String,
+    dbConfig: String
   },
   methods: {
     confirmCube: function() {
@@ -69,15 +71,15 @@ export default {
       } else {
         let data = {
           cubeName: this.cubeName,
-          customCube: false,
+          customCube: false
         };
         axios.post("api/cubes/confirm_cube", data).then(response => {
           eventModalBus.modalToShow("success");
           return response.data;
         });
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

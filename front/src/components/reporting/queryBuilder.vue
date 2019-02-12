@@ -4,7 +4,9 @@
       <div class="col-md-5 align-self-center">
         <select id="cube_selector" class="form-control" v-model="selectedCube">
           <option disabled value="">Cube</option>
-          <option v-for="cube in userCubes"> {{ cube }}</option>
+          <option v-for="(cube, index) in userCubes" :key="cube + index">
+            {{ cube }}</option
+          >
         </select>
       </div>
       <div v-if="selectedCube" class="col-md-7 align-self-center">

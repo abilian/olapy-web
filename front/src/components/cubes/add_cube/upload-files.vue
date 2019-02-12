@@ -28,7 +28,9 @@
       <h2>Uploaded {{ uploadedFiles.length }} file(s) successfully.</h2>
       <p><a href="javascript:void(0)" @click="reset()">Upload again</a></p>
       <ul class="list-unstyled">
-        <li v-for="(item, index) in uploadedFiles">{{ index }} - {{ item }}</li>
+        <li v-for="(item, index) in uploadedFiles" :key="item + index">
+          {{ index }} - {{ item }}
+        </li>
         <!-- <li v-for="item in uploadedFiles"> -->
         <!--
           <img :src="item.url" class="img-responsive img-thumbnail" :alt="item.originalName">
@@ -59,14 +61,14 @@ const STATUS_INITIAL = 0,
 
 export default {
   props: {
-    newCubeName: String,
+    newCubeName: String
   },
   data() {
     return {
       uploadedFiles: [],
       uploadError: null,
       currentStatus: null,
-      uploadFieldName: "files",
+      uploadFieldName: "files"
     };
   },
   computed: {
@@ -81,7 +83,7 @@ export default {
     },
     isFailed() {
       return this.currentStatus === STATUS_FAILED;
-    },
+    }
   },
   methods: {
     reset() {
@@ -125,11 +127,11 @@ export default {
 
       // save it
       this.save(formData);
-    },
+    }
   },
   mounted() {
     this.reset();
-  },
+  }
 };
 </script>
 

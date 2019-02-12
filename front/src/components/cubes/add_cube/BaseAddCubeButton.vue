@@ -70,7 +70,7 @@ export default {
     return {
       newCubeName: "",
       source: "",
-      status: "failed",
+      status: "failed"
     };
   },
   methods: {
@@ -89,12 +89,12 @@ export default {
       } else if (this.status === "success") {
         eventModalBus.modalToShow("second");
       }
-    },
+    }
   },
   components: {
     uploadCsvFiles: uploadFiles,
-    connectDb: connectDb,
-  },
+    connectDb: connectDb
+  }
 };
 </script>
 

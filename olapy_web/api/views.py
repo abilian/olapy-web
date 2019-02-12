@@ -1,6 +1,7 @@
 # -*- encoding: utf8 -*-
 
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import, division, print_function, \
+    unicode_literals
 
 import os
 import shutil
@@ -13,7 +14,6 @@ from pathlib import Path
 import pandas as pd
 from flask import Blueprint, current_app, jsonify, request
 from flask_login import current_user
-
 from olapy_web.extensions import db
 from olapy_web.models import Chart, Cube, Dashboard, Pivottable, User
 from six.moves.urllib.parse import urlunparse
@@ -43,9 +43,7 @@ def get_current_user():
 
 
 def get_cube(cube_name):
-    return (
-        get_current_user().cubes.filter(Cube.name == cube_name).first()
-    )
+    return get_current_user().cubes.filter(Cube.name == cube_name).first()
 
 
 def get_cube_source_type(cube_name):
@@ -121,7 +119,7 @@ def clean_temp_dir(olapy_data_dir):
 
 
 def construct_cube(
-        cube_name, sqla_engine=None, source_type="csv", olapy_data_location=None
+    cube_name, sqla_engine=None, source_type="csv", olapy_data_location=None
 ):
     executor = MdxEngine(
         sqla_engine=sqla_engine,
@@ -347,15 +345,23 @@ def delete():
     request_data = request.get_json()
     queried_obj = request.environ.get("PATH_INFO").split("/")[-2]
     if queried_obj.upper() == "CUBES":
-        obj = get_current_user().cubes.filter(Cube.name == request_data["cubeName"]).first()
+        obj = (
+            get_current_user()
+            .cubes.filter(Cube.name == request_data["cubeName"])
+            .first()
+        )
     elif queried_obj.upper() == "DASHBOARD":
-        obj = get_current_user().dashboards.filter(
-            Dashboard.name == request_data["dashboardName"]
-        ).first()
+        obj = (
+            get_current_user()
+            .dashboards.filter(Dashboard.name == request_data["dashboardName"])
+            .first()
+        )
     elif queried_obj.upper() == "PIVOTTABLE":
-        obj = get_current_user().pivottables.filter(
-            Pivottable.name == request_data["pivottableName"]
-        ).first()
+        obj = (
+            get_current_user()
+            .pivottables.filter(Pivottable.name == request_data["pivottableName"])
+            .first()
+        )
     else:
         obj = None
 
@@ -366,7 +372,7 @@ def delete():
 
 
 def save_cube_config_2_db(config, cube_name, source):
-    queried_cube = (get_current_user().cubes.filter(Cube.name == cube_name).first())
+    queried_cube = get_current_user().cubes.filter(Cube.name == cube_name).first()
     # config can be None
     cube_config = config.get("cube_config") if config else None
     db_config = config.get("db_config") if config else None
@@ -515,9 +521,9 @@ def connectDB():
 def add_db_cube():
     request_data = request.get_json()
     if (
-            not request.json.get("servername")
-            and not request.json.get("username")
-            and request.json.get("engine") == "sqlite"
+        not request.json.get("servername")
+        and not request.json.get("username")
+        and request.json.get("engine") == "sqlite"
     ):
         from tests.conftest import DEMO_DATABASE
 
@@ -579,9 +585,9 @@ def get_cube_columns(cube_name):
 def save_dashboard():
     request_data = request.get_json()
     user_dashboard = (
-        get_current_user().dashboards.filter(
-            Dashboard.name == request_data["dashboardName"]
-        ).first()
+        get_current_user()
+        .dashboards.filter(Dashboard.name == request_data["dashboardName"])
+        .first()
     )
     if user_dashboard:
         # update dashboard
@@ -597,7 +603,9 @@ def save_dashboard():
             charts_data=request_data["chartData"],
         )
         dashboard = Dashboard(
-            name=request_data["dashboardName"], user_id=get_current_user().id, chart=chart
+            name=request_data["dashboardName"],
+            user_id=get_current_user().id,
+            chart=chart,
         )
         db.session.add(dashboard)
     db.session.commit()
@@ -629,20 +637,16 @@ def get_dashboard(dashboard_name):
 def star_schema_df_query_builder(cube):
     executor = _load_cube(cube)
     csv_df = executor.star_schema_dataframe.to_csv(encoding="utf-8")
-    return jsonify(
-        [
-            line.split(',') for line in csv_df.splitlines()
-        ]
-    )
+    return jsonify([line.split(",") for line in csv_df.splitlines()])
 
 
 @api("/pivottable/save", methods=["POST"])
 def save_pivottable():
     request_data = request.get_json()
     user_pivottable = (
-        get_current_user().pivottables.filter(
-            Pivottable.name == request_data["pivottableName"]
-        ).first()
+        get_current_user()
+        .pivottables.filter(Pivottable.name == request_data["pivottableName"])
+        .first()
     )
     selected_cube = Cube.query.filter(
         User.id == get_current_user().id, Cube.name == request_data["cubeName"]
@@ -666,7 +670,11 @@ def save_pivottable():
 
 @api("/pivottable/<pivottable_name>")
 def get_pivottable(pivottable_name):
-    pivottable = (get_current_user().pivottables.filter(Pivottable.name == pivottable_name).first())
+    pivottable = (
+        get_current_user()
+        .pivottables.filter(Pivottable.name == pivottable_name)
+        .first()
+    )
     return jsonify(
         {
             "name": pivottable.name,

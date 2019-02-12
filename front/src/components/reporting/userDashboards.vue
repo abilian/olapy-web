@@ -13,7 +13,7 @@
       </span>
     </a>
     <ul aria-expanded="false" class="collapse">
-      <li v-for="dashboard in userDashboards">
+      <li v-for="(dashboard, index) in userDashboards" :key="dashboard + index">
         <button
           class="btn btn-default btn-outline btn-rounded m-b-10"
           @click="selectDashboard(dashboard)"

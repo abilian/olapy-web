@@ -14,7 +14,10 @@
       </span>
     </a>
     <ul aria-expanded="false" class="collapse">
-      <li v-for="userPivotTable in userPivotTables">
+      <li
+        v-for="(userPivotTable, index) in userPivotTables"
+        :key="userPivotTable + index"
+      >
         <button
           class="btn btn-default btn-outline btn-rounded m-b-10"
           @click="selectPivotTable(userPivotTable)"

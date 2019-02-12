@@ -10,7 +10,12 @@
               <label>
                 <select v-model="selectedCube">
                   <option disabled value="">Choose</option>
-                  <option v-for="cube in userCubes"> {{ cube }} </option>
+                  <option
+                    v-for="(cube, index) in userCubes"
+                    :key="cube + index"
+                  >
+                    {{ cube }}</option
+                  >
                 </select>
               </label>
             </slot>
