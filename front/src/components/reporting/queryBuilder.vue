@@ -61,6 +61,11 @@
 
 <script>
 const axios = require("axios");
+import jQuery from 'jquery';
+import jqueryui from 'jquery-ui'
+import pivotUI from 'pivottable';
+jqueryui.extend(jQuery);
+jQuery.extend(pivotUI);
 export default {
   props: {
     selectedPivotTable: Object,
@@ -132,7 +137,9 @@ export default {
       //       jQuery.pivotUtilities.d3_renderers,
       //       jQuery.pivotUtilities.export_renderers
       //     ),
-      jQuery("#output").pivotUI(this.DataFrameCsv, {
+      console.log(this.$el);
+      console.log( jQuery("#output"));
+      jQuery("#output").pivot(this.DataFrameCsv, {
           hiddenAttributes: [""],
           cols: this.columns,
           rows: this.rows,
