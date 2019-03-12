@@ -4,20 +4,20 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
-alembic==1.0.7            # via flask-migrate
-attrs==18.2.0             # via olapy
+alembic==1.0.8            # via flask-migrate
+attrs==19.1.0             # via olapy
 click==7.0                # via flask, olapy
 flask-login==0.4.1
-flask-migrate==2.3.1
+flask-migrate==2.4.0
 flask-sqlalchemy==2.3.2
 flask-wtf==0.14.2
 flask==1.0.2
 itsdangerous==1.1.0       # via flask
 jinja2==2.10              # via flask
-lxml==4.3.1               # via olapy
+lxml==4.3.2               # via olapy
 mako==1.0.7               # via alembic
-markupsafe==1.1.0         # via jinja2, mako
-numpy==1.16.1             # via pandas
+markupsafe==1.1.1         # via jinja2, mako
+numpy==1.16.2             # via pandas
 olapy==0.7.5
 pandas==0.24.1            # via olapy
 pathlib==1.0.1
@@ -25,8 +25,8 @@ psycopg2-binary==2.7.7
 python-dateutil==2.8.0    # via alembic, pandas
 python-editor==1.0.4      # via alembic
 pytz==2018.9              # via pandas, spyne
-pyyaml==4.2b4
-regex==2019.2.7           # via olapy
+pyyaml==5.1b5
+regex==2019.3.12          # via olapy
 six==1.12.0               # via python-dateutil
 spyne==2.13.3a0           # via olapy
 sqlalchemy==1.1.18
