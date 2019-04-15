@@ -79,7 +79,7 @@ import Plotly from "plotly.js/dist/plotly-basic.min.js";
 export default {
   props: {
     chartType: String,
-    currentChartDiv: String
+    currentChartDiv: String,
   },
   data: function() {
     return {
@@ -89,7 +89,7 @@ export default {
       selectedColumn: "",
       allMeasures: [],
       selectedMeasures: [],
-      chartTitle: ""
+      chartTitle: "",
     };
   },
   methods: {
@@ -100,26 +100,26 @@ export default {
           {
             y: Object.values(chartData),
             x: Object.keys(chartData),
-            type: graphType
-          }
+            type: graphType,
+          },
         ];
       } else if (graphType === "pie") {
         data = [
           {
             values: Object.values(chartData),
             labels: Object.keys(chartData),
-            type: graphType
-          }
+            type: graphType,
+          },
         ];
       }
       let layout = {
-        title: this.chartTitle
+        title: this.chartTitle,
         // height: 400,
         // width: 500,
       };
       return {
         data: data,
-        layout: layout
+        layout: layout,
       };
     },
     validateChartProps() {
@@ -127,7 +127,7 @@ export default {
         let data = {
           selectedCube: this.selectedCube,
           selectedColumn: this.selectedColumn,
-          selectedMeasures: this.selectedMeasures
+          selectedMeasures: this.selectedMeasures,
         };
         if (this.chartTitle === "") {
           this.chartTitle =
@@ -156,7 +156,7 @@ export default {
           });
         this.$emit("selectedCube", this.selectedCube);
       }
-    }
+    },
   },
   watch: {
     selectedCube: function(selectedCube) {
@@ -179,7 +179,7 @@ export default {
         .then(data => {
           this.allMeasures = data["measures"];
         });
-    }
+    },
   },
   created() {
     axios
@@ -192,7 +192,7 @@ export default {
           this.userCubes.push(data[key]);
         }
       });
-  }
+  },
 };
 </script>
 

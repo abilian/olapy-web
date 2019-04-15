@@ -84,20 +84,20 @@ export default {
     factsTable: String,
     chosenTables: Array,
     chosenMeasures: Array,
-    dbConfig: String
+    dbConfig: String,
   },
   data: function() {
     return {
       tablesAndColumns: "",
       result: "",
-      tablesAndColumnsResult: {}
+      tablesAndColumnsResult: {},
     };
   },
   methods: {
     confirmRelations: function() {
       this.$emit("tablesAndColumnsResult", this.tablesAndColumnsResult);
       eventModalBus.modalToShow("confirmCustomCube");
-    }
+    },
   },
   created() {
     let allTables = [this.factsTable];
@@ -106,7 +106,7 @@ export default {
     }
     let data = {
       dbConfig: this.dbConfig,
-      allTables: allTables.join(",")
+      allTables: allTables.join(","),
     };
     axios.post("api/cubes/get_tables_and_columns", data).then(x => {
       this.tablesAndColumns = x.data;
@@ -114,12 +114,12 @@ export default {
         if (key !== this.factsTable) {
           this.tablesAndColumnsResult[key] = {
             DimCol: "",
-            FactsCol: ""
+            FactsCol: "",
           };
         }
       }
     });
-  }
+  },
 };
 </script>
 

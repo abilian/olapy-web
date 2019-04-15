@@ -105,7 +105,7 @@ export default {
       password: "root",
       loadedDatabases: [],
       establishedConnection: "",
-      selectedDatabase: ""
+      selectedDatabase: "",
     };
   },
   methods: {
@@ -116,7 +116,7 @@ export default {
           servername: this.servername,
           port: this.port,
           username: this.username,
-          password: this.password
+          password: this.password,
         })
         .then(x => {
           this.loadedDatabases = x.data;
@@ -135,7 +135,7 @@ export default {
         servername: this.servername,
         port: this.port,
         username: this.username,
-        password: this.password
+        password: this.password,
       };
       axios
         .post("api/cubes/add_DB_cube", data)
@@ -151,11 +151,11 @@ export default {
         .catch(err => {
           this.$emit("SelectInputStatus", "failed");
         });
-    }
+    },
   },
   created() {
     eventModalBus.ConnectionConfig("");
-  }
+  },
 };
 </script>
 

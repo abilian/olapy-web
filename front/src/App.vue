@@ -108,7 +108,7 @@ export default {
       selectedPivotTable: null,
       userPivotTables: [],
       userDashboards: [],
-      userCubesNames: []
+      userCubesNames: [],
     };
   },
   methods: {
@@ -153,7 +153,7 @@ export default {
           }
         });
       this.userCubesNames = cubes;
-    }
+    },
   },
   components: {
     UserPivotTables,
@@ -161,13 +161,13 @@ export default {
     schemaOptions: SchemaOptions,
     userDashboards: UserDashboards,
     dashboardMaker: DashboardMaker,
-    queryBuilder: QueryBuilder
+    queryBuilder: QueryBuilder,
   },
   mounted() {
     this.getAllPivotTables();
     this.getAllDashboards();
     this.getCubes();
-  }
+  },
 };
 </script>
 

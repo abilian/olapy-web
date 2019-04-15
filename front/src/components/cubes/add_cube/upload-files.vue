@@ -61,14 +61,14 @@ const STATUS_INITIAL = 0,
 
 export default {
   props: {
-    newCubeName: String
+    newCubeName: String,
   },
   data() {
     return {
       uploadedFiles: [],
       uploadError: null,
       currentStatus: null,
-      uploadFieldName: "files"
+      uploadFieldName: "files",
     };
   },
   computed: {
@@ -83,7 +83,7 @@ export default {
     },
     isFailed() {
       return this.currentStatus === STATUS_FAILED;
-    }
+    },
   },
   methods: {
     reset() {
@@ -127,11 +127,11 @@ export default {
 
       // save it
       this.save(formData);
-    }
+    },
   },
   mounted() {
     this.reset();
-  }
+  },
 };
 </script>
 
