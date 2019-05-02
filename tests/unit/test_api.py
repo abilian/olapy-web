@@ -34,7 +34,8 @@ def test_add_db_cube(client):
     with client:
         client.post('/login', data=dict(username="admin", password="admin"))
 
-        #  in the web , ypu don't put a string connection, instead each connexion param separately
+        # in the web , you don't put a string connection,
+        # instead each connexion param separately
         db_credentials = dict(
             selectCube='main',
             engine='sqlite',

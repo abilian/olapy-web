@@ -23,8 +23,8 @@ from werkzeug.utils import secure_filename
 
 from olapy.core.mdx.executor.execute import MdxEngine
 
-API = Blueprint("api", __name__, template_folder="templates")
-api = API.route
+api = Blueprint("api", __name__, template_folder="templates")
+route = api.route
 
 ALLOWED_EXTENSIONS = {".csv"}
 TEMP_CUBE_NAME = "TEMP_CUBE"
@@ -63,7 +63,7 @@ def get_config(cube_name):
     }
 
 
-@api("/cubes")
+@route("/cubes")
 def get_cubes():
     user_cubes = get_current_user().cubes.all()
     return jsonify([cube.name for cube in user_cubes])
@@ -75,7 +75,8 @@ def _load_cube(cube_name):
     if config["db_config"] == "sqlite://" and cube_name == "main":
         from tests.conftest import DEMO_DATABASE
 
-        # not instantiating new engine , use test demo db, not passing serialized engine with post
+        # not instantiating new engine, use test demo db,
+        # not passing serialized engine with post
         sqla_engine = DEMO_DATABASE
     elif config["db_config"]:
         sqla_engine = create_engine(config["db_config"])
@@ -92,14 +93,14 @@ def _load_cube(cube_name):
     return executor
 
 
-@api("/cubes/<cube_name>/dimensions")
+@route("/cubes/<cube_name>/dimensions")
 def get_cube_dimensions(cube_name):
     executor = _load_cube(cube_name)
     tables_names = executor.get_all_tables_names(ignore_fact=True)
     return jsonify(tables_names)
 
 
-@api("/cubes/<cube_name>/facts")
+@route("/cubes/<cube_name>/facts")
 def get_cube_facts(cube_name):
     cube = _load_cube(cube_name)
     cube_info = {"table_name": cube.facts, "measures": cube.measures}
@@ -139,7 +140,7 @@ def construct_cube(
         return {"all_tables": executor.get_all_tables_names(ignore_fact=False)}
 
 
-@api("/cubes/add", methods=["POST"])
+@route("/cubes/add", methods=["POST"])
 def add_cube():
     # temporary
     #  2 TEMP_CUBE_NAME = first is the all cubes folder, the second is the current cube folder
@@ -168,7 +169,7 @@ def add_cube():
         )
 
 
-@api("/cubes/confirm_cube", methods=["POST"])
+@route("/cubes/confirm_cube", methods=["POST"])
 def confirm_cube():
     if request.data:
         request_data = request.json
@@ -191,7 +192,7 @@ def confirm_cube():
         return jsonify({"success": True}), 200
 
 
-@api("/cubes/clean_tmp_dir", methods=["POST"])
+@route("/cubes/clean_tmp_dir", methods=["POST"])
 def clean_tmp_dir():
     for root, dirs, files in os.walk(OLAPY_TEMP_DIR):
         for f in files:
@@ -238,7 +239,7 @@ def get_columns_from_db(db_cube_config):
     return result
 
 
-@api("/cubes/get_table_columns", methods=["POST"])
+@route("/cubes/get_table_columns", methods=["POST"])
 def get_table_columns():
     db_cube_config = request.json
     if db_cube_config:
@@ -275,7 +276,7 @@ def get_tables_columns_from_files(db_cube_config):
         return response
 
 
-@api("/cubes/get_tables_and_columns", methods=["POST"])
+@route("/cubes/get_tables_and_columns", methods=["POST"])
 def get_tables_and_columns():
     if request.data:
         # db_cube_config = json.loads(request.data.decode('utf-8'))
@@ -338,9 +339,9 @@ def _gen_dimensions(data_request):
     return dimensions
 
 
-@api("/pivottable/delete", methods=["POST"])
-@api("/cubes/delete", methods=["POST"])
-@api("/dashboard/delete", methods=["POST"])
+@route("/pivottable/delete", methods=["POST"])
+@route("/cubes/delete", methods=["POST"])
+@route("/dashboard/delete", methods=["POST"])
 def delete():
     request_data = request.get_json()
     queried_obj = request.environ.get("PATH_INFO").split("/")[-2]
@@ -458,7 +459,6 @@ def construct_custom_db_cube(data_request):
         sqla_engine=sqla_engine,
         cube_config=config["cube_config"],
     )
-    # try:
     executor.load_cube(data_request["dbConfig"]["selectCube"])
     if executor.star_schema_dataframe.columns is not None:
         save_cube_config_2_db(
@@ -469,11 +469,9 @@ def construct_custom_db_cube(data_request):
             .head()
             .to_html(classes=["table-bordered table-striped"], index=False)
         )
-    # except:
-    #     return None
 
 
-@api("/cubes/construct_custom_cube", methods=["POST"])
+@route("/cubes/construct_custom_cube", methods=["POST"])
 def construct_custom_cube():
     if request.data:
         data_request = request.json
@@ -508,7 +506,7 @@ def generate_sqla_uri(db_credentials):
     return urlunparse((engine, netloc, selected_cube, "", "", ""))
 
 
-@api("/cubes/connectDB", methods=["POST"])
+@route("/cubes/connectDB", methods=["POST"])
 def connectDB():
     if request.data:
         sqla_uri = generate_sqla_uri(request.json)
@@ -517,7 +515,7 @@ def connectDB():
         return jsonify(executor.get_cubes_names())
 
 
-@api("/cubes/add_DB_cube", methods=["POST"])
+@route("/cubes/add_DB_cube", methods=["POST"])
 def add_db_cube():
     request_data = request.get_json()
     if (
@@ -548,7 +546,7 @@ def add_db_cube():
         )
 
 
-@api("/cubes/confirm_db_cube", methods=["POST"])
+@route("/cubes/confirm_db_cube", methods=["POST"])
 def confirm_db_cube():
     request_data = request.get_json()
     config = {"cube_config": None, "db_config": generate_sqla_uri(request_data)}
@@ -558,7 +556,7 @@ def confirm_db_cube():
     return jsonify({"success": True}), 200
 
 
-@api("/cubes/chart_columns", methods=["POST"])
+@route("/cubes/chart_columns", methods=["POST"])
 def get_chart_columns_result():
     request_data = request.get_json()
     executor = _load_cube(request_data["selectedCube"])
@@ -569,7 +567,7 @@ def get_chart_columns_result():
     )
 
 
-@api("/cubes/<cube_name>/columns")
+@route("/cubes/<cube_name>/columns")
 def get_cube_columns(cube_name):
     executor = _load_cube(cube_name)
     return jsonify(
@@ -581,7 +579,7 @@ def get_cube_columns(cube_name):
     )
 
 
-@api("/dashboard/save", methods=["POST"])
+@route("/dashboard/save", methods=["POST"])
 def save_dashboard():
     request_data = request.get_json()
     user_dashboard = (
@@ -612,13 +610,13 @@ def save_dashboard():
     return jsonify({"success": True}), 200
 
 
-@api("/dashboard/all")
+@route("/dashboard/all")
 def all_dashboard():
     all_dashboards = get_current_user().dashboards
     return jsonify([dashboard.name for dashboard in all_dashboards])
 
 
-@api("/dashboard/<dashboard_name>")
+@route("/dashboard/<dashboard_name>")
 def get_dashboard(dashboard_name):
     dashboard = (
         get_current_user().dashboards.filter(Dashboard.name == dashboard_name).first()
@@ -633,14 +631,14 @@ def get_dashboard(dashboard_name):
     )
 
 
-@api("/query_builder/<cube>")
+@route("/query_builder/<cube>")
 def star_schema_df_query_builder(cube):
     executor = _load_cube(cube)
     csv_df = executor.star_schema_dataframe.to_csv(encoding="utf-8")
     return jsonify([line.split(",") for line in csv_df.splitlines()])
 
 
-@api("/pivottable/save", methods=["POST"])
+@route("/pivottable/save", methods=["POST"])
 def save_pivottable():
     request_data = request.get_json()
     user_pivottable = (
@@ -668,7 +666,7 @@ def save_pivottable():
     return jsonify({"success": True}), 200
 
 
-@api("/pivottable/<pivottable_name>")
+@route("/pivottable/<pivottable_name>")
 def get_pivottable(pivottable_name):
     pivottable = (
         get_current_user()
@@ -685,7 +683,7 @@ def get_pivottable(pivottable_name):
     )
 
 
-@api("/pivottable/all")
+@route("/pivottable/all")
 def all_pivottables():
     all_pivottables = get_current_user().pivottables
     return jsonify([pivottable.name for pivottable in all_pivottables])

@@ -10,10 +10,7 @@ def test_user_creation(session):
 
 
 def test_login_logout(client, admin_user):
-    response = client.post('/login', data=dict(
-        username="admin",
-        password="admin"
-    ))
+    response = client.post('/login', data={'username': "admin", 'password': "admin"})
     assert response.status == "302 FOUND"
 
     response = client.get('/logout', follow_redirects=True)

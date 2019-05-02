@@ -15,7 +15,7 @@ CUSTOM_CUBE_PATH = 'tests/demo_csv_cubes/foodmart_with_config'
 
 def test_add_csv_cube(client):
     with client:
-        client.post('/login', data=dict(username="admin", password="admin"))
+        client.post('/login', data={'username': "admin", 'password': "admin"})
 
         files = [
             open(join(CUBE_PATH, file), 'rb') for file in listdir(CUBE_PATH)
@@ -33,7 +33,7 @@ def test_add_csv_cube(client):
 
 def test_add_custom_csv_cube(client):
     with client:
-        client.post('/login', data=dict(username="admin", password="admin"))
+        client.post('/login', data={'username': "admin", 'password': "admin"})
         current_dir = os.getcwd()
         os.chdir(
             CUSTOM_CUBE_PATH
@@ -142,8 +142,10 @@ def test_add_dashboard(client):
             content_type='application/json')
         response_state = response.get_json()
         assert response_state['success']
+
         all_dashboards = client.get('api/dashboard/all').data
         assert b"dashboard_test" in all_dashboards
+
         add_dashboard = client.get('api/dashboard/dashboard_test').get_json()
         assert add_dashboard['name'] == 'dashboard_test'
         assert add_dashboard['used_charts'] == ['pie']
