@@ -46,7 +46,7 @@ Run the demo
 
 Run:
 
-1. export FLASK_APP=manage.py
+1. ``Export FLASK_APP=app.py``
 
 2. ``flask init`` to initialize the db and some demos
 

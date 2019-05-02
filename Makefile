@@ -51,12 +51,11 @@ lint-js:
 # Running web server
 #
 init:
-	olapy-web init
+	flask initdb
 
 run:
 	cd front && yarn build
-	python manage.py
-
+	flask run
 
 clean:
 	find . -name "*.pyc" -delete

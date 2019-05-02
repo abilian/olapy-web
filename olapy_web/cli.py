@@ -16,10 +16,10 @@ app = create_app()
 def initdb(ctx):
     try:
         db.create_all()
-        db.session.add(
-            User(username="admin", email="admin@admin.com", password="admin")
-        )
-        db.session.add(User(username="demo", email="demo@demo.com", password="demo"))
+        admin_user = User(username="admin", email="admin@admin.com", password="admin")
+        demo_user = User(username="demo", email="demo@demo.com", password="demo")
+        db.session.add(admin_user)
+        db.session.add(demo_user)
         db.session.commit()
         print("Initialized the database")
     except IntegrityError:
