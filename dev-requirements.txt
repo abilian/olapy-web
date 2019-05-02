@@ -17,7 +17,6 @@ sphinx_rtd_theme
 
 # Formatting
 isort
-yapf==0.20.0
 
 # Other
 PrettyTable
