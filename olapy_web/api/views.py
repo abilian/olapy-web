@@ -14,14 +14,14 @@ from pathlib import Path
 import pandas as pd
 from flask import Blueprint, current_app, jsonify, request
 from flask_login import current_user
-from olapy_web.extensions import db
-from olapy_web.models import Chart, Cube, Dashboard, Pivottable, User
+from olapy.core.mdx.executor.execute import MdxEngine
 from six.moves.urllib.parse import urlunparse
 from sqlalchemy import create_engine
 from sqlalchemy.exc import ProgrammingError
 from werkzeug.utils import secure_filename
 
-from olapy.core.mdx.executor.execute import MdxEngine
+from olapy_web.extensions import db
+from olapy_web.models import Chart, Cube, Dashboard, Pivottable, User
 
 api = Blueprint("api", __name__, template_folder="templates")
 route = api.route

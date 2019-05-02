@@ -79,8 +79,8 @@ tidy: clean
 format: format-py format-js
 
 format-py:
-	black $(SRC) *.py
-	isort -rc $(SRC) *.py
+	black $(SRC) tests *.py
+	isort -rc $(SRC) tests *.py
 
 format-js:
 	cd front && make format
