@@ -150,7 +150,7 @@ export default {
   methods: {
     addChart() {
       const chartDiv = this.draggedChart + (this.usedCharts.length - 1); // - 1
-      this.layout[this.usedCharts.length - 1].i = chartDiv; //list.length - 2
+      this.layout[this.usedCharts.length - 1].i = chartDiv; // list.length - 2
       this.currentChartDiv = chartDiv;
       this.showChartProps = true;
     },
@@ -239,7 +239,7 @@ export default {
   watch: {
     usedCharts: function(newElements, oldElements) {
       if (newElements.length > oldElements.length && this.draggedChart) {
-        //if add chart not removing one
+        // if add chart not removing one
         if (this.chart_x_position >= this.chart_weight * 2) {
           this.chart_x_position = 0;
           this.chart_y_position += this.chart_height;

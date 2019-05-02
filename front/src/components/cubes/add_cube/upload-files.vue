@@ -54,10 +54,10 @@
 import axios from "axios";
 import { eventModalBus } from "../base-add-cube.vue";
 
-const STATUS_INITIAL = 0,
-  STATUS_SAVING = 1,
-  STATUS_SUCCESS = 2,
-  STATUS_FAILED = 3;
+const STATUS_INITIAL = 0;
+const STATUS_SAVING = 1;
+const STATUS_SUCCESS = 2;
+const STATUS_FAILED = 3;
 
 export default {
   props: {

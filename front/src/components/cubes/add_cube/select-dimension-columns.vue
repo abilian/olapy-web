@@ -54,15 +54,11 @@ export default {
   },
   methods: {
     saveChoseCol() {
-      {
-        this.$emit("SavedColumns", this.selectedColumns);
-        eventModalBus.modalToShow("toConfig");
-      }
+      this.$emit("SavedColumns", this.selectedColumns);
+      eventModalBus.modalToShow("toConfig");
     },
     closeChoseCol() {
-      {
-        eventModalBus.modalToShow("toConfig");
-      }
+      eventModalBus.modalToShow("toConfig");
     },
   },
 };
