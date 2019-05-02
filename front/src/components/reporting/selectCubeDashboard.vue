@@ -47,22 +47,25 @@
 </template>
 
 <script>
-const axios = require("axios");
+import axios from "axios";
+
 export default {
   data: function() {
     return {
       selectedCube: "",
-      userCubes: [],
+      userCubes: []
     };
   },
+
   methods: {
     validateCubeSelection() {
       if (this.selectedCube) {
         this.$emit("selectedCube", this.selectedCube);
         this.$emit("interface", "dashboardMaker");
       }
-    },
+    }
   },
+
   created() {
     axios
       .get("api/cubes")
@@ -74,7 +77,7 @@ export default {
           this.userCubes.push(data[key]);
         }
       });
-  },
+  }
 };
 </script>
 
@@ -100,7 +103,7 @@ export default {
 .modal-container {
   width: 70%;
   height: 50%;
-  margin: 0px auto;
+  margin: 0 auto;
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;

@@ -103,7 +103,7 @@
 </template>
 
 <script>
-const axios = require("axios");
+import axios from "axios";
 import { eventModalBus } from "../base-add-cube.vue";
 
 export default {
@@ -111,7 +111,7 @@ export default {
     cube: Object,
     cubeName: String,
     SavedColumns: Object,
-    dbConfig: String,
+    dbConfig: String
   },
   data: function() {
     return {
@@ -123,9 +123,9 @@ export default {
       tables: [
         {
           id: "1",
-          name: "",
-        },
-      ],
+          name: ""
+        }
+      ]
     };
   },
   methods: {
@@ -135,7 +135,7 @@ export default {
     addComponent: function() {
       this.tables.push({
         id: Math.floor(Math.random() * 6),
-        name: "",
+        name: ""
       });
       this.DimColumns.push(this.SavedColumns);
     },
@@ -150,33 +150,31 @@ export default {
       eventModalBus.modalToShow("makeRelations");
     },
     updateTableColumns(tableName, index) {
-      let data = {
+      const data = {
         tableName: tableName,
         WithID: true,
-        dbConfig: this.dbConfig,
+        dbConfig: this.dbConfig
       };
-      axios.post("api/cubes/get_table_columns", data).then(x => {
-        let table_columns = {};
-        table_columns[tableName] = x.data;
+      axios.post("api/cubes/get_table_columns", data).then(response => {
+        const table_columns = {};
+        table_columns[tableName] = response.data;
         this.tableColumns[index] = table_columns;
         this.$emit("selectTableColumns", this.tableColumns[index]);
         eventModalBus.modalToShow("choseColumns");
       });
-    },
+    }
   },
   watch: {
     factsTable: function() {
-      let data = {
+      const data = {
         tableName: this.factsTable,
         WithID: false,
-        dbConfig: this.dbConfig,
+        dbConfig: this.dbConfig
       };
-      axios.post("api/cubes/get_table_columns", data).then(x => {
-        this.tableColumnsNoId = x.data;
+      axios.post("api/cubes/get_table_columns", data).then(response => {
+        this.tableColumnsNoId = response.data;
       });
-    },
-  },
+    }
+  }
 };
 </script>
-
-<style scoped></style>

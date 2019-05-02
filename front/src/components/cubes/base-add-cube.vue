@@ -84,7 +84,7 @@
 </template>
 
 <script>
-const axios = require("axios");
+import axios from "axios";
 import addCube from "./add_cube/BaseAddCubeButton.vue";
 import configUploadedTables from "./add_cube/config-upladed-tables.vue";
 import addedSuccess from "./add_cube/added-success.vue";
@@ -105,8 +105,8 @@ export const eventModalBus = new Vue({
     },
     ConnectionConfig(config) {
       this.$emit("ConnectionConfig", config);
-    },
-  },
+    }
+  }
 });
 
 export default {
@@ -116,7 +116,7 @@ export default {
       modalToShow: "first",
       cube: "",
       dbConfig: "",
-      SavedColumns: null,
+      SavedColumns: null
     };
   },
   components: {
@@ -126,7 +126,7 @@ export default {
     selectDimColumns: selectDimColumns,
     tableRelations: tableRelations,
     customCubeResult: customCubeResult,
-    addedSuccess: addedSuccess,
+    addedSuccess: addedSuccess
   },
   created() {
     eventModalBus.$on("modalToShow", modal => {
@@ -145,9 +145,7 @@ export default {
       this.cube = "";
       this.dbConfig = "";
       axios.post("api/cubes/clean_tmp_dir");
-    },
-  },
+    }
+  }
 };
 </script>
-
-<style scoped></style>

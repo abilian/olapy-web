@@ -42,14 +42,14 @@ import { eventModalBus } from "../base-add-cube.vue";
 
 export default {
   props: {
-    selectTableColumns: Object,
+    selectTableColumns: Object
   },
   data: function() {
     return {
       selectedColumns: {
         table: Object.keys(this.selectTableColumns)[0],
-        columns: [],
-      },
+        columns: []
+      }
     };
   },
   methods: {
@@ -63,9 +63,7 @@ export default {
       {
         eventModalBus.modalToShow("toConfig");
       }
-    },
-  },
+    }
+  }
 };
 </script>
-
-<style scoped></style>

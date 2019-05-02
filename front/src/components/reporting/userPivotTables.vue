@@ -30,11 +30,13 @@
 </template>
 
 <script>
-const axios = require("axios");
+import axios from "axios";
+
 export default {
   props: {
-    userPivotTables: Array,
+    userPivotTables: Array
   },
+
   methods: {
     selectPivotTable(userPivotTable) {
       if (userPivotTable) {
@@ -44,18 +46,16 @@ export default {
           this.$emit("reportingInterface", "QBuilder");
         });
       } else {
-        let emptyPVT = {
+        const emptyPVT = {
           name: "",
           cube_name: "",
           columns: [],
-          rows: [],
+          rows: []
         };
         this.$emit("selectedPivotTable", emptyPVT);
         this.$emit("reportingInterface", "QBuilder");
       }
-    },
-  },
+    }
+  }
 };
 </script>
-
-<style scoped></style>

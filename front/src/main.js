@@ -12,15 +12,14 @@ export const eventBus = new Vue({
   methods: {
     queriedCube(cubeName) {
       this.$emit("queriedCube", cubeName);
-    },
-  },
+    }
+  }
 });
 
 Vue.config.devtools = true;
-
 Vue.config.productionTip = false;
 
 new Vue({
   router,
-  render: h => h(App),
+  render: h => h(App)
 }).$mount("#app");

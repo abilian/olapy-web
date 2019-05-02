@@ -113,21 +113,22 @@
 </template>
 
 <script>
-const axios = require("axios");
+import axios from "axios";
 import Plotly from "plotly.js/dist/plotly-basic.min.js";
 
 import draggable from "vuedraggable";
 import VueGridLayout from "vue-grid-layout";
 import ChartProps from "./chartProps";
 
-let GridLayout = VueGridLayout.GridLayout;
-let GridItem = VueGridLayout.GridItem;
+const GridLayout = VueGridLayout.GridLayout;
+const GridItem = VueGridLayout.GridItem;
 
 export default {
   props: {
     reportingInterface: String,
-    selectedDashboard: Object,
+    selectedDashboard: Object
   },
+
   data: function() {
     return {
       allowModification: true,
@@ -142,41 +143,46 @@ export default {
       chart_x_position: 0,
       chart_y_position: 0,
       chart_weight: 6,
-      chart_height: 8,
+      chart_height: 8
     };
   },
+
   methods: {
     addChart() {
-      let chartDiv = this.draggedChart + (this.usedCharts.length - 1); // - 1
+      const chartDiv = this.draggedChart + (this.usedCharts.length - 1); // - 1
       this.layout[this.usedCharts.length - 1].i = chartDiv; //list.length - 2
       this.currentChartDiv = chartDiv;
       this.showChartProps = true;
     },
+
     removeItem(index) {
       this.layout.splice(index, 1);
       this.usedCharts.splice(index, 1);
     },
+
     onMove({ relatedContext, draggedContext }) {
       this.draggedChart = draggedContext.element;
     },
+
     resize: function(id) {
-      let plotDiv = document.getElementById(id);
+      const plotDiv = document.getElementById(id);
       Plotly.Plots.resize(plotDiv);
     },
+
     saveDashboard() {
       if (this.dashboardName) {
-        let data = {
+        const data = {
           dashboardName: this.dashboardName,
           usedCharts: this.usedCharts,
           layout: this.layout,
-          chartData: this.chartData,
+          chartData: this.chartData
         };
         axios.post("api/dashboard/save", data);
 
         this.$notify({
           group: "user",
           title: "Successfully Added",
-          type: "success",
+          type: "success"
         });
         this.$emit("addDashboardName", this.dashboardName);
         this.$emit("reportingInterface", "main");
@@ -184,25 +190,26 @@ export default {
         this.$notify({
           group: "user",
           title: "Missing dashboard title",
-          type: "error",
+          type: "error"
         });
       }
     },
+
     deleteDashboard() {
-      var vue = this;
+      const vue = this;
       this.$dlg.alert(
         "Are you sure to delete " + vue.dashboardName + " ?",
         function() {
           if (vue.dashboardName) {
-            let data = {
-              dashboardName: vue.dashboardName,
+            const data = {
+              dashboardName: vue.dashboardName
             };
             axios.post("api/dashboard/delete", data);
 
             vue.$notify({
               group: "user",
               title: "Successfully Deleted",
-              type: "success",
+              type: "success"
             });
             vue.$emit("removeDashboard", vue.dashboardName);
             vue.$emit("reportingInterface", "main");
@@ -210,23 +217,25 @@ export default {
             vue.$notify({
               group: "user",
               title: "Missing dashboard title",
-              type: "error",
+              type: "error"
             });
           }
         },
         {
           messageType: "confirm",
-          language: "en",
+          language: "en"
         }
       );
-    },
+    }
   },
+
   components: {
     draggable,
     GridLayout,
     GridItem,
-    chartProps: ChartProps,
+    chartProps: ChartProps
   },
+
   watch: {
     usedCharts: function(newElements, oldElements) {
       if (newElements.length > oldElements.length && this.draggedChart) {
@@ -240,12 +249,13 @@ export default {
           y: this.chart_y_position,
           w: this.chart_weight,
           h: this.chart_height,
-          i: "",
+          i: ""
         });
         this.chart_x_position += this.chart_weight;
       }
-    },
+    }
   },
+
   created() {
     if (this.selectedDashboard) {
       this.allowModification = false;
@@ -255,6 +265,7 @@ export default {
       this.chartData = this.selectedDashboard["charts_data"];
     }
   },
+
   mounted: function() {
     if (this.selectedDashboard) {
       for (let chart_data in this.selectedDashboard["charts_data"]) {
@@ -264,14 +275,14 @@ export default {
             this.selectedDashboard["charts_data"][chart_data].data,
             this.selectedDashboard["charts_data"][chart_data].layout
           );
-          let graphDiv = document.getElementById(this.layout[chart_data].i);
+          const graphDiv = document.getElementById(this.layout[chart_data].i);
           graphDiv.style.width = "95%";
           graphDiv.style.height = "95%";
           Plotly.Plots.resize(graphDiv);
         }
       }
     }
-  },
+  }
 };
 </script>
 

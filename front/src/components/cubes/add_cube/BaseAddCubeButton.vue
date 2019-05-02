@@ -70,7 +70,7 @@ export default {
     return {
       newCubeName: "",
       source: "",
-      status: "failed",
+      status: "failed"
     };
   },
   methods: {
@@ -89,12 +89,12 @@ export default {
       } else if (this.status === "success") {
         eventModalBus.modalToShow("second");
       }
-    },
+    }
   },
   components: {
     uploadCsvFiles: uploadFiles,
-    connectDb: connectDb,
-  },
+    connectDb: connectDb
+  }
 };
 </script>
 
@@ -120,7 +120,7 @@ export default {
 .modal-container {
   width: 40%;
   height: 50%;
-  margin: 0px auto;
+  margin: 0 auto;
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;

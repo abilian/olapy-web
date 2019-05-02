@@ -26,11 +26,13 @@
 </template>
 
 <script>
-const axios = require("axios");
+import axios from "axios";
+
 export default {
   props: {
-    userDashboards: Array,
+    userDashboards: Array
   },
+
   methods: {
     selectDashboard(dashboard) {
       this.$emit("reportingInterface", "");
@@ -38,9 +40,7 @@ export default {
         this.$emit("selectedDashboard", response.data);
         this.$emit("reportingInterface", "dashboardMaker");
       });
-    },
-  },
+    }
+  }
 };
 </script>
-
-<style scoped></style>

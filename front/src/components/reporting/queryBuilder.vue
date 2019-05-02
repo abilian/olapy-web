@@ -62,8 +62,8 @@
 </template>
 
 <script>
-const axios = require("axios");
-let $ = require("jquery");
+import axios from "axios";
+const $ = require("jquery");
 require("jquery-ui-bundle");
 require("pivottable");
 require("pivottable/dist/c3_renderers");
@@ -75,16 +75,18 @@ require("pivottable/dist/export_renderers");
 
 export default {
   props: {
-    selectedPivotTable: Object,
+    selectedPivotTable: Object
   },
+
   data: function() {
     return {
       pivottableName: null,
       selectedCube: "",
       userCubes: [],
-      DataFrameCsv: null,
+      DataFrameCsv: null
     };
   },
+
   computed: {
     rows() {
       if (this.selectedPivotTable) {
@@ -93,17 +95,19 @@ export default {
         return [];
       }
     },
+
     columns() {
       if (this.selectedPivotTable) {
         return this.selectedPivotTable.columns;
       } else {
         return [];
       }
-    },
+    }
   },
+
   methods: {
     getUserCubes() {
-      let userCubes = [];
+      const userCubes = [];
       axios
         .get("api/cubes")
         .then(response => {
@@ -116,6 +120,7 @@ export default {
         });
       return userCubes;
     },
+
     render_pivottable() {
       // RENDER PLOTLY CHARTS
       // $(function(){
@@ -154,21 +159,22 @@ export default {
           ),
           hiddenAttributes: [""],
           cols: this.columns,
-          rows: this.rows,
+          rows: this.rows
           // vals: ["montant"],
           // aggregatorName: "Sum",
           // rendererName: "Heatmap",
         })
         .show();
     },
+
     getPivottableContent() {
-      let pvtDivs = {
+      const pvtDivs = {
         pvtRows: null,
-        pvtCols: null,
+        pvtCols: null
       };
       for (let pvtDiv in pvtDivs) {
-        let divContent = [];
-        let div = document.getElementsByClassName(pvtDiv);
+        const divContent = [];
+        const div = document.getElementsByClassName(pvtDiv);
         for (let i = 0; i < div[0].children.length; i++) {
           divContent.push(div[0].children[i].children[0].firstChild.data);
         }
@@ -176,9 +182,10 @@ export default {
       }
       return pvtDivs;
     },
+
     savePivottable() {
       if (this.pivottableName) {
-        let pivottableContent = this.getPivottableContent();
+        const pivottableContent = this.getPivottableContent();
         pivottableContent["pivottableName"] = this.pivottableName;
         pivottableContent["cubeName"] = this.selectedCube;
         axios.post("api/pivottable/save", pivottableContent);
@@ -186,32 +193,33 @@ export default {
         this.$notify({
           group: "user",
           title: "Successfully Saved",
-          type: "success",
+          type: "success"
         });
         this.$emit("addPivotTableName", this.pivottableName);
       } else {
         this.$notify({
           group: "user",
           title: "Missing pivottable title",
-          type: "error",
+          type: "error"
         });
       }
     },
+
     deletePivottable() {
-      var vue = this;
+      const vue = this;
       this.$dlg.alert(
         "Are you sure to delete " + vue.pivottableName + " ?",
         function() {
           if (vue.pivottableName) {
-            let data = {
-              pivottableName: vue.pivottableName,
+            const data = {
+              pivottableName: vue.pivottableName
             };
             axios.post("api/pivottable/delete", data);
 
             vue.$notify({
               group: "user",
               title: "Successfully Deleted",
-              type: "success",
+              type: "success"
             });
 
             vue.$emit("removePivotTableName", vue.pivottableName);
@@ -220,17 +228,18 @@ export default {
             vue.$notify({
               group: "user",
               title: "Missing dashboard title",
-              type: "error",
+              type: "error"
             });
           }
         },
         {
           messageType: "confirm",
-          language: "en",
+          language: "en"
         }
       );
-    },
+    }
   },
+
   watch: {
     selectedCube(cube) {
       if (cube) {
@@ -254,8 +263,9 @@ export default {
         this.selectedCube = "";
         this.pivottableName = "";
       }
-    },
+    }
   },
+
   created() {
     this.userCubes = this.getUserCubes();
 
@@ -263,7 +273,7 @@ export default {
       this.selectedCube = this.selectedPivotTable.cube_name;
       this.pivottableName = this.selectedPivotTable.name;
     }
-  },
+  }
 };
 </script>
 

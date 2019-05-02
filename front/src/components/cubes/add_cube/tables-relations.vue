@@ -76,7 +76,7 @@
 </template>
 
 <script>
-const axios = require("axios");
+import axios from "axios";
 import { eventModalBus } from "../base-add-cube.vue";
 
 export default {
@@ -84,42 +84,42 @@ export default {
     factsTable: String,
     chosenTables: Array,
     chosenMeasures: Array,
-    dbConfig: String,
+    dbConfig: String
   },
   data: function() {
     return {
       tablesAndColumns: "",
       result: "",
-      tablesAndColumnsResult: {},
+      tablesAndColumnsResult: {}
     };
   },
   methods: {
     confirmRelations: function() {
       this.$emit("tablesAndColumnsResult", this.tablesAndColumnsResult);
       eventModalBus.modalToShow("confirmCustomCube");
-    },
+    }
   },
   created() {
-    let allTables = [this.factsTable];
+    const allTables = [this.factsTable];
     for (let key in this.chosenTables) {
       allTables.push(this.chosenTables[key].name);
     }
-    let data = {
+    const data = {
       dbConfig: this.dbConfig,
-      allTables: allTables.join(","),
+      allTables: allTables.join(",")
     };
-    axios.post("api/cubes/get_tables_and_columns", data).then(x => {
-      this.tablesAndColumns = x.data;
-      for (let key in x.data) {
+    axios.post("api/cubes/get_tables_and_columns", data).then(result => {
+      this.tablesAndColumns = result.data;
+      for (let key in result.data) {
         if (key !== this.factsTable) {
           this.tablesAndColumnsResult[key] = {
             DimCol: "",
-            FactsCol: "",
+            FactsCol: ""
           };
         }
       }
     });
-  },
+  }
 };
 </script>
 
