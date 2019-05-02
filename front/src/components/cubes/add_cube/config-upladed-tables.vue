@@ -57,7 +57,7 @@ export default {
   props: {
     cube: Object,
     cubeName: String,
-    dbConfig: String
+    dbConfig: String,
   },
   methods: {
     confirmCube: function() {
@@ -71,15 +71,15 @@ export default {
       } else {
         const data = {
           cubeName: this.cubeName,
-          customCube: false
+          customCube: false,
         };
         axios.post("api/cubes/confirm_cube", data).then(response => {
           eventModalBus.modalToShow("success");
           return response.data;
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

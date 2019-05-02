@@ -34,7 +34,7 @@ import axios from "axios";
 
 export default {
   props: {
-    userPivotTables: Array
+    userPivotTables: Array,
   },
 
   methods: {
@@ -50,12 +50,12 @@ export default {
           name: "",
           cube_name: "",
           columns: [],
-          rows: []
+          rows: [],
         };
         this.$emit("selectedPivotTable", emptyPVT);
         this.$emit("reportingInterface", "QBuilder");
       }
-    }
-  }
+    },
+  },
 };
 </script>

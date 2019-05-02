@@ -111,7 +111,7 @@ export default {
     cube: Object,
     cubeName: String,
     SavedColumns: Object,
-    dbConfig: String
+    dbConfig: String,
   },
   data: function() {
     return {
@@ -123,9 +123,9 @@ export default {
       tables: [
         {
           id: "1",
-          name: ""
-        }
-      ]
+          name: "",
+        },
+      ],
     };
   },
   methods: {
@@ -135,7 +135,7 @@ export default {
     addComponent: function() {
       this.tables.push({
         id: Math.floor(Math.random() * 6),
-        name: ""
+        name: "",
       });
       this.DimColumns.push(this.SavedColumns);
     },
@@ -153,7 +153,7 @@ export default {
       const data = {
         tableName: tableName,
         WithID: true,
-        dbConfig: this.dbConfig
+        dbConfig: this.dbConfig,
       };
       axios.post("api/cubes/get_table_columns", data).then(response => {
         const table_columns = {};
@@ -162,19 +162,19 @@ export default {
         this.$emit("selectTableColumns", this.tableColumns[index]);
         eventModalBus.modalToShow("choseColumns");
       });
-    }
+    },
   },
   watch: {
     factsTable: function() {
       const data = {
         tableName: this.factsTable,
         WithID: false,
-        dbConfig: this.dbConfig
+        dbConfig: this.dbConfig,
       };
       axios.post("api/cubes/get_table_columns", data).then(response => {
         this.tableColumnsNoId = response.data;
       });
-    }
-  }
+    },
+  },
 };
 </script>

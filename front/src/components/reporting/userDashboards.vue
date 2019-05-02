@@ -30,7 +30,7 @@ import axios from "axios";
 
 export default {
   props: {
-    userDashboards: Array
+    userDashboards: Array,
   },
 
   methods: {
@@ -40,7 +40,7 @@ export default {
         this.$emit("selectedDashboard", response.data);
         this.$emit("reportingInterface", "dashboardMaker");
       });
-    }
-  }
+    },
+  },
 };
 </script>

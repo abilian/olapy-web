@@ -126,7 +126,7 @@ const GridItem = VueGridLayout.GridItem;
 export default {
   props: {
     reportingInterface: String,
-    selectedDashboard: Object
+    selectedDashboard: Object,
   },
 
   data: function() {
@@ -143,7 +143,7 @@ export default {
       chart_x_position: 0,
       chart_y_position: 0,
       chart_weight: 6,
-      chart_height: 8
+      chart_height: 8,
     };
   },
 
@@ -175,14 +175,14 @@ export default {
           dashboardName: this.dashboardName,
           usedCharts: this.usedCharts,
           layout: this.layout,
-          chartData: this.chartData
+          chartData: this.chartData,
         };
         axios.post("api/dashboard/save", data);
 
         this.$notify({
           group: "user",
           title: "Successfully Added",
-          type: "success"
+          type: "success",
         });
         this.$emit("addDashboardName", this.dashboardName);
         this.$emit("reportingInterface", "main");
@@ -190,7 +190,7 @@ export default {
         this.$notify({
           group: "user",
           title: "Missing dashboard title",
-          type: "error"
+          type: "error",
         });
       }
     },
@@ -202,14 +202,14 @@ export default {
         function() {
           if (vue.dashboardName) {
             const data = {
-              dashboardName: vue.dashboardName
+              dashboardName: vue.dashboardName,
             };
             axios.post("api/dashboard/delete", data);
 
             vue.$notify({
               group: "user",
               title: "Successfully Deleted",
-              type: "success"
+              type: "success",
             });
             vue.$emit("removeDashboard", vue.dashboardName);
             vue.$emit("reportingInterface", "main");
@@ -217,23 +217,23 @@ export default {
             vue.$notify({
               group: "user",
               title: "Missing dashboard title",
-              type: "error"
+              type: "error",
             });
           }
         },
         {
           messageType: "confirm",
-          language: "en"
+          language: "en",
         }
       );
-    }
+    },
   },
 
   components: {
     draggable,
     GridLayout,
     GridItem,
-    chartProps: ChartProps
+    chartProps: ChartProps,
   },
 
   watch: {
@@ -249,11 +249,11 @@ export default {
           y: this.chart_y_position,
           w: this.chart_weight,
           h: this.chart_height,
-          i: ""
+          i: "",
         });
         this.chart_x_position += this.chart_weight;
       }
-    }
+    },
   },
 
   created() {
@@ -282,7 +282,7 @@ export default {
         }
       }
     }
-  }
+  },
 };
 </script>
 

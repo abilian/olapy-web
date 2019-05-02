@@ -35,11 +35,11 @@ export default {
     tablesAndColumnsResult: Object,
     chosenMeasures: Array,
     SavedColumns: Array,
-    dbConfig: String
+    dbConfig: String,
   },
   data: function() {
     return {
-      resultCube: ""
+      resultCube: "",
     };
   },
   methods: {
@@ -47,13 +47,13 @@ export default {
       // this.$emit('tablesAndColumnsResult', this.tablesAndColumnsResult);
       const data = {
         cubeName: this.cubeName,
-        customCube: true
+        customCube: true,
       };
       axios.post("api/cubes/confirm_cube", data).then(response => {
         eventModalBus.modalToShow("success");
         return response.data;
       });
-    }
+    },
   },
   created() {
     const data = {
@@ -62,7 +62,7 @@ export default {
       tablesAndColumnsResult: this.tablesAndColumnsResult,
       columnsPerDimension: this.SavedColumns,
       measures: this.chosenMeasures,
-      dbConfig: this.dbConfig
+      dbConfig: this.dbConfig,
     };
     axios
       .post("api/cubes/construct_custom_cube", data)
@@ -73,11 +73,11 @@ export default {
         this.$notify({
           group: "user",
           title: "unable to construct cube, check your tables relations",
-          type: "error"
+          type: "error",
         });
         eventModalBus.modalToShow("makeRelations");
       });
-  }
+  },
 };
 </script>
 

@@ -75,7 +75,7 @@ require("pivottable/dist/export_renderers");
 
 export default {
   props: {
-    selectedPivotTable: Object
+    selectedPivotTable: Object,
   },
 
   data: function() {
@@ -83,7 +83,7 @@ export default {
       pivottableName: null,
       selectedCube: "",
       userCubes: [],
-      DataFrameCsv: null
+      DataFrameCsv: null,
     };
   },
 
@@ -102,7 +102,7 @@ export default {
       } else {
         return [];
       }
-    }
+    },
   },
 
   methods: {
@@ -159,7 +159,7 @@ export default {
           ),
           hiddenAttributes: [""],
           cols: this.columns,
-          rows: this.rows
+          rows: this.rows,
           // vals: ["montant"],
           // aggregatorName: "Sum",
           // rendererName: "Heatmap",
@@ -170,7 +170,7 @@ export default {
     getPivottableContent() {
       const pvtDivs = {
         pvtRows: null,
-        pvtCols: null
+        pvtCols: null,
       };
       for (let pvtDiv in pvtDivs) {
         const divContent = [];
@@ -193,14 +193,14 @@ export default {
         this.$notify({
           group: "user",
           title: "Successfully Saved",
-          type: "success"
+          type: "success",
         });
         this.$emit("addPivotTableName", this.pivottableName);
       } else {
         this.$notify({
           group: "user",
           title: "Missing pivottable title",
-          type: "error"
+          type: "error",
         });
       }
     },
@@ -212,14 +212,14 @@ export default {
         function() {
           if (vue.pivottableName) {
             const data = {
-              pivottableName: vue.pivottableName
+              pivottableName: vue.pivottableName,
             };
             axios.post("api/pivottable/delete", data);
 
             vue.$notify({
               group: "user",
               title: "Successfully Deleted",
-              type: "success"
+              type: "success",
             });
 
             vue.$emit("removePivotTableName", vue.pivottableName);
@@ -228,16 +228,16 @@ export default {
             vue.$notify({
               group: "user",
               title: "Missing dashboard title",
-              type: "error"
+              type: "error",
             });
           }
         },
         {
           messageType: "confirm",
-          language: "en"
+          language: "en",
         }
       );
-    }
+    },
   },
 
   watch: {
@@ -263,7 +263,7 @@ export default {
         this.selectedCube = "";
         this.pivottableName = "";
       }
-    }
+    },
   },
 
   created() {
@@ -273,7 +273,7 @@ export default {
       this.selectedCube = this.selectedPivotTable.cube_name;
       this.pivottableName = this.selectedPivotTable.name;
     }
-  }
+  },
 };
 </script>
 

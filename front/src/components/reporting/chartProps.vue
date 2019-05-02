@@ -79,7 +79,7 @@ import Plotly from "plotly.js/dist/plotly-basic.min.js";
 export default {
   props: {
     chartType: String,
-    currentChartDiv: String
+    currentChartDiv: String,
   },
 
   data: function() {
@@ -90,7 +90,7 @@ export default {
       selectedColumn: "",
       allMeasures: [],
       selectedMeasures: [],
-      chartTitle: ""
+      chartTitle: "",
     };
   },
 
@@ -99,16 +99,16 @@ export default {
       const data = {
         y: Object.values(chartData),
         x: Object.keys(chartData),
-        type: graphType
+        type: graphType,
       };
       const layout = {
-        title: this.chartTitle
+        title: this.chartTitle,
         // height: 400,
         // width: 500,
       };
       return {
         data,
-        layout
+        layout,
       };
     },
 
@@ -117,7 +117,7 @@ export default {
         const data = {
           selectedCube: this.selectedCube,
           selectedColumn: this.selectedColumn,
-          selectedMeasures: this.selectedMeasures
+          selectedMeasures: this.selectedMeasures,
         };
         if (this.chartTitle === "") {
           this.chartTitle =
@@ -146,7 +146,7 @@ export default {
           });
         this.$emit("selectedCube", this.selectedCube);
       }
-    }
+    },
   },
 
   watch: {
@@ -170,7 +170,7 @@ export default {
         .then(data => {
           this.allMeasures = data["measures"];
         });
-    }
+    },
   },
 
   created() {
@@ -184,7 +184,7 @@ export default {
           this.userCubes.push(data[key]);
         }
       });
-  }
+  },
 };
 </script>
 

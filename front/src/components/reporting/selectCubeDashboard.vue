@@ -53,7 +53,7 @@ export default {
   data: function() {
     return {
       selectedCube: "",
-      userCubes: []
+      userCubes: [],
     };
   },
 
@@ -63,7 +63,7 @@ export default {
         this.$emit("selectedCube", this.selectedCube);
         this.$emit("interface", "dashboardMaker");
       }
-    }
+    },
   },
 
   created() {
@@ -77,7 +77,7 @@ export default {
           this.userCubes.push(data[key]);
         }
       });
-  }
+  },
 };
 </script>
 
