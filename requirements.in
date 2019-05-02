@@ -1,6 +1,5 @@
 olapy
 #-e git+https://github.com/abilian/olapy.git#egg=olapy
-#pip -e @ https://github.com/abilian/olapy-web/archive/master.zip
 
 # Web
 flask
@@ -8,14 +7,13 @@ Flask-Login
 Flask-Migrate
 Flask-SQLAlchemy
 Flask-WTF
-SQLAlchemy<1.2
+SQLAlchemy
 WTForms
-#plotly
 
 # Misc
 typing
 pathlib
-pyyaml>=4.2b1
+pyyaml>=5
 
 #DB_Tools
 psycopg2-binary
