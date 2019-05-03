@@ -268,14 +268,14 @@ export default {
 
   mounted: function() {
     if (this.selectedDashboard) {
-      for (let chart_data in this.selectedDashboard["charts_data"]) {
-        if (this.layout[chart_data]) {
+      for (let chartData in this.selectedDashboard["charts_data"]) {
+        if (this.layout[chartData]) {
           Plotly.newPlot(
-            this.layout[chart_data].i,
-            this.selectedDashboard["charts_data"][chart_data].data,
-            this.selectedDashboard["charts_data"][chart_data].layout
+            this.layout[chartData].i,
+            this.selectedDashboard["charts_data"][chartData].data,
+            this.selectedDashboard["charts_data"][chartData].layout
           );
-          const graphDiv = document.getElementById(this.layout[chart_data].i);
+          const graphDiv = document.getElementById(this.layout[chartData].i);
           graphDiv.style.width = "95%";
           graphDiv.style.height = "95%";
           Plotly.Plots.resize(graphDiv);

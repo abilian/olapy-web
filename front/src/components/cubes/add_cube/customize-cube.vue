@@ -156,9 +156,9 @@ export default {
         dbConfig: this.dbConfig,
       };
       axios.post("/api/cubes/get_table_columns", data).then(response => {
-        const table_columns = {};
-        table_columns[tableName] = response.data;
-        this.tableColumns[index] = table_columns;
+        const tableColumns = {};
+        tableColumns[tableName] = response.data;
+        this.tableColumns[index] = tableColumns;
         this.$emit("selectTableColumns", this.tableColumns[index]);
         eventModalBus.modalToShow("choseColumns");
       });
