@@ -12,3 +12,4 @@ front/static/build.js
 front/yarn-error.log
 
 instance
+docs/_build/
