@@ -73,7 +73,7 @@ export default {
           cubeName: this.cubeName,
           customCube: false,
         };
-        axios.post("api/cubes/confirm_cube", data).then(response => {
+        axios.post("/api/cubes/confirm_cube", data).then(response => {
           eventModalBus.modalToShow("success");
           return response.data;
         });

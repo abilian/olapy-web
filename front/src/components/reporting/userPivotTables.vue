@@ -41,7 +41,7 @@ export default {
     selectPivotTable(userPivotTable) {
       if (userPivotTable) {
         this.$emit("reportingInterface", "");
-        axios.get("api/pivottable/" + userPivotTable).then(response => {
+        axios.get("/api/pivottable/" + userPivotTable).then(response => {
           this.$emit("selectedPivotTable", response.data);
           this.$emit("reportingInterface", "QBuilder");
         });

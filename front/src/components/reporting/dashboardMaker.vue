@@ -177,7 +177,7 @@ export default {
           layout: this.layout,
           chartData: this.chartData,
         };
-        axios.post("api/dashboard/save", data);
+        axios.post("/api/dashboard/save", data);
 
         this.$notify({
           group: "user",
@@ -204,7 +204,7 @@ export default {
             const data = {
               dashboardName: vue.dashboardName,
             };
-            axios.post("api/dashboard/delete", data);
+            axios.post("/api/dashboard/delete", data);
 
             vue.$notify({
               group: "user",

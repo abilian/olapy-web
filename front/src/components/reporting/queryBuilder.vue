@@ -188,7 +188,7 @@ export default {
         const pivottableContent = this.getPivottableContent();
         pivottableContent["pivottableName"] = this.pivottableName;
         pivottableContent["cubeName"] = this.selectedCube;
-        axios.post("api/pivottable/save", pivottableContent);
+        axios.post("/api/pivottable/save", pivottableContent);
 
         this.$notify({
           group: "user",
@@ -214,7 +214,7 @@ export default {
             const data = {
               pivottableName: vue.pivottableName,
             };
-            axios.post("api/pivottable/delete", data);
+            axios.post("/api/pivottable/delete", data);
 
             vue.$notify({
               group: "user",

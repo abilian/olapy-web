@@ -144,7 +144,7 @@ export default {
       this.modalToShow = "first";
       this.cube = "";
       this.dbConfig = "";
-      axios.post("api/cubes/clean_tmp_dir");
+      axios.post("/api/cubes/clean_tmp_dir");
     },
   },
 };

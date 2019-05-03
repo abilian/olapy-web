@@ -108,7 +108,7 @@ export default {
       dbConfig: this.dbConfig,
       allTables: allTables.join(","),
     };
-    axios.post("api/cubes/get_tables_and_columns", data).then(result => {
+    axios.post("/api/cubes/get_tables_and_columns", data).then(result => {
       this.tablesAndColumns = result.data;
       for (let key in result.data) {
         if (key !== this.factsTable) {

@@ -155,7 +155,7 @@ export default {
         WithID: true,
         dbConfig: this.dbConfig,
       };
-      axios.post("api/cubes/get_table_columns", data).then(response => {
+      axios.post("/api/cubes/get_table_columns", data).then(response => {
         const table_columns = {};
         table_columns[tableName] = response.data;
         this.tableColumns[index] = table_columns;
@@ -171,7 +171,7 @@ export default {
         WithID: false,
         dbConfig: this.dbConfig,
       };
-      axios.post("api/cubes/get_table_columns", data).then(response => {
+      axios.post("/api/cubes/get_table_columns", data).then(response => {
         this.tableColumnsNoId = response.data;
       });
     },

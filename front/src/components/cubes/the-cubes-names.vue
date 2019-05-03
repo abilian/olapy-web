@@ -43,7 +43,7 @@ export default {
           const data = {
             cubeName: cubeName,
           };
-          axios.post("api/cubes/delete", data);
+          axios.post("/api/cubes/delete", data);
 
           vue.$notify({
             group: "user",
