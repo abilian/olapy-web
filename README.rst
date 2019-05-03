@@ -4,7 +4,8 @@ OlaPy, an experimental OLAP engine based on Pandas
 About
 -----
 
-Olapy-web is a visual, web-based tool for exploring and analyzing OLAP databases served by the `OlaPy <https://github.com/abilian/olapy>`_.
+Olapy-web is a visual, web-based tool for exploring and analyzing
+OLAP databases served by the `OlaPy <https://github.com/abilian/olapy>`_.
 
 .. image:: docs/img/dash.gif
    :width: 46%
@@ -31,8 +32,7 @@ Installation
 To set up the application, run, ideally in a virtualenv::
 
     make develop
-
-    export FLASK_APP=manage.py
+    export FLASK_APP=app.py
 
 (see `make pip`, `make js`, `make build` etc).
 
@@ -46,7 +46,7 @@ Run the demo
 
 Run:
 
-1. ``Export FLASK_APP=app.py``
+1. ``export FLASK_APP=app.py``
 
 2. ``flask init`` to initialize the db and some demos
 
@@ -62,7 +62,8 @@ Run:
 Developing
 ----------
 
-This project must adhere to the `Abilian Developer Guide <http://abilian-developer-guide.readthedocs.io/>`_.
+This project must adhere to the
+`Abilian Developer Guide <http://abilian-developer-guide.readthedocs.io/>`_.
 
 Pull requests are welcome.
 
@@ -80,7 +81,8 @@ or simply (on Unix-like systems)::
 Documentation
 ~~~~~~~~~~~~~
 
-See the documentation: `http://olapy-web.readthedocs.io/en/latest/ <http://olapy-web.readthedocs.io/en/latest/>`_.
+See the documentation:
+`http://olapy-web.readthedocs.io/en/latest/ <http://olapy-web.readthedocs.io/en/latest/>`_.
 
 To build it, run::
 
@@ -92,4 +94,8 @@ and open ``docs/_build/html/index.html``.
 Credits
 -------
 
-This project is developed by `Abilian SAS <https://www.abilian.com>`_ and partially funded by the French Government through the `Wendelin <http://www.wendelin.io/>`_ project and the `Investissement d'avenir <http://www.gouvernement.fr/investissements-d-avenir-cgi>`_ programme.
+This project is developed by `Abilian SAS <https://www.abilian.com>`_
+and partially funded by the French Government through the `Wendelin
+<http://www.wendelin.io/>`_ project and the `Investissement d'avenir
+<http://www.gouvernement.fr/investissements-d-avenir-cgi>`_ programme.
+

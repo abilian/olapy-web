@@ -40,9 +40,7 @@ export default {
       this.$dlg.alert(
         "Are you sure to delete " + cubeName + " ?",
         function() {
-          const data = {
-            cubeName: cubeName,
-          };
+          const data = { cubeName };
           axios.post("/api/cubes/delete", data);
 
           vue.$notify({

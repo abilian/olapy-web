@@ -119,6 +119,7 @@ export default {
       SavedColumns: null,
     };
   },
+
   components: {
     addCube: addCube,
     configUploadedTables: configUploadedTables,
@@ -128,6 +129,7 @@ export default {
     customCubeResult: customCubeResult,
     addedSuccess: addedSuccess,
   },
+
   created() {
     eventModalBus.$on("modalToShow", modal => {
       this.modalToShow = modal;
@@ -139,6 +141,7 @@ export default {
       this.dbConfig = config;
     });
   },
+
   watch: {
     showModal: function() {
       this.modalToShow = "first";
