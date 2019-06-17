@@ -29,36 +29,34 @@
 </template>
 
 <script>
-const axios = require("axios");
+import axios from "axios";
 export default {
   props: {
-    userCubesNames: Array
+    userCubesNames: Array,
   },
   methods: {
     deleteCube(cubeName) {
-      var vue = this;
+      const vue = this;
       this.$dlg.alert(
         "Are you sure to delete " + cubeName + " ?",
         function() {
-          let data = {
-            cubeName: cubeName
-          };
-          axios.post("api/cubes/delete", data);
+          const data = { cubeName };
+          axios.post("/api/cubes/delete", data);
 
           vue.$notify({
             group: "user",
             title: "Successfully Deleted",
-            type: "success"
+            type: "success",
           });
           vue.$emit("removeUserCube", cubeName);
         },
         {
           messageType: "confirm",
-          language: "en"
+          language: "en",
         }
       );
-    }
-  }
+    },
+  },
 };
 </script>
 

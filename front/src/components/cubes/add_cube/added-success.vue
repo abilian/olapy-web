@@ -39,12 +39,10 @@ export default {
     this.$notify({
       group: "user",
       title: this.cubeName + "Successfully Added",
-      type: "success"
+      type: "success",
     });
     this.$emit("close", false);
     eventModalBus.modalToShow("first");
-  }
+  },
 };
 </script>
-
-<style scoped></style>

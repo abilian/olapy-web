@@ -3,10 +3,13 @@
 
 .idea
 .pytest_cache
+.mypy_cache
 .tox
+.venv
 
 front/node_modules/
 front/static/build.js
 front/yarn-error.log
 
 instance
+docs/_build/

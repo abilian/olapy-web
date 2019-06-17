@@ -19,17 +19,18 @@ test-with-coverage:
 #
 # setup
 #
-pip:
+install-pip:
 	@echo "--> Installing / updating python dependencies for development"
 	pip install -q pip-tools
 	pip-sync requirements.txt
 	pip install -q -r requirements.txt -r dev-requirements.txt
 	pip install -e .
 	@echo ""
-js:
+
+install-js:
 	cd front && yarn
 
-develop: pip js
+develop: install-pip install-js
 
 #
 # Linting
@@ -50,13 +51,14 @@ lint-js:
 #
 # Running web server
 #
-init:
-	olapy-web init
-
-run:
+build-js:
 	cd front && yarn build
-	python manage.py
 
+run: build-js
+	flask run
+
+init:
+	flask initdb
 
 clean:
 	find . -name "*.pyc" -delete
@@ -73,15 +75,17 @@ clean:
 	rm -rf doc/_build
 	rm -rf static/gen static/.webassets-cache instance/webassets
 	rm -rf htmlcov junit-*.xml
+	rm -rf .mypy_cache
 
 tidy: clean
 	rm -rf .tox
+	rm -rf front/dist front/node_modules
 
 format: format-py format-js
 
 format-py:
-	black $(SRC) *.py
-	isort -rc $(SRC) *.py
+	black $(SRC) tests *.py
+	isort -rc $(SRC) tests *.py
 
 format-js:
 	cd front && make format

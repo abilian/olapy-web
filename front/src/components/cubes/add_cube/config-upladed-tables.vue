@@ -50,14 +50,14 @@
 </template>
 
 <script>
-const axios = require("axios");
+import axios from "axios";
 import { eventModalBus } from "../base-add-cube";
 
 export default {
   props: {
     cube: Object,
     cubeName: String,
-    dbConfig: String
+    dbConfig: String,
   },
   methods: {
     confirmCube: function() {
@@ -69,18 +69,16 @@ export default {
             return response.data;
           });
       } else {
-        let data = {
+        const data = {
           cubeName: this.cubeName,
-          customCube: false
+          customCube: false,
         };
-        axios.post("api/cubes/confirm_cube", data).then(response => {
+        axios.post("/api/cubes/confirm_cube", data).then(response => {
           eventModalBus.modalToShow("success");
           return response.data;
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
-
-<style scoped></style>

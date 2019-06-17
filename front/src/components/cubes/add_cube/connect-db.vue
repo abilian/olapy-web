@@ -92,7 +92,7 @@
 </template>
 
 <script>
-const axios = require("axios");
+import axios from "axios";
 import { eventModalBus } from "../base-add-cube.vue";
 
 export default {
@@ -105,7 +105,7 @@ export default {
       password: "root",
       loadedDatabases: [],
       establishedConnection: "",
-      selectedDatabase: ""
+      selectedDatabase: "",
     };
   },
   methods: {
@@ -116,46 +116,47 @@ export default {
           servername: this.servername,
           port: this.port,
           username: this.username,
-          password: this.password
+          password: this.password,
         })
-        .then(x => {
-          this.loadedDatabases = x.data;
+        .then(response => {
+          this.loadedDatabases = response.data;
           this.establishedConnection = "Success";
           this.$emit("SelectInputStatus", "toConfig");
         })
-        .catch(x => {
+        .catch(() => {
           this.selectedDatabase = "";
           this.establishedConnection = "Failed";
         });
     },
+
     getCubeInfos(event) {
-      let data = {
+      const data = {
         selectCube: event.target.value,
         engine: this.engine,
         servername: this.servername,
         port: this.port,
         username: this.username,
-        password: this.password
+        password: this.password,
       };
       axios
         .post("api/cubes/add_DB_cube", data)
-        .then(x => {
-          if (x.data.facts != null) {
+        .then(response => {
+          if (response.data.facts != null) {
             this.$emit("SelectInputStatus", "success");
           } else {
             this.$emit("SelectInputStatus", "toConfig");
           }
-          eventModalBus.cubeConstructed(x.data);
+          eventModalBus.cubeConstructed(response.data);
           eventModalBus.ConnectionConfig(data);
         })
-        .catch(err => {
+        .catch(() => {
           this.$emit("SelectInputStatus", "failed");
         });
-    }
+    },
   },
   created() {
     eventModalBus.ConnectionConfig("");
-  }
+  },
 };
 </script>
 

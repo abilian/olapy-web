@@ -92,7 +92,7 @@
 </template>
 
 <script>
-const axios = require("axios");
+import axios from "axios";
 import Cubes from "./components/cubes/the-cubes-names.vue";
 import UserDashboards from "./components/reporting/userDashboards";
 import DashboardMaker from "./components/reporting/dashboardMaker";
@@ -108,12 +108,13 @@ export default {
       selectedPivotTable: null,
       userPivotTables: [],
       userDashboards: [],
-      userCubesNames: []
+      userCubesNames: [],
     };
   },
+
   methods: {
     getAllPivotTables() {
-      let pivotTables = [];
+      const pivotTables = [];
       axios
         .get("api/pivottable/all")
         .then(response => {
@@ -126,8 +127,9 @@ export default {
         });
       this.userPivotTables = pivotTables;
     },
+
     getAllDashboards() {
-      let Dashboards = [];
+      const Dashboards = [];
       axios
         .get("api/dashboard/all")
         .then(response => {
@@ -140,8 +142,9 @@ export default {
         });
       this.userDashboards = Dashboards;
     },
+
     getCubes: function() {
-      let cubes = [];
+      const cubes = [];
       axios
         .get("api/cubes")
         .then(response => {
@@ -153,7 +156,7 @@ export default {
           }
         });
       this.userCubesNames = cubes;
-    }
+    },
   },
   components: {
     UserPivotTables,
@@ -161,13 +164,13 @@ export default {
     schemaOptions: SchemaOptions,
     userDashboards: UserDashboards,
     dashboardMaker: DashboardMaker,
-    queryBuilder: QueryBuilder
+    queryBuilder: QueryBuilder,
   },
   mounted() {
     this.getAllPivotTables();
     this.getAllDashboards();
     this.getCubes();
-  }
+  },
 };
 </script>
 

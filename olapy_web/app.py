@@ -25,7 +25,9 @@ def create_app(new_config=None):
             "DEBUG": True,
             "SQLALCHEMY_TRACK_MODIFICATIONS": False,
         }
-    app = Flask(__name__, static_folder='../front/dist/static', template_folder='../front/dist')
+    app = Flask(
+        __name__, static_folder="../front/dist/static", template_folder="../front/dist"
+    )
     # olapy_web.config['SECRET_KEY'] = os.environ['SECRET_KEY']
     install_secret_key(app)
 
@@ -92,9 +94,9 @@ def configure_blueprints(app):
 
     app.register_blueprint(blueprint)
 
-    from olapy_web.api.views import API
+    from olapy_web.api.views import api
 
-    app.register_blueprint(API, url_prefix="/api/")
+    app.register_blueprint(api, url_prefix="/api/")
 
 
 def configure_jinja_loader(app):

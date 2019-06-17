@@ -51,24 +51,24 @@
 </template>
 
 <script>
-const axios = require("axios");
+import axios from "axios";
 import { eventModalBus } from "../base-add-cube.vue";
 
-const STATUS_INITIAL = 0,
-  STATUS_SAVING = 1,
-  STATUS_SUCCESS = 2,
-  STATUS_FAILED = 3;
+const STATUS_INITIAL = 0;
+const STATUS_SAVING = 1;
+const STATUS_SUCCESS = 2;
+const STATUS_FAILED = 3;
 
 export default {
   props: {
-    newCubeName: String
+    newCubeName: String,
   },
   data() {
     return {
       uploadedFiles: [],
       uploadError: null,
       currentStatus: null,
-      uploadFieldName: "files"
+      uploadFieldName: "files",
     };
   },
   computed: {
@@ -83,7 +83,7 @@ export default {
     },
     isFailed() {
       return this.currentStatus === STATUS_FAILED;
-    }
+    },
   },
   methods: {
     reset() {
@@ -97,15 +97,15 @@ export default {
       this.currentStatus = STATUS_SAVING;
       axios
         .post("api/cubes/add", formData)
-        .then(x => {
-          this.uploadedFiles = [].concat(x.data.dimensions);
-          if (x.data.facts != null) {
-            this.uploadedFiles.push(x.data.facts);
+        .then(response => {
+          this.uploadedFiles = [].concat(response.data.dimensions);
+          if (response.data.facts != null) {
+            this.uploadedFiles.push(response.data.facts);
             this.$emit("SelectInputStatus", "success");
           } else {
             this.$emit("SelectInputStatus", "toConfig");
           }
-          eventModalBus.cubeConstructed(x.data);
+          eventModalBus.cubeConstructed(response.data);
           this.currentStatus = STATUS_SUCCESS;
         })
         .catch(err => {
@@ -127,11 +127,11 @@ export default {
 
       // save it
       this.save(formData);
-    }
+    },
   },
   mounted() {
     this.reset();
-  }
+  },
 };
 </script>
 

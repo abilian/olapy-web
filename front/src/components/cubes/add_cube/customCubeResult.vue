@@ -25,7 +25,7 @@
 </template>
 
 <script>
-const axios = require("axios");
+import axios from "axios";
 import { eventModalBus } from "../base-add-cube.vue";
 
 export default {
@@ -35,49 +35,49 @@ export default {
     tablesAndColumnsResult: Object,
     chosenMeasures: Array,
     SavedColumns: Array,
-    dbConfig: String
+    dbConfig: String,
   },
   data: function() {
     return {
-      resultCube: ""
+      resultCube: "",
     };
   },
   methods: {
     confirmCustomCube() {
       // this.$emit('tablesAndColumnsResult', this.tablesAndColumnsResult);
-      let data = {
+      const data = {
         cubeName: this.cubeName,
-        customCube: true
+        customCube: true,
       };
-      axios.post("api/cubes/confirm_cube", data).then(response => {
+      axios.post("/api/cubes/confirm_cube", data).then(response => {
         eventModalBus.modalToShow("success");
         return response.data;
       });
-    }
+    },
   },
   created() {
-    let data = {
+    const data = {
       cubeName: this.cubeName,
       factsTable: this.factsTable,
       tablesAndColumnsResult: this.tablesAndColumnsResult,
       columnsPerDimension: this.SavedColumns,
       measures: this.chosenMeasures,
-      dbConfig: this.dbConfig
+      dbConfig: this.dbConfig,
     };
     axios
       .post("api/cubes/construct_custom_cube", data)
-      .then(x => {
-        this.resultCube = x.data;
+      .then(response => {
+        this.resultCube = response.data;
       })
-      .catch(err => {
+      .catch(() => {
         this.$notify({
           group: "user",
           title: "unable to construct cube, check your tables relations",
-          type: "error"
+          type: "error",
         });
         eventModalBus.modalToShow("makeRelations");
       });
-  }
+  },
 };
 </script>
 

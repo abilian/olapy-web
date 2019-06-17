@@ -73,14 +73,15 @@
 </template>
 
 <script>
-const axios = require("axios");
+import axios from "axios";
 import Plotly from "plotly.js/dist/plotly-basic.min.js";
 
 export default {
   props: {
     chartType: String,
-    currentChartDiv: String
+    currentChartDiv: String,
   },
+
   data: function() {
     return {
       selectedCube: "",
@@ -89,45 +90,34 @@ export default {
       selectedColumn: "",
       allMeasures: [],
       selectedMeasures: [],
-      chartTitle: ""
+      chartTitle: "",
     };
   },
+
   methods: {
     genGraph(graphType, chartData) {
-      let data;
-      if (["bar", "scatter"].includes(graphType)) {
-        data = [
-          {
-            y: Object.values(chartData),
-            x: Object.keys(chartData),
-            type: graphType
-          }
-        ];
-      } else if (graphType === "pie") {
-        data = [
-          {
-            values: Object.values(chartData),
-            labels: Object.keys(chartData),
-            type: graphType
-          }
-        ];
-      }
-      let layout = {
-        title: this.chartTitle
+      const data = {
+        y: Object.values(chartData),
+        x: Object.keys(chartData),
+        type: graphType,
+      };
+      const layout = {
+        title: this.chartTitle,
         // height: 400,
         // width: 500,
       };
       return {
-        data: data,
-        layout: layout
+        data,
+        layout,
       };
     },
+
     validateChartProps() {
       if (this.selectedCube) {
-        let data = {
+        const data = {
           selectedCube: this.selectedCube,
           selectedColumn: this.selectedColumn,
-          selectedMeasures: this.selectedMeasures
+          selectedMeasures: this.selectedMeasures,
         };
         if (this.chartTitle === "") {
           this.chartTitle =
@@ -143,11 +133,11 @@ export default {
             return response.data;
           })
           .then(data => {
-            let graph = this.genGraph(this.chartType, data);
+            const graph = this.genGraph(this.chartType, data);
             this.$emit("chartData", graph);
-            let ChartDiv = this.currentChartDiv;
+            const ChartDiv = this.currentChartDiv;
             Plotly.newPlot(ChartDiv, graph.data, graph.layout).then(function() {
-              let graphDiv = document.getElementById(ChartDiv);
+              const graphDiv = document.getElementById(ChartDiv);
               graphDiv.style.width = "95%";
               graphDiv.style.height = "95%";
               return Plotly.Plots.resize(graphDiv);
@@ -156,8 +146,9 @@ export default {
           });
         this.$emit("selectedCube", this.selectedCube);
       }
-    }
+    },
   },
+
   watch: {
     selectedCube: function(selectedCube) {
       axios
@@ -179,8 +170,9 @@ export default {
         .then(data => {
           this.allMeasures = data["measures"];
         });
-    }
+    },
   },
+
   created() {
     axios
       .get("api/cubes")
@@ -192,7 +184,7 @@ export default {
           this.userCubes.push(data[key]);
         }
       });
-  }
+  },
 };
 </script>
 
@@ -218,7 +210,7 @@ export default {
 .modal-container {
   width: 25%;
   height: 50%;
-  margin: 0px auto;
+  margin: 0 auto;
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
