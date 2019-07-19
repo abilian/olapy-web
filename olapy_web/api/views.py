@@ -136,7 +136,7 @@ def construct_cube(
             "facts": executor.facts,
             "measures": executor.measures,
         }
-    except (IOError, ProgrammingError):  # Facts does not exist
+    except (OSError, ProgrammingError):  # Facts does not exist
         return {"all_tables": executor.get_all_tables_names(ignore_fact=False)}
 
 
@@ -258,7 +258,7 @@ def get_tables_columns_from_db(db_cube_config):
     att_tables = db_cube_config["allTables"].split(",")
     for table_name in att_tables:
         results = executor.sqla_engine.execution_options(stream_results=True).execute(
-            "SELECT * FROM {}".format(table_name)
+            f"SELECT * FROM {table_name}"
         )
         df = pd.DataFrame(iter(results), columns=results.keys())
         response[table_name] = list(df.columns)
@@ -304,7 +304,7 @@ def _gen_facts(data_request):
             + data_request["tablesAndColumnsResult"][table]["DimCol"]
         )
 
-    keys = dict((column, refs[index]) for (index, column) in enumerate(columns_names))
+    keys = {column: refs[index] for (index, column) in enumerate(columns_names)}
     return {
         "table_name": data_request["factsTable"].replace(".csv", ""),
         "keys": keys,
