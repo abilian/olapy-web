@@ -85,6 +85,7 @@
 
 <script>
 import axios from "axios";
+
 import addCube from "./add_cube/BaseAddCubeButton.vue";
 import configUploadedTables from "./add_cube/config-upladed-tables.vue";
 import addedSuccess from "./add_cube/added-success.vue";
@@ -121,13 +122,13 @@ export default {
   },
 
   components: {
-    addCube: addCube,
-    configUploadedTables: configUploadedTables,
-    customizeCube: customizeCube,
-    selectDimColumns: selectDimColumns,
-    tableRelations: tableRelations,
-    customCubeResult: customCubeResult,
-    addedSuccess: addedSuccess,
+    addCube,
+    configUploadedTables,
+    customizeCube,
+    selectDimColumns,
+    tableRelations,
+    customCubeResult,
+    addedSuccess,
   },
 
   created() {

@@ -28,8 +28,8 @@ module.exports = {
   },
   // add your custom rules here
   rules: {
-    "quotes": ["error", "double"],
-    "semi": ["error", "always"],
+    quotes: ["error", "double"],
+    semi: ["error", "always"],
     "comma-dangle": ["error", "always-multiline"],
     "space-before-function-paren": ["error", "never"],
   },
