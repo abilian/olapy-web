@@ -19,8 +19,7 @@ route = blueprint.route
 @login_manager.user_loader
 def load_user(userid):
     # type: (Any) -> User
-    """Load user with specific id.
-    """
+    """Load user with specific id."""
     return User.query.get(int(userid))
 
 
@@ -35,8 +34,7 @@ def index():
 @route("/login", methods=["GET", "POST"])
 def login():
     # type: () -> Response
-    """Login user.
-    """
+    """Login user."""
     form = LoginForm()
     if len(form.errors) > 0:
         flash(form.errors)
@@ -57,7 +55,6 @@ def login():
 @route("/logout")
 def logout():
     # type: () -> Response
-    """Logout user.
-    """
+    """Logout user."""
     logout_user()
     return redirect(url_for("main.login"))

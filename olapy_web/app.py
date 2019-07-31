@@ -121,13 +121,10 @@ def configure_jinja_loader(app):
 
 
 def install_secret_key(app, filename="secret_key"):
-    """Configure the SECRET_KEY from a file
-    in the instance directory.
+    """Configure the SECRET_KEY from a file in the instance directory.
 
-    If the file does not exist, print instructions
-    to create it from a shell with a random key,
-    then exit.
-
+    If the file does not exist, print instructions to create it from a
+    shell with a random key, then exit.
     """
     if "SECRET_KEY" in os.environ:
         app.config["SECRET_KEY"] = os.environ["SECRET_KEY"]

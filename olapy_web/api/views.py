@@ -33,8 +33,8 @@ home = expanduser("~")
 
 
 def get_current_user():
-    """
-     # todo temporary until authentication with vue
+    """# todo temporary until authentication with vue.
+
     :return:
     """
     user = current_user  # use this in prod
@@ -258,7 +258,7 @@ def get_tables_columns_from_db(db_cube_config):
     att_tables = db_cube_config["allTables"].split(",")
     for table_name in att_tables:
         results = executor.sqla_engine.execution_options(stream_results=True).execute(
-            f"SELECT * FROM {table_name}"
+            "SELECT * FROM {table_name}".format(table_name=table_name)
         )
         df = pd.DataFrame(iter(results), columns=results.keys())
         response[table_name] = list(df.columns)
@@ -289,8 +289,8 @@ def get_tables_and_columns():
 
 
 def _gen_facts(data_request):
-    """
-    TEMPORARY
+    """TEMPORARY.
+
     :param data_request:
     :return:
     """
@@ -322,8 +322,8 @@ def check_specified_table_column(table_name, data_request):
 
 
 def _gen_dimensions(data_request):
-    """
-    TEMPORARY
+    """TEMPORARY.
+
     :param data_request:
     :return:
     """
@@ -397,8 +397,8 @@ def save_cube_config_2_db(config, cube_name, source):
 
 
 def gen_cube_conf(data_request, source="csv", cube_name=None):
-    """
-    Temporary function
+    """Temporary function.
+
     :return:
     """
     facts = _gen_facts(data_request)
