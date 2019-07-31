@@ -17,8 +17,8 @@ jinja2==2.10.1            # via flask
 lxml==4.4.0               # via olapy
 mako==1.0.14              # via alembic
 markupsafe==1.1.1         # via jinja2, mako
-numpy==1.17.0             # via pandas
-olapy==0.7.7
+numpy==1.16.4             # via olapy, pandas
+olapy==0.7.8
 pandas==0.24.2            # via olapy
 pathlib==1.0.1
 psycopg2-binary==2.8.3
