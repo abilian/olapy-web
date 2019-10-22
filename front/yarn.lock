@@ -723,79 +723,79 @@
   dependencies:
     "@hapi/hoek" "8.x.x"
 
-"@interactjs/actions@1.5.3":
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/@interactjs/actions/-/actions-1.5.3.tgz#a0981f83b55ec95d0ee89909e379830cfcacbb7b"
-  integrity sha512-jlEw0nzdL8WoU3VNVXvLa0Gae6Fu5SpDJLVh1lfKR8CdF3FceoLytkOJwUhLHoT4Ge2CWgQeeZGAVwKlz7wDBg==
+"@interactjs/actions@1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@interactjs/actions/-/actions-1.6.2.tgz#e076c531b5fb60d920e3d4a0486a02b084b9c1bf"
+  integrity sha512-w9YABLT5E5WBnMX2h496Z5QhfqwU1mDLa5f2yHM3GkLDHBbunxCy1jfGNwY3W6pzNfJO3PzC7fdzvaVZ5fbaqw==
 
-"@interactjs/auto-scroll@1.5.3":
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/@interactjs/auto-scroll/-/auto-scroll-1.5.3.tgz#fdd632421d428d9321ee39ce5c8c8fc20aef6d45"
-  integrity sha512-Yq4E0O/HnXBMt2VeiYKYW12MpjL2ytvTMRIt60MKyMH/PTWtvfRHKIBXNclXQZ0T0bxHtkPQYZ4pwEI201ceyw==
+"@interactjs/auto-scroll@1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@interactjs/auto-scroll/-/auto-scroll-1.6.2.tgz#6b65c174e236d6a325b6e0a5380343064c6f3ebc"
+  integrity sha512-q8O4PNbt1elPMhS/hsjabMEv7YUzioEq1Pu4MOT16QiqPyUMJ9lOBiI2yvHr0uPrLsyn+w2+uffQBB9eNsZrJA==
 
-"@interactjs/auto-start@1.5.3":
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/@interactjs/auto-start/-/auto-start-1.5.3.tgz#aad64bd84c203e361fc4066c9c19283b20ecf0f6"
-  integrity sha512-BTZ0k12yAa6MJeGRZLl7xPp6BfEaSIuCYzWWnO5GgSIz4/odzCX2Rz6z4X32HABvt3bgdEu04dpj1d5YT4le4g==
+"@interactjs/auto-start@1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@interactjs/auto-start/-/auto-start-1.6.2.tgz#bbc497896986f66270082492f13dd195269f86ea"
+  integrity sha512-8Zc96LZOFofpchr3Gk9JnQ8Ino+k+Y9I/G3GkPl/syIIUcAlO3GKjwqeZQG6tQnUnzotgtLnbfBuw4saBNeiow==
 
-"@interactjs/core@1.5.3":
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/@interactjs/core/-/core-1.5.3.tgz#0b5c37332f47839c98ea7ddc7c3eb39bd9ad1aa5"
-  integrity sha512-LOgfJ/OthnqmpsKU7MLf6UOr+vasZHA4ErhBk1j74TnYc05ikPLOgsNlXSqPdO1oBR4OtgOMxBiwTNgDuSMavQ==
+"@interactjs/core@1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@interactjs/core/-/core-1.6.2.tgz#0ba07cae68343764a54b7690da15681c5fad606a"
+  integrity sha512-GfhWgMP7qdD7yOhNFGol8sbVlFQFA/IdaBLMm3VJMdSdjj7Dm9aoW/MZJpCnPZAzX5n0PFnu9XCehmCbG8y4Tw==
 
-"@interactjs/dev-tools@1.5.3":
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/@interactjs/dev-tools/-/dev-tools-1.5.3.tgz#45a3cf69e943568c8ce6c30aac6bebca322189bc"
-  integrity sha512-3tiZVhysqAFZuWmUEXD1+OuWTaqOLngPDzWXT6APEVr/Q4Iq+ZISLgcqDqqNuA0seFcykH/2aqrLaNrAz66YWQ==
+"@interactjs/dev-tools@1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@interactjs/dev-tools/-/dev-tools-1.6.2.tgz#4fdaf6f2cd5d08d7937c84027e25fc4e4c667047"
+  integrity sha512-peAVTxQ6AE6msEBviFHVIgQzazxOAPCPmRXgSDSJf3Ot1CW09ZCQ7jtJyieeASvOFrhrxbjqKKsW68AjdbC13g==
   dependencies:
-    "@interactjs/utils" "1.5.3"
+    "@interactjs/utils" "1.6.2"
 
-"@interactjs/inertia@1.5.3":
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/@interactjs/inertia/-/inertia-1.5.3.tgz#616a6b05f41786b8a4bccc7bc8c775cbfab36e6e"
-  integrity sha512-NJHLNl1p4MRcVPXlI1SCOoA8iH7yh/70Oy0fyEo2QNfGX1l2LK+bNbhjqiGnUNLR/EIO1T+gDveCMrDt0jJEuw==
+"@interactjs/inertia@1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@interactjs/inertia/-/inertia-1.6.2.tgz#06560c9030da4dd20953cb2d0e3805cfeda9cfb5"
+  integrity sha512-7/i0ov5wHsZqrfwzFJXQETbAlOEH99PSjtKnTpQP8kM7g5xYp4qpitkx0vnzwK/OJBY8rFs1wCa0DNaDFVoWWw==
 
-"@interactjs/interact@1.5.3":
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/@interactjs/interact/-/interact-1.5.3.tgz#cbb2c9699c98e11b75213bded4d1fa2e488f9a04"
-  integrity sha512-05THa+24Wz9QoJlM6x+9oXVs7Fdq/fPc2IS+ZC0pu3BmO7pOsNa34IY+ehXOuwZY9VX3TkiRo94BS9uDq1EAXQ==
+"@interactjs/interact@1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@interactjs/interact/-/interact-1.6.2.tgz#ab0accdb3de531e96fad0cd30ed13e44b813d9dc"
+  integrity sha512-1fNsEjaa+ygYC9q9NazZWahUwFq8oj9COapNDcytr/UwY6qzjmp9o2rOGgwTQ38J+UNfkcrEAxnB+q9Fkk6aDw==
 
-"@interactjs/modifiers@1.5.3":
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/@interactjs/modifiers/-/modifiers-1.5.3.tgz#1383f6eba5b56706563f5a75ea7f54ea08019503"
-  integrity sha512-6okjXcae3+JDGwfz2TfGVICFV2F0srGXfWxUeGl9ScdjFQlqQ8GM5E68v3Lbrl7V613jmp2ib/AG+K05Y3/lGg==
+"@interactjs/modifiers@1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@interactjs/modifiers/-/modifiers-1.6.2.tgz#f9f55a04b74265e36fff07001a4f11e909639835"
+  integrity sha512-AHR/rDFNURX4RnjrL00XvbQ1VIwf0HutKpc9qqmeYP2Sk1Kzv/Fp6BPsbY2CqUS30wxaBrnEMWYP9qIKPy2ElQ==
 
-"@interactjs/pointer-events@1.5.3":
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/@interactjs/pointer-events/-/pointer-events-1.5.3.tgz#ad8bb0f7b629e4e11adac47e62d7b46a7c16ea8f"
-  integrity sha512-DeJxQq6hzoq6RHDtqs/v46j47m4sNE3NWnX/UaIs7Q7ChRZWAbUXoEm2wmDWY0ok+joqGNHQaTYQJQbDS26J0A==
+"@interactjs/pointer-events@1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@interactjs/pointer-events/-/pointer-events-1.6.2.tgz#ec87c98cda008283326dba067fef7f607671ad64"
+  integrity sha512-Y9Qfk33PQ1ZIPLQpVOKW7hbELilUuNyP9Y9bZCzPvEr1aWPwSiL3R9NCyCekE4dpwV+sQ7J1uVccPFoJpAw6ug==
 
-"@interactjs/reflow@1.5.3":
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/@interactjs/reflow/-/reflow-1.5.3.tgz#2d8036a84f6ba2aad1c21b57299f1d5aff379f13"
-  integrity sha512-L1CVq8NxXs+eAwMEHx2PUPrQG97VLQ5Dobcj40MoY6VbpOpgU2EkUxuQ9pwC/xYfUUAF0sfiGDqxbxmY4Wc9WQ==
+"@interactjs/reflow@1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@interactjs/reflow/-/reflow-1.6.2.tgz#e6a153397add5bb1035eb4d59cf0db03de06bed6"
+  integrity sha512-hbYk7qHruy7rsHdLTh9FvE0O16Q75D6POlo+NeuVpjCoYI2GxKPsmZQA7CxSgGg+Akqz72hOeBihFtvtwMxcXg==
 
-"@interactjs/types@1.5.3":
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/@interactjs/types/-/types-1.5.3.tgz#97e44caf9ee7d7fdc7fcd5f68408e44ca4292e54"
-  integrity sha512-Va1Yz8uG4ulo+Y/fU5CId9tWfeNc8JsM7gF7NSUwCVKBunonWhFJJVleozF6A+FceR4I5rZ96tVjsSr0p5DP2Q==
+"@interactjs/types@1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@interactjs/types/-/types-1.6.2.tgz#6af30ef0a5f92b628afada283987bbb5591d23f2"
+  integrity sha512-3m+LGbiLp7qYncojhwoBmQP4Aap3YBb526aX/vJtg5rqNeTXd4KfWl6+5VdTawwZAZSptYDes/z6S1uH1pXpSQ==
   dependencies:
-    "@interactjs/actions" "1.5.3"
-    "@interactjs/auto-scroll" "1.5.3"
-    "@interactjs/auto-start" "1.5.3"
-    "@interactjs/core" "1.5.3"
-    "@interactjs/dev-tools" "1.5.3"
-    "@interactjs/inertia" "1.5.3"
-    "@interactjs/interact" "1.5.3"
-    "@interactjs/modifiers" "1.5.3"
-    "@interactjs/pointer-events" "1.5.3"
-    "@interactjs/reflow" "1.5.3"
-    "@interactjs/utils" "1.5.3"
+    "@interactjs/actions" "1.6.2"
+    "@interactjs/auto-scroll" "1.6.2"
+    "@interactjs/auto-start" "1.6.2"
+    "@interactjs/core" "1.6.2"
+    "@interactjs/dev-tools" "1.6.2"
+    "@interactjs/inertia" "1.6.2"
+    "@interactjs/interact" "1.6.2"
+    "@interactjs/modifiers" "1.6.2"
+    "@interactjs/pointer-events" "1.6.2"
+    "@interactjs/reflow" "1.6.2"
+    "@interactjs/utils" "1.6.2"
 
-"@interactjs/utils@1.5.3":
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/@interactjs/utils/-/utils-1.5.3.tgz#d7facda996f5c38df33adae7e49addbd99a1b640"
-  integrity sha512-5XNs8DFhGy40hncAwnC6hz1qUk6seKGPB/b4X6j5ixgAyl5FOcYBYlje0f45JQPVSydJA2dR3U/HIhDFQAl1sg==
+"@interactjs/utils@1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@interactjs/utils/-/utils-1.6.2.tgz#47d4f895dc96737e4e82d458c8c7ecbfc42ce7a4"
+  integrity sha512-VXHN1vP2H18DOjcl5WPHbr1FzAfwIf4gv3Y3jqReYpEwH8RVn/NdW/0FF2Of/WZM07697rkN5wVPFWNAvo4zZw==
 
 "@intervolga/optimize-cssnano-plugin@^1.0.5":
   version "1.0.6"
@@ -2203,10 +2203,10 @@ bytes@3.1.0:
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-3.1.0.tgz#f6cf7933a360e0588fa9fde85651cdc7f805d1f6"
   integrity sha512-zauLjrfCG+xvoyaqLoV8bLVXXNGC4JqlxFCutSDWA6fJrTo2ZuvLYTqZ7aHBLZSMOopbzwv8f+wZcVzfVTI2Dg==
 
-c3@^0.7.3:
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/c3/-/c3-0.7.3.tgz#546a3b14fdb596a87992d49db116e635f70eece0"
-  integrity sha512-GRgQetdk1FguQSF4gqnFW7i+OmV3MHTpJGuj8zjSqGuS1Cd+nVPd29zr8glYQVREqYr1ElycOAqBfWwV8g7t6g==
+c3@^0.7.11:
+  version "0.7.11"
+  resolved "https://registry.yarnpkg.com/c3/-/c3-0.7.11.tgz#3efa9d98d40939a8774fd5b43c75d2857d6e1cdf"
+  integrity sha512-+051dE9Bqaz3NHJvl7sprWSofd2jE4TSHbSRBURTHXRhj0f/75Qj33XhmIW7JklSeM1T3dO0n00p4HPReRZ1qg==
   dependencies:
     d3 "^5.8.0"
 
@@ -3556,7 +3556,44 @@ d3@^3.5.12:
   resolved "https://registry.yarnpkg.com/d3/-/d3-3.5.17.tgz#bc46748004378b21a360c9fc7cf5231790762fb8"
   integrity sha1-vEZ0gAQ3iyGjYMn8fPUjF5B2L7g=
 
-d3@^5.8.0, d3@^5.9.7:
+d3@^5.12.0:
+  version "5.12.0"
+  resolved "https://registry.yarnpkg.com/d3/-/d3-5.12.0.tgz#0ddeac879c28c882317cd439b495290acd59ab61"
+  integrity sha512-flYVMoVuhPFHd9zVCe2BxIszUWqBcd5fvQGMNRmSiBrgdnh6Vlruh60RJQTouAK9xPbOB0plxMvBm4MoyODXNg==
+  dependencies:
+    d3-array "1"
+    d3-axis "1"
+    d3-brush "1"
+    d3-chord "1"
+    d3-collection "1"
+    d3-color "1"
+    d3-contour "1"
+    d3-dispatch "1"
+    d3-drag "1"
+    d3-dsv "1"
+    d3-ease "1"
+    d3-fetch "1"
+    d3-force "1"
+    d3-format "1"
+    d3-geo "1"
+    d3-hierarchy "1"
+    d3-interpolate "1"
+    d3-path "1"
+    d3-polygon "1"
+    d3-quadtree "1"
+    d3-random "1"
+    d3-scale "2"
+    d3-scale-chromatic "1"
+    d3-selection "1"
+    d3-shape "1"
+    d3-time "1"
+    d3-time-format "2"
+    d3-timer "1"
+    d3-transition "1"
+    d3-voronoi "1"
+    d3-zoom "1"
+
+d3@^5.8.0:
   version "5.9.7"
   resolved "https://registry.yarnpkg.com/d3/-/d3-5.9.7.tgz#f3835648a172b438e89ed57eb6c525bdabdcd7dc"
   integrity sha512-jENytrmdXtGPw7HuSK2S4gxRM1eUGjKvWQkQ6ct4yK+DB8SG3VcnVrwesfnsv8rIcxMUg18TafT4Q8mOZUMP4Q==
@@ -4428,11 +4465,6 @@ eslint@^5.13.0:
     table "^5.2.3"
     text-table "^0.2.0"
 
-esm@~3.0.84:
-  version "3.0.84"
-  resolved "https://registry.yarnpkg.com/esm/-/esm-3.0.84.tgz#bb108989f4673b32d4f62406869c28eed3815a63"
-  integrity sha512-SzSGoZc17S7P+12R9cg21Bdb7eybX25RnIeRZ80xZs+VZ3kdQKzqTp2k4hZJjR7p9l0186TTXSgrxzlMDBktlw==
-
 espree@^3.5.2, espree@^3.5.4:
   version "3.5.4"
   resolved "https://registry.yarnpkg.com/espree/-/espree-3.5.4.tgz#b0f447187c8a8bed944b815a660bddf5deb5d1a7"
@@ -5213,16 +5245,23 @@ gl-buffer@^2.0.3, gl-buffer@^2.0.6, gl-buffer@^2.0.8, gl-buffer@^2.1.1, gl-buffe
     ndarray-ops "^1.1.0"
     typedarray-pool "^1.0.0"
 
-gl-cone3d@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/gl-cone3d/-/gl-cone3d-1.3.1.tgz#a364641de93542dffeef5234f87c7105b0867e0d"
-  integrity sha512-ftw75smsDy5nU94susUNimXo8H40BEOVjaFrjT387vP4fJqkSVpzVK7jGrPA8/nSrFCOIQ0msWNYL9MMqQ3hjg==
+gl-cone3d@^1.4.1, gl-cone3d@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/gl-cone3d/-/gl-cone3d-1.5.0.tgz#c6eebc2e337d1da007ff4f2b15d6eeb627f7a3a9"
+  integrity sha512-Hkdx04QvqbzkHAP1nt4jkJD9F9hwJBqZR6ty2DbnQgkgWfIC2sRksDbzFkwPQ3HscTBNLdnuPIBBZ3123jBBVg==
   dependencies:
+    colormap "^2.3.1"
+    gl-buffer "^2.1.2"
+    gl-mat4 "^1.2.0"
     gl-shader "^4.2.1"
+    gl-texture2d "^2.1.0"
+    gl-vao "^1.3.0"
     gl-vec3 "^1.1.3"
     glsl-inverse "^1.0.0"
     glsl-out-of-range "^1.0.4"
+    glsl-specular-cook-torrance "^2.0.1"
     glslify "^7.0.0"
+    ndarray "^1.0.18"
 
 gl-constants@^1.0.0:
   version "1.0.0"
@@ -5362,10 +5401,10 @@ gl-plot2d@^1.4.2:
     glslify "^7.0.0"
     text-cache "^4.2.1"
 
-gl-plot3d@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/gl-plot3d/-/gl-plot3d-2.2.1.tgz#36d802f6821c7d9c6a0968c7c7d056b6ab54227c"
-  integrity sha512-WSzZ9118mUal3uW/9bCPqdrlncmD/T0zWoOY9PiskIOAJ5dxKhzPbY2XkjDs+jGh/ce1yCSEh6LO9aB9SirGow==
+gl-plot3d@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/gl-plot3d/-/gl-plot3d-2.2.2.tgz#4c84b53278801d0d8a2ccb4a5c8dfd2a5134b31c"
+  integrity sha512-is8RoDVUEbUM7kJ2qjhKJlfGLECH3ML9pTCW1V7ylUdmUACmcZ4lzJrQr/NIRkHC5WcUNOp3QJKPjBND3ngZ2A==
   dependencies:
     "3d-view" "^2.0.0"
     a-big-triangle "^1.0.3"
@@ -5374,10 +5413,10 @@ gl-plot3d@^2.2.1:
     gl-mat4 "^1.2.0"
     gl-select-static "^2.0.4"
     gl-shader "^4.2.1"
-    gl-spikes3d "^1.0.8"
+    gl-spikes3d "^1.0.9"
     glslify "^7.0.0"
     has-passive-events "^1.0.0"
-    is-mobile "^2.0.0"
+    is-mobile "^2.1.0"
     mouse-change "^1.4.0"
     mouse-event-offset "^3.0.2"
     mouse-wheel "^1.2.0"
@@ -5451,7 +5490,7 @@ gl-spikes2d@^1.0.2:
   resolved "https://registry.yarnpkg.com/gl-spikes2d/-/gl-spikes2d-1.0.2.tgz#ef8dbcff6c7451dec2b751d7a3c593d09ad5457f"
   integrity sha512-QVeOZsi9nQuJJl7NB3132CCv5KA10BWxAY2QgJNsKqbLsG53B/TrGJpjIAohnJftdZ4fT6b3ZojWgeaXk8bOOA==
 
-gl-spikes3d@^1.0.8:
+gl-spikes3d@^1.0.9:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/gl-spikes3d/-/gl-spikes3d-1.0.9.tgz#9c3967ec3c8bcbe2e376ebf3357c7c26990fe736"
   integrity sha512-laMxydgGdnE8kvd1YD9cNWrx0uSmrPj1Oi02cHhnxWIklut97w3F7mZKnmLMEyUkxpRLkEeQ7YkYy7Y+aUEblw==
@@ -5468,14 +5507,17 @@ gl-state@^1.0.0:
   dependencies:
     uniq "^1.0.0"
 
-gl-streamtube3d@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/gl-streamtube3d/-/gl-streamtube3d-1.2.1.tgz#042ef09a766ab2ffc86ef34a6d4d50f7388ef110"
-  integrity sha512-1aj1noU+jJirl5IwFXk29eDx1nO7PQk4r0UZK3My56J3vDSfRR+IbMq2YBhBkjfCWsKY1nc9ESD8t9EcqZY91w==
+gl-streamtube3d@^1.3.1:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/gl-streamtube3d/-/gl-streamtube3d-1.4.0.tgz#28c6a8e29ba6da08806db69932408c40186120ec"
+  integrity sha512-WgRtdB77uFCN1lBZ6ogz7VTK4J8WwW5DGHvyB3LaBSZF3t5lf/KWeXPgm+xnNINlOy4JqJIgny+CtzwTHAk3Ew==
   dependencies:
-    gl-vec3 "^1.0.0"
+    gl-cone3d "^1.5.0"
+    gl-vec3 "^1.1.3"
+    gl-vec4 "^1.0.1"
     glsl-inverse "^1.0.0"
     glsl-out-of-range "^1.0.4"
+    glsl-specular-cook-torrance "^2.0.1"
     glslify "^7.0.0"
 
 gl-surface3d@^1.4.6:
@@ -5526,7 +5568,7 @@ gl-text@^1.1.8:
     to-px "^1.0.1"
     typedarray-pool "^1.1.0"
 
-gl-texture2d@^2.0.0, gl-texture2d@^2.0.2, gl-texture2d@^2.0.8:
+gl-texture2d@^2.0.0, gl-texture2d@^2.0.2, gl-texture2d@^2.0.8, gl-texture2d@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/gl-texture2d/-/gl-texture2d-2.1.0.tgz#ff6824e7e7c31a8ba6fdcdbe9e5c695d7e2187c7"
   integrity sha1-/2gk5+fDGoum/c2+nlxpXX4hh8c=
@@ -5553,7 +5595,7 @@ gl-vao@^1.1.1, gl-vao@^1.1.2, gl-vao@^1.1.3, gl-vao@^1.2.0, gl-vao@^1.3.0:
   resolved "https://registry.yarnpkg.com/gl-vao/-/gl-vao-1.3.0.tgz#e9e92aa95588cab9d5c2f04b693440c3df691923"
   integrity sha1-6ekqqVWIyrnVwvBLaTRAw99pGSM=
 
-gl-vec3@^1.0.0, gl-vec3@^1.0.2, gl-vec3@^1.0.3, gl-vec3@^1.1.3:
+gl-vec3@^1.0.2, gl-vec3@^1.0.3, gl-vec3@^1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/gl-vec3/-/gl-vec3-1.1.3.tgz#a47c62f918774a06cbed1b65bcd0288ecbb03826"
   integrity sha512-jduKUqT0SGH02l8Yl+mV1yVsDfYgQAJyXGxkJQGyxPLHRiW25DwVIRPt6uvhrEMHftJfqhqKthRcyZqNEl9Xdw==
@@ -6314,12 +6356,12 @@ inquirer@^6.2.2:
     strip-ansi "^5.1.0"
     through "^2.3.6"
 
-interactjs@^1.3.4:
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/interactjs/-/interactjs-1.5.3.tgz#7d70021ace19589972e81e517955df82170889da"
-  integrity sha512-sQ+e1FiQhxDvZHLQ/qNkYQfaXSknQhFK84c8ebGZ5TFf7l+RONUamQbx1N+3jnnQAKRvGx93ZToBs+foYukbrQ==
+interactjs@^1.5.3:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/interactjs/-/interactjs-1.6.2.tgz#b8edf1d62da91687a94c449a7d556fa06e11fcfc"
+  integrity sha512-JC0RV8eTrPltXI8Ld6p3BPy3Wi4piSPSJsd1D8Md8bAW8Wcyn2pnBrcC0jaPk/s/0SXzOWL4Jr1ZuurnSHbfUQ==
   dependencies:
-    "@interactjs/types" "1.5.3"
+    "@interactjs/types" "1.6.2"
 
 internal-ip@^4.3.0:
   version "4.3.0"
@@ -6575,10 +6617,10 @@ is-iexplorer@^1.0.0:
   resolved "https://registry.yarnpkg.com/is-iexplorer/-/is-iexplorer-1.0.0.tgz#1d72bc66d3fe22eaf6170dda8cf10943248cfc76"
   integrity sha1-HXK8ZtP+Iur2Fw3ajPEJQySM/HY=
 
-is-mobile@^2.0.0:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/is-mobile/-/is-mobile-2.0.1.tgz#7e307cf066030e5c1241b53521ceaa999d1f1a2f"
-  integrity sha512-JNaoIFM3geBseef71iOu4024vfphwjFQPFGD64cziXbbyHdrF9zLTqxj2VEbrdOS/gkiQ5b3HldPf4eYPu8g/g==
+is-mobile@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/is-mobile/-/is-mobile-2.1.0.tgz#4c0cab72f3358dd9986007389b30729fae80da0b"
+  integrity sha512-M5OhlZwh+aTlmRUvDg0Wq3uWVNa+w4DyZ2SjbrS+BhSLu9Po+JXHendC305ZEu+Hh7lywb19Zu4kYXu3L1Oo8A==
 
 is-number@^3.0.0:
   version "3.0.0"
@@ -7172,10 +7214,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-mapbox-gl@^1.1.1:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/mapbox-gl/-/mapbox-gl-1.2.0.tgz#2bb281dfe20cf8fcf66486d46fb6a8607355633a"
-  integrity sha512-RDo0kMuo9gs6HFX2Maj+tYO5bUT6WFTQkFbJoKdfe2pK8SY/RgyG3SNJRgZypdBR8loxGCG9geeOwc+JJqblHQ==
+mapbox-gl@1.3.2:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/mapbox-gl/-/mapbox-gl-1.3.2.tgz#6e9197485de7c0c71b1fd30e5e8e7e3824bc35dd"
+  integrity sha512-6Ro7GbTMWxcbc836m6rbBNkesgTncbE1yXWeuHlr89esSqaItKr0+ntOu8rZie3fv+GtitkbODysXzIGCA7G+w==
   dependencies:
     "@mapbox/geojson-rewind" "^0.4.0"
     "@mapbox/geojson-types" "^1.0.2"
@@ -7188,7 +7230,6 @@ mapbox-gl@^1.1.1:
     "@mapbox/whoots-js" "^3.1.0"
     csscolorparser "~1.0.2"
     earcut "^2.1.5"
-    esm "~3.0.84"
     geojson-vt "^3.2.1"
     gl-matrix "^3.0.0"
     grid-index "^1.1.0"
@@ -8592,10 +8633,10 @@ planar-graph-to-polyline@^1.0.0:
     two-product "^1.0.0"
     uniq "^1.0.0"
 
-plotly.js@^1.49.0:
-  version "1.49.1"
-  resolved "https://registry.yarnpkg.com/plotly.js/-/plotly.js-1.49.1.tgz#496003beb1629c6909c287996fe2e3d2d464c3f1"
-  integrity sha512-hWYqsKZMV/DSA/i4z5dPdqZ5o2FMPVTgerGe3f0x7TRd0UFEd8GdiUzHz8xs+lZvFn2SwMUpri1IKWJqBAxfcQ==
+plotly.js@^1.50.1:
+  version "1.50.1"
+  resolved "https://registry.yarnpkg.com/plotly.js/-/plotly.js-1.50.1.tgz#8772b9ca7d49123ac1e17623902a97d151f79de0"
+  integrity sha512-+IbuR3wkr5p+0vatSm25O/KTppIWtDuJofxk2wLWpDIq0Cr39+v2cGoHtDFDhk/xm0zsrHzi9Id5oP79Ji63QQ==
   dependencies:
     "@plotly/d3-sankey" "0.7.2"
     "@plotly/d3-sankey-circular" "0.33.1"
@@ -8604,6 +8645,7 @@ plotly.js@^1.49.0:
     alpha-shape "^1.0.0"
     canvas-fit "^1.5.0"
     color-normalize "^1.5.0"
+    color-rgba "^2.1.1"
     convex-hull "^1.0.3"
     country-regex "^1.1.0"
     d3 "^3.5.12"
@@ -8613,7 +8655,7 @@ plotly.js@^1.49.0:
     delaunay-triangulate "^1.1.6"
     es6-promise "^3.0.2"
     fast-isnumeric "^1.1.3"
-    gl-cone3d "^1.3.1"
+    gl-cone3d "^1.4.1"
     gl-contour2d "^1.1.6"
     gl-error3d "^1.0.15"
     gl-heatmap2d "^1.0.5"
@@ -8621,18 +8663,18 @@ plotly.js@^1.49.0:
     gl-mat4 "^1.2.0"
     gl-mesh3d "^2.1.1"
     gl-plot2d "^1.4.2"
-    gl-plot3d "^2.2.1"
+    gl-plot3d "^2.2.2"
     gl-pointcloud2d "^1.0.2"
     gl-scatter3d "^1.2.2"
     gl-select-box "^1.0.3"
     gl-spikes2d "^1.0.2"
-    gl-streamtube3d "^1.2.1"
+    gl-streamtube3d "^1.3.1"
     gl-surface3d "^1.4.6"
     gl-text "^1.1.8"
     glslify "^7.0.0"
     has-hover "^1.0.1"
     has-passive-events "^1.0.0"
-    mapbox-gl "^1.1.1"
+    mapbox-gl "1.3.2"
     matrix-camera-controller "^2.1.3"
     mouse-change "^1.4.0"
     mouse-event-offset "^3.0.2"
@@ -10360,10 +10402,10 @@ sort-keys@^2.0.0:
   dependencies:
     is-plain-obj "^1.0.0"
 
-sortablejs@^1.9.0:
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/sortablejs/-/sortablejs-1.9.0.tgz#2d1e74ae6bac2cb4ad0622908f340848969eb88d"
-  integrity sha512-Ot6bYJ6PoqPmpsqQYXjn1+RKrY2NWQvQt/o4jfd/UYwVWndyO5EPO8YHbnm5HIykf8ENsm4JUrdAvolPT86yYA==
+sortablejs@^1.10.1:
+  version "1.10.1"
+  resolved "https://registry.yarnpkg.com/sortablejs/-/sortablejs-1.10.1.tgz#3d52b00f871be00f00f84d99a60d120bf3dfe52c"
+  integrity sha512-N6r7GrVmO8RW1rn0cTdvK3JR0BcqecAJ0PmYMCL3ZuqTH3pY+9QyqkmJSkkLyyDvd+AJnwaxTP22Ybr/83V9hQ==
 
 source-list-map@^2.0.0:
   version "2.0.1"
@@ -11712,13 +11754,13 @@ vue-eslint-parser@^5.0.0:
     esquery "^1.0.1"
     lodash "^4.17.11"
 
-vue-grid-layout@^2.3.4:
-  version "2.3.4"
-  resolved "https://registry.yarnpkg.com/vue-grid-layout/-/vue-grid-layout-2.3.4.tgz#0da7d50628b050515b9e6ebef78b380d1ead0807"
-  integrity sha512-FLOXyzoMCXY+8Y3klkbH4lMz/hfy/sRHXBv9xPfgVZ04o0Kxp9t3+TqFl6SlNhu/QVJmBKh5caHcnktZCPOGLw==
+vue-grid-layout@^2.3.6:
+  version "2.3.6"
+  resolved "https://registry.yarnpkg.com/vue-grid-layout/-/vue-grid-layout-2.3.6.tgz#0190176f32af006f215b25caf08a2fc986c8921e"
+  integrity sha512-pKiSJmla7aHGKqI/t4nrehfoJgHdmanEbdR6TQU59m0JP1Md6YZtaQNUq7mRLspd6+1WULOLOQDraU5nF90j0Q==
   dependencies:
     element-resize-detector "^1.1.10"
-    interactjs "^1.3.4"
+    interactjs "^1.5.3"
 
 vue-hot-reload-api@^2.3.0:
   version "2.3.3"
@@ -11741,10 +11783,10 @@ vue-notification@^1.3.16:
   resolved "https://registry.yarnpkg.com/vue-notification/-/vue-notification-1.3.16.tgz#b2eca3416a94a46e35aa2516710a0fcd2c8515ea"
   integrity sha512-ZL57GcyeAnJK5ItWWkZ3+wcf3OlLFs9WIukxXwJBSIzIXUlXXxXzeVkZrhUf3Q/FkbWWAYRmzKXXP742ZiyxOw==
 
-vue-router@^3.0.7:
-  version "3.0.7"
-  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.0.7.tgz#b36ca107b4acb8ff5bc4ff824584059c23fcb87b"
-  integrity sha512-utJ+QR3YlIC/6x6xq17UMXeAfxEvXA0VKD3PiSio7hBOZNusA1jXcbxZxVEfJunLp48oonjTepY8ORoIlRx/EQ==
+vue-router@^3.1.3:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.1.3.tgz#e6b14fabc0c0ee9fda0e2cbbda74b350e28e412b"
+  integrity sha512-8iSa4mGNXBjyuSZFCCO4fiKfvzqk+mhL0lnKuGcQtO1eoj8nq3CmbEG8FwK5QqoqwDgsjsf1GDuisDX4cdb/aQ==
 
 vue-style-loader@^4.1.0:
   version "4.1.2"
@@ -11772,12 +11814,12 @@ vue@^2.5.21, vue@^2.6.10:
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
   integrity sha512-ImThpeNU9HbdZL3utgMCq0oiMzAkt1mcgy3/E6zWC/G6AaQoeuFdsl9nDhTDU3X1R6FK7nsIUuRACVcjI+A2GQ==
 
-vuedraggable@^2.23.0:
-  version "2.23.0"
-  resolved "https://registry.yarnpkg.com/vuedraggable/-/vuedraggable-2.23.0.tgz#1f4a5a601675a5dbf0d96ee61aebfffa43445262"
-  integrity sha512-RgdH16k43WNoxyRcv/OarB/DZh9SY5TYthk9TS4YiHXpelD1DytEG0phLAXiXx5EhsmdH8ltSWxklGa4g1WTCw==
+vuedraggable@^2.23.2:
+  version "2.23.2"
+  resolved "https://registry.yarnpkg.com/vuedraggable/-/vuedraggable-2.23.2.tgz#0d95d7fdf4f02f56755a26b3c9dca5c7ca9cfa72"
+  integrity sha512-PgHCjUpxEAEZJq36ys49HfQmXglattf/7ofOzUrW2/rRdG7tu6fK84ir14t1jYv4kdXewTEa2ieKEAhhEMdwkQ==
   dependencies:
-    sortablejs "^1.9.0"
+    sortablejs "^1.10.1"
 
 watchpack@^1.5.0:
   version "1.6.0"
