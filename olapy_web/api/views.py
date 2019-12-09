@@ -210,7 +210,7 @@ def get_columns_from_files(db_cube_config):
         df = pd.read_csv(cube_file_path, sep=";")
         # todo show columns with there types
         if db_cube_config["WithID"]:
-            result = [column for column in df.columns]
+            result = list(df.columns)
         else:
             result = [
                 column
@@ -229,7 +229,7 @@ def get_columns_from_db(db_cube_config):
     )
     df = pd.DataFrame(iter(results), columns=results.keys())
     if db_cube_config["WithID"]:
-        result = [column for column in df.columns]
+        result = list(df.columns)
     else:
         result = [
             column
