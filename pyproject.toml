@@ -1,0 +1,56 @@
+[tool.poetry]
+name = "olapy_web"
+version = "0.0.0"
+authors = ["Abilian SAS"]
+
+[tool.poetry.dependencies]
+python = ">=3.6"
+
+olapy = ">=0.6"
+
+flask = ">=1"
+flask-login = "*"
+flask-migrate = "*"
+flask-sqlalchemy = "*"
+flask-wtf = "*"
+pathlib = "*"
+psycopg2-binary = "*"
+pyyaml = ">=5"
+sqlalchemy = "*"
+typing = "*"
+wtforms = "*"
+
+[tool.poetry.dev-dependencies]
+# Linting
+flake8 = "*"
+flake8-bugbear = "*"
+flake8-comprehensions = "*"
+flake8-mutable = "*"
+flake8-pytest = "*"
+flake8-super-call = "*"
+flake8-tidy-imports = "*"
+mastool = "*"
+mccabe = "*"
+pylint = "*"
+
+mypy = { version = "*", python = "^3.6" }
+flake8-mypy = { version = "*", python = "^3.6" }
+black = { version = "*", python = "^3.6", allows-prereleases = true }
+# black = { version = "*", allows-prereleases = true }
+
+# Testing
+pytest="*"
+pytest-cov="*"
+tox="*"
+
+# Doc
+sphinx="*"
+sphinx_rtd_theme="*"
+
+# Formatting
+isort="*"
+
+# Other
+PrettyTable="*"
+gprof2dot="*"
+py-cpuinfo="*"
