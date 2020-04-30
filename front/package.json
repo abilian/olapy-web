@@ -11,7 +11,7 @@
     "axios": "^0.19.2",
     "c3": "^0.7.13",
     "d3": "^5.15.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jquery-ui-bundle": "^1.12.1-migrate",
     "pivottable": "^2.23.0",
     "plotly.js": "^1.52.2",
