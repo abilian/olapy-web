@@ -32,7 +32,7 @@ def test_upload_cube(client):
 
 def test_add_db_cube(client):
     with client:
-        client.post("/login", data=dict(username="admin", password="admin"))
+        client.post("/login", data={"username": "admin", "password": "admin"})
 
         # in the web , you don't put a string connection,
         # instead each connexion param separately
@@ -56,14 +56,14 @@ def test_add_db_cube(client):
 
 def test_add_dashboard(client):
     with client:
-        client.post("/login", data=dict(username="admin", password="admin"))
+        client.post("/login", data={"username": "admin", "password": "admin"})
 
-        dashboard_config = dict(
-            dashboardName="dashboard_test",
-            usedCharts=["pie"],
-            layout=[{"x": 0, "y": 0, "w": 6, "h": 8, "i": "pie0"}],
-            chartData=chart_data,
-        )
+        dashboard_config = {
+            "dashboardName": "dashboard_test",
+            "usedCharts": ["pie"],
+            "layout": [{"x": 0, "y": 0, "w": 6, "h": 8, "i": "pie0"}],
+            "chartData": chart_data,
+        }
         response = client.post(
             "api/dashboard/save", json=dashboard_config, content_type="application/json"
         )

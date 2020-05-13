@@ -32,7 +32,6 @@ Installation
 To set up the application, run, ideally in a virtualenv::
 
     make develop
-    export FLASK_APP=app.py
 
 (see `make pip`, `make js`, `make build` etc).
 
@@ -46,11 +45,10 @@ Run the demo
 
 Run:
 
-1. ``export FLASK_APP=app.py``
 
-2. ``flask init`` to initialize the db and some demos
+1. ``flask init`` to initialize the db and some demos
 
-3. ``make run`` to run application, using the following credential to log in:
+2. ``make run`` to run application, using the following credential to log in:
 
   - **login**: admin
 

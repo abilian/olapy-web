@@ -35,24 +35,18 @@ To set up the application, run, ideally in a virtualenv:
 Run application:
 ----------------
 
-1. Initialize application with:
-
-
-    export FLASK_APP=manage.py
-
-
-2. Initialize the db and some demos
+1. Initialize the db and some demos
 
 
     flask init 
     
     
-3. run application:
+2. run application:
 
 
     make run 
     
-4. open your browser and go to [https://127.0.0.1:5000](https://127.0.0.1:5000)
+3. open your browser and go to [https://127.0.0.1:5000](https://127.0.0.1:5000)
 
 
 **login: admin**

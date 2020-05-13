@@ -1,4 +1,4 @@
-dist: xenial
+dist: bionic
 
 language: python
 
@@ -14,13 +14,13 @@ python:
   - "2.7"
   - "3.6"
   - "3.7"
+  - "3.8"
 
 before_install:
   - psql -c 'create database olapy_web_test;' -U postgres
 
 install:
   - pip install -U pip setuptools tox tox-travis wheel poetry
-  - export FLASK_APP=manage.py
 
 matrix:
   include:
