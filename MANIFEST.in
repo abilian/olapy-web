@@ -1,6 +1,0 @@
-include *.rst *.txt *.ini *.py *.cfg *.yml *.html *.in
-recursive-include front/olapy_web *
-recursive-include front/templates *
-recursive-include front/static *
-recursive-exclude front/node_modules *
-prune .git

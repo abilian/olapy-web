@@ -11,10 +11,9 @@ addons:
   postgresql: "9.6"
 
 python:
-  - "2.7"
   - "3.6"
-  - "3.7"
-  - "3.8"
+  # - "3.7"
+  # - "3.8"
 
 before_install:
   - psql -c 'create database olapy_web_test;' -U postgres

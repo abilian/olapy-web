@@ -62,7 +62,6 @@ init:
 
 clean:
 	find . -name "*.pyc" -delete
-	find . -name yaka.db -delete
 	find . -name .DS_Store -delete
 	find . -name cache -type d -delete
 	find . -type d -empty -delete
