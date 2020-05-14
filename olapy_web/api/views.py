@@ -1,8 +1,3 @@
-# -*- encoding: utf8 -*-
-
-from __future__ import absolute_import, division, print_function, \
-    unicode_literals
-
 import os
 import shutil
 import tempfile
@@ -258,7 +253,7 @@ def get_tables_columns_from_db(db_cube_config):
     att_tables = db_cube_config["allTables"].split(",")
     for table_name in att_tables:
         results = executor.sqla_engine.execution_options(stream_results=True).execute(
-            "SELECT * FROM {table_name}".format(table_name=table_name)
+            f"SELECT * FROM {table_name}"
         )
         df = pd.DataFrame(iter(results), columns=results.keys())
         response[table_name] = list(df.columns)
