@@ -24,6 +24,8 @@ python = ">=3.6"
 
 olapy = ">=0.6"
 
+spyne = { version = "^2.13", allow-prereleases = true }
+
 flask = ">=1"
 flask-login = "*"
 flask-migrate = "*"
