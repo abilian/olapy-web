@@ -10,7 +10,7 @@
 
           <div class="modal-body">
             <slot name="body" v-for="columns in selectTableColumns">
-              <label v-for="column in columns">
+              <label v-for="column in columns" :key="column">
                 {{ column }}
                 <input
                   v-model="selectedColumns['columns']"
