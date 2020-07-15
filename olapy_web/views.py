@@ -1,3 +1,5 @@
+from typing import Union
+
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.wrappers import Response
@@ -19,12 +21,12 @@ def load_user(userid: str) -> User:
 @route("/index")
 @route("/")
 @login_required
-def index() -> Response:
+def index() -> str:
     return render_template("index.html", user=current_user)
 
 
 @route("/login", methods=["GET", "POST"])
-def login() -> str:
+def login() -> Union[str, Response]:
     """Login user."""
     form = LoginForm()
     if len(form.errors) > 0:
