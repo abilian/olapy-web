@@ -220,7 +220,7 @@ def get_columns_from_db(db_cube_config):
     sqla_engine = create_engine(sqla_uri)
     executor = MdxEngine(sqla_engine=sqla_engine, source_type="db")
     results = executor.sqla_engine.execution_options(stream_results=True).execute(
-        "SELECT * FROM {}".format(db_cube_config["tableName"])
+        f"SELECT * FROM {db_cube_config['tableName']}"
     )
     df = pd.DataFrame(iter(results), columns=results.keys())
     if db_cube_config["WithID"]:

@@ -1,9 +1,3 @@
-# -*- encoding: utf8 -*-
-from __future__ import absolute_import, division, print_function, \
-    unicode_literals
-
-from typing import Any
-
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.wrappers import Response
@@ -17,8 +11,7 @@ route = blueprint.route
 
 
 @login_manager.user_loader
-def load_user(userid):
-    # type: (Any) -> User
+def load_user(userid: str) -> User:
     """Load user with specific id."""
     return User.query.get(int(userid))
 
@@ -26,14 +19,12 @@ def load_user(userid):
 @route("/index")
 @route("/")
 @login_required
-def index():
-    # type: () -> Response
+def index() -> Response:
     return render_template("index.html", user=current_user)
 
 
 @route("/login", methods=["GET", "POST"])
-def login():
-    # type: () -> Response
+def login() -> str:
     """Login user."""
     form = LoginForm()
     if len(form.errors) > 0:
@@ -53,8 +44,7 @@ def login():
 
 
 @route("/logout")
-def logout():
-    # type: () -> Response
+def logout() -> Response:
     """Logout user."""
     logout_user()
     return redirect(url_for("main.login"))
