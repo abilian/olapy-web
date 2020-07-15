@@ -94,5 +94,5 @@ def create_insert(con):
 
 def drop_tables(con):
     for table_name in ("Facts", "geography", "product", "time"):
-        statement = "DROP TABLE {};".format(table_name)
+        statement = f"DROP TABLE {table_name};"
         con.execute(statement)
