@@ -2,18 +2,15 @@ import os
 import sys
 from logging import DEBUG
 from os.path import isdir, join
-from typing import Any, Dict, Text
+from typing import Any, Dict
 
 import jinja2
 from flask import Flask, render_template
 
 from .extensions import db, login_manager, migrate
 
-ALLOWED_EXTENSIONS = {"csv"}
 
-
-def create_app(new_config=None):
-    # type: (Dict[Text, Any]) -> Flask
+def create_app(new_config: Dict[str, Any] = None) -> Flask:
     if new_config:
         config = new_config
     else:
@@ -47,27 +44,19 @@ def create_app(new_config=None):
     return app
 
 
-def configure_extensions(app):
-    # type: (Flask) -> None
-
+def configure_extensions(app: Flask) -> None:
     db.init_app(app)
     login_manager.init_app(app)
-
     migrate.init_app(app, db)
 
 
-def configure_logger(app):
-    # type: (Flask) -> None
-
+def configure_logger(app: Flask) -> None:
     app.logger.setLevel(DEBUG)
 
 
-def configure_error_handlers(app):
-    # type: (Flask) -> None
-
+def configure_error_handlers(app: Flask) -> None:
     @app.errorhandler(404)
-    def page_not_found(e):
-        # type: (Exception) -> Any
+    def page_not_found(e: Exception) -> Any:
         """Page not found.
 
         :param e: exception
@@ -75,8 +64,7 @@ def configure_error_handlers(app):
         return render_template("404.html"), 400
 
     @app.errorhandler(500)
-    def server_error(e):
-        # type: (Exception) -> Any
+    def server_error(e: Exception) -> Any:
         """Server error.
 
         :param e: exception
@@ -84,19 +72,15 @@ def configure_error_handlers(app):
         return render_template("500.html"), 500
 
 
-def configure_blueprints(app):
-    # type: (Flask) -> None
-
+def configure_blueprints(app: Flask) -> None:
     from .views import blueprint
+    from .api import api
 
     app.register_blueprint(blueprint)
-
-    from olapy_web.api.views import api
-
     app.register_blueprint(api, url_prefix="/api/")
 
 
-def configure_jinja_loader(app):
+def configure_jinja_loader(app: Flask) -> None:
     # I don't want my templates in ./templates/ but in ../front (index.html)
     # AND in ../front/templates/ and possibly in other "templates/" locations.
     appdir = os.path.abspath(os.path.dirname(__file__))
@@ -117,7 +101,7 @@ def configure_jinja_loader(app):
     app.jinja_loader = my_loader
 
 
-def install_secret_key(app, filename="secret_key"):
+def install_secret_key(app: Flask, filename: str = "secret_key") -> None:
     """Configure the SECRET_KEY from a file in the instance directory.
 
     If the file does not exist, print instructions to create it from a

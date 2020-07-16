@@ -3,12 +3,12 @@ import shutil
 import tempfile
 from collections import OrderedDict
 from distutils.dir_util import copy_tree
-from os.path import expanduser, isdir
+from os.path import isdir
 from pathlib import Path
+from typing import Optional
 
 import pandas as pd
-from flask import Blueprint, current_app, jsonify, request
-from flask_login import current_user
+from flask import current_app, jsonify, request
 from olapy.core.mdx.executor.execute import MdxEngine
 from six.moves.urllib.parse import urlunparse
 from sqlalchemy import create_engine
@@ -16,45 +16,30 @@ from sqlalchemy.exc import ProgrammingError
 from werkzeug.utils import secure_filename
 
 from olapy_web.extensions import db
-from olapy_web.models import Chart, Cube, Dashboard, Pivottable, User
+from olapy_web.models import Cube
 
-api = Blueprint("api", __name__, template_folder="templates")
-route = api.route
+from . import route
+from .util import get_current_user
 
 ALLOWED_EXTENSIONS = {".csv"}
 TEMP_CUBE_NAME = "TEMP_CUBE"
 OLAPY_TEMP_DIR = os.path.join(tempfile.mkdtemp(), "TEMP")
-home = expanduser("~")
 
 
-def get_current_user():
-    """# todo temporary until authentication with vue.
-
-    :return:
-    """
-    user = current_user  # use this in prod
-    # user = User.query.first()  # use this in dev
-    return user
-
-
-def get_cube(cube_name):
+def get_cube(cube_name) -> Optional[Cube]:
     return get_current_user().cubes.filter(Cube.name == cube_name).first()
 
 
 def get_cube_source_type(cube_name):
-    cube_result = get_cube(cube_name)
-    return cube_result.source
+    cube = get_cube(cube_name)
+    return cube.source
 
 
 def get_config(cube_name):
-    cube_result = get_cube(cube_name)
+    cube = get_cube(cube_name)
     return {
-        "db_config": cube_result.db_config
-        if cube_result and cube_result.db_config
-        else None,
-        "cube_config": cube_result.config
-        if cube_result and cube_result.config
-        else None,
+        "db_config": cube.db_config if cube and cube.db_config else None,
+        "cube_config": cube.config if cube and cube.config else None,
     }
 
 
@@ -334,37 +319,13 @@ def _gen_dimensions(data_request):
     return dimensions
 
 
-@route("/pivottable/delete", methods=["POST"])
 @route("/cubes/delete", methods=["POST"])
-@route("/dashboard/delete", methods=["POST"])
-def delete():
+def delete_cube():
     request_data = request.get_json()
-    queried_obj = request.environ.get("PATH_INFO").split("/")[-2]
-    if queried_obj.upper() == "CUBES":
-        obj = (
-            get_current_user()
-            .cubes.filter(Cube.name == request_data["cubeName"])
-            .first()
-        )
-    elif queried_obj.upper() == "DASHBOARD":
-        obj = (
-            get_current_user()
-            .dashboards.filter(Dashboard.name == request_data["dashboardName"])
-            .first()
-        )
-    elif queried_obj.upper() == "PIVOTTABLE":
-        obj = (
-            get_current_user()
-            .pivottables.filter(Pivottable.name == request_data["pivottableName"])
-            .first()
-        )
-    else:
-        obj = None
-
-    if obj:
-        db.session.delete(obj)
-        db.session.commit()
-        return jsonify({"success": True}), 200
+    obj = get_current_user().cubes.filter(Cube.name == request_data["cubeName"]).first()
+    db.session.delete(obj)
+    db.session.commit()
+    return jsonify({"success": True}), 200
 
 
 def save_cube_config_2_db(config, cube_name, source):
@@ -574,111 +535,8 @@ def get_cube_columns(cube_name):
     )
 
 
-@route("/dashboard/save", methods=["POST"])
-def save_dashboard():
-    request_data = request.get_json()
-    user_dashboard = (
-        get_current_user()
-        .dashboards.filter(Dashboard.name == request_data["dashboardName"])
-        .first()
-    )
-    if user_dashboard:
-        # update dashboard
-        user_dashboard.name = request_data["dashboardName"]
-        user_dashboard.chart.used_charts = request_data["usedCharts"]
-        user_dashboard.chart.charts_layout = request_data["layout"]
-        user_dashboard.chart.charts_data = request_data["chartData"]
-    else:
-        # add new cube
-        chart = Chart(
-            used_charts=request_data["usedCharts"],
-            charts_layout=request_data["layout"],
-            charts_data=request_data["chartData"],
-        )
-        dashboard = Dashboard(
-            name=request_data["dashboardName"],
-            user_id=get_current_user().id,
-            chart=chart,
-        )
-        db.session.add(dashboard)
-    db.session.commit()
-    return jsonify({"success": True}), 200
-
-
-@route("/dashboard/all")
-def all_dashboard():
-    all_dashboards = get_current_user().dashboards
-    return jsonify([dashboard.name for dashboard in all_dashboards])
-
-
-@route("/dashboard/<dashboard_name>")
-def get_dashboard(dashboard_name):
-    dashboard = (
-        get_current_user().dashboards.filter(Dashboard.name == dashboard_name).first()
-    )
-    return jsonify(
-        {
-            "name": dashboard.name,
-            "used_charts": dashboard.chart.used_charts,
-            "charts_layout": dashboard.chart.charts_layout,
-            "charts_data": dashboard.chart.charts_data,
-        }
-    )
-
-
 @route("/query_builder/<cube>")
 def star_schema_df_query_builder(cube):
     executor = _load_cube(cube)
     csv_df = executor.star_schema_dataframe.to_csv(encoding="utf-8")
     return jsonify([line.split(",") for line in csv_df.splitlines()])
-
-
-@route("/pivottable/save", methods=["POST"])
-def save_pivottable():
-    request_data = request.get_json()
-    user_pivottable = (
-        get_current_user()
-        .pivottables.filter(Pivottable.name == request_data["pivottableName"])
-        .first()
-    )
-    selected_cube = Cube.query.filter(
-        User.id == get_current_user().id, Cube.name == request_data["cubeName"]
-    ).first()
-    if user_pivottable:
-        user_pivottable.name = request_data["pivottableName"]
-        user_pivottable.rows = request_data["pvtRows"]
-        user_pivottable.columns = request_data["pvtCols"]
-    else:
-        pivottable = Pivottable(
-            user_id=get_current_user().id,
-            name=request_data["pivottableName"],
-            rows=request_data["pvtRows"],
-            columns=request_data["pvtCols"],
-            cube=selected_cube,
-        )
-        db.session.add(pivottable)
-    db.session.commit()
-    return jsonify({"success": True}), 200
-
-
-@route("/pivottable/<pivottable_name>")
-def get_pivottable(pivottable_name):
-    pivottable = (
-        get_current_user()
-        .pivottables.filter(Pivottable.name == pivottable_name)
-        .first()
-    )
-    return jsonify(
-        {
-            "name": pivottable.name,
-            "columns": pivottable.columns,
-            "rows": pivottable.rows,
-            "cube_name": pivottable.cube.name,
-        }
-    )
-
-
-@route("/pivottable/all")
-def all_pivottables():
-    all_pivottables = get_current_user().pivottables
-    return jsonify([pivottable.name for pivottable in all_pivottables])
