@@ -21,7 +21,7 @@ def initdb(ctx):
         db.session.commit()
         print("Initialized the database")
     except IntegrityError:
-        print("Database Already initialized")
+        print("Database already initialized")
 
     from olapy.cli import init
 

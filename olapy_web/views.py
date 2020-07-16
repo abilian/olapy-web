@@ -8,7 +8,7 @@ from .extensions import login_manager
 from .forms import LoginForm
 from .models import User
 
-blueprint = Blueprint("main", __name__, template_folder="templates")
+blueprint = Blueprint("main", __name__)
 route = blueprint.route
 
 
