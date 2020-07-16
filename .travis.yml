@@ -13,12 +13,14 @@ addons:
 python:
   - "3.6"
   - "3.7"
-  - "3.8"
+  # - "3.8"
 
 matrix:
   include:
     - python: 3.6
       env: TOXENV=lint
+    - python: 3.6
+      env: TOXENV=lint-front
 
 install:
   - pip install -U pip setuptools tox tox-travis wheel poetry
