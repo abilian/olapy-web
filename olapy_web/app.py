@@ -98,7 +98,7 @@ def configure_jinja_loader(app: Flask) -> None:
         ]
     )
 
-    app.jinja_loader = my_loader
+    app.jinja_loader = my_loader  # type: ignore
 
 
 def install_secret_key(app: Flask, filename: str = "secret_key") -> None:
