@@ -17,8 +17,8 @@
               <select class="form-control" v-model="selectedCube">
                 <option disabled value="">Cube</option>
                 <option v-for="(cube, index) in userCubes" :key="cube + index">
-                  {{ cube }}</option
-                >
+                  {{ cube }}
+                </option>
               </select>
 
               <div v-show="allColumns.length > 0">
@@ -94,6 +94,43 @@ export default {
     };
   },
 
+  created() {
+    axios
+      .get("/api/cubes")
+      .then(response => {
+        return response.data;
+      })
+      .then(data => {
+        for (let key in data) {
+          this.userCubes.push(data[key]);
+        }
+      });
+  },
+
+  watch: {
+    selectedCube: function(selectedCube) {
+      axios
+        .get("/api/cubes/" + selectedCube + "/columns")
+        .then(response => {
+          return response.data;
+        })
+        .then(data => {
+          for (let key in data) {
+            this.allColumns.push(data[key]);
+          }
+        });
+
+      axios
+        .get("/api/cubes/" + selectedCube + "/facts")
+        .then(response => {
+          return response.data;
+        })
+        .then(data => {
+          this.allMeasures = data["measures"];
+        });
+    },
+  },
+
   methods: {
     genGraph(graphType, chartData) {
       const data = {
@@ -128,7 +165,7 @@ export default {
             data.selectedCube;
         }
         axios
-          .post("api/cubes/chart_columns", data)
+          .post("/api/cubes/chart_columns", data)
           .then(response => {
             return response.data;
           })
@@ -147,43 +184,6 @@ export default {
         this.$emit("selectedCube", this.selectedCube);
       }
     },
-  },
-
-  watch: {
-    selectedCube: function(selectedCube) {
-      axios
-        .get("api/cubes/" + selectedCube + "/columns")
-        .then(response => {
-          return response.data;
-        })
-        .then(data => {
-          for (let key in data) {
-            this.allColumns.push(data[key]);
-          }
-        });
-
-      axios
-        .get("api/cubes/" + selectedCube + "/facts")
-        .then(response => {
-          return response.data;
-        })
-        .then(data => {
-          this.allMeasures = data["measures"];
-        });
-    },
-  },
-
-  created() {
-    axios
-      .get("api/cubes")
-      .then(response => {
-        return response.data;
-      })
-      .then(data => {
-        for (let key in data) {
-          this.userCubes.push(data[key]);
-        }
-      });
   },
 };
 </script>

@@ -44,6 +44,7 @@ export default {
   props: {
     selectTableColumns: Object,
   },
+
   data: function() {
     return {
       selectedColumns: {
@@ -52,6 +53,7 @@ export default {
       },
     };
   },
+
   methods: {
     saveChoseCol() {
       this.$emit("SavedColumns", this.selectedColumns);

@@ -147,6 +147,61 @@ export default {
     };
   },
 
+  components: {
+    draggable,
+    GridLayout,
+    GridItem,
+    chartProps: ChartProps,
+  },
+
+  watch: {
+    usedCharts: function(newElements, oldElements) {
+      if (newElements.length > oldElements.length && this.draggedChart) {
+        // if add chart not removing one
+        if (this.chart_x_position >= this.chart_weight * 2) {
+          this.chart_x_position = 0;
+          this.chart_y_position += this.chart_height;
+        }
+        this.layout.push({
+          x: this.chart_x_position,
+          y: this.chart_y_position,
+          w: this.chart_weight,
+          h: this.chart_height,
+          i: "",
+        });
+        this.chart_x_position += this.chart_weight;
+      }
+    },
+  },
+
+  created() {
+    if (this.selectedDashboard) {
+      this.allowModification = false;
+      this.layout = this.selectedDashboard["charts_layout"];
+      this.usedCharts = this.selectedDashboard["used_charts"];
+      this.dashboardName = this.selectedDashboard["name"];
+      this.chartData = this.selectedDashboard["charts_data"];
+    }
+  },
+
+  mounted: function() {
+    if (this.selectedDashboard) {
+      for (let chartData in this.selectedDashboard["charts_data"]) {
+        if (this.layout[chartData]) {
+          Plotly.newPlot(
+            this.layout[chartData].i,
+            this.selectedDashboard["charts_data"][chartData].data,
+            this.selectedDashboard["charts_data"][chartData].layout
+          );
+          const graphDiv = document.getElementById(this.layout[chartData].i);
+          graphDiv.style.width = "95%";
+          graphDiv.style.height = "95%";
+          Plotly.Plots.resize(graphDiv);
+        }
+      }
+    }
+  },
+
   methods: {
     addChart() {
       const chartDiv = this.draggedChart + (this.usedCharts.length - 1); // - 1
@@ -227,61 +282,6 @@ export default {
         }
       );
     },
-  },
-
-  components: {
-    draggable,
-    GridLayout,
-    GridItem,
-    chartProps: ChartProps,
-  },
-
-  watch: {
-    usedCharts: function(newElements, oldElements) {
-      if (newElements.length > oldElements.length && this.draggedChart) {
-        // if add chart not removing one
-        if (this.chart_x_position >= this.chart_weight * 2) {
-          this.chart_x_position = 0;
-          this.chart_y_position += this.chart_height;
-        }
-        this.layout.push({
-          x: this.chart_x_position,
-          y: this.chart_y_position,
-          w: this.chart_weight,
-          h: this.chart_height,
-          i: "",
-        });
-        this.chart_x_position += this.chart_weight;
-      }
-    },
-  },
-
-  created() {
-    if (this.selectedDashboard) {
-      this.allowModification = false;
-      this.layout = this.selectedDashboard["charts_layout"];
-      this.usedCharts = this.selectedDashboard["used_charts"];
-      this.dashboardName = this.selectedDashboard["name"];
-      this.chartData = this.selectedDashboard["charts_data"];
-    }
-  },
-
-  mounted: function() {
-    if (this.selectedDashboard) {
-      for (let chartData in this.selectedDashboard["charts_data"]) {
-        if (this.layout[chartData]) {
-          Plotly.newPlot(
-            this.layout[chartData].i,
-            this.selectedDashboard["charts_data"][chartData].data,
-            this.selectedDashboard["charts_data"][chartData].layout
-          );
-          const graphDiv = document.getElementById(this.layout[chartData].i);
-          graphDiv.style.width = "95%";
-          graphDiv.style.height = "95%";
-          Plotly.Plots.resize(graphDiv);
-        }
-      }
-    }
   },
 };
 </script>

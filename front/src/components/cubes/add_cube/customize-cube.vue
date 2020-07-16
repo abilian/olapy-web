@@ -113,6 +113,7 @@ export default {
     SavedColumns: Object,
     dbConfig: String,
   },
+
   data: function() {
     return {
       DimColumns: [],
@@ -128,6 +129,20 @@ export default {
       ],
     };
   },
+
+  watch: {
+    factsTable: function() {
+      const data = {
+        tableName: this.factsTable,
+        WithID: false,
+        dbConfig: this.dbConfig,
+      };
+      axios.post("/api/cubes/get_table_columns", data).then(response => {
+        this.tableColumnsNoId = response.data;
+      });
+    },
+  },
+
   methods: {
     removeSection: function(index) {
       this.tables.splice(index, 1);
@@ -161,18 +176,6 @@ export default {
         this.tableColumns[index] = tableColumns;
         this.$emit("selectTableColumns", this.tableColumns[index]);
         eventModalBus.modalToShow("choseColumns");
-      });
-    },
-  },
-  watch: {
-    factsTable: function() {
-      const data = {
-        tableName: this.factsTable,
-        WithID: false,
-        dbConfig: this.dbConfig,
-      };
-      axios.post("/api/cubes/get_table_columns", data).then(response => {
-        this.tableColumnsNoId = response.data;
       });
     },
   },

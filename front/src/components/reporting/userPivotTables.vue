@@ -13,6 +13,7 @@
         }}</span>
       </span>
     </a>
+
     <ul aria-expanded="false" class="collapse">
       <li
         v-for="(userPivotTable, index) in userPivotTables"

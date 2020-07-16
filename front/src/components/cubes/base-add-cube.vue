@@ -135,8 +135,8 @@ export default {
     eventModalBus.$on("modalToShow", modal => {
       this.modalToShow = modal;
     });
-    eventModalBus.$on("cubeConstructed", Cube => {
-      this.cube = Cube;
+    eventModalBus.$on("cubeConstructed", cube => {
+      this.cube = cube;
     });
     eventModalBus.$on("ConnectionConfig", config => {
       this.dbConfig = config;

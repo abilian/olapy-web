@@ -87,6 +87,32 @@ export default {
     };
   },
 
+  watch: {
+    selectedCube(cube) {
+      if (cube) {
+        axios
+          .get("/api/query_builder/" + cube)
+          .then(response => {
+            return response.data;
+          })
+          .then(data => {
+            this.DataFrameCsv = data;
+            this.render_pivottable();
+          });
+      }
+    },
+    selectedPivotTable(pivotTable) {
+      if (pivotTable.cube_name && pivotTable.name) {
+        this.selectedCube = pivotTable.cube_name;
+        this.pivottableName = pivotTable.name;
+      } else {
+        $("#output").empty();
+        this.selectedCube = "";
+        this.pivottableName = "";
+      }
+    },
+  },
+
   computed: {
     rows() {
       if (this.selectedPivotTable) {
@@ -105,11 +131,20 @@ export default {
     },
   },
 
+  created() {
+    this.userCubes = this.getUserCubes();
+
+    if (this.selectedPivotTable) {
+      this.selectedCube = this.selectedPivotTable.cube_name;
+      this.pivottableName = this.selectedPivotTable.name;
+    }
+  },
+
   methods: {
     getUserCubes() {
       const userCubes = [];
       axios
-        .get("api/cubes")
+        .get("/api/cubes")
         .then(response => {
           return response.data;
         })
@@ -238,41 +273,6 @@ export default {
         }
       );
     },
-  },
-
-  watch: {
-    selectedCube(cube) {
-      if (cube) {
-        axios
-          .get("api/query_builder/" + cube)
-          .then(response => {
-            return response.data;
-          })
-          .then(data => {
-            this.DataFrameCsv = data;
-            this.render_pivottable();
-          });
-      }
-    },
-    selectedPivotTable(pivotTable) {
-      if (pivotTable.cube_name && pivotTable.name) {
-        this.selectedCube = pivotTable.cube_name;
-        this.pivottableName = pivotTable.name;
-      } else {
-        $("#output").empty();
-        this.selectedCube = "";
-        this.pivottableName = "";
-      }
-    },
-  },
-
-  created() {
-    this.userCubes = this.getUserCubes();
-
-    if (this.selectedPivotTable) {
-      this.selectedCube = this.selectedPivotTable.cube_name;
-      this.pivottableName = this.selectedPivotTable.name;
-    }
   },
 };
 </script>

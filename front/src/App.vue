@@ -112,11 +112,26 @@ export default {
     };
   },
 
+  components: {
+    UserPivotTables,
+    userCubes: Cubes,
+    schemaOptions: SchemaOptions,
+    userDashboards: UserDashboards,
+    dashboardMaker: DashboardMaker,
+    queryBuilder: QueryBuilder,
+  },
+
+  mounted() {
+    this.getAllPivotTables();
+    this.getAllDashboards();
+    this.getCubes();
+  },
+
   methods: {
     getAllPivotTables() {
       const pivotTables = [];
       axios
-        .get("api/pivottable/all")
+        .get("/api/pivottable/all")
         .then(response => {
           return response.data;
         })
@@ -131,7 +146,7 @@ export default {
     getAllDashboards() {
       const Dashboards = [];
       axios
-        .get("api/dashboard/all")
+        .get("/api/dashboard/all")
         .then(response => {
           return response.data;
         })
@@ -146,7 +161,7 @@ export default {
     getCubes: function() {
       const cubes = [];
       axios
-        .get("api/cubes")
+        .get("/api/cubes")
         .then(response => {
           return response.data;
         })
@@ -157,19 +172,6 @@ export default {
         });
       this.userCubesNames = cubes;
     },
-  },
-  components: {
-    UserPivotTables,
-    userCubes: Cubes,
-    schemaOptions: SchemaOptions,
-    userDashboards: UserDashboards,
-    dashboardMaker: DashboardMaker,
-    queryBuilder: QueryBuilder,
-  },
-  mounted() {
-    this.getAllPivotTables();
-    this.getAllDashboards();
-    this.getCubes();
   },
 };
 </script>

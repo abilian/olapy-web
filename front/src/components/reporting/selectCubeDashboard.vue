@@ -57,18 +57,9 @@ export default {
     };
   },
 
-  methods: {
-    validateCubeSelection() {
-      if (this.selectedCube) {
-        this.$emit("selectedCube", this.selectedCube);
-        this.$emit("interface", "dashboardMaker");
-      }
-    },
-  },
-
   created() {
     axios
-      .get("api/cubes")
+      .get("/api/cubes")
       .then(response => {
         return response.data;
       })
@@ -77,6 +68,15 @@ export default {
           this.userCubes.push(data[key]);
         }
       });
+  },
+
+  methods: {
+    validateCubeSelection() {
+      if (this.selectedCube) {
+        this.$emit("selectedCube", this.selectedCube);
+        this.$emit("interface", "dashboardMaker");
+      }
+    },
   },
 };
 </script>

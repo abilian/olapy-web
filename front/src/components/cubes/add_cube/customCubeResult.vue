@@ -37,11 +37,37 @@ export default {
     SavedColumns: Array,
     dbConfig: String,
   },
+
   data: function() {
     return {
       resultCube: "",
     };
   },
+
+  created() {
+    const data = {
+      cubeName: this.cubeName,
+      factsTable: this.factsTable,
+      tablesAndColumnsResult: this.tablesAndColumnsResult,
+      columnsPerDimension: this.SavedColumns,
+      measures: this.chosenMeasures,
+      dbConfig: this.dbConfig,
+    };
+    axios
+      .post("/api/cubes/construct_custom_cube", data)
+      .then(response => {
+        this.resultCube = response.data;
+      })
+      .catch(() => {
+        this.$notify({
+          group: "user",
+          title: "unable to construct cube, check your tables relations",
+          type: "error",
+        });
+        eventModalBus.modalToShow("makeRelations");
+      });
+  },
+
   methods: {
     confirmCustomCube() {
       // this.$emit('tablesAndColumnsResult', this.tablesAndColumnsResult);
@@ -54,29 +80,6 @@ export default {
         return response.data;
       });
     },
-  },
-  created() {
-    const data = {
-      cubeName: this.cubeName,
-      factsTable: this.factsTable,
-      tablesAndColumnsResult: this.tablesAndColumnsResult,
-      columnsPerDimension: this.SavedColumns,
-      measures: this.chosenMeasures,
-      dbConfig: this.dbConfig,
-    };
-    axios
-      .post("api/cubes/construct_custom_cube", data)
-      .then(response => {
-        this.resultCube = response.data;
-      })
-      .catch(() => {
-        this.$notify({
-          group: "user",
-          title: "unable to construct cube, check your tables relations",
-          type: "error",
-        });
-        eventModalBus.modalToShow("makeRelations");
-      });
   },
 };
 </script>

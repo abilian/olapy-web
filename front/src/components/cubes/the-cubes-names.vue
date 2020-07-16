@@ -13,6 +13,7 @@
         }}</span>
       </span>
     </a>
+
     <ul aria-expanded="false" class="collapse">
       <li v-for="(cube, index) in userCubesNames" :key="cube + index">
         <button class="btn btn-default btn-outline btn-rounded m-b-10">
@@ -30,10 +31,12 @@
 
 <script>
 import axios from "axios";
+
 export default {
   props: {
     userCubesNames: Array,
   },
+
   methods: {
     deleteCube(cubeName) {
       const vue = this;

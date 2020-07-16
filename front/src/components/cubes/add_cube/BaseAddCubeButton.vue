@@ -73,6 +73,12 @@ export default {
       status: "failed",
     };
   },
+
+  components: {
+    uploadCsvFiles: uploadFiles,
+    connectDb: connectDb,
+  },
+
   methods: {
     checkUpload() {
       if (this.status === "failed") {
@@ -90,10 +96,6 @@ export default {
         eventModalBus.modalToShow("second");
       }
     },
-  },
-  components: {
-    uploadCsvFiles: uploadFiles,
-    connectDb: connectDb,
   },
 };
 </script>

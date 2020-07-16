@@ -86,6 +86,7 @@ export default {
     chosenMeasures: Array,
     dbConfig: String,
   },
+
   data: function() {
     return {
       tablesAndColumns: "",
@@ -93,12 +94,7 @@ export default {
       tablesAndColumnsResult: {},
     };
   },
-  methods: {
-    confirmRelations: function() {
-      this.$emit("tablesAndColumnsResult", this.tablesAndColumnsResult);
-      eventModalBus.modalToShow("confirmCustomCube");
-    },
-  },
+
   created() {
     const allTables = [this.factsTable];
     for (let key in this.chosenTables) {
@@ -119,6 +115,13 @@ export default {
         }
       }
     });
+  },
+
+  methods: {
+    confirmRelations: function() {
+      this.$emit("tablesAndColumnsResult", this.tablesAndColumnsResult);
+      eventModalBus.modalToShow("confirmCustomCube");
+    },
   },
 };
 </script>

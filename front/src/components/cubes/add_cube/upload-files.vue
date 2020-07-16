@@ -63,6 +63,7 @@ export default {
   props: {
     newCubeName: String,
   },
+
   data() {
     return {
       uploadedFiles: [],
@@ -71,6 +72,7 @@ export default {
       uploadFieldName: "files",
     };
   },
+
   computed: {
     isInitial() {
       return this.currentStatus === STATUS_INITIAL;
@@ -85,6 +87,11 @@ export default {
       return this.currentStatus === STATUS_FAILED;
     },
   },
+
+  mounted() {
+    this.reset();
+  },
+
   methods: {
     reset() {
       // reset form to initial state
@@ -92,11 +99,12 @@ export default {
       this.uploadedFiles = [];
       this.uploadError = null;
     },
+
     save(formData) {
       // upload data to the server
       this.currentStatus = STATUS_SAVING;
       axios
-        .post("api/cubes/add", formData)
+        .post("/api/cubes/add", formData)
         .then(response => {
           this.uploadedFiles = [].concat(response.data.dimensions);
           if (response.data.facts != null) {
@@ -114,6 +122,7 @@ export default {
           this.$emit("SelectInputStatus", "failed");
         });
     },
+
     filesChange(fieldName, fileList) {
       // handle file changes
       const formData = new FormData();
@@ -128,9 +137,6 @@ export default {
       // save it
       this.save(formData);
     },
-  },
-  mounted() {
-    this.reset();
   },
 };
 </script>

@@ -59,11 +59,12 @@ export default {
     cubeName: String,
     dbConfig: String,
   },
+
   methods: {
     confirmCube: function() {
       if (this.dbConfig !== "") {
         axios
-          .post("api/cubes/confirm_db_cube", this.dbConfig)
+          .post("/api/cubes/confirm_db_cube", this.dbConfig)
           .then(response => {
             eventModalBus.modalToShow("success");
             return response.data;

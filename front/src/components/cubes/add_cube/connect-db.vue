@@ -108,10 +108,15 @@ export default {
       selectedDatabase: "",
     };
   },
+
+  created() {
+    eventModalBus.ConnectionConfig("");
+  },
+
   methods: {
     connectDB() {
       axios
-        .post("api/cubes/connectDB", {
+        .post("/api/cubes/connectDB", {
           engine: this.engine,
           servername: this.servername,
           port: this.port,
@@ -139,7 +144,7 @@ export default {
         password: this.password,
       };
       axios
-        .post("api/cubes/add_DB_cube", data)
+        .post("/api/cubes/add_DB_cube", data)
         .then(response => {
           if (response.data.facts != null) {
             this.$emit("SelectInputStatus", "success");
@@ -153,9 +158,6 @@ export default {
           this.$emit("SelectInputStatus", "failed");
         });
     },
-  },
-  created() {
-    eventModalBus.ConnectionConfig("");
   },
 };
 </script>
