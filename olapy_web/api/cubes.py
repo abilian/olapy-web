@@ -10,7 +10,7 @@ from typing import Optional
 import pandas as pd
 from flask import current_app, jsonify, request
 from olapy.core.mdx.executor.execute import MdxEngine
-from six.moves.urllib.parse import urlunparse
+from urllib.parse import urlunparse
 from sqlalchemy import create_engine
 from sqlalchemy.exc import ProgrammingError
 from werkzeug.utils import secure_filename
@@ -123,7 +123,9 @@ def construct_cube(
 @route("/cubes/add", methods=["POST"])
 def add_cube():
     # temporary
-    #  2 TEMP_CUBE_NAME = first is the all cubes folder, the second is the current cube folder
+    # 2 TEMP_CUBE_NAME:
+    # - first is the all cubes folder,
+    # - the second is the current cube folder
     cube_dir = os.path.join(OLAPY_TEMP_DIR, TEMP_CUBE_NAME)
     if isdir(cube_dir):
         clean_temp_dir(cube_dir)
@@ -259,7 +261,6 @@ def get_tables_columns_from_files(db_cube_config):
 @route("/cubes/get_tables_and_columns", methods=["POST"])
 def get_tables_and_columns():
     if request.data:
-        # db_cube_config = json.loads(request.data.decode('utf-8'))
         db_cube_config = request.json
         if db_cube_config["dbConfig"]:
             return jsonify(get_tables_columns_from_db(db_cube_config))

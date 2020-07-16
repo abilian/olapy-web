@@ -17,14 +17,6 @@ module.exports = {
   env: {
     es6: true,
     jest: true,
-    // browser: true,
-    // amd: true,
-  },
-  globals: {
-    $: true,
-  },
-  parserOptions: {
-    parser: "babel-eslint",
   },
   // add your custom rules here
   rules: {
@@ -32,5 +24,7 @@ module.exports = {
     semi: ["error", "always"],
     "comma-dangle": ["error", "always-multiline"],
     "space-before-function-paren": ["error", "never"],
+    // TODO fix this one
+    "vue/no-use-v-if-with-v-for": 0,
   },
 };
