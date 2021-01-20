@@ -2,9 +2,8 @@ import os
 from os import listdir
 from os.path import isfile, join
 
-from tests.utils import chart_data
-
 from olapy_web.api.cubes import get_config, get_cube_source_type
+from tests.utils import chart_data
 
 CUBE_PATH = "tests/demo_csv_cubes/sales"
 CUSTOM_CUBE_PATH = "tests/demo_csv_cubes/foodmart_with_config"

@@ -3,11 +3,11 @@ import tempfile
 
 import sqlalchemy
 from pytest import fixture
-from tests.db_creation_utils import create_insert, drop_tables
 
 from olapy_web.app import create_app
 from olapy_web.extensions import db as _db
 from olapy_web.models import User
+from tests.db_creation_utils import create_insert, drop_tables
 
 DEMO_DATABASE = sqlalchemy.create_engine(
     os.environ.get("SQLALCHEMY_DATABASE_URI", "sqlite://")

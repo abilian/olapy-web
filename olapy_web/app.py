@@ -73,8 +73,8 @@ def configure_error_handlers(app: Flask) -> None:
 
 
 def configure_blueprints(app: Flask) -> None:
-    from .views import blueprint
     from .api import api
+    from .views import blueprint
 
     app.register_blueprint(blueprint)
     app.register_blueprint(api, url_prefix="/api/")
