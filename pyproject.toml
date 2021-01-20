@@ -17,7 +17,7 @@ readme = "README.rst"
 
 
 [tool.poetry.dependencies]
-python = ">=3.6"
+python = ">3.6.1,<4"
 
 olapy = ">=0.6"
 spyne = { version = "^2.13", allow-prereleases = true }
@@ -47,9 +47,11 @@ flake8-tidy-imports = "*"
 flake8-comprehensions = "*"
 mastool = "*"
 mccabe = "*"
-pylint = "*"
 mypy = "*"
 black = { version = "*", allow-prereleases = true }
+
+# Removed since it needs isort < 5.
+# pylint = "*"
 
 # Testing
 pytest="*"
@@ -60,7 +62,7 @@ sphinx = "*"
 sphinx_rtd_theme="*"
 
 # Formatting
-isort="*"
+isort=">5"
 
 # Other
 PrettyTable="*"

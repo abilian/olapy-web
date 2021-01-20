@@ -1,8 +1,11 @@
-.PHONY: test unit full-test clean setup stage deploy
+.PHONY: all default test clean develop lint
 
 
 SRC=olapy_web
 PKG=$(SRC)
+
+
+all: default
 
 default: test lint
 
@@ -19,27 +22,27 @@ test-with-coverage:
 #
 # setup
 #
-install-pip:
-	@echo "--> Installing / updating python dependencies for development"
-	pip install -q pip-tools
-	pip-sync requirements.txt
-	pip install -q -r requirements.txt -r dev-requirements.txt
-	pip install -e .
-	@echo ""
-
-install-js:
+develop:
+	poetry install
 	cd front && yarn
 
-develop: install-pip install-js
 
 #
 # Linting
 #
 lint: lint-python lint-js
 
-lint-python:
-	@echo "--> Linting Python files"
+lint-python: lint-flake8 lint-mypy
+
+lint-flake8:
+	@echo "--> Linting Python files (with Flake8)"
 	flake8 $(SRC)
+
+lint-mypy:
+	@echo "--> Typechecking Python files"
+	mypy $(SRC)
+
+lint-pylint:
 	@echo "Running pylint, some errors reported might be false positives"
 	-pylint -E --rcfile .pylint.rc $(SRC)
 
@@ -82,25 +85,16 @@ format: format-py format-js
 
 format-py:
 	black $(SRC) tests *.py
-	isort -rc $(SRC) tests *.py
+	isort $(SRC) tests *.py
 
 format-js:
 	cd front && make format
 
 update-deps:
-	pip-compile -U > /dev/null
-	pip-compile > /dev/null
-	git --no-pager diff requirements.txt
-
-sync-deps:
-	pip install -r requirements.txt -r dev-requirements.txt -e .
+	poetry update
 
 release:
-	git push --tags
-	rm -rf /tmp/olapy-web
-	git clone . /tmp/olapy-web
-	cd /tmp/olapy-web ; python setup.py sdist
-	cd /tmp/olapy-web ; python setup.py sdist upload
+	poetry publish --build
 
 doc:
 	cd docs && make html

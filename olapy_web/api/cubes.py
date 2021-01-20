@@ -6,11 +6,11 @@ from distutils.dir_util import copy_tree
 from os.path import isdir
 from pathlib import Path
 from typing import Optional
+from urllib.parse import urlunparse
 
 import pandas as pd
 from flask import current_app, jsonify, request
 from olapy.core.mdx.executor.execute import MdxEngine
-from urllib.parse import urlunparse
 from sqlalchemy import create_engine
 from sqlalchemy.exc import ProgrammingError
 from werkzeug.utils import secure_filename
