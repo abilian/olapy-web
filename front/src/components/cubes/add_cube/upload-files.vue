@@ -105,7 +105,7 @@ export default {
       this.currentStatus = STATUS_SAVING;
       axios
         .post("/api/cubes/add", formData)
-        .then(response => {
+        .then((response) => {
           this.uploadedFiles = [].concat(response.data.dimensions);
           if (response.data.facts != null) {
             this.uploadedFiles.push(response.data.facts);
@@ -116,7 +116,7 @@ export default {
           eventModalBus.cubeConstructed(response.data);
           this.currentStatus = STATUS_SUCCESS;
         })
-        .catch(err => {
+        .catch((err) => {
           this.uploadError = err.response;
           this.currentStatus = STATUS_FAILED;
           this.$emit("SelectInputStatus", "failed");
@@ -127,10 +127,12 @@ export default {
       // handle file changes
       const formData = new FormData();
 
-      if (!fileList.length) return;
+      if (!fileList.length) {
+        return;
+      }
 
       // append the files to FormData
-      Array.from(Array(fileList.length).keys()).map(x => {
+      Array.from(Array(fileList.length).keys()).map((x) => {
         formData.append(fieldName, fileList[x], fileList[x].name);
       });
 

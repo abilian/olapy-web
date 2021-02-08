@@ -35,6 +35,7 @@
     </div>
 
     <br />
+
     <chart-props
       :currentChartDiv="currentChartDiv"
       :chartType="draggedChart"
@@ -129,7 +130,7 @@ export default {
     selectedDashboard: Object,
   },
 
-  data: function() {
+  data: function () {
     return {
       allowModification: true,
       layout: [],
@@ -155,7 +156,7 @@ export default {
   },
 
   watch: {
-    usedCharts: function(newElements, oldElements) {
+    usedCharts: function (newElements, oldElements) {
       if (newElements.length > oldElements.length && this.draggedChart) {
         // if add chart not removing one
         if (this.chart_x_position >= this.chart_weight * 2) {
@@ -184,7 +185,7 @@ export default {
     }
   },
 
-  mounted: function() {
+  mounted: function () {
     if (this.selectedDashboard) {
       for (let chartData in this.selectedDashboard["charts_data"]) {
         if (this.layout[chartData]) {
@@ -215,11 +216,11 @@ export default {
       this.usedCharts.splice(index, 1);
     },
 
-    onMove({ relatedContext, draggedContext }) {
+    onMove({ draggedContext }) {
       this.draggedChart = draggedContext.element;
     },
 
-    resize: function(id) {
+    resize: function (id) {
       const plotDiv = document.getElementById(id);
       Plotly.Plots.resize(plotDiv);
     },
@@ -254,7 +255,7 @@ export default {
       const vue = this;
       this.$dlg.alert(
         "Are you sure to delete " + vue.dashboardName + " ?",
-        function() {
+        function () {
           if (vue.dashboardName) {
             const data = {
               dashboardName: vue.dashboardName,

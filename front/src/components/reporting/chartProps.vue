@@ -82,7 +82,7 @@ export default {
     currentChartDiv: String,
   },
 
-  data: function() {
+  data: function () {
     return {
       selectedCube: "",
       userCubes: [],
@@ -97,10 +97,10 @@ export default {
   created() {
     axios
       .get("/api/cubes")
-      .then(response => {
+      .then((response) => {
         return response.data;
       })
-      .then(data => {
+      .then((data) => {
         for (let key in data) {
           this.userCubes.push(data[key]);
         }
@@ -108,13 +108,13 @@ export default {
   },
 
   watch: {
-    selectedCube: function(selectedCube) {
+    selectedCube: function (selectedCube) {
       axios
         .get("/api/cubes/" + selectedCube + "/columns")
-        .then(response => {
+        .then((response) => {
           return response.data;
         })
-        .then(data => {
+        .then((data) => {
           for (let key in data) {
             this.allColumns.push(data[key]);
           }
@@ -122,10 +122,10 @@ export default {
 
       axios
         .get("/api/cubes/" + selectedCube + "/facts")
-        .then(response => {
+        .then((response) => {
           return response.data;
         })
-        .then(data => {
+        .then((data) => {
           this.allMeasures = data["measures"];
         });
     },
@@ -166,19 +166,21 @@ export default {
         }
         axios
           .post("/api/cubes/chart_columns", data)
-          .then(response => {
+          .then((response) => {
             return response.data;
           })
-          .then(data => {
+          .then((data) => {
             const graph = this.genGraph(this.chartType, data);
             this.$emit("chartData", graph);
             const ChartDiv = this.currentChartDiv;
-            Plotly.newPlot(ChartDiv, graph.data, graph.layout).then(function() {
-              const graphDiv = document.getElementById(ChartDiv);
-              graphDiv.style.width = "95%";
-              graphDiv.style.height = "95%";
-              return Plotly.Plots.resize(graphDiv);
-            });
+            Plotly.newPlot(ChartDiv, graph.data, graph.layout).then(
+              function () {
+                const graphDiv = document.getElementById(ChartDiv);
+                graphDiv.style.width = "95%";
+                graphDiv.style.height = "95%";
+                return Plotly.Plots.resize(graphDiv);
+              }
+            );
             this.$emit("showChartProps", false);
           });
         this.$emit("selectedCube", this.selectedCube);

@@ -33,7 +33,8 @@
                           v-for="(item, index) in tablesAndColumns[index]"
                           :key="item + index"
                           :value="item"
-                          >{{ item }}
+                        >
+                          {{ item }}
                         </option>
                       </select>
                     </label>
@@ -43,14 +44,15 @@
                     <label>
                       <select
                         class="form-control"
-                        style="float: left;"
+                        style="float: left"
                         v-model="tablesAndColumnsResult[index]['FactsCol']"
                       >
                         <option
                           v-for="(item, index) in tablesAndColumns[factsTable]"
                           :key="index"
                           :value="item"
-                          >{{ item }}
+                        >
+                          {{ item }}
                         </option>
                       </select>
                     </label>
@@ -87,7 +89,7 @@ export default {
     dbConfig: String,
   },
 
-  data: function() {
+  data: function () {
     return {
       tablesAndColumns: "",
       result: "",
@@ -104,7 +106,7 @@ export default {
       dbConfig: this.dbConfig,
       allTables: allTables.join(","),
     };
-    axios.post("/api/cubes/get_tables_and_columns", data).then(result => {
+    axios.post("/api/cubes/get_tables_and_columns", data).then((result) => {
       this.tablesAndColumns = result.data;
       for (let key in result.data) {
         if (key !== this.factsTable) {
@@ -118,7 +120,7 @@ export default {
   },
 
   methods: {
-    confirmRelations: function() {
+    confirmRelations: function () {
       this.$emit("tablesAndColumnsResult", this.tablesAndColumnsResult);
       eventModalBus.modalToShow("confirmCustomCube");
     },

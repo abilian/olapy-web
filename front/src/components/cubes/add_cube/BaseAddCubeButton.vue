@@ -66,7 +66,7 @@ import connectDb from "./connect-db";
 import { eventModalBus } from "../base-add-cube.vue";
 
 export default {
-  data: function() {
+  data: function () {
     return {
       newCubeName: "",
       source: "",

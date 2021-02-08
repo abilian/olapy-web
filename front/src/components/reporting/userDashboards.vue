@@ -5,7 +5,7 @@
         <i class="fa fa-tachometer"></i> <span>Dashboards</span>
       </button>
     </div>
-    <a class="has-arrow  " href="#" aria-expanded="false">
+    <a class="has-arrow" href="#" aria-expanded="false">
       <span class="hide-menu">
         <span class="label label-rouded label-primary pull-right">{{
           userDashboards.length
@@ -36,7 +36,7 @@ export default {
   methods: {
     selectDashboard(dashboard) {
       this.$emit("reportingInterface", "");
-      axios.get("/api/dashboard/" + dashboard).then(response => {
+      axios.get("/api/dashboard/" + dashboard).then((response) => {
         this.$emit("selectedDashboard", response.data);
         this.$emit("reportingInterface", "dashboardMaker");
       });

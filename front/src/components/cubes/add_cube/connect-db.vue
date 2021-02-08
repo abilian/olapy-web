@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table style="width:100%">
+    <table style="width: 100%">
       <tr>
         <td>
           <select class="form-control" v-model="engine" id="db-engine">
@@ -96,7 +96,7 @@ import axios from "axios";
 import { eventModalBus } from "../base-add-cube.vue";
 
 export default {
-  data: function() {
+  data: function () {
     return {
       engine: "postgres",
       servername: "localhost",
@@ -123,7 +123,7 @@ export default {
           username: this.username,
           password: this.password,
         })
-        .then(response => {
+        .then((response) => {
           this.loadedDatabases = response.data;
           this.establishedConnection = "Success";
           this.$emit("SelectInputStatus", "toConfig");
@@ -145,7 +145,7 @@ export default {
       };
       axios
         .post("/api/cubes/add_DB_cube", data)
-        .then(response => {
+        .then((response) => {
           if (response.data.facts != null) {
             this.$emit("SelectInputStatus", "success");
           } else {

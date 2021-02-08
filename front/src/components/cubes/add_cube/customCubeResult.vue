@@ -38,7 +38,7 @@ export default {
     dbConfig: String,
   },
 
-  data: function() {
+  data: function () {
     return {
       resultCube: "",
     };
@@ -55,7 +55,7 @@ export default {
     };
     axios
       .post("/api/cubes/construct_custom_cube", data)
-      .then(response => {
+      .then((response) => {
         this.resultCube = response.data;
       })
       .catch(() => {
@@ -75,7 +75,7 @@ export default {
         cubeName: this.cubeName,
         customCube: true,
       };
-      axios.post("/api/cubes/confirm_cube", data).then(response => {
+      axios.post("/api/cubes/confirm_cube", data).then((response) => {
         eventModalBus.modalToShow("success");
         return response.data;
       });

@@ -6,7 +6,7 @@
       </button>
     </div>
 
-    <a class="has-arrow  " href="#" aria-expanded="false">
+    <a class="has-arrow" href="#" aria-expanded="false">
       <span class="hide-menu">
         <span class="label label-rouded label-danger pull-right">{{
           userCubesNames.length
@@ -42,7 +42,7 @@ export default {
       const vue = this;
       this.$dlg.alert(
         "Are you sure to delete " + cubeName + " ?",
-        function() {
+        function () {
           const data = { cubeName };
           axios.post("/api/cubes/delete", data);
 

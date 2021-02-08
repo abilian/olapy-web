@@ -25,7 +25,8 @@
                   v-for="(item, index) in cube.dimensions"
                   :key="index"
                   :value="item"
-                  >{{ item }}
+                >
+                  {{ item }}
                 </option>
               </select>
               <br />
@@ -66,7 +67,8 @@
                   v-for="(item, index) in cube.dimensions"
                   :key="index"
                   :value="item"
-                  >{{ item }}
+                >
+                  {{ item }}
                 </option>
               </select>
               <i
@@ -114,7 +116,7 @@ export default {
     dbConfig: String,
   },
 
-  data: function() {
+  data: function () {
     return {
       DimColumns: [],
       factsTable: "",
@@ -131,23 +133,23 @@ export default {
   },
 
   watch: {
-    factsTable: function() {
+    factsTable: function () {
       const data = {
         tableName: this.factsTable,
         WithID: false,
         dbConfig: this.dbConfig,
       };
-      axios.post("/api/cubes/get_table_columns", data).then(response => {
+      axios.post("/api/cubes/get_table_columns", data).then((response) => {
         this.tableColumnsNoId = response.data;
       });
     },
   },
 
   methods: {
-    removeSection: function(index) {
+    removeSection: function (index) {
       this.tables.splice(index, 1);
     },
-    addComponent: function() {
+    addComponent: function () {
       this.tables.push({
         id: Math.floor(Math.random() * 6),
         name: "",
@@ -157,7 +159,7 @@ export default {
     editColumns() {
       eventModalBus.modalToShow("choseColumns");
     },
-    doRelations: function() {
+    doRelations: function () {
       this.$emit("factsTable", this.factsTable);
       this.$emit("chosenTables", this.tables);
       this.$emit("chosenMeasures", this.measures);
@@ -170,7 +172,7 @@ export default {
         WithID: true,
         dbConfig: this.dbConfig,
       };
-      axios.post("/api/cubes/get_table_columns", data).then(response => {
+      axios.post("/api/cubes/get_table_columns", data).then((response) => {
         const tableColumns = {};
         tableColumns[tableName] = response.data;
         this.tableColumns[index] = tableColumns;

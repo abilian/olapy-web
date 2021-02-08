@@ -101,7 +101,7 @@ import SchemaOptions from "./components/cubes/base-add-cube";
 import UserPivotTables from "./components/reporting/userPivotTables";
 
 export default {
-  data: function() {
+  data: function () {
     return {
       reportingInterface: "main",
       selectedDashboard: null,
@@ -132,10 +132,10 @@ export default {
       const pivotTables = [];
       axios
         .get("/api/pivottable/all")
-        .then(response => {
+        .then((response) => {
           return response.data;
         })
-        .then(data => {
+        .then((data) => {
           for (let key in data) {
             pivotTables.push(data[key]);
           }
@@ -147,10 +147,10 @@ export default {
       const Dashboards = [];
       axios
         .get("/api/dashboard/all")
-        .then(response => {
+        .then((response) => {
           return response.data;
         })
-        .then(data => {
+        .then((data) => {
           for (let key in data) {
             Dashboards.push(data[key]);
           }
@@ -158,14 +158,14 @@ export default {
       this.userDashboards = Dashboards;
     },
 
-    getCubes: function() {
+    getCubes: function () {
       const cubes = [];
       axios
         .get("/api/cubes")
-        .then(response => {
+        .then((response) => {
           return response.data;
         })
-        .then(data => {
+        .then((data) => {
           for (let key in data) {
             cubes.push(data[key]);
           }

@@ -14,8 +14,8 @@
                     v-for="(cube, index) in userCubes"
                     :key="cube + index"
                   >
-                    {{ cube }}</option
-                  >
+                    {{ cube }}
+                  </option>
                 </select>
               </label>
             </slot>
@@ -50,7 +50,7 @@
 import axios from "axios";
 
 export default {
-  data: function() {
+  data: function () {
     return {
       selectedCube: "",
       userCubes: [],
@@ -60,10 +60,10 @@ export default {
   created() {
     axios
       .get("/api/cubes")
-      .then(response => {
+      .then((response) => {
         return response.data;
       })
-      .then(data => {
+      .then((data) => {
         for (let key in data) {
           this.userCubes.push(data[key]);
         }

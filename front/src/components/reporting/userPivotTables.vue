@@ -6,7 +6,7 @@
       </button>
     </div>
 
-    <a class="has-arrow  " href="#" aria-expanded="false">
+    <a class="has-arrow" href="#" aria-expanded="false">
       <span class="hide-menu">
         <span class="label label-rouded label-success pull-right">{{
           userPivotTables.length
@@ -42,7 +42,7 @@ export default {
     selectPivotTable(userPivotTable) {
       if (userPivotTable) {
         this.$emit("reportingInterface", "");
-        axios.get("/api/pivottable/" + userPivotTable).then(response => {
+        axios.get("/api/pivottable/" + userPivotTable).then((response) => {
           this.$emit("selectedPivotTable", response.data);
           this.$emit("reportingInterface", "QBuilder");
         });

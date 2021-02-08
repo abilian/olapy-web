@@ -5,8 +5,8 @@
         <select id="cube_selector" class="form-control" v-model="selectedCube">
           <option disabled value="">Cube</option>
           <option v-for="(cube, index) in userCubes" :key="cube + index">
-            {{ cube }}</option
-          >
+            {{ cube }}
+          </option>
         </select>
       </div>
       <div v-if="selectedCube" class="col-md-7 align-self-center">
@@ -51,7 +51,7 @@
           <div
             v-if="selectedCube"
             id="output"
-            style="overflow: auto; display: none;"
+            style="overflow: auto; display: none"
           >
             {{ DataFrameCsv }}
           </div>
@@ -78,7 +78,7 @@ export default {
     selectedPivotTable: Object,
   },
 
-  data: function() {
+  data: function () {
     return {
       pivottableName: null,
       selectedCube: "",
@@ -92,10 +92,10 @@ export default {
       if (cube) {
         axios
           .get("/api/query_builder/" + cube)
-          .then(response => {
+          .then((response) => {
             return response.data;
           })
-          .then(data => {
+          .then((data) => {
             this.DataFrameCsv = data;
             this.render_pivottable();
           });
@@ -145,10 +145,10 @@ export default {
       const userCubes = [];
       axios
         .get("/api/cubes")
-        .then(response => {
+        .then((response) => {
           return response.data;
         })
-        .then(data => {
+        .then((data) => {
           for (let key in data) {
             userCubes.push(data[key]);
           }
@@ -244,7 +244,7 @@ export default {
       const vue = this;
       this.$dlg.alert(
         "Are you sure to delete " + vue.pivottableName + " ?",
-        function() {
+        function () {
           if (vue.pivottableName) {
             const data = {
               pivottableName: vue.pivottableName,

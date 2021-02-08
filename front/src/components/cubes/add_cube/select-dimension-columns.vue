@@ -45,7 +45,7 @@ export default {
     selectTableColumns: Object,
   },
 
-  data: function() {
+  data: function () {
     return {
       selectedColumns: {
         table: Object.keys(this.selectTableColumns)[0],

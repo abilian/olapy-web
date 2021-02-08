@@ -61,11 +61,11 @@ export default {
   },
 
   methods: {
-    confirmCube: function() {
+    confirmCube: function () {
       if (this.dbConfig !== "") {
         axios
           .post("/api/cubes/confirm_db_cube", this.dbConfig)
-          .then(response => {
+          .then((response) => {
             eventModalBus.modalToShow("success");
             return response.data;
           });
@@ -74,7 +74,7 @@ export default {
           cubeName: this.cubeName,
           customCube: false,
         };
-        axios.post("/api/cubes/confirm_cube", data).then(response => {
+        axios.post("/api/cubes/confirm_cube", data).then((response) => {
           eventModalBus.modalToShow("success");
           return response.data;
         });

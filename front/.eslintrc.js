@@ -1,29 +1,25 @@
 module.exports = {
   root: true,
+  // See: https://github.com/prettier/eslint-config-prettier
   extends: [
     "eslint:recommended",
     "plugin:vue/essential",
-    // "plugin:vue/strongly-recommended",
-
+    "prettier",
+    "prettier/standard",
     // "@vue/prettier",
-    // https://github.com/feross/standard/blob/master/RULES.md#javascript-standard-style
-    "standard",
+    // "plugin:requirejs/recommended",
   ],
-  plugins: [
-    // required to lint *.vue files
-    "vue",
-    // "cypress",
-  ],
+  // required to lint *.vue files
+  plugins: ["vue"],
   env: {
+    browser: true,
     es6: true,
-    jest: true,
+    node: true,
   },
   // add your custom rules here
   rules: {
-    quotes: ["error", "double"],
     semi: ["error", "always"],
-    "comma-dangle": ["error", "always-multiline"],
-    "space-before-function-paren": ["error", "never"],
+    curly: "error",
     // TODO fix this one
     "vue/no-use-v-if-with-v-for": 0,
   },

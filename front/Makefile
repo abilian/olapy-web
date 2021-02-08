@@ -37,6 +37,5 @@ lint-ts:
 	npx tsc
 
 format:
-	npx prettier --write --trailing-comma es5 \
-		'*.js' 'src/**/*.vue' 'src/**/*.js' 'tests/**/*.js' \
-		'sass/*.scss'
+	yarn run prettier --write --trailing-comma es5 \
+		src *.js

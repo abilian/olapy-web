@@ -111,7 +111,7 @@ export const eventModalBus = new Vue({
 });
 
 export default {
-  data: function() {
+  data: function () {
     return {
       showModal: false,
       modalToShow: "first",
@@ -132,19 +132,19 @@ export default {
   },
 
   created() {
-    eventModalBus.$on("modalToShow", modal => {
+    eventModalBus.$on("modalToShow", (modal) => {
       this.modalToShow = modal;
     });
-    eventModalBus.$on("cubeConstructed", cube => {
+    eventModalBus.$on("cubeConstructed", (cube) => {
       this.cube = cube;
     });
-    eventModalBus.$on("ConnectionConfig", config => {
+    eventModalBus.$on("ConnectionConfig", (config) => {
       this.dbConfig = config;
     });
   },
 
   watch: {
-    showModal: function() {
+    showModal: function () {
       this.modalToShow = "first";
       this.cube = "";
       this.dbConfig = "";
