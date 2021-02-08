@@ -1,7 +1,7 @@
 .PHONY: test run clean lint
 
 
-all: test lint-js
+all: lint-js
 
 
 test: test-unit
@@ -31,11 +31,11 @@ build:
 lint: lint-js
 
 lint-js:
+	yarn run prettier -l src *.js .*.js
 	yarn run lint
 
 lint-ts:
 	npx tsc
 
 format:
-	yarn run prettier --write --trailing-comma es5 \
-		src *.js
+	yarn run prettier --write src *.js .*.js
