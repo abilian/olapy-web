@@ -10,8 +10,8 @@
   "dependencies": {
     "axios": "^0.21.1",
     "c3": "^0.7.20",
-    "d3": "^5.15.0",
-    "jquery": "^3.4.1",
+    "d3": "^6.7.0",
+    "jquery": "^3.6.0",
     "jquery-ui-bundle": "^1.12.1-migrate",
     "pivottable": "^2.23.0",
     "plotly.js": "^1.58.4",
@@ -23,16 +23,16 @@
     "vuedraggable": "^2.24.3"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.4.0",
-    "@vue/cli-plugin-eslint": "^3.4.0",
-    "@vue/cli-service": "^3.4.0",
+    "@vue/cli-plugin-babel": "^4.5.13",
+    "@vue/cli-plugin-eslint": "^4.5.13",
+    "@vue/cli-service": "^4.5.13",
     "@vue/eslint-config-prettier": "^6.0.0",
     "babel-eslint": "^10.0.1",
-    "eslint": "^7.19.0",
-    "eslint-plugin-vue": "^7.5.0",
-    "node-sass": "^4.11.0",
-    "prettier": "^2.2.1",
-    "sass-loader": "^7.1.0",
+    "eslint": "^7.26.0",
+    "eslint-plugin-vue": "^7.9.0",
+    "node-sass": "^6.0.0",
+    "prettier": "^2.3.0",
+    "sass-loader": "^11.1.1",
     "vue-template-compiler": "^2.6.12"
   },
   "postcss": {
