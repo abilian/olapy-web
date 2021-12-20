@@ -56,7 +56,7 @@ def configure_logger(app: Flask) -> None:
 
 def configure_error_handlers(app: Flask) -> None:
     @app.errorhandler(404)
-    def page_not_found(e: Exception) -> Any:
+    def page_not_found(e):
         """Page not found.
 
         :param e: exception
@@ -64,7 +64,7 @@ def configure_error_handlers(app: Flask) -> None:
         return render_template("404.html"), 400
 
     @app.errorhandler(500)
-    def server_error(e: Exception) -> Any:
+    def server_error(e):
         """Server error.
 
         :param e: exception
@@ -98,7 +98,7 @@ def configure_jinja_loader(app: Flask) -> None:
         ]
     )
 
-    app.jinja_loader = my_loader  # type: ignore
+    app.jinja_loader = my_loader
 
 
 def install_secret_key(app: Flask, filename: str = "secret_key") -> None:

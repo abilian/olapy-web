@@ -17,7 +17,7 @@ readme = "README.rst"
 
 
 [tool.poetry.dependencies]
-python = ">3.6.1,<4"
+python = ">3.7,<4"
 
 olapy = ">=0.6"
 spyne = { version = "^2.13", allow-prereleases = true }
@@ -33,7 +33,7 @@ sqlalchemy = "*"
 psycopg2-binary = "*"
 pyyaml = ">=5"
 
-typing = "*"
+numpy = ">= 1.21"
 
 
 [tool.poetry.dev-dependencies]
@@ -48,7 +48,7 @@ flake8-comprehensions = "*"
 mastool = "*"
 mccabe = "*"
 mypy = "*"
-black = { version = "*", allow-prereleases = true }
+black = "*"
 
 # Removed since it needs isort < 5.
 # pylint = "*"
