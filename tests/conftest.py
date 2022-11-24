@@ -33,10 +33,12 @@ def app():
 def db(app):
     """Return a fresh db for each test."""
 
-    _db.app = app
-    _db.create_all()
-    yield _db
-    _db.drop_all()
+    # _db.app = app
+    with app.app_context():
+        _db.init_app(app)
+        _db.create_all()
+        yield _db
+        _db.drop_all()
 
 
 @fixture(scope="module")
